@@ -20,7 +20,7 @@
     <input type="submit" id="submitLogin" value="Логин" />
 </div>
 <div>
-    <input type="submit" id="getItemsButton" value="Получить данные" />
+    <input type="submit" id="getCountriesButton" value="Получить страны" />
 </div>
 
 @section scripts{
@@ -52,24 +52,24 @@
                 });
             });
 
-            $('#getItemsButton').click(function (e) {
+            $('#getCountriesButton').click(function (e) {
                 e.preventDefault();
                 $.ajax({
                     type: 'GET',
-                    url: '/api/values/',
+                    url: '/api/country/',
                     beforeSend: function (xhr) {
                         var token = localStorage.getItem(tokenKey);
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     },
                     success: function (data) {
-                        alert(data);
+                        alert(JSON.stringify(data));
                     },
                     fail: function (data) {
                         alert(data);
                     }
                 });
             });
-        })
+        });
 
         var tokenKey = "tokenInfo";
         $('#submitLogin').click(function (e) {
