@@ -7,6 +7,10 @@ using Infodoctor.DAL.Repositories;
 using Microsoft.Practices.Unity;
 using Unity.WebApi;
 using System.Data.Entity;
+using Infodoctor.Domain;
+using Infodoctor.Web.Controllers;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Infodoctor.Web
 {
@@ -20,10 +24,21 @@ namespace Infodoctor.Web
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
+
+            container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
+            container.RegisterType<UserManager<ApplicationUser>>();
+            container.RegisterType<ApplicationUserManager>();
+            container.RegisterType<AccountController>(new InjectionConstructor());
             //container.RegisterType<IAppDbContext, AppDbContext>();
-            container.RegisterType<IAppDbContext, AppDbContext>(new HierarchicalLifetimeManager(), new InjectionConstructor());//for keep the same instance dbContext per request
+            container.RegisterType<IAppDbContext, AppDbContext>(new HierarchicalLifetimeManager(), new InjectionConstructor());//for keep the same dbContext instance per request
+
+            //register all your services and reps
             container.RegisterType<ICountryRepository, CountryRepository>();
             container.RegisterType<ICountryService, CountryService>();
+            container.RegisterType<IClinicProfilesRepository, ClinicProfilesRepository>();
+            container.RegisterType<IClinicProfilesService, ClinicProfilesService>();
+
+
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }

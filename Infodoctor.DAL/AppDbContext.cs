@@ -12,6 +12,9 @@ namespace Infodoctor.DAL
         {
         }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Clinic> Сlinics { get; set; }
+        public DbSet<ClinicProfile> ClinicProfiles { get; set; }
+        public DbSet<OwnerShip> OwnerShips { get; set; }
         public static AppDbContext Create()
         {
             return new AppDbContext();

@@ -7,6 +7,7 @@ using Infodoctor.Domain;
 
 namespace Infodoctor.Web.Controllers
 {
+    [Authorize]
     public class CountryController : ApiController
     {
         private readonly ICountryService _countryService;

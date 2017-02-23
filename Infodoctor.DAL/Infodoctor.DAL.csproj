@@ -59,9 +59,15 @@
   <ItemGroup>
     <Compile Include="AppDbContext.cs" />
     <Compile Include="Interfaces\IAppDbContext.cs" />
+    <Compile Include="Interfaces\IClinicProfilesRepository.cs" />
     <Compile Include="Interfaces\ICountryRepository.cs" />
+    <Compile Include="Interfaces\IOwnerShipsRepository.cs" />
+    <Compile Include="Interfaces\IСlinicRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ClinicProfilesRepository.cs" />
     <Compile Include="Repositories\CountryRepository.cs" />
+    <Compile Include="Repositories\OwnerShipsRepository.cs" />
+    <Compile Include="Repositories\СlinicRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

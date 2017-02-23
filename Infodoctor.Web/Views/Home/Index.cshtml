@@ -14,13 +14,15 @@
 <div class="loginForm">
     <h3>Вход на сайт</h3>
     <label>Введите email</label><br />
-    <input type="email" id="emailLogin" /> <br /><br />
+    <input type="text" id="emailLogin" /> <br /><br />
     <label>Введите пароль</label><br />
     <input type="password" id="passwordLogin" /><br /><br />
     <input type="submit" id="submitLogin" value="Логин" />
 </div>
 <div>
     <input type="submit" id="getCountriesButton" value="Получить страны" />
+    <input type="submit" id="getProfilessButton" value="Получить профили клиник" />
+    <input type="button" id="logOut" value="Выйти" />
 </div>
 
 @section scripts{
@@ -58,7 +60,25 @@
                     type: 'GET',
                     url: '/api/country/',
                     beforeSend: function (xhr) {
-                        var token = localStorage.getItem(tokenKey);
+                        var token = sessionStorage.getItem(tokenKey);
+                        xhr.setRequestHeader("Authorization", "Bearer " + token);
+                    },
+                    success: function (data) {
+                        alert(JSON.stringify(data));
+                    },
+                    fail: function (data) {
+                        alert(data);
+                    }
+                });
+            });
+
+            $('#getProfilessButton').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/ClinicProfiles/',
+                    beforeSend: function (xhr) {
+                        var token = sessionStorage.getItem(tokenKey);
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     },
                     success: function (data) {
@@ -89,7 +109,7 @@
                 $('.userInfo').css('display', 'block');
                 $('.loginForm').css('display', 'none');
                 // сохраняем в хранилище sessionStorage токен доступа
-                localStorage.setItem(tokenKey, data.access_token);
+                sessionStorage.setItem(tokenKey, data.access_token);
                 console.log(data.access_token);
             }).fail(function (data) {
                 alert('При логине возникла ошибка');

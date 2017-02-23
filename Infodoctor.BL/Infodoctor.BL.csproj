@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Intefaces\IClinicProfilesService.cs" />
+    <Compile Include="Services\ClinicProfilesService.cs" />
     <Compile Include="Services\CountryService.cs" />
     <Compile Include="Intefaces\ICountryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
