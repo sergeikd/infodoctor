@@ -91,17 +91,17 @@ namespace Infodoctor.Web
             context.Countries.AddRange(countriesList);
 
             //add clinic profiles to Db
-            //var profilesList = new List<ClinicProfile>();
-            //path = AppDomain.CurrentDomain.BaseDirectory + "/Content/ClinicProfilesList.txt";
-            //using (var sr = new StreamReader(path, System.Text.Encoding.Default))
-            //{
-            //    string line;
-            //    while ((line = sr.ReadLine()) != null)
-            //    {
-            //        profilesList.Add(new ClinicProfile() { Name = line });
-            //    }
-            //}
-            //context.ClinicProfiles.AddRange(profilesList);
+            var profilesList = new List<ClinicProfile>();
+            path = AppDomain.CurrentDomain.BaseDirectory + "/Content/ClinicProfilesList.txt";
+            using (var sr = new StreamReader(path, System.Text.Encoding.Default))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    profilesList.Add(new ClinicProfile() { Name = line });
+                }
+            }
+            context.ClinicProfiles.AddRange(profilesList);
 
 
             base.Seed(context);
