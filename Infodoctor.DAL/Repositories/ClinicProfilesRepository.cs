@@ -31,17 +31,20 @@ namespace Infodoctor.DAL.Repositories
         public void Add(ClinicProfile clinicProfile)
         {
             _context.ClinicProfiles.Add(clinicProfile);
+            _context.SaveChanges();
         }
 
         public void Update(ClinicProfile clinicProfile)
         {
             var edited = _context.ClinicProfiles.First(s => s.Id == clinicProfile.Id);
             edited = clinicProfile;
+            _context.SaveChanges();
         }
 
         public void Delete(ClinicProfile clinicProfile)
         {
             _context.ClinicProfiles.Remove(clinicProfile);
+            _context.SaveChanges();
         }
     }
 }

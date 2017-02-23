@@ -6,7 +6,6 @@ using Infodoctor.DAL.Interfaces;
 using Infodoctor.DAL.Repositories;
 using Microsoft.Practices.Unity;
 using Unity.WebApi;
-using System.Data.Entity;
 using Infodoctor.Domain;
 using Infodoctor.Web.Controllers;
 using Microsoft.AspNet.Identity;

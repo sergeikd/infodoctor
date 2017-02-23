@@ -4,8 +4,6 @@ using Infodoctor.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infodoctor.BL.Services
 {
@@ -30,6 +28,40 @@ namespace Infodoctor.BL.Services
         public ClinicProfile GetProfileById(int id)
         {
             return _clinicProfilesRepository.GetClinicProfileById(id);
+        }
+
+        public void Add(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(nameof(name));
+
+            var cp = new ClinicProfile() { Name = name };
+
+            _clinicProfilesRepository.Add(cp);
+        }
+
+
+        public void Update(int id, string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(nameof(name));
+
+            var cp = _clinicProfilesRepository.GetClinicProfileById(id);
+            if (cp != null)
+            {
+                cp.Name = name;
+
+                _clinicProfilesRepository.Update(cp);
+            }
+
+        }
+
+        public void Delete(int id)
+        {
+            var cp = _clinicProfilesRepository.GetClinicProfileById(id);
+
+            if (cp != null)
+                _clinicProfilesRepository.Delete(cp);
         }
     }
 }

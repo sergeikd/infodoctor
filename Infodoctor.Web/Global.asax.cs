@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Infodoctor.DAL;
-using Infodoctor.Domain;
 
 namespace Infodoctor.Web
 {
@@ -12,7 +11,7 @@ namespace Infodoctor.Web
     {
         protected void Application_Start()
         {
-            Database.SetInitializer<AppDbContext>(new AppDbInitializer());
+            //Database.SetInitializer<AppDbContext>(new AppDbInitializer());
             UnityConfig.RegisterComponents();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

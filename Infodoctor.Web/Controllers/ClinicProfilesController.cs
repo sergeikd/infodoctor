@@ -19,31 +19,37 @@ namespace Infodoctor.Web.Controllers
             _clinicProfilesService = clinicProfilesService;
         }
 
-        // GET api/<controller>
+        // GET api/clinicprofiles
         public IEnumerable<ClinicProfile> Get()
         {
             return _clinicProfilesService.GetAllProfiles().ToList();
         }
 
-        // GET api/<controller>/5
+        // GET api/clinicprofiles/5
         public ClinicProfile Get(int id)
         {
             return _clinicProfilesService.GetProfileById(id);
         }
 
-        // POST api/<controller>
+        // POST api/clinicprofiles
+        [Authorize(Roles = "admin, moder")]
         public void Post([FromBody]string value)
         {
+            _clinicProfilesService.Add(value);
         }
 
-        // PUT api/<controller>/5
+        // PUT api/clinicprofiles/5
+        [Authorize(Roles = "admin, moder")]
         public void Put(int id, [FromBody]string value)
         {
+            _clinicProfilesService.Update(id, value);
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/clinicprofiles/5
+        [Authorize(Roles = "admin, moder")]
         public void Delete(int id)
         {
+            _clinicProfilesService.Delete(id);
         }
     }
 }
