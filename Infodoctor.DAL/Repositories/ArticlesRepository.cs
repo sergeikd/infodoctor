@@ -31,6 +31,7 @@ namespace Infodoctor.DAL.Repositories
         public void Add(Article art)
         {
             _context.Articles.Add(art);
+            _context.SaveChanges();
         }
 
         public void Update(Article art)
@@ -42,6 +43,7 @@ namespace Infodoctor.DAL.Repositories
         public void Delete(Article art)
         {
             _context.Articles.Remove(art);
+            _context.SaveChanges();
         }
     }
 }

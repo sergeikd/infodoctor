@@ -242,6 +242,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\ClinicController.cs" />
     <Compile Include="Controllers\ClinicProfilesController.cs" />
     <Compile Include="Controllers\CountryController.cs" />

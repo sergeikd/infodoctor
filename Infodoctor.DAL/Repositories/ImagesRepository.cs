@@ -29,6 +29,7 @@ namespace Infodoctor.DAL.Repositories
         public void Add(ImageFile artimg)
         {
             _context.Images.Add(artimg);
+            _context.SaveChanges();
         }
 
         public void Update(ImageFile artimg)
@@ -40,6 +41,7 @@ namespace Infodoctor.DAL.Repositories
         public void Delete(ImageFile artimg)
         {
             _context.Images.Remove(artimg);
+            _context.SaveChanges();
         }
     }
 }

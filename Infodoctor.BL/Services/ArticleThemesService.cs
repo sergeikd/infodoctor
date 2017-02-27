@@ -55,7 +55,7 @@ namespace Infodoctor.BL.Services
                 _articleThemesRepository.Delete(deleted);
         }
 
-        public bool IsNewElement(ArticleTheme art)
+        private bool IsNewElement(ArticleTheme art)
         {
             var artList = _articleThemesRepository.GetAllThemes();
             foreach (var element in artList)
