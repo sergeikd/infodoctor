@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
 using Infodoctor.DAL.Interfaces;
@@ -23,32 +23,76 @@ namespace Infodoctor.BL.Services
             _clinicRepository = clinicRepository;
         }
 
-        public IEnumerable<Clinic> GetAllClinics()
+        public IEnumerable<DtoClinic> GetAllClinics()
         {
             var clinicList = _clinicRepository.GetAllСlinics().ToList();
-            
-            //var dtoClinic = new List<Clinic>();
-            //foreach (var clinic in clinicList)
-            //{
-            //    var clinicPhoneList = new List<ClinicPhone>();
-            //    var clinicAddressList = new List<ClinicAddress>();
-            //    clinicAddressList = clinic.ClinicAddresses.ToList();
-            //    dtoClinic.Add(new DtoClinic()
-            //    {
-            //        Id = clinic.Id,
-            //        Name = clinic.Name,
-            //        Email = clinic.Email,
-            //        ClinicAddresses = clinicAddressList,
-            //        ClinicSpecializations = clinic.ClinicSpecializations,
-            //        ClinicProfiles = clinic.ClinicProfiles
-            //    });
-            //}
-            return clinicList;
+
+            var dtoClinicList = new List<DtoClinic>();
+            foreach (var clinic in clinicList)
+            {
+                var dtoClinic = new DtoClinic
+                {
+                    Id = clinic.Id,
+                    Name = clinic.Name,
+                    Email = clinic.Email
+                };
+                var dtoClinicAddressList = new List<DtoClinicAddress>();
+                foreach (var clinicAddress in clinic.ClinicAddresses)
+                {
+                    var dtoClinicAddress = new DtoClinicAddress
+                    {
+                        ClinicAddress = clinicAddress.Address,
+                        ClinicPhone = new List<Dictionary<string, string>>()
+                    };
+                    foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new Dictionary<string, string> { { clinicPhone.Description, clinicPhone.Number } }))
+                    {
+                        dtoClinicAddress.ClinicPhone.Add(dtoClinicPhone);
+                    }
+                    dtoClinicAddressList.Add(dtoClinicAddress);
+                }
+                dtoClinic.ClinicAddress = dtoClinicAddressList;
+
+                var dtoSpecializationList = clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
+                dtoClinic.ClinicSpecialization = dtoSpecializationList;
+
+                dtoClinicList.Add(dtoClinic);
+            }
+            return dtoClinicList;
         }
 
-        public Clinic GetClinicById(int id)
+        public DtoClinic GetClinicById(int id)
         {
-            return _clinicRepository.GetClinicById(id);
+            var clinic = _clinicRepository.GetClinicById(id);
+            if (clinic == null)
+            {
+                throw new ApplicationException("Clinic not found");
+            }
+            var dtoClinic = new DtoClinic
+            {
+                Id = clinic.Id,
+                Name = clinic.Name,
+                Email = clinic.Email
+            };
+            var dtoClinicAddressList = new List<DtoClinicAddress>();
+            foreach (var clinicAddress in clinic.ClinicAddresses)
+            {
+                var dtoClinicAddress = new DtoClinicAddress
+                {
+                    ClinicAddress = clinicAddress.Address,
+                    ClinicPhone = new List<Dictionary<string, string>>()
+                };
+                foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new Dictionary<string, string> {{clinicPhone.Description, clinicPhone.Number}}))
+                {
+                    dtoClinicAddress.ClinicPhone.Add(dtoClinicPhone);
+                }
+                dtoClinicAddressList.Add(dtoClinicAddress);
+            }
+            dtoClinic.ClinicAddress = dtoClinicAddressList;
+
+            var dtoSpecializationList = clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
+            dtoClinic.ClinicSpecialization = dtoSpecializationList;
+
+            return dtoClinic;
         }
 
         public void Add(Clinic clinic)
@@ -74,7 +118,6 @@ namespace Infodoctor.BL.Services
 
                 _clinicRepository.Update(c);
             }
-
         }
 
         public void Delete(int id)

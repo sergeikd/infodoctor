@@ -18,13 +18,13 @@ namespace Infodoctor.Web.Controllers
             _clinicService = clinicService;
         }
         // GET: api/Clinic
-        public IEnumerable<Clinic> Get()
+        public IEnumerable<DtoClinic> Get()
         {
             return _clinicService.GetAllClinics();
         }
 
         // GET: api/Clinic/5
-        public Clinic Get(int id)
+        public DtoClinic Get(int id)
         {
             return _clinicService.GetClinicById(id);
         }

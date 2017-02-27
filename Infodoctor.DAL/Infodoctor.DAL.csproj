@@ -62,7 +62,7 @@
     <Compile Include="Interfaces\IArticlesRepository.cs" />
     <Compile Include="Interfaces\IImagesRepository.cs" />
     <Compile Include="Interfaces\IArticleThemesRepository.cs" />
-    <Compile Include="Interfaces\IClinicProfilesRepository.cs" />
+    <Compile Include="Interfaces\IClinicSpecializationRepository.cs" />
     <Compile Include="Interfaces\ICountryRepository.cs" />
     <Compile Include="Interfaces\IOwnerShipsRepository.cs" />
     <Compile Include="Interfaces\IСlinicRepository.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="Repositories\ArticlesRepository.cs" />
     <Compile Include="Repositories\ImagesRepository.cs" />
     <Compile Include="Repositories\ArticleThemesRepository.cs" />
-    <Compile Include="Repositories\ClinicProfilesRepository.cs" />
+    <Compile Include="Repositories\ClinicSpecializationRepository.cs" />
     <Compile Include="Repositories\CountryRepository.cs" />
     <Compile Include="Repositories\OwnerShipsRepository.cs" />
     <Compile Include="Repositories\СlinicRepository.cs" />

@@ -25,7 +25,15 @@ namespace Infodoctor.DAL.Repositories
 
         public Clinic GetClinicById(int id)
         {
-            return _context.Сlinics.First(s => s.Id == id); ;
+            try
+            {
+                var result = _context.Сlinics.First(s => s.Id == id);
+                return result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public void Add(Clinic clinic)

@@ -10,8 +10,14 @@ namespace Infodoctor.BL.DtoModels
         public string Name { get; set; }
         public string Email { get; set; }
         //public Guid OwnershipId { get; set; }
-        public IEnumerable<ClinicAddress> ClinicAddresses { get; set; }
-        public IEnumerable<ClinicProfile> ClinicProfiles { get; set; }
-        public IEnumerable<ClinicSpecialization> ClinicSpecializations { get; set; }
+        public List<DtoClinicAddress> ClinicAddress { get; set; }
+        //public IEnumerable<ClinicProfile> ClinicProfiles { get; set; }
+        public List<string> ClinicSpecialization { get; set; }
+    }
+
+    public class DtoClinicAddress
+    {
+        public string ClinicAddress { get; set; }
+        public List<Dictionary<string, string>> ClinicPhone { get; set; }
     }
 }

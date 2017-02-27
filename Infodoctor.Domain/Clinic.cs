@@ -10,7 +10,7 @@ namespace Infodoctor.Domain
         public string Email { get; set; }
         //public Guid OwnershipId { get; set; }
         public virtual ICollection<ClinicAddress> ClinicAddresses { get; set; }
-        public virtual ICollection<ClinicProfile> ClinicProfiles { get; set; }
+        //public virtual ICollection<ClinicProfile> ClinicProfiles { get; set; }
         public virtual ICollection<ClinicSpecialization> ClinicSpecializations { get; set; }
 
         //[NotMapped]

@@ -14,42 +14,42 @@ namespace Infodoctor.Web.Controllers
 
         public ClinicSpecializationController(IClinicSpecializationService clinicSpecializationService)
         {
-            if (clinicSpecializationService == null)
+            if (clinicSpecializationServic == null)
                 throw new ArgumentNullException(nameof(clinicSpecializationService));
             _clinicSpecializationService = clinicSpecializationService;
         }
 
         // GET api/clinicprofiles
-        public IEnumerable<ClinicSpecialization> Get()
+        public IEnumerable<ClinicProfile> Get()
         {
-            return _clinicSpecializationService.GetAllProfiles().ToList();
+            return _clinicProfilesService.GetAllProfiles().ToList();
         }
 
         // GET api/clinicprofiles/5
-        public ClinicSpecialization Get(int id)
+        public ClinicProfile Get(int id)
         {
-            return _clinicSpecializationService.GetProfileById(id);
+            return _clinicProfilesService.GetProfileById(id);
         }
 
         // POST api/clinicprofiles
         [Authorize(Roles = "admin, moder")]
         public void Post([FromBody]string value)
         {
-            _clinicSpecializationService.Add(value);
+            _clinicProfilesService.Add(value);
         }
 
         // PUT api/clinicprofiles/5
         [Authorize(Roles = "admin, moder")]
         public void Put(int id, [FromBody]string value)
         {
-            _clinicSpecializationService.Update(id, value);
+            _clinicProfilesService.Update(id, value);
         }
 
         // DELETE api/clinicprofiles/5
         [Authorize(Roles = "admin, moder")]
         public void Delete(int id)
         {
-            _clinicSpecializationService.Delete(id);
+            _clinicProfilesService.Delete(id);
         }
     }
 }

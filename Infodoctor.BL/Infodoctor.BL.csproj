@@ -44,14 +44,14 @@
   <ItemGroup>
     <Compile Include="DtoModels\DtoClinic.cs" />
     <Compile Include="Intefaces\IArticlesService.cs" />
+    <Compile Include="Intefaces\IClinicSpecializationService.cs" />
     <Compile Include="Intefaces\IImagesService.cs" />
     <Compile Include="Intefaces\IArticleThemesService.cs" />
-    <Compile Include="Intefaces\IClinicProfilesService.cs" />
     <Compile Include="Intefaces\IClinicService.cs" />
     <Compile Include="Services\ArticlesService.cs" />
+    <Compile Include="Services\ClinicSpecializationService.cs" />
     <Compile Include="Services\ImagesService.cs" />
     <Compile Include="Services\ArticleThemesService.cs" />
-    <Compile Include="Services\ClinicProfilesService.cs" />
     <Compile Include="Services\ClinicService.cs" />
     <Compile Include="Services\CountryService.cs" />
     <Compile Include="Intefaces\ICountryService.cs" />

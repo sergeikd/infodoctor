@@ -6,8 +6,8 @@ namespace Infodoctor.BL.Intefaces
 {
     public interface IClinicService
     {
-        IEnumerable<Clinic> GetAllClinics();
-        Clinic GetClinicById(int id);
+        IEnumerable<DtoClinic> GetAllClinics();
+        DtoClinic GetClinicById(int id);
         void Add(Clinic clinic);
         void Update(int id, string name);
         void Delete(int id);

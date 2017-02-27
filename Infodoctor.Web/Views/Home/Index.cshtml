@@ -22,9 +22,8 @@
 <div>
     <input type="submit" id="getCountriesButton" value="GET страны"/>
     <input type="submit" id="getClinicsButton" value="GET клиники"/>
-    <input type="submit" id="getClinic3Button" value="GET клиники 3" />
-    <input type="submit" id="getProfilessButton" value="GET профили клиник" />
-    <input type="button" id="logOut" value="Выйти" />
+    <input type="submit" id="getClinic3Button" value="GET клиника 3" />
+    <input type="submit" id="getSpecializationsButton" value="GET специализации" />
 </div>
 
 @section scripts{
@@ -110,11 +109,11 @@
                 });
             });
 
-            $('#getProfilessButton').click(function (e) {
+            $('#getSpecializationsButton').click(function (e) {
                 e.preventDefault();
                 $.ajax({
                     type: 'GET',
-                    url: '/api/clinicProfiles/',
+                    url: '/api/clinicSpecialization/',
                     beforeSend: function (xhr) {
                         var token = sessionStorage.getItem(tokenKey);
                         xhr.setRequestHeader("Authorization", "Bearer " + token);

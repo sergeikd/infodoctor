@@ -37,8 +37,8 @@ namespace Infodoctor.Web
             container.RegisterType<IConfigService, ConfigService>();
             container.RegisterType<ICountryRepository, CountryRepository>();
             container.RegisterType<ICountryService, CountryService>();
-            container.RegisterType<IClinicProfilesRepository, ClinicProfilesRepository>();
-            container.RegisterType<IClinicProfilesService, ClinicProfilesService>();
+            container.RegisterType<IClinicSpecializationRepository, ClinicSpecializationRepository>();
+            container.RegisterType<IClinicSpecializationService, ClinicSpecializationService>();
             container.RegisterType<IСlinicRepository, СlinicRepository>();
             container.RegisterType<IClinicService, ClinicService>();
             container.RegisterType<IArticleThemesRepository, ArticleThemesRepository>();

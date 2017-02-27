@@ -159,10 +159,10 @@ namespace Infodoctor.Web
             var cp50 = new ClinicSpecialization() { Name = "Анестезиология"};
             var cp60 = new ClinicSpecialization() { Name = "Гастроэнтерология", Clinics = new List<Clinic>() { clinic1 } };
             var cp70 = new ClinicSpecialization() { Name = "Гастроэнтерология детская"};
-            var cp80 = new ClinicSpecialization() { Name = "Гинекология", Clinics = new List<Clinic>() { clinic1, clinic4 } };
+            var cp80 = new ClinicSpecialization() { Name = "Гинекология", Clinics = new List<Clinic>() { clinic1, clinic3, clinic4 } };
             var cp81 = new ClinicSpecialization() { Name = "Гинекология детская", Clinics = new List<Clinic>() { clinic1 } };
             var cp90 = new ClinicSpecialization() { Name = "Гинекология-эндокринология"};
-            var cp100 = new ClinicSpecialization() { Name = "Дерматология", Clinics = new List<Clinic>() { clinic1 } };
+            var cp100 = new ClinicSpecialization() { Name = "Дерматология", Clinics = new List<Clinic>() { clinic1, clinic3 } };
             var cp110 = new ClinicSpecialization() { Name = "Диагностика лабораторная "};
             var cp120 = new ClinicSpecialization() { Name = "Диагностика ультразвуковая"};
             var cp130 = new ClinicSpecialization() { Name = "Диагностика функциональная"};
@@ -172,26 +172,26 @@ namespace Infodoctor.Web
             var cp170 = new ClinicSpecialization() { Name = "Кардио-ревматология детская"};
             var cp180 = new ClinicSpecialization() { Name = "Кардиология", Clinics = new List<Clinic>() { clinic1, clinic4 } };
             var cp190 = new ClinicSpecialization() { Name = "Кардиология детская"};
-            var cp200 = new ClinicSpecialization() { Name = "Косметология", Clinics = new List<Clinic>() { clinic1 } };
+            var cp200 = new ClinicSpecialization() { Name = "Косметология", Clinics = new List<Clinic>() { clinic1, clinic3 } };
             var cp210 = new ClinicSpecialization() { Name = "Логопедия", Clinics = new List<Clinic>() { clinic1 } };
-            var cp220 = new ClinicSpecialization() { Name = "Маммология"};
-            var cp230 = new ClinicSpecialization() { Name = "Массаж"};
-            var cp240 = new ClinicSpecialization() { Name = "Неврология", Clinics = new List<Clinic>() { clinic1 } };
+            var cp220 = new ClinicSpecialization() { Name = "Маммология", Clinics = new List<Clinic>() { clinic3 } };
+            var cp230 = new ClinicSpecialization() { Name = "Массаж", Clinics = new List<Clinic>() { clinic3 } };
+            var cp240 = new ClinicSpecialization() { Name = "Неврология", Clinics = new List<Clinic>() { clinic1, clinic3 } };
             var cp250 = new ClinicSpecialization() { Name = "Неврология детская"};
             var cp260 = new ClinicSpecialization() { Name = "Нефрология", Clinics = new List<Clinic>() { clinic5 } };
             var cp270 = new ClinicSpecialization() { Name = "Нефрология детская", Clinics = new List<Clinic>() { clinic5 } };
             var cp280 = new ClinicSpecialization() { Name = "Нейроофтальмология"};
-            var cp290 = new ClinicSpecialization() { Name = "Онкология", Clinics = new List<Clinic>() { clinic1 } };
+            var cp290 = new ClinicSpecialization() { Name = "Онкология", Clinics = new List<Clinic>() { clinic1, clinic3 } };
             var cp300 = new ClinicSpecialization() { Name = "Онкология детская"};
             var cp301 = new ClinicSpecialization() { Name = "Ортопедия", Clinics = new List<Clinic>() { clinic1 } };
-            var cp310 = new ClinicSpecialization() { Name = "Оториноларингология(ЛОР)", Clinics = new List<Clinic>() { clinic1 } };
+            var cp310 = new ClinicSpecialization() { Name = "Оториноларингология(ЛОР)", Clinics = new List<Clinic>() { clinic1, clinic3 } };
             var cp320 = new ClinicSpecialization() { Name = "Оториноларингология(ЛОР) детская"};
             var cp330 = new ClinicSpecialization() { Name = "Офтальмология", Clinics = new List<Clinic>() { clinic1 } };
             var cp340 = new ClinicSpecialization() { Name = "Офтальмология детская"};
             var cp350 = new ClinicSpecialization() { Name = "Офтальмология-эндокринология"};
             var cp360 = new ClinicSpecialization() { Name = "Педиатрия", Clinics = new List<Clinic>() { clinic1, clinic4 } };
-            var cp370 = new ClinicSpecialization() { Name = "Проктология", Clinics = new List<Clinic>() { clinic1 } };
-            var cp380 = new ClinicSpecialization() { Name = "Психотерапевтия", Clinics = new List<Clinic>() { clinic1 } };
+            var cp370 = new ClinicSpecialization() { Name = "Проктология", Clinics = new List<Clinic>() { clinic1, clinic3 } };
+            var cp380 = new ClinicSpecialization() { Name = "Психотерапия", Clinics = new List<Clinic>() { clinic1, clinic3 } };
             var cp390 = new ClinicSpecialization() { Name = "Пульмонология"};
             var cp400 = new ClinicSpecialization() { Name = "Реабилитология"};
             var cp410 = new ClinicSpecialization() { Name = "Реаниматология"};
@@ -200,23 +200,23 @@ namespace Infodoctor.Web
             var cp440 = new ClinicSpecialization() { Name = "Репродуктология"};
             var cp450 = new ClinicSpecialization() { Name = "Рефлексотерапевтия"};
             var cp460 = new ClinicSpecialization() { Name = "Сексология"};
-            var cp461 = new ClinicSpecialization() { Name = "Стоматология", Clinics = new List<Clinic>() { clinic2, clinic4 } };
+            var cp461 = new ClinicSpecialization() { Name = "Стоматология", Clinics = new List<Clinic>() { clinic2, clinic3, clinic4 } };
             var cp470 = new ClinicSpecialization() { Name = "Стоматология детская", Clinics = new List<Clinic>() { clinic2 } };
             var cp480 = new ClinicSpecialization() { Name = "Стоматология-ортодонтия", Clinics = new List<Clinic>() { clinic2 } };
             var cp490 = new ClinicSpecialization() { Name = "Стоматология-ортопедия", Clinics = new List<Clinic>() { clinic2 } };
             var cp500 = new ClinicSpecialization() { Name = "Стоматология-терапевтия", Clinics = new List<Clinic>() { clinic2 } };
             var cp510 = new ClinicSpecialization() { Name = "Стоматология-хирургия"};
-            var cp520 = new ClinicSpecialization() { Name = "Терапия", Clinics = new List<Clinic>() { clinic1, clinic4 } };
+            var cp520 = new ClinicSpecialization() { Name = "Терапия", Clinics = new List<Clinic>() { clinic1, clinic3, clinic4 } };
             var cp530 = new ClinicSpecialization() { Name = "Травматология-ортопедия" };
             var cp540 = new ClinicSpecialization() { Name = "Травматология-ортопедия детская"};
-            var cp550 = new ClinicSpecialization() { Name = "Урология", Clinics = new List<Clinic>() { clinic1, clinic4, clinic5 } };
+            var cp550 = new ClinicSpecialization() { Name = "Урология", Clinics = new List<Clinic>() { clinic1, clinic3, clinic4, clinic5 } };
             var cp560 = new ClinicSpecialization() { Name = "Урология детская", Clinics = new List<Clinic>() { clinic1, clinic5 } };
             var cp561 = new ClinicSpecialization() { Name = "Физиотерпапия", Clinics = new List<Clinic>() { clinic1, clinic5 } };
             var cp570 = new ClinicSpecialization() { Name = "Флебология"};
-            var cp580 = new ClinicSpecialization() { Name = "Хирургия", Clinics = new List<Clinic>() { clinic4 } };
+            var cp580 = new ClinicSpecialization() { Name = "Хирургия", Clinics = new List<Clinic>() { clinic3, clinic4 } };
             var cp590 = new ClinicSpecialization() { Name = "Хирургия детская"};
-            var cp600 = new ClinicSpecialization() { Name = "Хирургия пластическая"};
-            var cp610 = new ClinicSpecialization() { Name = "Эндокринология", Clinics = new List<Clinic>() { clinic1, clinic5 } };
+            var cp600 = new ClinicSpecialization() { Name = "Хирургия пластическая", Clinics = new List<Clinic>() { clinic3 } };
+            var cp610 = new ClinicSpecialization() { Name = "Эндокринология", Clinics = new List<Clinic>() { clinic1, clinic3, clinic5 } };
             var cp620 = new ClinicSpecialization() { Name = "Эндокринология детская", Clinics = new List<Clinic>() { clinic5 } };
             var specializationList = new List<ClinicSpecialization>
             {
@@ -306,7 +306,7 @@ namespace Infodoctor.Web
             var cs40 = new ClinicProfile() { Name = "Многопрофильный с комплексом аппаратных и аналитических обследований", Clinics = new List<Clinic>() { clinic1 } };
             var cs50 = new ClinicProfile() { Name = "Стоматология", Clinics = new List<Clinic>() { clinic2 } };
             var profilesList = new List<ClinicProfile> { cs10, cs20, cs30, cs40, cs50 };
-            context.ClinicProfiles.AddRange(profilesList);
+            //context.ClinicProfiles.AddRange(profilesList);
 
             base.Seed(context);
         }
