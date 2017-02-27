@@ -8,7 +8,7 @@ namespace Infodoctor.BL.Intefaces
     {
         IEnumerable<Clinic> GetAllClinics();
         Clinic GetClinicById(int id);
-        void Add(string name);
+        void Add(Clinic clinic);
         void Update(int id, string name);
         void Delete(int id);
     }

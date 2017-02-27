@@ -24,9 +24,9 @@ namespace Infodoctor.Web.Controllers
         }
 
         // GET: api/Clinic/5
-        public string Get(int id)
+        public Clinic Get(int id)
         {
-            return "value";
+            return _clinicService.GetClinicById(id);
         }
 
         // POST: api/Clinic
