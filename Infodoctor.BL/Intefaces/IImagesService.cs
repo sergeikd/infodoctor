@@ -1,5 +1,6 @@
 ﻿using Infodoctor.Domain;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Web;
 
 namespace Infodoctor.BL.Intefaces
@@ -8,9 +9,9 @@ namespace Infodoctor.BL.Intefaces
     {
         IEnumerable<ImageFile> GetAllImages();
         ImageFile GetImageById(int id);
-        void Add(HttpPostedFileBase imageFile, string imageFolderPath, int maxImageWidth)
-        void Update(HttpPostedFileBase imageFile, string imageFolderPath, int maxImageWidth)
+        void Add(HttpPostedFileBase imageFile, string imageFolderPath, int maxImageWidth);
+        void Update(int id, HttpPostedFileBase imageFile, string imageFolderPath, int maxImageWidth);
         void Delete(int id);
-        bool ResizeImage(ImageFile origImage, string fileName, string folderPath, int width);
+        bool ResizeImage(Image origImage, string fileName, string folderPath, int width);
     }
 }

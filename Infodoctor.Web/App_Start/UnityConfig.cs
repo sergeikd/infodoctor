@@ -43,6 +43,8 @@ namespace Infodoctor.Web
             container.RegisterType<IClinicService, ClinicService>();
             container.RegisterType<IArticleThemesRepository, ArticleThemesRepository>();
             container.RegisterType<IArticleThemesService, ArticleThemesService>();
+            container.RegisterType<IImagesRepository, ImagesRepository>();
+            container.RegisterType<IImagesService, ImagesService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
