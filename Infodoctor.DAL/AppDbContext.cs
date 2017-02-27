@@ -18,6 +18,9 @@ namespace Infodoctor.DAL
         public DbSet<ClinicProfile> ClinicProfiles { get; set; }
         public DbSet<ClinicSpecialization> ClinicSpecializations { get; set; }
         public DbSet<OwnerShip> OwnerShips { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<ArticleTheme> ArticleThemes { get; set; }
+        public DbSet<ImageFile> Images { get; set; }
         public static AppDbContext Create()
         {
             return new AppDbContext();

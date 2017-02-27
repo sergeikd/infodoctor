@@ -74,6 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationUser.cs" />
+    <Compile Include="Article.cs" />
+    <Compile Include="ImageFile.cs" />
+    <Compile Include="ArticleTheme.cs" />
     <Compile Include="ClinicProfile.cs" />
     <Compile Include="ClinicSpecialization.cs" />
     <Compile Include="Country.cs" />

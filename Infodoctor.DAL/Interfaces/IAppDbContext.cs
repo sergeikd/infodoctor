@@ -14,6 +14,9 @@ namespace Infodoctor.DAL.Interfaces
         DbSet<ClinicProfile> ClinicProfiles { get; set; }
         DbSet<ClinicSpecialization> ClinicSpecializations { get; set; }
         DbSet<OwnerShip> OwnerShips { get; set; }
+        DbSet<Article> Articles { get; set; }
+        DbSet<ArticleTheme> ArticleThemes { get; set; }
+        DbSet<ImageFile> Images { get; set; }
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

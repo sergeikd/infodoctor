@@ -10,6 +10,8 @@ using Infodoctor.Domain;
 using Infodoctor.Web.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Infodoctor.Web.Infrastructure;
+using Infodoctor.Web.Infrastructure.Interfaces;
 
 namespace Infodoctor.Web
 {
@@ -32,12 +34,15 @@ namespace Infodoctor.Web
             container.RegisterType<IAppDbContext, AppDbContext>(new HierarchicalLifetimeManager(), new InjectionConstructor());//for keep the same dbContext instance per request
 
             //register all your services and reps
+            container.RegisterType<IConfigService, ConfigService>();
             container.RegisterType<ICountryRepository, CountryRepository>();
             container.RegisterType<ICountryService, CountryService>();
             container.RegisterType<IClinicProfilesRepository, ClinicProfilesRepository>();
             container.RegisterType<IClinicProfilesService, ClinicProfilesService>();
             container.RegisterType<IСlinicRepository, СlinicRepository>();
             container.RegisterType<IClinicService, ClinicService>();
+            container.RegisterType<IArticleThemesRepository, ArticleThemesRepository>();
+            container.RegisterType<IArticleThemesService, ArticleThemesService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
