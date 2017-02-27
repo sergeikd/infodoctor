@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="ClinicProfile.cs" />
+    <Compile Include="ClinicSpecialization.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="OwnerShip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

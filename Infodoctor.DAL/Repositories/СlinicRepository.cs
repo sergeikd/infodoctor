@@ -31,6 +31,7 @@ namespace Infodoctor.DAL.Repositories
         public void Add(Clinic clinic)
         {
             _context.Сlinics.Add(clinic);
+            _context.SaveChanges();
         }
 
         public void Update(Clinic clinic)
@@ -42,6 +43,7 @@ namespace Infodoctor.DAL.Repositories
         public void Delete(Clinic clinic)
         {
             _context.Сlinics.Remove(clinic);
+            _context.SaveChanges();
         }
     }
 }

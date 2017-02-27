@@ -5,7 +5,7 @@ using Infodoctor.Domain;
 
 namespace Infodoctor.DAL.Repositories
 {
-    public class OwnerShipsRepository : IOwnerShipsRepository
+    class OwnerShipsRepository : IOwnerShipsRepository
     {
         private readonly IAppDbContext _context;
 
@@ -21,20 +21,17 @@ namespace Infodoctor.DAL.Repositories
         public void Add(OwnerShip ownerShip)
         {
             _context.OwnerShips.Add(ownerShip);
-            _context.SaveChanges();
         }
 
         public void Update(OwnerShip ownerShip)
         {
             var edited = _context.OwnerShips.First(s => s.Id == ownerShip.Id);
             edited = ownerShip;
-            _context.SaveChanges();
         }
 
         public void Delete(OwnerShip ownerShip)
         {
             _context.OwnerShips.Remove(ownerShip);
-            _context.SaveChanges();
         }
 
         public IQueryable<OwnerShip> GetAllOwnerShip()

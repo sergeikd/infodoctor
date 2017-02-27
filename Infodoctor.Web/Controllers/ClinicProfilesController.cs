@@ -20,14 +20,12 @@ namespace Infodoctor.Web.Controllers
         }
 
         // GET api/clinicprofiles
-        [AllowAnonymous]
         public IEnumerable<ClinicProfile> Get()
         {
             return _clinicProfilesService.GetAllProfiles().ToList();
         }
 
         // GET api/clinicprofiles/5
-        [AllowAnonymous]
         public ClinicProfile Get(int id)
         {
             return _clinicProfilesService.GetProfileById(id);

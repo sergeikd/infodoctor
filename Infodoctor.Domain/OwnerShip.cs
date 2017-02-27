@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Infodoctor.Domain
+﻿namespace Infodoctor.Domain
 {
     public class OwnerShip
     {

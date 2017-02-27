@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
-using Newtonsoft.Json.Serialization;
 
 namespace Infodoctor.Web
 {
@@ -17,7 +11,15 @@ namespace Infodoctor.Web
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
-            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));//for return data in Json format
+
+            //prevent Internal Server Error 500 "Message":"An error has occurred.","ExceptionMessage":
+            //"The 'ObjectContent`1' type failed to serialize the response body for content type 'application/json; charset=utf-8'"
+            //when performs GET request of complex types like Clinic 
+            //http://stackoverflow.com/questions/23098191/failed-to-serialize-the-response-in-web-api-with-json
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings
+                .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            GlobalConfiguration.Configuration.Formatters
+                .Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
             // Web API routes
             config.MapHttpAttributeRoutes();
 

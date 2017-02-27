@@ -1,5 +1,4 @@
 ﻿using Infodoctor.Domain;
-using System;
 using System.Linq;
 
 namespace Infodoctor.DAL.Interfaces

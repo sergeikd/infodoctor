@@ -9,7 +9,10 @@ namespace Infodoctor.DAL.Interfaces
     {
         DbSet<Country> Countries { get; set; }
         DbSet<Clinic> Сlinics { get; set; }
+        DbSet<ClinicPhone> ClinicPhones { get; set; }
+        DbSet<ClinicAddress> ClinicAddresses { get; set; }
         DbSet<ClinicProfile> ClinicProfiles { get; set; }
+        DbSet<ClinicSpecialization> ClinicSpecializations { get; set; }
         DbSet<OwnerShip> OwnerShips { get; set; }
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);

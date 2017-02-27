@@ -36,9 +36,8 @@ namespace Infodoctor.Web
             container.RegisterType<ICountryService, CountryService>();
             container.RegisterType<IClinicProfilesRepository, ClinicProfilesRepository>();
             container.RegisterType<IClinicProfilesService, ClinicProfilesService>();
-            container.RegisterType<IOwnerShipsService, OwnerShipsService>();
-            container.RegisterType<IOwnerShipsRepository, OwnerShipsRepository>();
-
+            container.RegisterType<IСlinicRepository, СlinicRepository>();
+            container.RegisterType<IClinicService, ClinicService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

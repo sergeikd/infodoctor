@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace Infodoctor.Domain
 {
@@ -6,5 +6,6 @@ namespace Infodoctor.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public virtual ICollection<Clinic> Clinics { get; set; }
     }
 }

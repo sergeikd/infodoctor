@@ -11,6 +11,9 @@ namespace Infodoctor.Web
     {
         public void Configuration(IAppBuilder app)
         {
+            //enable CORS
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
             ConfigureAuth(app);
         }
     }
