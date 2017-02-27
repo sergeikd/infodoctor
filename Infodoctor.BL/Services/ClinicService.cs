@@ -51,14 +51,14 @@ namespace Infodoctor.BL.Services
             return _clinicRepository.GetClinicById(id);
         }
 
-        public void Add(string name)
+        public void Add(Clinic clinic)
         {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException(nameof(name));
+            if (clinic == null )
+                throw new ArgumentNullException(nameof(clinic));
 
-            var cp = new Clinic() { Name = name };
+            var c = clinic;
 
-            _clinicRepository.Add(cp);
+            _clinicRepository.Add(c);
         }
 
 
