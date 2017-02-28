@@ -29,14 +29,14 @@ namespace Infodoctor.BL.Services
 
         public void Add(Article art)
         {
-            if (art != null)
+            if (art == null)
                 throw new ArgumentNullException(nameof(art));
             _articlesRepository.Add(art);
         }
 
         public void Update(int id, Article newArt)
         {
-            if (newArt != null)
+            if (newArt == null)
                 throw new ArgumentNullException(nameof(newArt));
             var updated = _articlesRepository.GetArticleById(id);
             if (updated != null)
@@ -44,6 +44,8 @@ namespace Infodoctor.BL.Services
                 updated.Title = newArt.Title;
                 updated.Content = newArt.Content;
                 updated.PublishDate = newArt.PublishDate;
+
+                _articlesRepository.Update(updated);
             }
         }
 

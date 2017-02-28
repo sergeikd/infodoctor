@@ -38,6 +38,7 @@ namespace Infodoctor.DAL.Repositories
         {
             var edited = _context.Articles.First(a => a.Id == art.Id);
             edited = art;
+            _context.SaveChanges();
         }
 
         public void Delete(Article art)

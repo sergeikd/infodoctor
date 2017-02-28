@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.Intefaces;
 using Infodoctor.Domain;
+using Infodoctor.Web.Models;
+using System.Web;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -34,13 +36,21 @@ namespace Infodoctor.Web.Controllers
 
         // POST api/articles
         [Authorize(Roles = "admin, moder")]
-        public void Post([FromBody]string title, string content)
+        public void Post(PublicArticleModel article)
         {
+            string userName = string.Empty;
+            if (HttpContext.Current != null && HttpContext.Current.User != null
+                    && HttpContext.Current.User.Identity.Name != null)
+            {
+                userName = HttpContext.Current.User.Identity.Name;
+            }
+
             var newArt = new Article()
             {
-                Title = title,
-                Content = content,
-                PublishDate = DateTime.Now
+                Title = article.title,
+                Content = article.content,
+                PublishDate = DateTime.Now,
+                Author = userName
             };
 
             _articlesService.Add(newArt);
@@ -48,13 +58,21 @@ namespace Infodoctor.Web.Controllers
 
         // PUT api/articles/5
         [Authorize(Roles = "admin, moder")]
-        public void Put(int id, [FromBody]string title, string content)
+        public void Put(int id, PublicArticleModel article)
         {
+            string userName = string.Empty;
+            if (HttpContext.Current != null && HttpContext.Current.User != null
+                    && HttpContext.Current.User.Identity.Name != null)
+            {
+                userName = HttpContext.Current.User.Identity.Name;
+            }
+
             var newArt = new Article()
             {
-                Title = title,
-                Content = content,
-                PublishDate = DateTime.Now
+                Title = article.title,
+                Content = article.content,
+                PublishDate = DateTime.Now,
+                Author = userName
             };
 
             _articlesService.Update(id, newArt);
