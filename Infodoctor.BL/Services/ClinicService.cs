@@ -42,14 +42,28 @@ namespace Infodoctor.BL.Services
                     var dtoClinicAddress = new DtoClinicAddress
                     {
                         ClinicAddress = clinicAddress.Address,
-                        ClinicPhone = new List<Dictionary<string, string>>()
+                        ClinicPhones = new List<DtoClinicPhone>()
                     };
-                    foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new Dictionary<string, string> { { clinicPhone.Description, clinicPhone.Number } }))
+                    foreach (var clinicPhone in clinicAddress.ClinicPhones)
                     {
-                        dtoClinicAddress.ClinicPhone.Add(dtoClinicPhone);
+                        var dtoClinicPhone = new DtoClinicPhone() { Desc = clinicPhone.Description, Phone = clinicPhone.Number };
+                        dtoClinicAddress.ClinicPhones.Add(dtoClinicPhone);
                     }
                     dtoClinicAddressList.Add(dtoClinicAddress);
                 }
+                //foreach (var clinicAddress in clinic.ClinicAddresses)
+                //{
+                //    var dtoClinicAddress = new DtoClinicAddress
+                //    {
+                //        ClinicAddress = clinicAddress.Address,
+                //        ClinicPhone = new List<Dictionary<string, string>>()
+                //    };
+                //    foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new Dictionary<string, string> { { clinicPhone.Description, clinicPhone.Number } }))
+                //    {
+                //        dtoClinicAddress.ClinicPhone.Add(dtoClinicPhone);
+                //    }
+                //    dtoClinicAddressList.Add(dtoClinicAddress);
+                //}
                 dtoClinic.ClinicAddress = dtoClinicAddressList;
 
                 var dtoSpecializationList = clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
@@ -79,14 +93,28 @@ namespace Infodoctor.BL.Services
                 var dtoClinicAddress = new DtoClinicAddress
                 {
                     ClinicAddress = clinicAddress.Address,
-                    ClinicPhone = new List<Dictionary<string, string>>()
+                    ClinicPhones = new List<DtoClinicPhone>()
                 };
-                foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new Dictionary<string, string> {{clinicPhone.Description, clinicPhone.Number}}))
+                foreach (var clinicPhone in clinicAddress.ClinicPhones)
                 {
-                    dtoClinicAddress.ClinicPhone.Add(dtoClinicPhone);
+                    var dtoClinicPhone = new DtoClinicPhone() { Desc = clinicPhone.Description, Phone = clinicPhone.Number };
+                    dtoClinicAddress.ClinicPhones.Add(dtoClinicPhone);
                 }
                 dtoClinicAddressList.Add(dtoClinicAddress);
             }
+            //foreach (var clinicAddress in clinic.ClinicAddresses)
+            //{
+            //    var dtoClinicAddress = new DtoClinicAddress
+            //    {
+            //        ClinicAddress = clinicAddress.Address,
+            //        ClinicPhone = new List<Dictionary<string, string>>()
+            //    };
+            //    foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new Dictionary<string, string> { { clinicPhone.Description, clinicPhone.Number } }))
+            //    {
+            //        dtoClinicAddress.ClinicPhone.Add(dtoClinicPhone);
+            //    }
+            //    dtoClinicAddressList.Add(dtoClinicAddress);
+            //}
             dtoClinic.ClinicAddress = dtoClinicAddressList;
 
             var dtoSpecializationList = clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
@@ -97,7 +125,7 @@ namespace Infodoctor.BL.Services
 
         public void Add(Clinic clinic)
         {
-            if (clinic == null )
+            if (clinic == null)
                 throw new ArgumentNullException(nameof(clinic));
 
             var c = clinic;

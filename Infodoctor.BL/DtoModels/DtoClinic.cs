@@ -18,6 +18,13 @@ namespace Infodoctor.BL.DtoModels
     public class DtoClinicAddress
     {
         public string ClinicAddress { get; set; }
-        public List<Dictionary<string, string>> ClinicPhone { get; set; }
-    }
+        public List <DtoClinicPhone> ClinicPhones { get;set;}
+    //public List<Dictionary<string, string>> ClinicPhone { get; set; }
+}
+
+public class DtoClinicPhone
+{
+    public string Desc { get; set; }
+    public string Phone { get; set; }
+}
 }
