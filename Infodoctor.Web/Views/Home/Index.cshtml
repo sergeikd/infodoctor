@@ -22,6 +22,7 @@
 <div>
     <input type="submit" id="getCountriesButton" value="GET страны"/>
     <input type="submit" id="getClinicsButton" value="GET клиники"/>
+    <input type="submit" id="getPageClinicsButton" value="GET page клиник" />
     <input type="submit" id="getClinic3Button" value="GET клиника 3" />
     <input type="submit" id="getSpecializationsButton" value="GET специализации" />
 </div>
@@ -91,6 +92,23 @@
                 });
             });
 
+            $('#getPageClinicsButton').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/clinic/page/2/2',
+                    beforeSend: function (xhr) {
+                        var token = sessionStorage.getItem(tokenKey);
+                        xhr.setRequestHeader("Authorization", "Bearer " + token);
+                    },
+                    success: function (data) {
+                        alert(JSON.stringify(data));
+                    },
+                    fail: function (data) {
+                        alert(data);
+                    }
+                });
+            });
             $('#getClinic3Button').click(function (e) {
                 e.preventDefault();
                 $.ajax({

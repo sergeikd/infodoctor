@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
+using Infodoctor.DAL;
 using Infodoctor.DAL.Interfaces;
 using Infodoctor.Domain;
 
@@ -95,26 +96,12 @@ namespace Infodoctor.BL.Services
                     ClinicAddress = clinicAddress.Address,
                     ClinicPhones = new List<DtoClinicPhone>()
                 };
-                foreach (var clinicPhone in clinicAddress.ClinicPhones)
+                foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new DtoClinicPhone() { Desc = clinicPhone.Description, Phone = clinicPhone.Number }))
                 {
-                    var dtoClinicPhone = new DtoClinicPhone() { Desc = clinicPhone.Description, Phone = clinicPhone.Number };
                     dtoClinicAddress.ClinicPhones.Add(dtoClinicPhone);
                 }
                 dtoClinicAddressList.Add(dtoClinicAddress);
             }
-            //foreach (var clinicAddress in clinic.ClinicAddresses)
-            //{
-            //    var dtoClinicAddress = new DtoClinicAddress
-            //    {
-            //        ClinicAddress = clinicAddress.Address,
-            //        ClinicPhone = new List<Dictionary<string, string>>()
-            //    };
-            //    foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new Dictionary<string, string> { { clinicPhone.Description, clinicPhone.Number } }))
-            //    {
-            //        dtoClinicAddress.ClinicPhone.Add(dtoClinicPhone);
-            //    }
-            //    dtoClinicAddressList.Add(dtoClinicAddress);
-            //}
             dtoClinic.ClinicAddress = dtoClinicAddressList;
 
             var dtoSpecializationList = clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
@@ -123,6 +110,63 @@ namespace Infodoctor.BL.Services
             return dtoClinic;
         }
 
+        public DtoPagedClinic GetPagedClinics(int perPage, int numPage )
+        {
+            if (perPage < 1 || numPage < 1)
+            {
+                throw new ApplicationException("Page not found");
+            }
+            var clinics = _clinicRepository.GetAllСlinics();
+            var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
+            if (pagedList.Count == 0)
+            {
+                throw new ApplicationException("Page not found");
+            }
+            var dtoClinicList = new List<DtoClinic>();
+            foreach (var clinic in pagedList)
+            {
+                var dtoClinic = new DtoClinic
+                {
+                    Id = clinic.Id,
+                    Name = clinic.Name,
+                    Email = clinic.Email
+                };
+                var dtoClinicAddressList = new List<DtoClinicAddress>();
+                foreach (var clinicAddress in clinic.ClinicAddresses)
+                {
+                    var dtoClinicAddress = new DtoClinicAddress
+                    {
+                        ClinicAddress = clinicAddress.Address,
+                        ClinicPhones = new List<DtoClinicPhone>()
+                    };
+                    foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new DtoClinicPhone()
+                    {
+                        Desc = clinicPhone.Description,
+                        Phone = clinicPhone.Number
+                    }))
+                    {
+                        dtoClinicAddress.ClinicPhones.Add(dtoClinicPhone);
+                    }
+                    dtoClinicAddressList.Add(dtoClinicAddress);
+                }
+                dtoClinic.ClinicAddress = dtoClinicAddressList;
+
+                var dtoSpecializationList =
+                    clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
+                dtoClinic.ClinicSpecialization = dtoSpecializationList;
+
+                dtoClinicList.Add(dtoClinic);
+            }
+
+            var pagedDtoClinicList = new DtoPagedClinic
+            {
+                Clinics = dtoClinicList,
+                Page = pagedList.Page,
+                PageSize = pagedList.PageSize,
+                TotalCount = pagedList.TotalCount
+            };
+            return pagedDtoClinicList;
+        }
         public void Add(Clinic clinic)
         {
             if (clinic == null)

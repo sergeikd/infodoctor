@@ -20,7 +20,7 @@ namespace Infodoctor.DAL.Repositories
 
         public IQueryable<Clinic> GetAllСlinics()
         {
-            return _context.Сlinics;
+            return _context.Сlinics.OrderBy(n => n.Id);
         }
 
         public Clinic GetClinicById(int id)

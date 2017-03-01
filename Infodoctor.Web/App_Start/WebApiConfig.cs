@@ -20,6 +20,7 @@ namespace Infodoctor.Web
                 .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             GlobalConfiguration.Configuration.Formatters
                 .Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+            
             // Web API routes
             config.MapHttpAttributeRoutes();
 

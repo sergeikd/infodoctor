@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DtoModels\DtoClinic.cs" />
+    <Compile Include="DtoModels\DtoPagedClinic.cs" />
     <Compile Include="Intefaces\IArticlesService.cs" />
     <Compile Include="Intefaces\IClinicSpecializationService.cs" />
     <Compile Include="Intefaces\IImagesService.cs" />
