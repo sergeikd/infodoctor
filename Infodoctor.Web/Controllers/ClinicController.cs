@@ -19,15 +19,15 @@ namespace Infodoctor.Web.Controllers
                 throw new ArgumentNullException(nameof(clinicService));
             _clinicService = clinicService;
         }
+
         // GET: api/Clinic
         public IEnumerable<DtoClinic> Get()
         {
-            var a = _clinicService.GetPagedClinics(2,2);
             return _clinicService.GetAllClinics();
         }
 
 
-        // GET: api/Clinic/page/perPage/pageNum 
+        // GET: api/Clinic/page/perPage/numPage 
         [Route("api/Clinic/page/{perPage:int}/{numPage:int}")]
         [HttpGet]
         public DtoPagedClinic GetPage(int perPage, int numPage)

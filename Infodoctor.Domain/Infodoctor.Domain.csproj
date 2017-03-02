@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="Article.cs" />
+    <Compile Include="City.cs" />
     <Compile Include="ImageFile.cs" />
     <Compile Include="ArticleTheme.cs" />
     <Compile Include="ClinicProfile.cs" />
@@ -87,6 +88,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

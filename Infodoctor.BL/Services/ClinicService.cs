@@ -37,17 +37,18 @@ namespace Infodoctor.BL.Services
                     Name = clinic.Name,
                     Email = clinic.Email
                 };
-                var dtoClinicAddressList = new List<DtoClinicAddress>();
-                foreach (var clinicAddress in clinic.ClinicAddresses)
+                var dtoClinicAddressList = new List<DtoAddress>();
+                foreach (var clinicAddress in clinic.CityAddresses)
                 {
-                    var dtoClinicAddress = new DtoClinicAddress
+                    var dtoClinicAddress = new DtoAddress
                     {
-                        ClinicAddress = clinicAddress.Address,
-                        ClinicPhones = new List<DtoClinicPhone>()
+                        City = clinicAddress.City.Name,
+                        Street = clinicAddress.Street,
+                        ClinicPhones = new List<DtoPhone>()
                     };
                     foreach (var clinicPhone in clinicAddress.ClinicPhones)
                     {
-                        var dtoClinicPhone = new DtoClinicPhone() { Desc = clinicPhone.Description, Phone = clinicPhone.Number };
+                        var dtoClinicPhone = new DtoPhone() { Desc = clinicPhone.Description, Phone = clinicPhone.Number };
                         dtoClinicAddress.ClinicPhones.Add(dtoClinicPhone);
                     }
                     dtoClinicAddressList.Add(dtoClinicAddress);
@@ -88,15 +89,16 @@ namespace Infodoctor.BL.Services
                 Name = clinic.Name,
                 Email = clinic.Email
             };
-            var dtoClinicAddressList = new List<DtoClinicAddress>();
-            foreach (var clinicAddress in clinic.ClinicAddresses)
+            var dtoClinicAddressList = new List<DtoAddress>();
+            foreach (var clinicAddress in clinic.CityAddresses)
             {
-                var dtoClinicAddress = new DtoClinicAddress
+                var dtoClinicAddress = new DtoAddress
                 {
-                    ClinicAddress = clinicAddress.Address,
-                    ClinicPhones = new List<DtoClinicPhone>()
+                    City = clinicAddress.City.Name,
+                    Street = clinicAddress.Street,
+                    ClinicPhones = new List<DtoPhone>()
                 };
-                foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new DtoClinicPhone() { Desc = clinicPhone.Description, Phone = clinicPhone.Number }))
+                foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new DtoPhone() { Desc = clinicPhone.Description, Phone = clinicPhone.Number }))
                 {
                     dtoClinicAddress.ClinicPhones.Add(dtoClinicPhone);
                 }
@@ -131,15 +133,16 @@ namespace Infodoctor.BL.Services
                     Name = clinic.Name,
                     Email = clinic.Email
                 };
-                var dtoClinicAddressList = new List<DtoClinicAddress>();
-                foreach (var clinicAddress in clinic.ClinicAddresses)
+                var dtoClinicAddressList = new List<DtoAddress>();
+                foreach (var clinicAddress in clinic.CityAddresses)
                 {
-                    var dtoClinicAddress = new DtoClinicAddress
+                    var dtoClinicAddress = new DtoAddress
                     {
-                        ClinicAddress = clinicAddress.Address,
-                        ClinicPhones = new List<DtoClinicPhone>()
+                        City = clinicAddress.City.Name,
+                        Street = clinicAddress.Street,
+                        ClinicPhones = new List<DtoPhone>()
                     };
-                    foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new DtoClinicPhone()
+                    foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new DtoPhone()
                     {
                         Desc = clinicPhone.Description,
                         Phone = clinicPhone.Number

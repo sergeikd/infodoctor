@@ -6,7 +6,6 @@ using Infodoctor.DAL;
 using Infodoctor.Domain;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.BuilderProperties;
 
 namespace Infodoctor.Web
 {
@@ -140,16 +139,145 @@ namespace Infodoctor.Web
                 phone10, phone11, phone12, phone13, phone14, phone15, phone16, phone17, phone18};
 
             context.ClinicPhones.AddRange(phonesList);
-            var ca1 = new ClinicAddress() { Address = "г.Минск, ул.Сурганова 47Б", Clinic = clinic1, ClinicPhones = new List<ClinicPhone>() {phone1, phone2} };
-            var ca2 = new ClinicAddress() { Address = "г.Минск , пр-т. Независимости 58", Clinic = clinic2, ClinicPhones = new List<ClinicPhone>() { phone3 } };
-            var ca3 = new ClinicAddress() { Address = "г.Минск пр-т. Победителей 75,", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone4, phone5 } };
-            var ca4 = new ClinicAddress() { Address = "г.Минск ул.Скрипникова 11Б,", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone6, phone7 } };
-            var ca5 = new ClinicAddress() { Address = "г.Минск ул.Захарова 50Д", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone8, phone9 } };
-            var ca6 = new ClinicAddress() { Address = "г.Минск , ул.Победителей 93", Clinic = clinic4, ClinicPhones = new List<ClinicPhone>() { phone10, phone11, phone12, phone13, phone14, phone15, phone16 } };
-            var ca7 = new ClinicAddress() { Address = "г.Минск, ул. Нарочанская 17", Clinic = clinic5, ClinicPhones = new List<ClinicPhone>() { phone17, phone18 } };
+            var ca1 = new CityAddress() { Street = "ул.Сурганова 47Б", Clinic = clinic1, ClinicPhones = new List<ClinicPhone>() {phone1, phone2} };
+            var ca2 = new CityAddress() { Street = "пр-т. Независимости 58", Clinic = clinic2, ClinicPhones = new List<ClinicPhone>() { phone3 } };
+            var ca3 = new CityAddress() { Street = "пр-т. Победителей 75,", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone4, phone5 } };
+            var ca4 = new CityAddress() { Street = "ул.Скрипникова 11Б,", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone6, phone7 } };
+            var ca5 = new CityAddress() { Street = "ул.Захарова 50Д", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone8, phone9 } };
+            var ca6 = new CityAddress() { Street = "ул.Победителей 93", Clinic = clinic4, ClinicPhones = new List<ClinicPhone>() { phone10, phone11, phone12, phone13, phone14, phone15, phone16 } };
+            var ca7 = new CityAddress() { Street = "ул. Нарочанская 17", Clinic = clinic5, ClinicPhones = new List<ClinicPhone>() { phone17, phone18 } };
 
-            var clinicAddressList = new List<ClinicAddress> { ca1, ca2, ca3, ca4, ca5, ca6, ca7 };
-            context.ClinicAddresses.AddRange(clinicAddressList);
+            var clinicAddressList = new List<CityAddress> { ca1, ca2, ca3, ca4, ca5, ca6, ca7 };
+            context.CityAddresses.AddRange(clinicAddressList);
+
+            #region Очень длинный список городов РБ
+            var city1 = new City() { Name = "Бобруйск" }; ;
+            var city2 = new City() { Name = "Барановичи" };
+            var city3 = new City() { Name = "Борисов" };
+            var city4 = new City() { Name = "Барань" };
+            var city5 = new City() { Name = "Белоозерск" };
+            var city6 = new City() { Name = "Береза" };
+            var city7 = new City() { Name = "Березино" };
+            var city8 = new City() { Name = "Березовка" };
+            var city9 = new City() { Name = "Браслав" };
+            var city10 = new City() { Name = "Брест" };
+            var city11 = new City() { Name = "Буда-Кошелево" };
+            var city12 = new City() { Name = "Быхов" };
+            var city13 = new City() { Name = "Василевичи" };
+            var city14 = new City() { Name = "Верхнедвинск" };
+            var city15 = new City() { Name = "Ветка" };
+            var city16 = new City() { Name = "Вилейка" };
+            var city17 = new City() { Name = "Витебск" };
+            var city18 = new City() { Name = "Волковыск" };
+            var city19 = new City() { Name = "Воложин" };
+            var city20 = new City() { Name = "Высокое" };
+            var city21 = new City() { Name = "Ганцевичи" };
+            var city22 = new City() { Name = "Глубокое" };
+            var city23 = new City() { Name = "Гомель" };
+            var city24 = new City() { Name = "Горки" };
+            var city25 = new City() { Name = "Городок" };
+            var city26 = new City() { Name = "Гродно" };
+            var city27 = new City() { Name = "Давид-Городок" };
+            var city28 = new City() { Name = "Дзержинск" };
+            var city29 = new City() { Name = "Дисна" };
+            var city30 = new City() { Name = "Добруш" };
+            var city31 = new City() { Name = "Докшицы" };
+            var city32 = new City() { Name = "Дрогичин" };
+            var city33 = new City() { Name = "Дубровно" };
+            var city34 = new City() { Name = "Дятлово" };
+            var city35 = new City() { Name = "Ельск" };
+            var city36 = new City() { Name = "Жодино" };
+            var city37 = new City() { Name = "Жабинка" };
+            var city38 = new City() { Name = "Житковичи" };
+            var city39 = new City() { Name = "Жлобин" };
+            var city40 = new City() { Name = "Заславль" };
+            var city41 = new City() { Name = "Иваново" };
+            var city42 = new City() { Name = "Ивацевичи" };
+            var city43 = new City() { Name = "Ивье" };
+            var city44 = new City() { Name = "Калинковичи" };
+            var city45 = new City() { Name = "Каменец" };
+            var city46 = new City() { Name = "Кировск" };
+            var city47 = new City() { Name = "Клецк" };
+            var city48 = new City() { Name = "Климовичи" };
+            var city49 = new City() { Name = "Кличев" };
+            var city50 = new City() { Name = "Кобрин" };
+            var city51 = new City() { Name = "Копыль" };
+            var city52 = new City() { Name = "Коссово" };
+            var city53 = new City() { Name = "Костюковичи" };
+            var city54 = new City() { Name = "Кричев" };
+            var city55 = new City() { Name = "Крупки" };
+            var city56 = new City() { Name = "Лепель" };
+            var city57 = new City() { Name = "Лида" };
+            var city58 = new City() { Name = "Логойск" };
+            var city59 = new City() { Name = "Лунинец" };
+            var city60 = new City() { Name = "Любань" };
+            var city61 = new City() { Name = "Ляховичи" };
+            var city62 = new City() { Name = "Мозырь" };
+            var city63 = new City() { Name = "Малорита" };
+            var city64 = new City() { Name = "Марьина Горка" };
+            var city65 = new City() { Name = "Микашевичи" };
+            var city66 = new City() { Name = "Минск", Addresses = new List<CityAddress>() { ca1, ca2, ca3, ca4, ca5, ca6, ca7 } };
+            var city67 = new City() { Name = "Миоры" };
+            var city68 = new City() { Name = "Могилев" };
+            var city69 = new City() { Name = "Молодечно" };
+            var city70 = new City() { Name = "Мосты" };
+            var city71 = new City() { Name = "Мстиславль" };
+            var city72 = new City() { Name = "Мядель" };
+            var city73 = new City() { Name = "Новополоцк" };
+            var city74 = new City() { Name = "Наровля" };
+            var city75 = new City() { Name = "Несвиж" };
+            var city76 = new City() { Name = "Новогрудок" };
+            var city77 = new City() { Name = "Новолукомль" };
+            var city78 = new City() { Name = "Орша" };
+            var city79 = new City() { Name = "Осиповичи" };
+            var city80 = new City() { Name = "Ошмяны" };
+            var city81 = new City() { Name = "Пинск" };
+            var city82 = new City() { Name = "Полоцк" };
+            var city83 = new City() { Name = "Петриков" };
+            var city84 = new City() { Name = "Поставы" };
+            var city85 = new City() { Name = "Пружаны" };
+            var city86 = new City() { Name = "Речица" };
+            var city87 = new City() { Name = "Рогачев" };
+            var city88 = new City() { Name = "Светлогорск" };
+            var city89 = new City() { Name = "Свислочь" };
+            var city90 = new City() { Name = "Сенно" };
+            var city91 = new City() { Name = "Скидель" };
+            var city92 = new City() { Name = "Славгород" };
+            var city93 = new City() { Name = "Слоним" };
+            var city94 = new City() { Name = "Слуцк" };
+            var city95 = new City() { Name = "Смолевичи" };
+            var city96 = new City() { Name = "Сморгонь" };
+            var city97 = new City() { Name = "Солигорск" };
+            var city98 = new City() { Name = "Старые Дороги" };
+            var city99 = new City() { Name = "Столбцы" };
+            var city100 = new City() { Name = "Столин" };
+            var city101 = new City() { Name = "Толочин" };
+            var city102 = new City() { Name = "Туров" };
+            var city103 = new City() { Name = "Узда" };
+            var city104 = new City() { Name = "Фаниполь" };
+            var city105 = new City() { Name = "Хойники" };
+            var city106 = new City() { Name = "Чаусы" };
+            var city107 = new City() { Name = "Чашники" };
+            var city108 = new City() { Name = "Червень" };
+            var city109 = new City() { Name = "Чериков" };
+            var city110 = new City() { Name = "Чечерск" };
+            var city111 = new City() { Name = "Шклов" };
+            var city112 = new City() { Name = "Щучин" };
+            #endregion
+            var citiesList = new List<City>{
+                city1, city2, city3, city4, city5, city6, city7, city8, city9, city10,
+                city11, city12, city13, city14, city15, city16, city17, city18, city19, city20,
+                city21, city22, city23, city24, city25, city26, city27, city28, city29, city30,
+                city31, city32, city33, city34, city35, city36, city37, city38, city39, city40,
+                city41, city42, city43, city44, city45, city46, city47, city48, city49, city50,
+                city51, city52, city53, city54, city55, city56, city57, city58, city59, city60,
+                city61, city62, city63, city64, city65, city66, city67, city68, city69, city70,
+                city71, city72, city73, city74, city75, city76, city77, city78, city79, city80,
+                city81, city82, city83, city84, city85, city86, city87, city88, city89, city90,
+                city91, city92, city93, city94, city95, city96, city97, city98, city99, city100,
+                city101, city102, city103, city104, city105, city106, city107, city108, city109, city110,
+                city111, city112};
+            context.Cities.AddRange(citiesList);
 
             #region Очень длинный список специализаций клиник
             var cp10 = new ClinicSpecialization() { Name = "Аллергология", Clinics = new List<Clinic>() {clinic1}};
@@ -229,7 +357,7 @@ namespace Infodoctor.Web
                 cp610, cp620,
                 cp81, cp301, cp461, cp561
             };
-            #endregion клиник
+            #endregion
             context.ClinicSpecializations.AddRange(specializationList);
 
             #region Первая версия таблицы специализаций клиник (на всякий случай)
@@ -307,6 +435,7 @@ namespace Infodoctor.Web
             var cs50 = new ClinicProfile() { Name = "Стоматология", Clinics = new List<Clinic>() { clinic2 } };
             var profilesList = new List<ClinicProfile> { cs10, cs20, cs30, cs40, cs50 };
             //context.ClinicProfiles.AddRange(profilesList);
+
 
             base.Seed(context);
         }
