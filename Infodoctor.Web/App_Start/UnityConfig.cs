@@ -47,6 +47,8 @@ namespace Infodoctor.Web
             container.RegisterType<IImagesService, ImagesService>();
             container.RegisterType<IArticlesRepository, ArticlesRepository>();
             container.RegisterType<IArticlesService, ArticlesService>();
+            container.RegisterType<ICitiesRepository, CitiesRepository>();
+            container.RegisterType<ICitiesService, CitiesService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

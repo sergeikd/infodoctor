@@ -47,8 +47,8 @@ namespace Infodoctor.Web.Controllers
 
             var newArt = new Article()
             {
-                Title = article.title,
-                Content = article.content,
+                Title = article.Title,
+                Content = article.Content,
                 PublishDate = DateTime.Now,
                 Author = userName
             };
@@ -69,8 +69,8 @@ namespace Infodoctor.Web.Controllers
 
             var newArt = new Article()
             {
-                Title = article.title,
-                Content = article.content,
+                Title = article.Title,
+                Content = article.Content,
                 PublishDate = DateTime.Now,
                 Author = userName
             };

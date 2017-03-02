@@ -11,45 +11,6 @@ namespace Infodoctor.Domain
         public virtual ICollection<CityAddress> CityAddresses { get; set; }
         //public virtual ICollection<ClinicProfile> ClinicProfiles { get; set; }
         public virtual ICollection<ClinicSpecialization> ClinicSpecializations { get; set; }
-
-        //[NotMapped]
-        //public List<Guid> Branches { get; set; }
-        //[NotMapped]
-        //public Dictionary<string, string> Phones { get; set; } = new Dictionary<string, string>();     
-
-        //[Obsolete("Only for EntityFramework")]
-        //public string BranchesJson
-        //{
-        //    get
-        //    {
-        //        return Branches == null || !Branches.Any() ? null : JsonConvert.SerializeObject(Branches);
-        //    }
-
-        //    set
-        //    {
-        //        if (string.IsNullOrWhiteSpace(value))
-        //            Branches.Clear();
-        //        else
-        //            Branches = JsonConvert.DeserializeObject<List<Guid>>(value);
-        //    }
-        //}
-
-        //[Obsolete("Only for EntityFramework")]
-        //public string PhonesJson
-        //{
-        //    get
-        //    {
-        //        return Phones == null || !Phones.Any() ? null : JsonConvert.SerializeObject(Phones);
-        //    }
-
-        //    set
-        //    {
-        //        if (string.IsNullOrWhiteSpace(value))
-        //            Phones.Clear();
-        //        else
-        //            Phones = JsonConvert.DeserializeObject<Dictionary<string, string>>(value);
-        //    }
-        //}
     }
 
     public class CityAddress

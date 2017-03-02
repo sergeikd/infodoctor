@@ -6,6 +6,6 @@ namespace Infodoctor.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<CityAddress> Addresses { get; set; }
+        public virtual ICollection<CityAddress> Adresses { get; set; }
     }
 }

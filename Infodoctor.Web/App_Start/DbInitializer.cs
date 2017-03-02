@@ -216,7 +216,7 @@ namespace Infodoctor.Web
             var city63 = new City() { Name = "Малорита" };
             var city64 = new City() { Name = "Марьина Горка" };
             var city65 = new City() { Name = "Микашевичи" };
-            var city66 = new City() { Name = "Минск", Addresses = new List<CityAddress>() { ca1, ca2, ca3, ca4, ca5, ca6, ca7 } };
+            var city66 = new City() { Name = "Минск", Adresses = new List<CityAddress>() { ca1, ca2, ca3, ca4, ca5, ca6, ca7 } };
             var city67 = new City() { Name = "Миоры" };
             var city68 = new City() { Name = "Могилев" };
             var city69 = new City() { Name = "Молодечно" };

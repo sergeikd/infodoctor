@@ -13,7 +13,7 @@ namespace Infodoctor.BL.Services
 {
     public class ImagesService : IImagesService
     {
-        public readonly IImagesRepository _imageRepository;
+        private readonly IImagesRepository _imageRepository;
 
         public ImagesService(IImagesRepository imageRepository)
         {

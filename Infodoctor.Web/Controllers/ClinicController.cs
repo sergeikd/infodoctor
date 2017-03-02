@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
-using Infodoctor.DAL;
-using Infodoctor.Domain;
-using Infodoctor.Web.Models;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -25,7 +22,6 @@ namespace Infodoctor.Web.Controllers
         {
             return _clinicService.GetAllClinics();
         }
-
 
         // GET: api/Clinic/page/perPage/numPage 
         [Route("api/Clinic/page/{perPage:int}/{numPage:int}")]
