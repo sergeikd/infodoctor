@@ -1,5 +1,6 @@
-﻿using Infodoctor.Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Infodoctor.Domain.Entities;
+
 namespace Infodoctor.BL.Intefaces
 {
     public interface IArticlesService

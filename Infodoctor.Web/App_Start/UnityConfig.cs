@@ -6,7 +6,7 @@ using Infodoctor.DAL.Interfaces;
 using Infodoctor.DAL.Repositories;
 using Microsoft.Practices.Unity;
 using Unity.WebApi;
-using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 using Infodoctor.Web.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -49,7 +49,8 @@ namespace Infodoctor.Web
             container.RegisterType<IArticlesService, ArticlesService>();
             container.RegisterType<ICitiesRepository, CitiesRepository>();
             container.RegisterType<ICitiesService, CitiesService>();
-
+            container.RegisterType<IClinicReviewRepository, ClinicReviewRepository>();
+            container.RegisterType<IClinicReviewService, ClinicReviewService>();
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }

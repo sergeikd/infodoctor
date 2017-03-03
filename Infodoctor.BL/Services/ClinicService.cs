@@ -7,7 +7,7 @@ using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
 using Infodoctor.DAL;
 using Infodoctor.DAL.Interfaces;
-using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Services
 {
@@ -116,11 +116,11 @@ namespace Infodoctor.BL.Services
         {
             if (perPage < 1 || numPage < 1)
             {
-                throw new ApplicationException("Page not found");
+                throw new ApplicationException("Incorrect request parameter");
             }
             var clinics = _clinicRepository.GetAllСlinics();
             var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
-            if (pagedList.Count == 0)
+            if (!pagedList.Any())
             {
                 throw new ApplicationException("Page not found");
             }

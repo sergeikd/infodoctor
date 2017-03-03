@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Infodoctor.DAL.Interfaces;
-using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Repositories
 {
@@ -41,6 +41,7 @@ namespace Infodoctor.DAL.Repositories
         {
             var updated = _context.Cities.First(c => c.Id == city.Id);
             updated = city;
+            _context.SaveChanges();
         }
 
         public void Delete(City city)

@@ -1,7 +1,7 @@
 ﻿using Infodoctor.DAL.Interfaces;
 using System;
 using System.Linq;
-using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Repositories
 {

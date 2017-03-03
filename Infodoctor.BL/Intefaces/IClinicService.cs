@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Infodoctor.BL.DtoModels;
-using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Intefaces
 {

@@ -24,7 +24,11 @@
     <input type="submit" id="getClinicsButton" value="GET клиники"/>
     <input type="submit" id="getPageClinicsButton" value="GET page клиник" />
     <input type="submit" id="getClinic3Button" value="GET клиника 3" />
-    <input type="submit" id="getSpecializationsButton" value="GET специализации" />
+    <input type="submit" id="getSpecializationsButton" value="GET специализации"/>
+    <br />
+    <input type="submit" id="getCitiesUsedClinicButton" value="GET города с клиниками" />
+    <input type="submit" id="getPageClinicReviewsButton" value="GET page отзывы"/>
+    <input type="submit" id="postClinicReviewButton" value="POST отзыв" />
 </div>
 
 @section scripts{
@@ -142,6 +146,66 @@
                     fail: function (data) {
                         alert(data);
                     }
+                });
+            });
+
+            $('#getCitiesUsedClinicButton').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/cities/clinicused',
+                    beforeSend: function (xhr) {
+                        var token = sessionStorage.getItem(tokenKey);
+                        xhr.setRequestHeader("Authorization", "Bearer " + token);
+                    },
+                    success: function (data) {
+                        alert(JSON.stringify(data));
+                    },
+                    fail: function (data) {
+                        alert(data);
+                    }
+                });
+            });
+            $('#getPageClinicReviewsButton').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/ClinicReview/page/3/2/2',
+                    beforeSend: function (xhr) {
+                        var token = sessionStorage.getItem(tokenKey);
+                        xhr.setRequestHeader("Authorization", "Bearer " + token);
+                    },
+                    success: function (data) {
+                        alert(JSON.stringify(data));
+                    },
+                    fail: function (data) {
+                        alert(data);
+                    }
+                });
+            });
+            $('#postClinicReviewButton').click(function (e) {
+                e.preventDefault();
+                var data = {
+                    "ClinicId": 1,
+                    "Text": "Test",
+                    "RatePrice": 3,
+                    "RateQuality": 4,
+                    "RatePoliteness": 3
+                };
+ 
+                $.ajax({
+                    type: 'POST',
+                    url: 'api/ClinicReview',
+                    beforeSend: function (xhr) {
+                        var token = sessionStorage.getItem(tokenKey);
+                        xhr.setRequestHeader("Authorization", "Bearer " + token);
+                    },
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).success(function (data) {
+                    alert("Отзыв добавлен");
+                }).fail(function (data) {
+                    alert("В процесе добавления отзыва возникла ошибка");
                 });
             });
         });

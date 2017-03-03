@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using Infodoctor.DAL.Interfaces;
-using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Infodoctor.DAL
@@ -23,6 +23,8 @@ namespace Infodoctor.DAL
         public DbSet<Article> Articles { get; set; }
         public DbSet<ArticleTheme> ArticleThemes { get; set; }
         public DbSet<ImageFile> Images { get; set; }
+        public DbSet<ClinicReview> ClinicReviews { get; set; }
+        public DbSet<DoctorReview> DoctorReviews { get; set; }
         public static AppDbContext Create()
         {
             return new AppDbContext();

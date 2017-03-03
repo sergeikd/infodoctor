@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Intefaces
 {

@@ -1,6 +1,5 @@
-﻿using Infodoctor.Domain;
-using System;
-using System.Linq;
+﻿using System.Linq;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Interfaces
 {

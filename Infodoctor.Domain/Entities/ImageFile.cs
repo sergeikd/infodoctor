@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Infodoctor.Domain
+namespace Infodoctor.Domain.Entities
 {
     public class ImageFile
     {
