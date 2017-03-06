@@ -12,6 +12,9 @@ namespace Infodoctor.BL.Services
         private readonly IСlinicRepository _clinicRepository;
         private readonly IClinicSpecializationRepository _clinicSpecializationRepository;
 
+        private static List<string> _virtualClinicsCache { get; set; }
+        private static List<string> _virtualSpecssCache { get; set; }
+
         public SearchService(IСlinicRepository clinicRepository,
             IClinicSpecializationRepository clinicSpecializationRepository)
         {
@@ -21,6 +24,33 @@ namespace Infodoctor.BL.Services
                 throw new ArgumentNullException(nameof(clinicSpecializationRepository));
             _clinicRepository = clinicRepository;
             _clinicSpecializationRepository = clinicSpecializationRepository;
+        }
+
+        private void BuildVirtualCache()
+        {
+            var clinics = _clinicRepository.GetAllСlinics().ToList();
+            var specs = _clinicSpecializationRepository.GetAllClinicProfiles().ToList();
+
+            var clinicsList = new List<string>();
+            var specsList = new List<string>();
+
+            foreach (var clinic in clinics)
+                clinicsList.Add(clinic.Name);
+            foreach (var spec in specs)
+                specsList.Add(spec.Name);
+
+            _virtualClinicsCache = clinicsList;
+            _virtualSpecssCache = specsList;
+        }
+
+        private bool IsVirtualCachesFull()
+        {
+            var flag = true;
+            if (_virtualClinicsCache == null)
+                flag = false;
+            if (_virtualSpecssCache == null)
+                flag = false;
+            return flag;
         }
 
         public DtoSearchResultModel FullSeacrh(DtoSearchModel searchModel)
@@ -33,17 +63,17 @@ namespace Infodoctor.BL.Services
                     switch (type)
                     {
                         case 1:
-                        {
-                            foreach (var city in searchModel.CityId)
-                                clinicsSearchResurl.AddRange(FullSearchClinics(city, searchModel.Text));
-                            break;
-                        }
+                            {
+                                foreach (var city in searchModel.CityId)
+                                    clinicsSearchResurl.AddRange(FullSearchClinics(city, searchModel.Text));
+                                break;
+                            }
                         case 2:
-                        {
-                            foreach (var city in searchModel.CityId)
-                                clinicSpecializations.AddRange(FullSearchClinicSpecializations(city, searchModel.Text));
-                            break;
-                        }
+                            {
+                                foreach (var city in searchModel.CityId)
+                                    clinicSpecializations.AddRange(FullSearchClinicSpecializations(city, searchModel.Text));
+                                break;
+                            }
                     }
 
             var result = new DtoSearchResultModel
@@ -58,18 +88,28 @@ namespace Infodoctor.BL.Services
         {
             var result = new List<string>();
 
+            if (IsVirtualCachesFull() == false)
+                BuildVirtualCache();
+
             if (searchModel.Text.Length > 2)
                 foreach (var type in searchModel.TypeId)
                     switch (type)
                     {
                         case 1:
-                            foreach (var city in searchModel.CityId)
-                                result.AddRange(FastSearchClinics(city, searchModel.Text));
+                            result.AddRange(_virtualClinicsCache.Where(clinic => clinic.ToUpper().Contains(searchModel.Text.ToUpper())));
                             break;
                         case 2:
-                            foreach (var city in searchModel.CityId)
-                                result.AddRange(FastSearchClinicSpecializations(city, searchModel.Text));
+                            result.AddRange(_virtualSpecssCache.Where(spec => spec.ToUpper().Contains(searchModel.Text.ToUpper())));
                             break;
+
+                            //case 1:
+                            //    foreach (var city in searchModel.CityId)
+                            //        result.AddRange(FastSearchClinics(city, searchModel.Text));
+                            //    break;
+                            //case 2:
+                            //    foreach (var city in searchModel.CityId)
+                            //        result.AddRange(FastSearchClinicSpecializations(city, searchModel.Text));
+                            //    break;
                     }
 
             return result;
@@ -84,9 +124,9 @@ namespace Infodoctor.BL.Services
             if (cityId != -1)
             {
                 var filtredClinics = (from clinic in clinics
-                    from adress in clinic.CityAddresses
-                    where adress.City.Id == cityId
-                    select clinic).ToList();
+                                      from adress in clinic.CityAddresses
+                                      where adress.City.Id == cityId
+                                      select clinic).ToList();
                 clinics = filtredClinics;
             }
 
@@ -111,7 +151,7 @@ namespace Infodoctor.BL.Services
                     };
                     foreach (var clinicPhone in clinicAddress.ClinicPhones)
                     {
-                        var dtoClinicPhone = new DtoPhone {Desc = clinicPhone.Description, Phone = clinicPhone.Number};
+                        var dtoClinicPhone = new DtoPhone { Desc = clinicPhone.Description, Phone = clinicPhone.Number };
                         dtoClinicAddress.ClinicPhones.Add(dtoClinicPhone);
                     }
                     dtoClinicAddressList.Add(dtoClinicAddress);
@@ -139,9 +179,9 @@ namespace Infodoctor.BL.Services
             if (cityId != -1)
             {
                 var filtredClinics = (from clinic in clinics
-                    from adress in clinic.CityAddresses
-                    where adress.City.Id == cityId
-                    select clinic).ToList();
+                                      from adress in clinic.CityAddresses
+                                      where adress.City.Id == cityId
+                                      select clinic).ToList();
                 clinics = filtredClinics;
             }
 
@@ -160,10 +200,10 @@ namespace Infodoctor.BL.Services
             if (cityId != -1)
             {
                 var filtredClinicSpecializations = (from cs in clinicSpecializations
-                    from clinic in cs.Clinics
-                    from adress in clinic.CityAddresses
-                    where adress.City.Id == cityId
-                    select cs).ToList();
+                                                    from clinic in cs.Clinics
+                                                    from adress in clinic.CityAddresses
+                                                    where adress.City.Id == cityId
+                                                    select cs).ToList();
                 clinicSpecializations = filtredClinicSpecializations;
             }
 
@@ -232,10 +272,10 @@ namespace Infodoctor.BL.Services
             if (cityId != -1)
             {
                 var filtredClinicSpecializations = (from cs in clinicSpecializations
-                    from clinic in cs.Clinics
-                    from adress in clinic.CityAddresses
-                    where adress.City.Id == cityId
-                    select cs).ToList();
+                                                    from clinic in cs.Clinics
+                                                    from adress in clinic.CityAddresses
+                                                    where adress.City.Id == cityId
+                                                    select cs).ToList();
                 clinicSpecializations = filtredClinicSpecializations;
             }
 
