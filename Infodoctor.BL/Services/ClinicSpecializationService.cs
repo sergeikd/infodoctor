@@ -1,10 +1,9 @@
 ﻿using Infodoctor.BL.Intefaces;
 using Infodoctor.DAL.Interfaces;
-using Infodoctor.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Infodoctor.DAL.Repositories;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Services
 {
@@ -23,12 +22,12 @@ namespace Infodoctor.BL.Services
 
         public IEnumerable<ClinicSpecialization> GetAllProfiles()
         {
-            return _clinicSpecializationRepository.GetAllClinicProfiles().ToList();
+            return _clinicSpecializationRepository.GetAllClinicSpecializations().ToList();
         }
 
         public ClinicSpecialization GetProfileById(int id)
         {
-            return _clinicSpecializationRepository.GetClinicProfileById(id);
+            return _clinicSpecializationRepository.GetClinicSpecializationById(id);
         }
 
         public void Add(string name)
@@ -47,7 +46,7 @@ namespace Infodoctor.BL.Services
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
 
-            var cp = _clinicSpecializationRepository.GetClinicProfileById(id);
+            var cp = _clinicSpecializationRepository.GetClinicSpecializationById(id);
             if (cp != null)
             {
                 cp.Name = name;
@@ -59,7 +58,7 @@ namespace Infodoctor.BL.Services
 
         public void Delete(int id)
         {
-            var cp = _clinicSpecializationRepository.GetClinicProfileById(id);
+            var cp = _clinicSpecializationRepository.GetClinicSpecializationById(id);
 
             if (cp != null)
                 _clinicSpecializationRepository.Delete(cp);

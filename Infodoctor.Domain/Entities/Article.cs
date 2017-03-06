@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infodoctor.Domain
+namespace Infodoctor.Domain.Entities
 {
     public class Article
     {

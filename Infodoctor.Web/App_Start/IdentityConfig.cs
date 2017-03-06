@@ -1,5 +1,5 @@
 ﻿using Infodoctor.DAL;
-using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;

@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 using Infodoctor.Web.Models;
 using Infodoctor.Web.Providers;
 using Infodoctor.Web.Results;

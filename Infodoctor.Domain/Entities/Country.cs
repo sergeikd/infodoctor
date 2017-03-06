@@ -1,4 +1,4 @@
-﻿namespace Infodoctor.Domain
+﻿namespace Infodoctor.Domain.Entities
 {
     public class Country
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Infodoctor.BL.Intefaces;
 using Infodoctor.DAL.Interfaces;
-using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Services
 {

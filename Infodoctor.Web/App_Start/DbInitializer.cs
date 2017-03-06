@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.IO;
 using Infodoctor.DAL;
 using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -436,6 +437,30 @@ namespace Infodoctor.Web
             var profilesList = new List<ClinicProfile> { cs10, cs20, cs30, cs40, cs50 };
             //context.ClinicProfiles.AddRange(profilesList);
 
+            var reviewList = new List<ClinicReview>();
+            var rnd = new Random();
+            var ticks = DateTime.Now.Ticks - 100000000000000;
+            for (var i = 0; i < 30; i++)
+            {
+                reviewList.Add(new ClinicReview
+                {
+                    Text = "orem Ipsum is simply dummy text of the printing and typesetting industry. " +
+                           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, " +
+                           "when an unknown printer took a galley of type and scrambled it to make a type specimen book. " +
+                           "It has survived not only five centuries, but also the leap into electronic typesetting, " +
+                           "remaining essentially unchanged. It was popularised in the 1960s with the release of " +
+                           "Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing " +
+                           "software like Aldus PageMaker including versions of Lorem Ipsum.",                  
+                    PublishTime = new DateTime(ticks + i * 1000000000000),
+                    ClinicId = i % 5 + 1,
+                    UserId = "7d374085-71e4-4819-8d09-91cfc8239463",
+                    UserName = "user0",
+                    RatePoliteness = rnd.Next(3)+3,
+                    RatePrice = rnd.Next(3) + 3,
+                    RateQuality = rnd.Next(3) + 3
+                });
+            }
+            context.ClinicReviews.AddRange(reviewList);
 
             base.Seed(context);
         }

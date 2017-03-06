@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Infodoctor.Domain
+namespace Infodoctor.Domain.Entities
 {
     public class ClinicSpecialization
     {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.Intefaces;
-using Infodoctor.Domain;
 using Infodoctor.Web.Models;
 using System.Web;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.Web.Controllers
 {

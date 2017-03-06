@@ -1,15 +1,14 @@
-﻿using Infodoctor.Domain;
-using System;
-using System.Linq;
+﻿using System.Linq;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Interfaces
 {
     public interface IClinicSpecializationRepository
     {
-        IQueryable<ClinicSpecialization> GetAllClinicProfiles();
-        ClinicSpecialization GetClinicProfileById(int id);
-        void Add(ClinicSpecialization clinicProfile);
-        void Update(ClinicSpecialization clinicProfile);
-        void Delete(ClinicSpecialization clinicProfile);
+        IQueryable<ClinicSpecialization> GetAllClinicSpecializations();
+        ClinicSpecialization GetClinicSpecializationById(int id);
+        void Add(ClinicSpecialization clinicSpecialization);
+        void Update(ClinicSpecialization clinicSpecialization);
+        void Delete(ClinicSpecialization clinicSpecialization);
     }
 }

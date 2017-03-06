@@ -1,13 +1,13 @@
 ﻿using Infodoctor.BL.Intefaces;
 using Infodoctor.DAL.Interfaces;
 using System;
-using Infodoctor.Domain;
 using System.Collections.Generic;
 using System.Web;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Services
 {

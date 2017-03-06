@@ -73,25 +73,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationUser.cs" />
-    <Compile Include="Article.cs" />
-    <Compile Include="City.cs" />
-    <Compile Include="ImageFile.cs" />
-    <Compile Include="ArticleTheme.cs" />
-    <Compile Include="ClinicProfile.cs" />
-    <Compile Include="ClinicSpecialization.cs" />
-    <Compile Include="Country.cs" />
-    <Compile Include="OwnerShip.cs" />
+    <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Entities\Article.cs" />
+    <Compile Include="Entities\City.cs" />
+    <Compile Include="Entities\ImageFile.cs" />
+    <Compile Include="Entities\ArticleTheme.cs" />
+    <Compile Include="Entities\ClinicProfile.cs" />
+    <Compile Include="Entities\ClinicSpecialization.cs" />
+    <Compile Include="Entities\Country.cs" />
+    <Compile Include="Entities\OwnerShip.cs" />
+    <Compile Include="Entities\Review.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Clinic.cs" />
+    <Compile Include="Entities\Clinic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entities\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

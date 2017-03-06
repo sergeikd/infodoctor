@@ -1,7 +1,7 @@
 ﻿using Infodoctor.DAL.Interfaces;
-using Infodoctor.Domain;
 using System;
 using System.Linq;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Repositories
 {
@@ -18,12 +18,12 @@ namespace Infodoctor.DAL.Repositories
             _context = context;
         }
 
-        public IQueryable<ClinicSpecialization> GetAllClinicProfiles()
+        public IQueryable<ClinicSpecialization> GetAllClinicSpecializations()
         {
             return _context.ClinicSpecializations;
         }
 
-        public ClinicSpecialization GetClinicProfileById(int id)
+        public ClinicSpecialization GetClinicSpecializationById(int id)
         {
             return _context.ClinicSpecializations.First(s => s.Id == id); ;
         }

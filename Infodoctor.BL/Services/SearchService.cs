@@ -29,7 +29,7 @@ namespace Infodoctor.BL.Services
         private void BuildVirtualCache()
         {
             var clinics = _clinicRepository.GetAllСlinics().ToList();
-            var specs = _clinicSpecializationRepository.GetAllClinicProfiles().ToList();
+            var specs = _clinicSpecializationRepository.GetAllClinicSpecializations().ToList();
 
             var clinicsList = new List<string>();
             var specsList = new List<string>();
@@ -193,7 +193,7 @@ namespace Infodoctor.BL.Services
 
         private IEnumerable<DtoClinicSpecialization> FullSearchClinicSpecializations(int cityId, string name)
         {
-            var specs = _clinicSpecializationRepository.GetAllClinicProfiles();
+            var specs = _clinicSpecializationRepository.GetAllClinicSpecializations();
             var clinicSpecializations =
                 specs.Where(s => s.Name.ToUpper().Contains(name.ToUpper())).ToList();
 
@@ -264,7 +264,7 @@ namespace Infodoctor.BL.Services
 
         private IEnumerable<string> FastSearchClinicSpecializations(int cityId, string name)
         {
-            var specs = _clinicSpecializationRepository.GetAllClinicProfiles();
+            var specs = _clinicSpecializationRepository.GetAllClinicSpecializations();
             var clinicSpecializations =
                 specs.Where(s => s.Name.ToUpper().Contains(name.ToUpper())).ToList();
             var result = new List<string>();

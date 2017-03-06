@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Threading;
 using System.Threading.Tasks;
-using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Interfaces
 {
@@ -19,6 +19,9 @@ namespace Infodoctor.DAL.Interfaces
         DbSet<Article> Articles { get; set; }
         //DbSet<ArticleTheme> ArticleThemes { get; set; }
         DbSet<ImageFile> Images { get; set; }
+
+        DbSet<ClinicReview> ClinicReviews { get; set; }
+        DbSet<DoctorReview> DoctorReviews { get; set; }
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
