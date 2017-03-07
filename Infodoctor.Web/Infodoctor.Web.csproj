@@ -273,6 +273,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ClinicProfilesList.txt" />
     <Content Include="Content\CountriesList.txt" />
+    <Content Include="Content\DoctorsProfilesList.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

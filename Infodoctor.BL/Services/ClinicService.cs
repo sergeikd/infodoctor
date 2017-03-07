@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
 using Infodoctor.DAL;
@@ -112,7 +110,7 @@ namespace Infodoctor.BL.Services
             return dtoClinic;
         }
 
-        public DtoPagedClinic GetPagedClinics(int perPage, int numPage )
+        public DtoPagedClinic GetPagedClinics(int perPage, int numPage)
         {
             if (perPage < 1 || numPage < 1)
             {

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Infodoctor.Domain;
+﻿using System.Collections.Generic;
 
 namespace Infodoctor.BL.DtoModels
 {
@@ -13,6 +11,7 @@ namespace Infodoctor.BL.DtoModels
         public List<DtoAddress> ClinicAddress { get; set; }
         //public IEnumerable<ClinicProfile> ClinicProfiles { get; set; }
         public List<string> ClinicSpecialization { get; set; }
+        public List<DtoDoctor> Doctors { get; set; }
     }
 
     public class DtoAddress
