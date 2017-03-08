@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Hosting;
+using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
 using Infodoctor.DAL.Interfaces;
 using Infodoctor.Domain.Entities;
@@ -18,14 +20,45 @@ namespace Infodoctor.BL.Services
             _doctorCategoryRepository = doctorCategoryRepository;
         }
 
-        public IEnumerable<DoctorCategory> GetAllCategories()
+        public IEnumerable<DtoDoctorCategory> GetAllCategories()
         {
-            return _doctorCategoryRepository.GetAllCategories().ToList();
+            var dcList = _doctorCategoryRepository.GetAllCategories().ToList();
+            var dtoDcList = new List<DtoDoctorCategory>();
+
+            foreach (var dc in dcList)
+            {
+                var dtoDc = new DtoDoctorCategory()
+                {
+                    Id = dc.Id,
+                    Name = dc.Name,
+                    Doctors = new List<int>()
+                };
+
+                foreach (var doctor in dc.Doctors)
+                    dtoDc.Doctors.Add(doctor.Id);
+
+                dtoDcList.Add(dtoDc);
+            }
+
+            return dtoDcList;
         }
 
-        public DoctorCategory GetCategoryById(int id)
+        public DtoDoctorCategory GetCategoryById(int id)
         {
-            return _doctorCategoryRepository.GetCategoryById(id);
+            var dc = _doctorCategoryRepository.GetCategoryById(id);
+
+            var dtoDc = new DtoDoctorCategory()
+            {
+                Id = dc.Id,
+                Name = dc.Name,
+                Doctors = new List<int>()
+            };
+
+            foreach (var doctor in dc.Doctors)
+            {
+                dtoDc.Doctors.Add(doctor.Id);
+            }
+            return dtoDc;
         }
 
         public void Add(string name)

@@ -52,6 +52,12 @@ namespace Infodoctor.Web
             container.RegisterType<ISearchService, SearchService>();
             container.RegisterType<IClinicReviewRepository, ClinicReviewRepository>();
             container.RegisterType<IClinicReviewService, ClinicReviewService>();
+            container.RegisterType<IDoctorSpecializationRepository, DoctorSpecializationRepository>();
+            container.RegisterType<IDoctorSpecializationService, DoctorSpecializationService>();
+            container.RegisterType<IDoctorCategoryRepository, DoctorCategoryRepository>();
+            container.RegisterType<IDoctorCategoryService, DoctorCategoryService>();
+            container.RegisterType<IDoctorRepository, DoctorRepository>();
+            container.RegisterType<IDoctorService, DoctorService>();
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }

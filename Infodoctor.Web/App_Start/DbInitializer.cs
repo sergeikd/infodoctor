@@ -305,7 +305,7 @@ namespace Infodoctor.Web
             {
                 Name = "Степанов Степан Иванович",
                 Email = "darmaed19@gmail.com",
-                Experience = 10,
+                Experience = 2,
                 Manipulation = "Может что-то нормально."
             };
             var doc004 = new Doctor()
@@ -326,9 +326,24 @@ namespace Infodoctor.Web
             var doctors = new List<Doctor> { doc001, doc002, doc003, doc004, doc005 };
             context.Doctors.AddRange(doctors);
 
+            #region Категории врачей
+            var cat001 = new DoctorCategory() { Name = "Без категории", Doctors = new List<Doctor> { doc003 } };
+            var cat002 = new DoctorCategory() { Name = "Первая категория", Doctors = new List<Doctor> { doc002 } };
+            var cat003 = new DoctorCategory() { Name = "Вторая категории", Doctors = new List<Doctor> { doc001 } };
+            var cat004 = new DoctorCategory() { Name = "Высшая категории", Doctors = new List<Doctor> { doc005 } };
+            var cat005 = new DoctorCategory() { Name = "Кандидат в доктора медицинских наук", Doctors = new List<Doctor> { doc004 } };
+            var cat006 = new DoctorCategory() { Name = "Доктор медицинских наук" };
+            #endregion
+
+            var categoties = new List<DoctorCategory>()
+            {
+                cat001,cat002,cat003,cat004,cat005,cat006
+            };
+            context.DoctorCategories.AddRange(categoties);
+
             #region Список специализаций врачей
             var dp059 = new DoctorSpecialization() { Name = "Аллерголог", Doctors = new List<Doctor> { doc002 } };
-            var dp148 = new DoctorSpecialization() { Name = "Аллерголог детский", Doctors = new List<Doctor> { doc003 }};
+            var dp148 = new DoctorSpecialization() { Name = "Аллерголог детский", Doctors = new List<Doctor> { doc003 } };
             var dp273 = new DoctorSpecialization() { Name = "Ангиохирург" };
             var dp340 = new DoctorSpecialization() { Name = "Андролог" };
             var dp411 = new DoctorSpecialization() { Name = "Анестезиолог" };
@@ -346,14 +361,14 @@ namespace Infodoctor.Web
             var dp168 = new DoctorSpecialization() { Name = "Косметолог" };
             var dp1768 = new DoctorSpecialization() { Name = "Логопед" };
             var dp188 = new DoctorSpecialization() { Name = "Маммолог" };
-            var dp1911 = new DoctorSpecialization() { Name = "Массажист", Doctors = new List<Doctor> { doc001 }};
+            var dp1911 = new DoctorSpecialization() { Name = "Массажист", Doctors = new List<Doctor> { doc001 } };
             var dp2087 = new DoctorSpecialization() { Name = "Нарколог" };
             var dp2144 = new DoctorSpecialization() { Name = "Невролог" };
             var dp2257 = new DoctorSpecialization() { Name = "Невролог детский" };
             var dp2393 = new DoctorSpecialization() { Name = "Нейроофтальмология" };
             var dp2472 = new DoctorSpecialization() { Name = "Нефролог" };
             var dp2595 = new DoctorSpecialization() { Name = "Нефролог детский" };
-            var dp2654 = new DoctorSpecialization() { Name = "Онколог", Doctors = new List<Doctor> { doc004 }};
+            var dp2654 = new DoctorSpecialization() { Name = "Онколог", Doctors = new List<Doctor> { doc004 } };
             var dp2758 = new DoctorSpecialization() { Name = "Онколог детский" };
             var dp2833 = new DoctorSpecialization() { Name = "Ортопед" };
             var dp2998 = new DoctorSpecialization() { Name = "Оториноларинголог (ЛОР)" };
@@ -361,7 +376,7 @@ namespace Infodoctor.Web
             var dp3164 = new DoctorSpecialization() { Name = "Офтальмолог" };
             var dp320 = new DoctorSpecialization() { Name = "Офтальмолог детский" };
             var dp3318 = new DoctorSpecialization() { Name = "Офтальмолог-эндокринолог" };
-            var dp3462 = new DoctorSpecialization() { Name = "Педиатр", Doctors = new List<Doctor> { doc005 }};
+            var dp3462 = new DoctorSpecialization() { Name = "Педиатр", Doctors = new List<Doctor> { doc005 } };
             var dp3519 = new DoctorSpecialization() { Name = "Проктолог" };
             var dp3656 = new DoctorSpecialization() { Name = "Психиатр" };
             var dp3767 = new DoctorSpecialization() { Name = "Психолог" };

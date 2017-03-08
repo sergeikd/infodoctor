@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
 using Infodoctor.DAL.Interfaces;
 using Infodoctor.Domain.Entities;
@@ -13,21 +12,57 @@ namespace Infodoctor.BL.Services
     {
         private readonly IDoctorSpecializationRepository _doctorSpecializationRepository;
 
-        public DoctorSpecializationService(IDoctorSpecializationRepository doctorSpecializationRepository)
+        public DoctorSpecializationService(IDoctorSpecializationRepository doctorSpecializationRepository, IClinicSpecializationService clinicSpecializationService)
         {
             if (doctorSpecializationRepository == null)
                 throw new ArgumentNullException(nameof(doctorSpecializationRepository));
             _doctorSpecializationRepository = doctorSpecializationRepository;
         }
 
-        public IEnumerable<DoctorSpecialization> GetAllSpecializations()
+        public IEnumerable<DtoDoctorSpecialisation> GetAllSpecializations()
         {
-            return _doctorSpecializationRepository.GetAllSpecializations().ToList();
+            var dsList = _doctorSpecializationRepository.GetAllSpecializations().ToList();
+            var dtoDsList = new List<DtoDoctorSpecialisation>();
+
+            foreach (var ds in dsList)
+            {
+                var dtoDs = new DtoDoctorSpecialisation()
+                {
+                    Id = ds.Id,
+                    Name = ds.Name,
+                    ClinicSpecializationId = ds.ClinicSpecialization.Id,
+                    Doctors = new List<int>()
+                };
+
+                foreach (var doctor in ds.Doctors)
+                {
+                    dtoDs.Doctors.Add(doctor.Id);
+                }
+
+                dtoDsList.Add(dtoDs);
+            }
+
+            return dtoDsList;
         }
 
-        public DoctorSpecialization GetSpecializationById(int id)
+        public DtoDoctorSpecialisation GetSpecializationById(int id)
         {
-            return _doctorSpecializationRepository.GetSpecializationById(id);
+            var ds = _doctorSpecializationRepository.GetSpecializationById(id);
+
+            var dtoDs = new DtoDoctorSpecialisation()
+            {
+                Id = ds.Id,
+                Name = ds.Name,
+                ClinicSpecializationId = ds.ClinicSpecialization.Id,
+                Doctors = new List<int>()
+            };
+
+            foreach (var doctor in ds.Doctors)
+            {
+                dtoDs.Doctors.Add(doctor.Id);
+            }
+
+            return dtoDs;
         }
 
         public void Add(string name)
@@ -35,8 +70,7 @@ namespace Infodoctor.BL.Services
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
             _doctorSpecializationRepository.Add(
-                new DoctorSpecialization() { Name = name });
-
+                new DoctorSpecialization() { Name = name});
         }
 
         public void Update(int id, string name)
@@ -45,7 +79,7 @@ namespace Infodoctor.BL.Services
                 throw new ArgumentNullException(nameof(name));
 
             var ds = _doctorSpecializationRepository.GetSpecializationById(id);
-            if (ds!=null)
+            if (ds != null)
             {
                 ds.Name = name;
                 _doctorSpecializationRepository.Update(ds);

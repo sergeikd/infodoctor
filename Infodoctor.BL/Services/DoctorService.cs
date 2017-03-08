@@ -51,19 +51,22 @@ namespace Infodoctor.BL.Services
                     Category = doctor.Category.Name
                 };
 
-                var dtoAddress = new DtoAddress()
+                if (doctor.Address != null)
                 {
-                    City = doctor.Address.City.Name,
-                    Street = doctor.Address.Street,
-                    ClinicPhones = new List<DtoPhone>()
-                };
+                    var dtoAddress = new DtoAddress()
+                    {
+                        City = doctor.Address.City.Name,
+                        Street = doctor.Address.Street,
+                        ClinicPhones = new List<DtoPhone>()
+                    };
 
-                foreach (var phone in doctor.Address.ClinicPhones)
-                {
-                    var dtoPhone = new DtoPhone() { Desc = phone.Description, Phone = phone.Number };
-                    dtoAddress.ClinicPhones.Add(dtoPhone);
+                    foreach (var phone in doctor.Address.ClinicPhones)
+                    {
+                        var dtoPhone = new DtoPhone() { Desc = phone.Description, Phone = phone.Number };
+                        dtoAddress.ClinicPhones.Add(dtoPhone);
+                    }
+                    dtoDoctor.Address = dtoAddress;
                 }
-                dtoDoctor.Address = dtoAddress;
 
                 result.Add(dtoDoctor);
             }
@@ -89,19 +92,22 @@ namespace Infodoctor.BL.Services
                 Category = doctor.Category.Name
             };
 
-            var dtoAddress = new DtoAddress()
+            if (doctor.Address != null)
             {
-                City = doctor.Address.City.Name,
-                Street = doctor.Address.Street,
-                ClinicPhones = new List<DtoPhone>()
-            };
+                var dtoAddress = new DtoAddress()
+                {
+                    City = doctor.Address.City.Name,
+                    Street = doctor.Address.Street,
+                    ClinicPhones = new List<DtoPhone>()
+                };
 
-            foreach (var phone in doctor.Address.ClinicPhones)
-            {
-                var dtoPhone = new DtoPhone() { Desc = phone.Description, Phone = phone.Number };
-                dtoAddress.ClinicPhones.Add(dtoPhone);
+                foreach (var phone in doctor.Address.ClinicPhones)
+                {
+                    var dtoPhone = new DtoPhone() { Desc = phone.Description, Phone = phone.Number };
+                    dtoAddress.ClinicPhones.Add(dtoPhone);
+                }
+                dtoDoctor.Address = dtoAddress;
             }
-            dtoDoctor.Address = dtoAddress;
 
             return dtoDoctor;
         }

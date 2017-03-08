@@ -248,6 +248,9 @@
     <Compile Include="Controllers\ClinicProfilesController.cs" />
     <Compile Include="Controllers\ClinicReviewController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\DoctorCategoriesController.cs" />
+    <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\DoctorSpecialisationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
