@@ -121,6 +121,52 @@ namespace Infodoctor.Web
             var clinicList = new List<Clinic> { clinic1, clinic2, clinic4, clinic5 };
             context.Сlinics.AddRange(clinicList);
 
+            #region Список врачей
+
+            var doc001 = new Doctor()
+            {
+                Name = "Степанов Степан Степанович",
+                Email = "infosuperstepa1999@gmail.com",
+                Experience = 14,
+                Manipulation = "Может что-то хорошо.",
+                Clinics = new List<Clinic> { clinic1 }
+            };
+            var doc002 = new Doctor()
+            {
+                Name = "Степанов Иван Степанович",
+                Email = "giperivan2@gmail.com",
+                Experience = 20,
+                Manipulation = "Может что-то отлично.",
+                Clinics = new List<Clinic> { clinic1,clinic2 }
+            };
+            var doc003 = new Doctor()
+            {
+                Name = "Степанов Степан Иванович",
+                Email = "darmaed19@gmail.com",
+                Experience = 2,
+                Manipulation = "Может что-то нормально.",
+                Clinics = new List<Clinic> { clinic1 }
+            };
+            var doc004 = new Doctor()
+            {
+                Name = "Иванов Степан Степанович",
+                Email = "tainiidoctor2@gmail.com",
+                Experience = 14,
+                Manipulation = "Может что-то хорошо.",
+                Clinics = new List<Clinic> { clinic2 }
+            };
+            var doc005 = new Doctor()
+            {
+                Name = "Степанов Сергей Степанович",
+                Email = "123456789@gmail.com",
+                Experience = 29,
+                Manipulation = "Может что-то отлично.",
+                Clinics = new List<Clinic> { clinic2 }
+            };
+            #endregion
+            var doctors = new List<Doctor> { doc001, doc002, doc003, doc004, doc005 };
+            context.Doctors.AddRange(doctors);
+
             var phone1 = new ClinicPhone() { Description = string.Empty, Number = "159" };
             var phone2 = new ClinicPhone() { Description = string.Empty, Number = "(017) 296 62 72" };
             var phone3 = new ClinicPhone() { Description = string.Empty, Number = "+375 29 110 12 12" };
@@ -145,8 +191,8 @@ namespace Infodoctor.Web
                 phone10, phone11, phone12, phone13, phone14, phone15, phone16, phone17, phone18};
 
             context.ClinicPhones.AddRange(phonesList);
-            var ca1 = new CityAddress() { Street = "ул.Сурганова 47Б", Clinic = clinic1, ClinicPhones = new List<ClinicPhone>() { phone1, phone2 } };
-            var ca2 = new CityAddress() { Street = "пр-т. Независимости 58", Clinic = clinic2, ClinicPhones = new List<ClinicPhone>() { phone3 } };
+            var ca1 = new CityAddress() { Street = "ул.Сурганова 47Б", Clinic = clinic1, Doctors = new List<Doctor> { doc001, doc002, doc003 }, ClinicPhones = new List<ClinicPhone>() { phone1, phone2 } };
+            var ca2 = new CityAddress() { Street = "пр-т. Независимости 58", Clinic = clinic2, Doctors = new List<Doctor> { doc004, doc002, doc005 }, ClinicPhones = new List<ClinicPhone>() { phone3 } };
             var ca3 = new CityAddress() { Street = "пр-т. Победителей 75,", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone4, phone5 } };
             var ca4 = new CityAddress() { Street = "ул.Скрипникова 11Б,", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone6, phone7 } };
             var ca5 = new CityAddress() { Street = "ул.Захарова 50Д", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone8, phone9 } };
@@ -285,46 +331,7 @@ namespace Infodoctor.Web
                 city111, city112};
             context.Cities.AddRange(citiesList);
 
-            #region Список врачей
 
-            var doc001 = new Doctor()
-            {
-                Name = "Степанов Степан Степанович",
-                Email = "infosuperstepa1999@gmail.com",
-                Experience = 14,
-                Manipulation = "Может что-то хорошо."
-            };
-            var doc002 = new Doctor()
-            {
-                Name = "Степанов Иван Степанович",
-                Email = "giperivan2@gmail.com",
-                Experience = 20,
-                Manipulation = "Может что-то отлично."
-            };
-            var doc003 = new Doctor()
-            {
-                Name = "Степанов Степан Иванович",
-                Email = "darmaed19@gmail.com",
-                Experience = 2,
-                Manipulation = "Может что-то нормально."
-            };
-            var doc004 = new Doctor()
-            {
-                Name = "Иванов Степан Степанович",
-                Email = "tainiidoctor2@gmail.com",
-                Experience = 14,
-                Manipulation = "Может что-то хорошо."
-            };
-            var doc005 = new Doctor()
-            {
-                Name = "Степанов Сергей Степанович",
-                Email = "123456789@gmail.com",
-                Experience = 29,
-                Manipulation = "Может что-то отлично."
-            };
-            #endregion
-            var doctors = new List<Doctor> { doc001, doc002, doc003, doc004, doc005 };
-            context.Doctors.AddRange(doctors);
 
             #region Категории врачей
             var cat001 = new DoctorCategory() { Name = "Без категории", Doctors = new List<Doctor> { doc003 } };

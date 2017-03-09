@@ -5,7 +5,6 @@ using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
 using Infodoctor.DAL.Interfaces;
 using Infodoctor.Domain.Entities;
-using static System.String;
 
 namespace Infodoctor.BL.Services
 {
@@ -68,6 +67,15 @@ namespace Infodoctor.BL.Services
                     dtoDoctor.Address = dtoAddress;
                 }
 
+                if (doctor.Clinics != null)
+                {
+                    dtoDoctor.ClinicsId = new List<int>();
+                    foreach (var clinic in doctor.Clinics)
+                    {
+                        dtoDoctor.ClinicsId.Add(clinic.Id);
+                    }
+                }
+
                 result.Add(dtoDoctor);
             }
 
@@ -107,6 +115,15 @@ namespace Infodoctor.BL.Services
                     dtoAddress.ClinicPhones.Add(dtoPhone);
                 }
                 dtoDoctor.Address = dtoAddress;
+            }
+
+            if (doctor.Clinics != null)
+            {
+                dtoDoctor.ClinicsId = new List<int>();
+                foreach (var clinic in doctor.Clinics)
+                {
+                    dtoDoctor.ClinicsId.Add(clinic.Id);
+                }
             }
 
             return dtoDoctor;
