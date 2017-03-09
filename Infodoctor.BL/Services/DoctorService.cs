@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
+using Infodoctor.DAL;
 using Infodoctor.DAL.Interfaces;
 using Infodoctor.Domain.Entities;
 
@@ -80,6 +81,75 @@ namespace Infodoctor.BL.Services
             }
 
             return result;
+        }
+
+        public DtoPagedDoctor GetPagedDoctors(int perPage, int numPage)
+        {
+            if (perPage < 1 || numPage < 1)
+            {
+                throw new ApplicationException("Incorrect request parameter");
+            }
+
+            var doctors = _doctorRepository.GetAllDoctors();
+            var pagedList = new PagedList<Doctor>(doctors, perPage, numPage);
+            if (!pagedList.Any())
+            {
+                throw new ApplicationException("Page not found");
+            }
+
+            var dtoDoctors = new List<DtoDoctor>();
+
+            foreach (var doctor in pagedList)
+            {
+                var dtoDoctor = new DtoDoctor()
+                {
+                    Id = doctor.Id,
+                    Name = doctor.Name,
+                    Email = doctor.Email,
+                    Experience = doctor.Experience,
+                    Manipulation = doctor.Manipulation,
+                    Specialization = doctor.Specialization.Name,
+                    Category = doctor.Category.Name
+                };
+
+                if (doctor.Address != null)
+                {
+                    var dtoAddress = new DtoAddress()
+                    {
+                        City = doctor.Address.City.Name,
+                        Street = doctor.Address.Street,
+                        ClinicPhones = new List<DtoPhone>()
+                    };
+
+                    foreach (var phone in doctor.Address.ClinicPhones)
+                    {
+                        var dtoPhone = new DtoPhone() { Desc = phone.Description, Phone = phone.Number };
+                        dtoAddress.ClinicPhones.Add(dtoPhone);
+                    }
+                    dtoDoctor.Address = dtoAddress;
+                }
+
+                if (doctor.Clinics != null)
+                {
+                    dtoDoctor.ClinicsId = new List<int>();
+                    foreach (var clinic in doctor.Clinics)
+                    {
+                        dtoDoctor.ClinicsId.Add(clinic.Id);
+                    }
+                }
+
+                dtoDoctors.Add(dtoDoctor);
+            }
+
+            var pagedDtoDoclorList = new DtoPagedDoctor()
+            {
+                Doctors = dtoDoctors,
+                Page = pagedList.Page,
+                PageSize = pagedList.PageSize,
+                TotalCount = pagedList.TotalCount
+            };
+
+            return pagedDtoDoclorList;
         }
 
         public DtoDoctor GetDoctorById(int id)

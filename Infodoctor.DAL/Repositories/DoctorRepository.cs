@@ -21,7 +21,7 @@ namespace Infodoctor.DAL.Repositories
 
         public IQueryable<Doctor> GetAllDoctors()
         {
-            return _context.Doctors;
+            return _context.Doctors.OrderBy(n => n.Id);
         }
 
         public Doctor GetDoctorById(int id)

@@ -7,6 +7,7 @@ namespace Infodoctor.BL.Intefaces
     {
         IEnumerable<DtoDoctor> GetAllDoctors();
         DtoDoctor GetDoctorById(int id);
+        DtoPagedDoctor GetPagedDoctors(int perPage, int numPage);
         void Add(DtoDoctor newDoctor);
         void Update(int id, DtoDoctor newDoctor);
         void Delete(int id);

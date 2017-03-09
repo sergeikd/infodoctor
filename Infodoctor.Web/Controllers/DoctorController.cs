@@ -9,7 +9,7 @@ namespace Infodoctor.Web.Controllers
     [Authorize]
     public class DoctorController : ApiController
     {
-        public readonly IDoctorService _doctorService;
+        private readonly IDoctorService _doctorService;
 
         public DoctorController(IDoctorService doctorService)
         {
@@ -30,6 +30,15 @@ namespace Infodoctor.Web.Controllers
         public DtoDoctor Get(int id)
         {
             return _doctorService.GetDoctorById(id);
+        }
+
+        // GET: api/doctor/page/perPage/numPage 
+        [Route("api/doctor/page/{perPage:int}/{numPage:int}")]
+        [HttpGet]
+        [AllowAnonymous]
+        public DtoPagedDoctor GetPage(int perPage, int numPage)
+        {
+            return _doctorService.GetPagedDoctors(perPage, numPage);
         }
 
         // POST api/doctor
