@@ -26,7 +26,7 @@ namespace Infodoctor.BL.Services
             _clinicSpecializationRepository = clinicSpecializationRepository;
         }
 
-        private void BuildVirtualCache()
+        public void BuildVirtualCache()
         {
             var clinics = _clinicRepository.GetAllСlinics().ToList();
             var specs = _clinicSpecializationRepository.GetAllClinicSpecializations().ToList();

@@ -63,6 +63,7 @@ namespace Infodoctor.BL.Services
             if (clinicReview.Text == "" || clinicReview.ClinicId == 0 || clinicReview.RatePoliteness == 0 ||
                 clinicReview.RatePrice == 0 || clinicReview.RateQuality == 0 || clinicReview.Text == string.Empty)
                 throw new ApplicationException("Incorrect data, some required fields are null or empty");
+            _clinicReviewRepository.Add(clinicReview);
         }
 
         public void Delete(int id)
