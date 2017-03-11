@@ -15,8 +15,9 @@ namespace Infodoctor.BL.Services
         private readonly IDoctorSpecializationRepository _doctorSpecializationRepository;
         private readonly IDoctorCategoryRepository _doctorCategoryRepository;
         private readonly IСlinicRepository _clinicRepository;
+        private readonly IDoctorReviewService _doctorReviewService;
 
-        public DoctorService(IDoctorRepository doctorRepository, IDoctorSpecializationRepository doctorSpecializationRepository, IDoctorCategoryRepository doctorCategoryRepository, IСlinicRepository clinicRepository)
+        public DoctorService(IDoctorRepository doctorRepository, IDoctorSpecializationRepository doctorSpecializationRepository, IDoctorCategoryRepository doctorCategoryRepository, IСlinicRepository clinicRepository, IDoctorReviewService doctorReviewService)
         {
             if (doctorRepository == null)
                 throw new ArgumentNullException(nameof(doctorRepository));
@@ -26,7 +27,10 @@ namespace Infodoctor.BL.Services
                 throw new ArgumentNullException(nameof(doctorRepository));
             if (clinicRepository == null)
                 throw new ArgumentNullException(nameof(clinicRepository));
+            if (doctorReviewService == null)
+                throw new ArgumentNullException(nameof(doctorReviewService));
 
+            _doctorReviewService = doctorReviewService;
             _clinicRepository = clinicRepository;
             _doctorRepository = doctorRepository;
             _doctorSpecializationRepository = doctorSpecializationRepository;
@@ -76,6 +80,30 @@ namespace Infodoctor.BL.Services
                         dtoDoctor.ClinicsId.Add(clinic.Id);
                     }
                 }
+
+                var reviews = _doctorReviewService.GetReviewsByDoctorId(doctor.Id).ToList();
+                double ratePrice = 0;
+                double rateQuality = 0;
+                double ratePoliteness = 0;
+
+                foreach (var review in reviews)
+                {
+                    ratePrice += review.RatePrice;
+                    rateQuality += review.RateQuality;
+                    ratePoliteness += review.RatePoliteness;
+                }
+
+                if (reviews.Count != 0)
+                {
+                    ratePrice /= reviews.Count;
+                    rateQuality /= reviews.Count;
+                    ratePoliteness /= reviews.Count;
+                }
+
+                dtoDoctor.RatePrice = ratePrice;
+                dtoDoctor.RateQuality = rateQuality;
+                dtoDoctor.RatePoliteness = ratePoliteness;
+
 
                 result.Add(dtoDoctor);
             }
@@ -138,6 +166,29 @@ namespace Infodoctor.BL.Services
                     }
                 }
 
+                var reviews = _doctorReviewService.GetReviewsByDoctorId(doctor.Id).ToList();
+                double ratePrice = 0;
+                double rateQuality = 0;
+                double ratePoliteness = 0;
+
+                foreach (var review in reviews)
+                {
+                    ratePrice += review.RatePrice;
+                    rateQuality += review.RateQuality;
+                    ratePoliteness += review.RatePoliteness;
+                }
+
+                if (reviews.Count != 0)
+                {
+                    ratePrice /= reviews.Count;
+                    rateQuality /= reviews.Count;
+                    ratePoliteness /= reviews.Count;
+                }
+
+                dtoDoctor.RatePrice = ratePrice;
+                dtoDoctor.RateQuality = rateQuality;
+                dtoDoctor.RatePoliteness = ratePoliteness;
+
                 dtoDoctors.Add(dtoDoctor);
             }
 
@@ -195,6 +246,29 @@ namespace Infodoctor.BL.Services
                     dtoDoctor.ClinicsId.Add(clinic.Id);
                 }
             }
+
+            var reviews = _doctorReviewService.GetReviewsByDoctorId(doctor.Id).ToList();
+            double ratePrice = 0;
+            double rateQuality = 0;
+            double ratePoliteness = 0;
+
+            foreach (var review in reviews)
+            {
+                ratePrice += review.RatePrice;
+                rateQuality += review.RateQuality;
+                ratePoliteness += review.RatePoliteness;
+            }
+
+            if (reviews.Count != 0)
+            {
+                ratePrice /= reviews.Count;
+                rateQuality /= reviews.Count;
+                ratePoliteness /= reviews.Count;
+            }
+
+            dtoDoctor.RatePrice = ratePrice;
+            dtoDoctor.RateQuality = rateQuality;
+            dtoDoctor.RatePoliteness = ratePoliteness;
 
             return dtoDoctor;
         }

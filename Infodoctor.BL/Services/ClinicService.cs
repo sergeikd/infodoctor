@@ -12,13 +12,15 @@ namespace Infodoctor.BL.Services
     public class ClinicService : IClinicService
     {
         private readonly IСlinicRepository _clinicRepository;
+        private readonly IClinicReviewRepository _clinicReviewRepository;
 
-        public ClinicService(IСlinicRepository clinicRepository)
+        public ClinicService(IСlinicRepository clinicRepository, IClinicReviewRepository clinicReviewRepository)
         {
             if (clinicRepository == null)
-            {
                 throw new ArgumentNullException(nameof(clinicRepository));
-            }
+            if (clinicReviewRepository == null)
+                throw new ArgumentNullException(nameof(clinicReviewRepository));
+            _clinicReviewRepository = clinicReviewRepository;
             _clinicRepository = clinicRepository;
         }
 
@@ -69,6 +71,29 @@ namespace Infodoctor.BL.Services
                 var dtoSpecializationList = clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
                 dtoClinic.ClinicSpecialization = dtoSpecializationList;
 
+                var reviews = _clinicReviewRepository.GetReviewsByClinicId(clinic.Id).ToList();
+                double ratePrice = 0;
+                double rateQuality = 0;
+                double ratePoliteness = 0;
+
+                foreach (var review in reviews)
+                {
+                    ratePrice += review.RatePrice;
+                    rateQuality += review.RateQuality;
+                    ratePoliteness += review.RatePoliteness;
+                }
+
+                if (reviews.Count != 0)
+                {
+                    ratePrice /= reviews.Count;
+                    rateQuality /= reviews.Count;
+                    ratePoliteness /= reviews.Count;
+                }
+
+                dtoClinic.RatePrice = ratePrice;
+                dtoClinic.RateQuality = rateQuality;
+                dtoClinic.RatePoliteness = ratePoliteness;
+
                 dtoClinicList.Add(dtoClinic);
             }
             return dtoClinicList;
@@ -106,6 +131,30 @@ namespace Infodoctor.BL.Services
 
             var dtoSpecializationList = clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
             dtoClinic.ClinicSpecialization = dtoSpecializationList;
+
+
+            var reviews = _clinicReviewRepository.GetReviewsByClinicId(clinic.Id).ToList();
+            double ratePrice = 0;
+            double rateQuality = 0;
+            double ratePoliteness = 0;
+
+            foreach (var review in reviews)
+            {
+                ratePrice += review.RatePrice;
+                rateQuality += review.RateQuality;
+                ratePoliteness += review.RatePoliteness;
+            }
+
+            if (reviews.Count != 0)
+            {
+                ratePrice /= reviews.Count;
+                rateQuality /= reviews.Count;
+                ratePoliteness /= reviews.Count;
+            }
+
+            dtoClinic.RatePrice = ratePrice;
+            dtoClinic.RateQuality = rateQuality;
+            dtoClinic.RatePoliteness = ratePoliteness;
 
             return dtoClinic;
         }
@@ -155,6 +204,29 @@ namespace Infodoctor.BL.Services
                 var dtoSpecializationList =
                     clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
                 dtoClinic.ClinicSpecialization = dtoSpecializationList;
+
+                var reviews = _clinicReviewRepository.GetReviewsByClinicId(clinic.Id).ToList();
+                double ratePrice = 0;
+                double rateQuality = 0;
+                double ratePoliteness = 0;
+
+                foreach (var review in reviews)
+                {
+                    ratePrice += review.RatePrice;
+                    rateQuality += review.RateQuality;
+                    ratePoliteness += review.RatePoliteness;
+                }
+
+                if (reviews.Count != 0)
+                {
+                    ratePrice /= reviews.Count;
+                    rateQuality /= reviews.Count;
+                    ratePoliteness /= reviews.Count;
+                }
+
+                dtoClinic.RatePrice = ratePrice;
+                dtoClinic.RateQuality = rateQuality;
+                dtoClinic.RatePoliteness = ratePoliteness;
 
                 dtoClinicList.Add(dtoClinic);
             }

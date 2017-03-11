@@ -12,6 +12,9 @@ namespace Infodoctor.BL.DtoModels
         //public IEnumerable<ClinicProfile> ClinicProfiles { get; set; }
         public List<string> ClinicSpecialization { get; set; }
         public List<DtoDoctor> Doctors { get; set; }
+        public double RatePrice { get; set; }
+        public double RateQuality { get; set; }
+        public double RatePoliteness { get; set; }
     }
 
     public class DtoAddress

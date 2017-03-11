@@ -11,26 +11,26 @@ namespace Infodoctor.Web.Controllers
 {
     public class ClinicReviewController : ApiController
     {
-        private readonly IClinicReviewService _citiesReviewService;
+        private readonly IClinicReviewService _clinicReviewService;
 
-        public ClinicReviewController(IClinicReviewService citiesReviewService)
+        public ClinicReviewController(IClinicReviewService clinicReviewService)
         {
-            if (citiesReviewService == null)
-                throw new ArgumentNullException(nameof(citiesReviewService));
-            _citiesReviewService = citiesReviewService;
+            if (clinicReviewService == null)
+                throw new ArgumentNullException(nameof(clinicReviewService));
+            _clinicReviewService = clinicReviewService;
         }
         // GET: api/ClinicReview
         [Authorize(Roles = "admin, moder")]
         public IEnumerable<ClinicReview> Get()
         {
-            return _citiesReviewService.GetClinicReviews();
+            return _clinicReviewService.GetClinicReviews();
         }
 
         // GET: api/ClinicReview/5
         [Authorize]
         public ClinicReview Get(int id)
         {
-            return _citiesReviewService.GetClinicReviewById(id);
+            return _clinicReviewService.GetClinicReviewById(id);
         }
 
 
@@ -40,7 +40,7 @@ namespace Infodoctor.Web.Controllers
         [HttpGet]
         public DtoPagedClinicReview GetPaged(int clinicId, int perPage, int numPage)
         {
-            return _citiesReviewService.GetPagedReviewsByClinicId(clinicId, perPage, numPage);
+            return _clinicReviewService.GetPagedReviewsByClinicId(clinicId, perPage, numPage);
         }
 
         // POST: api/ClinicReview
@@ -65,7 +65,7 @@ namespace Infodoctor.Web.Controllers
                 UserId = User.Identity.GetUserId(),
                 UserName = User.Identity.GetUserName()
             };
-            _citiesReviewService.Add(review);
+            _clinicReviewService.Add(review);
         }
 
         // PUT: api/ClinicReview/5
@@ -77,7 +77,7 @@ namespace Infodoctor.Web.Controllers
         [Authorize(Roles = "admin, moder")]
         public void Delete(int id)
         {
-            _citiesReviewService.Delete(id);
+            _clinicReviewService.Delete(id);
         }
     }
 }

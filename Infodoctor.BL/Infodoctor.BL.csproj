@@ -51,6 +51,7 @@
     <Compile Include="DtoModels\DtoPagedClinicReview.cs" />
     <Compile Include="DtoModels\DtoPagedClinic.cs" />
     <Compile Include="DtoModels\DtoPagedDoctor.cs" />
+    <Compile Include="DtoModels\DtoPagedDoctorReview.cs" />
     <Compile Include="DtoModels\DtoSearchModel.cs" />
     <Compile Include="DtoModels\DtoSearchResultModel.cs" />
     <Compile Include="Intefaces\IArticlesService.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Intefaces\IClinicReviewService.cs" />
     <Compile Include="Intefaces\IClinicSpecializationService.cs" />
     <Compile Include="Intefaces\IDoctorCategoryService.cs" />
+    <Compile Include="Intefaces\IDoctorReviewService.cs" />
     <Compile Include="Intefaces\IDoctorService.cs" />
     <Compile Include="Intefaces\IDoctorSpecializationService.cs" />
     <Compile Include="Intefaces\IImagesService.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="Services\ClinicReviewService.cs" />
     <Compile Include="Services\ClinicSpecializationService.cs" />
     <Compile Include="Services\DoctorCategoryService.cs" />
+    <Compile Include="Services\DoctorReviewService.cs" />
     <Compile Include="Services\DoctorService.cs" />
     <Compile Include="Services\DoctorSpecializationService.cs" />
     <Compile Include="Services\ImagesService.cs" />

@@ -17,11 +17,11 @@ namespace Infodoctor.Domain.Entities
         [Required]
         public DateTime PublishTime { get; set; }
         [Required]
-        public int RatePrice { get; set; }
+        public double RatePrice { get; set; }
         [Required]
-        public int RateQuality { get; set; }
+        public double RateQuality { get; set; }
         [Required]
-        public int RatePoliteness { get; set; }
+        public double RatePoliteness { get; set; }
     }
 
     public class ClinicReview : Review

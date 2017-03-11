@@ -250,6 +250,7 @@
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\DoctorCategoriesController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\DoctorReviewController.cs" />
     <Compile Include="Controllers\DoctorSpecialisationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
