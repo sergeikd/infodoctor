@@ -10,7 +10,6 @@ using Microsoft.AspNet.Identity;
 
 namespace Infodoctor.Web.Controllers
 {
-    [Authorize]
     public class DoctorReviewController : ApiController
     {
         private readonly IDoctorReviewService _doctorReviewService;
@@ -22,14 +21,12 @@ namespace Infodoctor.Web.Controllers
             _doctorReviewService = doctorReviewService;
         }
 
-        [AllowAnonymous]
         // GET api/doctorreview
         public IEnumerable<DoctorReview> Get()
         {
             return _doctorReviewService.GetAllReviews();
         }
 
-        [AllowAnonymous]
         // GET api/doctorreview/5
         public DoctorReview Get(int id)
         {
@@ -37,7 +34,6 @@ namespace Infodoctor.Web.Controllers
         }
 
         // GET: api/doctorreview/page/doctorId/perPage/numPage 
-        [AllowAnonymous]
         [Route("api/DoctorReview/page/{doctorId:int}/{perPage:int}/{numPage:int}")]
         [HttpGet]
         public DtoPagedDoctorReview GetPaged(int doctorId, int perPage, int numPage)
@@ -45,8 +41,9 @@ namespace Infodoctor.Web.Controllers
             return _doctorReviewService.GetPagedReviewByDoctorId(doctorId, perPage, numPage);
         }
 
-        [Authorize(Roles = "admin, moder")]
+
         // POST api/doctorreview
+        [Authorize]
         public void Post([FromBody]DoctorReviewBindingModel doctorReview)
         {
             if (doctorReview == null)
