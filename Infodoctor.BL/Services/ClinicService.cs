@@ -39,7 +39,8 @@ namespace Infodoctor.BL.Services
                     RatePoliteness = clinic.RatePoliteness,
                     RatePrice = clinic.RatePrice,
                     RateQuality = clinic.RateQuality,
-                    RateAverage = clinic.RateAverage
+                    RateAverage = clinic.RateAverage,
+                    ImagePath = clinic.ImagePath
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
                 foreach (var clinicAddress in clinic.CityAddresses)
@@ -118,7 +119,8 @@ namespace Infodoctor.BL.Services
                 RatePoliteness = clinic.RatePoliteness,
                 RatePrice = clinic.RatePrice,
                 RateQuality = clinic.RateQuality,
-                RateAverage = clinic.RateAverage
+                RateAverage = clinic.RateAverage,
+                ImagePath = clinic.ImagePath
             };
             var dtoClinicAddressList = new List<DtoAddress>();
             foreach (var clinicAddress in clinic.CityAddresses)
@@ -190,7 +192,8 @@ namespace Infodoctor.BL.Services
                     RatePoliteness = clinic.RatePoliteness,
                     RatePrice = clinic.RatePrice,
                     RateQuality = clinic.RateQuality,
-                    RateAverage = clinic.RateAverage
+                    RateAverage = clinic.RateAverage,
+                    ImagePath = clinic.ImagePath
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
                 foreach (var clinicAddress in clinic.CityAddresses)
@@ -316,7 +319,8 @@ namespace Infodoctor.BL.Services
                 {
                     Id = clinic.Id,
                     Name = clinic.Name,
-                    Email = clinic.Email
+                    Email = clinic.Email,
+                    ImagePath = clinic.ImagePath
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
                 foreach (var clinicAddress in clinic.CityAddresses)

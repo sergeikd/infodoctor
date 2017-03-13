@@ -52,7 +52,8 @@ namespace Infodoctor.BL.Services
                     Experience = doctor.Experience,
                     Manipulation = doctor.Manipulation,
                     Specialization = doctor.Specialization.Name,
-                    Category = doctor.Category.Name
+                    Category = doctor.Category.Name,
+                    ImagePath = doctor.ImagePath.Replace(@"\\", @"/")
                 };
 
                 if (doctor.Address != null)
@@ -137,7 +138,8 @@ namespace Infodoctor.BL.Services
                     Experience = doctor.Experience,
                     Manipulation = doctor.Manipulation,
                     Specialization = doctor.Specialization.Name,
-                    Category = doctor.Category.Name
+                    Category = doctor.Category.Name,
+                    ImagePath = doctor.ImagePath.Replace(@"\\",@"/")
                 };
 
                 if (doctor.Address != null)
@@ -218,7 +220,8 @@ namespace Infodoctor.BL.Services
                 Experience = doctor.Experience,
                 Manipulation = doctor.Manipulation,
                 Specialization = doctor.Specialization.Name,
-                Category = doctor.Category.Name
+                Category = doctor.Category.Name,
+                ImagePath = doctor.ImagePath.Replace(@"\\", @"/")
             };
 
             if (doctor.Address != null)
@@ -283,7 +286,8 @@ namespace Infodoctor.BL.Services
                 Name = newDoctor.Name,
                 Email = newDoctor.Email,
                 Experience = newDoctor.Experience,
-                Manipulation = newDoctor.Manipulation
+                Manipulation = newDoctor.Manipulation,
+                ImagePath = newDoctor.ImagePath
             };
 
             var clinicsList = new List<Clinic>();
@@ -321,6 +325,7 @@ namespace Infodoctor.BL.Services
                 doctor.Email = newDoctor.Email;
                 doctor.Experience = newDoctor.Experience;
                 doctor.Manipulation = newDoctor.Manipulation;
+                doctor.ImagePath = newDoctor.ImagePath;
 
                 var doctorSpesList =
                     _doctorSpecializationRepository.GetAllSpecializations().ToList();

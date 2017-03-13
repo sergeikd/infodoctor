@@ -253,6 +253,7 @@
     <Compile Include="Controllers\DoctorReviewController.cs" />
     <Compile Include="Controllers\DoctorSpecialisationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -315,7 +316,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\Articles\" />
+    <Folder Include="Content\Images\Article\" />
+    <Folder Include="Content\Images\CLinic\" />
+    <Folder Include="Content\Images\Doctor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

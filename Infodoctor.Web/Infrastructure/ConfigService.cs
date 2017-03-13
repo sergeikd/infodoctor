@@ -5,6 +5,8 @@ namespace Infodoctor.Web.Infrastructure
 {
     public class ConfigService : IConfigService
     {
-        public string PathToArticleImages => ConfigurationManager.AppSettings["PathToArticleImages"];
+        public string PathToArticlesImages => ConfigurationManager.AppSettings["PathToArticlesImages"];
+        public string PathToClinicsImages => ConfigurationManager.AppSettings["PathToClinicsImages"];
+        public string PathToDoctorsImages => ConfigurationManager.AppSettings["PathToDoctorsImages"];
     }
 }

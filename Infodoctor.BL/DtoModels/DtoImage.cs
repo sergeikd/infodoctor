@@ -1,10 +1,9 @@
-﻿namespace Infodoctor.Domain.Entities
+﻿namespace Infodoctor.BL.DtoModels
 {
-    public class ImageFile
+    public class DtoImage
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Path { get; set; }
         public string Url { get; set; }
     }
 }

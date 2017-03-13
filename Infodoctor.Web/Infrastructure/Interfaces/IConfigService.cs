@@ -2,6 +2,8 @@
 {
     public interface IConfigService
     {
-        string PathToArticleImages { get; }
+        string PathToArticlesImages { get; }
+        string PathToDoctorsImages { get; }
+        string PathToClinicsImages { get; }
     }
 }

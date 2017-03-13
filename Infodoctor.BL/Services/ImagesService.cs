@@ -7,6 +7,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
+using Infodoctor.BL.DtoModels;
 using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Services
@@ -22,34 +24,58 @@ namespace Infodoctor.BL.Services
             _imageRepository = imageRepository;
         }
 
-        public IEnumerable<ImageFile> GetAllImages()
+        public IEnumerable<DtoImage> GetAllImages()
         {
-            return _imageRepository.GetAllImages();
+            var imaged = _imageRepository.GetAllImages().ToList();
+            var dtoImages = new List<DtoImage>();
+
+            foreach (var img in imaged)
+            {
+                var dtoImg = new DtoImage()
+                {
+                    Id = img.Id,
+                    Name = img.Name,
+                    Url = img.Url
+                };
+
+                dtoImages.Add(dtoImg);
+            }
+
+            return dtoImages;
         }
 
-        public ImageFile GetImageById(int id)
+        public DtoImage GetImageById(int id)
         {
-            return _imageRepository.GetImageDyId(id);
+            var img = _imageRepository.GetImageDyId(id);
+            var dtoImg = new DtoImage()
+            {
+                Id = img.Id,
+                Name = img.Name,
+                Url = img.Url
+            };
+
+            return dtoImg;
         }
 
-        public void Add(HttpPostedFileBase imageFile, string imageFolderPath, int maxImageWidth)
+        public void Add(HttpPostedFile imageFile, string imageFolderPath, int maxImageWidth)
         {
             if (imageFile == null)
                 throw new ArgumentNullException(nameof(imageFile));
 
             var imgFileName = Guid.NewGuid().ToString().Replace("-", string.Empty) + ".jpg";
+            var imgUrl = imageFolderPath.Replace("~/", string.Empty).Replace("/", @"\") + imgFileName;
             var filePath = AppDomain.CurrentDomain.BaseDirectory + imageFolderPath.Replace("~/", string.Empty).Replace("/", @"\") + imgFileName;
             var image = Image.FromStream(imageFile.InputStream, true, true);
 
             var result = ResizeImage(image, imgFileName, imageFolderPath, maxImageWidth);
 
-            var img = new ImageFile() { Name = imgFileName, Path = filePath };
+            var img = new ImageFile() { Name = imgFileName, Path = filePath, Url = imgUrl };
 
             if (result)
                 _imageRepository.Add(img);
         }
 
-        public void Update(int id, HttpPostedFileBase imageFile, string imageFolderPath, int maxImageWidth)
+        public void Update(int id, HttpPostedFile imageFile, string imageFolderPath, int maxImageWidth)
         {
             if (imageFile == null)
                 throw new ArgumentNullException(nameof(imageFile));
