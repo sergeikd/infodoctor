@@ -5,6 +5,7 @@ namespace Infodoctor.BL.DtoModels
     public class DtoDoctor
     {
         public int Id { get; set; }
+        public string ImageName { get; set; }
         public string ImagePath { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }

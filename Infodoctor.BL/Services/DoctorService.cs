@@ -53,7 +53,7 @@ namespace Infodoctor.BL.Services
                     Manipulation = doctor.Manipulation,
                     Specialization = doctor.Specialization.Name,
                     Category = doctor.Category.Name,
-                    ImagePath = doctor.ImagePath.Replace(@"\\", @"/")
+                    ImageName = doctor.ImageName
                 };
 
                 if (doctor.Address != null)
@@ -139,7 +139,7 @@ namespace Infodoctor.BL.Services
                     Manipulation = doctor.Manipulation,
                     Specialization = doctor.Specialization.Name,
                     Category = doctor.Category.Name,
-                    ImagePath = doctor.ImagePath.Replace(@"\\",@"/")
+                    ImageName = doctor.ImageName
                 };
 
                 if (doctor.Address != null)
@@ -221,7 +221,7 @@ namespace Infodoctor.BL.Services
                 Manipulation = doctor.Manipulation,
                 Specialization = doctor.Specialization.Name,
                 Category = doctor.Category.Name,
-                ImagePath = doctor.ImagePath.Replace(@"\\", @"/")
+                ImageName = doctor.ImageName
             };
 
             if (doctor.Address != null)
@@ -287,7 +287,7 @@ namespace Infodoctor.BL.Services
                 Email = newDoctor.Email,
                 Experience = newDoctor.Experience,
                 Manipulation = newDoctor.Manipulation,
-                ImagePath = newDoctor.ImagePath
+                ImageName = newDoctor.ImageName
             };
 
             var clinicsList = new List<Clinic>();
@@ -325,7 +325,7 @@ namespace Infodoctor.BL.Services
                 doctor.Email = newDoctor.Email;
                 doctor.Experience = newDoctor.Experience;
                 doctor.Manipulation = newDoctor.Manipulation;
-                doctor.ImagePath = newDoctor.ImagePath;
+                doctor.ImageName = newDoctor.ImageName;
 
                 var doctorSpesList =
                     _doctorSpecializationRepository.GetAllSpecializations().ToList();

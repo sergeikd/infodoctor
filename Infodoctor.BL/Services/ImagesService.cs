@@ -34,8 +34,7 @@ namespace Infodoctor.BL.Services
                 var dtoImg = new DtoImage()
                 {
                     Id = img.Id,
-                    Name = img.Name,
-                    Url = img.Url
+                    Name = img.Name
                 };
 
                 dtoImages.Add(dtoImg);
@@ -50,8 +49,7 @@ namespace Infodoctor.BL.Services
             var dtoImg = new DtoImage()
             {
                 Id = img.Id,
-                Name = img.Name,
-                Url = img.Url
+                Name = img.Name
             };
 
             return dtoImg;
@@ -63,13 +61,12 @@ namespace Infodoctor.BL.Services
                 throw new ArgumentNullException(nameof(imageFile));
 
             var imgFileName = Guid.NewGuid().ToString().Replace("-", string.Empty) + ".jpg";
-            var imgUrl = imageFolderPath.Replace("~/", string.Empty).Replace("/", @"\") + imgFileName;
             var filePath = AppDomain.CurrentDomain.BaseDirectory + imageFolderPath.Replace("~/", string.Empty).Replace("/", @"\") + imgFileName;
             var image = Image.FromStream(imageFile.InputStream, true, true);
 
             var result = ResizeImage(image, imgFileName, imageFolderPath, maxImageWidth);
 
-            var img = new ImageFile() { Name = imgFileName, Path = filePath, Url = imgUrl };
+            var img = new ImageFile() { Name = imgFileName, Path = filePath};
 
             if (result)
                 _imageRepository.Add(img);

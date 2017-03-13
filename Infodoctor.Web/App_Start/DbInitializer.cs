@@ -148,7 +148,7 @@ namespace Infodoctor.Web
                 RatePrice = clinicReviewList.Where(x => x.ClinicId == 1).Average(y => y.RatePrice),
                 RateQuality = clinicReviewList.Where(x => x.ClinicId == 1).Average(y => y.RateQuality),
                 RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 1).Average(y => y.RatePoliteness),
-                ImagePath = "\\Content\\Images\\CLinic\\bc6bf7028c1240ee9d58a42315237ecb.jpg"
+                ImageName = "aebce66fbc2040eaabf62b41f0db82ec.jpg"
             };
             clinic1.RateAverage = (clinic1.RatePrice + clinic1.RateQuality + clinic1.RatePoliteness)/3;
             var clinic2 = new Clinic()
@@ -157,7 +157,8 @@ namespace Infodoctor.Web
                 Name = "Стоматологический центр Дентко",
                 RatePrice = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RatePrice),
                 RateQuality = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RateQuality),
-                RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RatePoliteness)
+                RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RatePoliteness),
+                ImageName = "c0c2d3318376417a92b0fd525ab57663.jpg"
             };
             clinic2.RateAverage = (clinic2.RatePrice + clinic2.RateQuality + clinic2.RatePoliteness) / 3;
             var clinic3 = new Clinic()
@@ -202,7 +203,7 @@ namespace Infodoctor.Web
                 RateQuality = doctorsReviewList.Where(x => x.DoctorId == 1).Average(y => y.RateQuality),
                 RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 1).Average(y => y.RatePoliteness),
                 Clinics = new List<Clinic> { clinic1 },
-                ImagePath = "\\Content\\Images\\Doctor\\afb0c96ce2ba40afb3359527ac74def9.jpg"
+                ImageName = "b10a59752b864021bf4cd69e1e26263a.jpg"
             };
             doc001.RateAverage = (doc001.RatePrice + doc001.RateQuality + doc001.RatePoliteness) / 3;
             var doc002 = new Doctor()
@@ -214,8 +215,7 @@ namespace Infodoctor.Web
                 RatePrice = doctorsReviewList.Where(x => x.DoctorId == 2).Average(y => y.RatePrice),
                 RateQuality = doctorsReviewList.Where(x => x.DoctorId == 2).Average(y => y.RateQuality),
                 RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 2).Average(y => y.RatePoliteness),
-                Clinics = new List<Clinic> { clinic1,clinic2 },
-                ImagePath = "\\Content\\Images\\Doctor\\cb1ed9769b0c407dbb89337490cee30f.jpg"
+                Clinics = new List<Clinic> { clinic1,clinic2 }
             };
             doc002.RateAverage = (doc002.RatePrice + doc002.RateQuality + doc002.RatePoliteness) / 3;
             var doc003 = new Doctor()
