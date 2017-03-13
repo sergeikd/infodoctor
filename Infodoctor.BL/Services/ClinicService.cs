@@ -35,7 +35,11 @@ namespace Infodoctor.BL.Services
                 {
                     Id = clinic.Id,
                     Name = clinic.Name,
-                    Email = clinic.Email
+                    Email = clinic.Email,
+                    RatePoliteness = clinic.RatePoliteness,
+                    RatePrice = clinic.RatePrice,
+                    RateQuality = clinic.RateQuality,
+                    RateAverage = clinic.RateAverage
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
                 foreach (var clinicAddress in clinic.CityAddresses)
@@ -71,28 +75,28 @@ namespace Infodoctor.BL.Services
                 var dtoSpecializationList = clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
                 dtoClinic.ClinicSpecialization = dtoSpecializationList;
 
-                var reviews = _clinicReviewRepository.GetReviewsByClinicId(clinic.Id).ToList();
-                double ratePrice = 0;
-                double rateQuality = 0;
-                double ratePoliteness = 0;
+                //var reviews = _clinicReviewRepository.GetReviewsByClinicId(clinic.Id).ToList();
+                //double ratePrice = 0;
+                //double rateQuality = 0;
+                //double ratePoliteness = 0;
 
-                foreach (var review in reviews)
-                {
-                    ratePrice += review.RatePrice;
-                    rateQuality += review.RateQuality;
-                    ratePoliteness += review.RatePoliteness;
-                }
+                //foreach (var review in reviews)
+                //{
+                //    ratePrice += review.RatePrice;
+                //    rateQuality += review.RateQuality;
+                //    ratePoliteness += review.RatePoliteness;
+                //}
 
-                if (reviews.Count != 0)
-                {
-                    ratePrice /= reviews.Count;
-                    rateQuality /= reviews.Count;
-                    ratePoliteness /= reviews.Count;
-                }
+                //if (reviews.Count != 0)
+                //{
+                //    ratePrice /= reviews.Count;
+                //    rateQuality /= reviews.Count;
+                //    ratePoliteness /= reviews.Count;
+                //}
 
-                dtoClinic.RatePrice = ratePrice;
-                dtoClinic.RateQuality = rateQuality;
-                dtoClinic.RatePoliteness = ratePoliteness;
+                //dtoClinic.RatePrice = ratePrice;
+                //dtoClinic.RateQuality = rateQuality;
+                //dtoClinic.RatePoliteness = ratePoliteness;
 
                 dtoClinicList.Add(dtoClinic);
             }
@@ -110,7 +114,11 @@ namespace Infodoctor.BL.Services
             {
                 Id = clinic.Id,
                 Name = clinic.Name,
-                Email = clinic.Email
+                Email = clinic.Email,
+                RatePoliteness = clinic.RatePoliteness,
+                RatePrice = clinic.RatePrice,
+                RateQuality = clinic.RateQuality,
+                RateAverage = clinic.RateAverage
             };
             var dtoClinicAddressList = new List<DtoAddress>();
             foreach (var clinicAddress in clinic.CityAddresses)
@@ -133,28 +141,28 @@ namespace Infodoctor.BL.Services
             dtoClinic.ClinicSpecialization = dtoSpecializationList;
 
 
-            var reviews = _clinicReviewRepository.GetReviewsByClinicId(clinic.Id).ToList();
-            double ratePrice = 0;
-            double rateQuality = 0;
-            double ratePoliteness = 0;
+            //var reviews = _clinicReviewRepository.GetReviewsByClinicId(clinic.Id).ToList();
+            //double ratePrice = 0;
+            //double rateQuality = 0;
+            //double ratePoliteness = 0;
 
-            foreach (var review in reviews)
-            {
-                ratePrice += review.RatePrice;
-                rateQuality += review.RateQuality;
-                ratePoliteness += review.RatePoliteness;
-            }
+            //foreach (var review in reviews)
+            //{
+            //    ratePrice += review.RatePrice;
+            //    rateQuality += review.RateQuality;
+            //    ratePoliteness += review.RatePoliteness;
+            //}
 
-            if (reviews.Count != 0)
-            {
-                ratePrice /= reviews.Count;
-                rateQuality /= reviews.Count;
-                ratePoliteness /= reviews.Count;
-            }
+            //if (reviews.Count != 0)
+            //{
+            //    ratePrice /= reviews.Count;
+            //    rateQuality /= reviews.Count;
+            //    ratePoliteness /= reviews.Count;
+            //}
 
-            dtoClinic.RatePrice = ratePrice;
-            dtoClinic.RateQuality = rateQuality;
-            dtoClinic.RatePoliteness = ratePoliteness;
+            //dtoClinic.RatePrice = ratePrice;
+            //dtoClinic.RateQuality = rateQuality;
+            //dtoClinic.RatePoliteness = ratePoliteness;
 
             return dtoClinic;
         }
@@ -166,6 +174,136 @@ namespace Infodoctor.BL.Services
                 throw new ApplicationException("Incorrect request parameter");
             }
             var clinics = _clinicRepository.GetAllСlinics();
+            var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
+            if (!pagedList.Any())
+            {
+                throw new ApplicationException("Page not found");
+            }
+            var dtoClinicList = new List<DtoClinic>();
+            foreach (var clinic in pagedList)
+            {
+                var dtoClinic = new DtoClinic
+                {
+                    Id = clinic.Id,
+                    Name = clinic.Name,
+                    Email = clinic.Email,
+                    RatePoliteness = clinic.RatePoliteness,
+                    RatePrice = clinic.RatePrice,
+                    RateQuality = clinic.RateQuality,
+                    RateAverage = clinic.RateAverage
+                };
+                var dtoClinicAddressList = new List<DtoAddress>();
+                foreach (var clinicAddress in clinic.CityAddresses)
+                {
+                    var dtoClinicAddress = new DtoAddress
+                    {
+                        City = clinicAddress.City.Name,
+                        Street = clinicAddress.Street,
+                        ClinicPhones = new List<DtoPhone>()
+                    };
+                    foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new DtoPhone()
+                    {
+                        Desc = clinicPhone.Description,
+                        Phone = clinicPhone.Number
+                    }))
+                    {
+                        dtoClinicAddress.ClinicPhones.Add(dtoClinicPhone);
+                    }
+                    dtoClinicAddressList.Add(dtoClinicAddress);
+                }
+                dtoClinic.ClinicAddress = dtoClinicAddressList;
+
+                var dtoSpecializationList =
+                    clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
+                dtoClinic.ClinicSpecialization = dtoSpecializationList;
+
+                //var reviews = _clinicReviewRepository.GetReviewsByClinicId(clinic.Id).ToList();
+                //double ratePrice = 0;
+                //double rateQuality = 0;
+                //double ratePoliteness = 0;
+
+                //foreach (var review in reviews)
+                //{
+                //    ratePrice += review.RatePrice;
+                //    rateQuality += review.RateQuality;
+                //    ratePoliteness += review.RatePoliteness;
+                //}
+
+                //if (reviews.Count != 0)
+                //{
+                //    ratePrice /= reviews.Count;
+                //    rateQuality /= reviews.Count;
+                //    ratePoliteness /= reviews.Count;
+                //}
+
+                //dtoClinic.RatePrice = ratePrice;
+                //dtoClinic.RateQuality = rateQuality;
+                //dtoClinic.RatePoliteness = ratePoliteness;
+
+                dtoClinicList.Add(dtoClinic);
+            }
+
+            var pagedDtoClinicList = new DtoPagedClinic
+            {
+                Clinics = dtoClinicList,
+                Page = pagedList.Page,
+                PageSize = pagedList.PageSize,
+                TotalCount = pagedList.TotalCount
+            };
+            return pagedDtoClinicList;
+        }
+
+        public DtoPagedClinic SearchClinics(int perPage, int numPage, DtoClinicSearchModel searchModel)
+        {
+            if (perPage < 1 || numPage < 1)
+            {
+                throw new ApplicationException("Incorrect request parameter");
+            }
+            bool descending;
+            try
+            {
+                descending = Convert.ToBoolean(searchModel.Descending);
+            }
+            catch (Exception)
+            {
+                throw new ApplicationException("Incorrect request parameter"); ;
+            }
+            IQueryable<Clinic> clinics;
+            if (searchModel.CityId == 0)
+            {
+                if (searchModel.SpecializationId.Any())
+                {
+                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
+                        Where(x => x.Name.Contains(searchModel.SearchWord) &&
+                                   x.ClinicSpecializations.Any(y => searchModel.SpecializationId.Contains(y.Id)));
+                }
+                else
+                {
+                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
+                        Where(x => x.Name.Contains(searchModel.SearchWord));
+                }
+                var aaa = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
+                    Where(x => x.Name.Contains(searchModel.SearchWord) && x.ClinicSpecializations.Any(y => searchModel.SpecializationId.Contains(y.Id))).ToList();
+                var bbb = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
+                    Where(x => x.Name.Contains(searchModel.SearchWord)).ToList();
+            }
+            else
+            {
+                if (searchModel.SpecializationId.Any())
+                {
+                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
+                        Where(x => x.Name.Contains(searchModel.SearchWord) &&
+                                   x.ClinicSpecializations.Any(y => searchModel.SpecializationId.Contains(y.Id)) &&
+                                   x.CityAddresses.Any(y => y.City.Id == searchModel.CityId));
+                }
+                else
+                {
+                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
+                        Where(x => x.Name.Contains(searchModel.SearchWord) &&
+                        x.CityAddresses.Any(y => y.City.Id == searchModel.CityId));
+                }
+            }
+
             var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
             if (!pagedList.Any())
             {
@@ -205,32 +343,8 @@ namespace Infodoctor.BL.Services
                     clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
                 dtoClinic.ClinicSpecialization = dtoSpecializationList;
 
-                var reviews = _clinicReviewRepository.GetReviewsByClinicId(clinic.Id).ToList();
-                double ratePrice = 0;
-                double rateQuality = 0;
-                double ratePoliteness = 0;
-
-                foreach (var review in reviews)
-                {
-                    ratePrice += review.RatePrice;
-                    rateQuality += review.RateQuality;
-                    ratePoliteness += review.RatePoliteness;
-                }
-
-                if (reviews.Count != 0)
-                {
-                    ratePrice /= reviews.Count;
-                    rateQuality /= reviews.Count;
-                    ratePoliteness /= reviews.Count;
-                }
-
-                dtoClinic.RatePrice = ratePrice;
-                dtoClinic.RateQuality = rateQuality;
-                dtoClinic.RatePoliteness = ratePoliteness;
-
                 dtoClinicList.Add(dtoClinic);
             }
-
             var pagedDtoClinicList = new DtoPagedClinic
             {
                 Clinics = dtoClinicList,

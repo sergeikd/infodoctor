@@ -8,6 +8,7 @@ namespace Infodoctor.BL.Intefaces
     {
         IEnumerable<DtoClinic> GetAllClinics();
         DtoPagedClinic GetPagedClinics(int perPage, int pageNum);
+        DtoPagedClinic SearchClinics(int perPage, int numPage, DtoClinicSearchModel searchModel);
         DtoClinic GetClinicById(int id);
         void Add(Clinic clinic);
         void Update(int id, string name);

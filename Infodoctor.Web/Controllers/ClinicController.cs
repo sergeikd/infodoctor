@@ -23,14 +23,22 @@ namespace Infodoctor.Web.Controllers
             return _clinicService.GetAllClinics();
         }
 
-        // GET: api/Clinic/page/perPage/numPage 
+        // GET: api/Clinic/page/perPage/numPage
         [Route("api/Clinic/page/{perPage:int}/{numPage:int}")]
         [HttpGet]
         public DtoPagedClinic GetPage(int perPage, int numPage)
         {
             return _clinicService.GetPagedClinics(perPage, numPage);
         }
-        // GET: api/Clinic/5
+
+        // api/clinic/search/perPage/numPage
+        [Route("api/clinic/search/{perPage:int}/{numPage:int}")]
+        [HttpPost]
+        public DtoPagedClinic SearchClinic(int perPage, int numPage, [FromBody]DtoClinicSearchModel searchModel)
+        {
+            return _clinicService.SearchClinics(perPage, numPage, searchModel);
+        }
+        // GET: api/Clinic/5 
         public DtoClinic Get(int id)
         {
             return _clinicService.GetClinicById(id);

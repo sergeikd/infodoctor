@@ -34,7 +34,10 @@
     <br />
     full search:<input type="text" id="fulltSeachTextBox" onkeyup="fullsearch()" />
 </div>
-
+<div class="registerForm">
+    <input type="text" id="search" /> 
+    <input type="submit" id="searchClinicButton" value="поиск клиник" /><br />
+</div>
 @section scripts{
     <script type="text/javascript">
         function fastsearch() {
@@ -276,6 +279,26 @@
                     alert("Отзыв добавлен");
                 }).fail(function (data) {
                     alert("В процесе добавления отзыва возникла ошибка");
+                });
+            });
+            $('#searchClinicButton').click(function (e) {
+                e.preventDefault();
+                var request = {
+                    SearchWord: $('#search').val(),
+                    CityId: 0,
+                    SpecializationId: [],
+                    SortBy: "price",
+                    Descending: "false"
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: 'api/clinic/search/10/1',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(request)
+                }).success(function (data) {
+                    alert(data);
+                }).fail(function (data) {
+                    alert(data);
                 });
             });
         });

@@ -8,9 +8,9 @@ namespace Infodoctor.Domain.Entities
     public class Review
     {
         public int Id { get; set; }
-        //[Required]
+        [Required]
         public string UserId { get; set; }
-        //[Required]
+        [Required]
         public string UserName { get; set; }
         [Required]
         public string Text { get; set; }

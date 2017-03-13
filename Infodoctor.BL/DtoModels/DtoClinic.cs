@@ -15,6 +15,7 @@ namespace Infodoctor.BL.DtoModels
         public double RatePrice { get; set; }
         public double RateQuality { get; set; }
         public double RatePoliteness { get; set; }
+        public double RateAverage { get; set; }
     }
 
     public class DtoAddress

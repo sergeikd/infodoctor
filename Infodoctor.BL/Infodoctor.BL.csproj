@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="DtoModels\DtoCity.cs" />
     <Compile Include="DtoModels\DtoClinic.cs" />
+    <Compile Include="DtoModels\DtoClinicSearchModel.cs" />
     <Compile Include="DtoModels\DtoClinicSpecialization.cs" />
     <Compile Include="DtoModels\DtoDoctor.cs" />
     <Compile Include="DtoModels\DtoDoctorCategory.cs" />

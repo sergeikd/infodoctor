@@ -57,24 +57,22 @@ namespace Infodoctor.BL.Services
         {
             var clinicsSearchResurl = new List<DtoClinic>();
             var clinicSpecializations = new List<DtoClinicSpecialization>();
-
-            if (searchModel.Text.Length > 2)
-                foreach (var type in searchModel.TypeId)
-                    switch (type)
-                    {
-                        case 1:
-                            {
-                                foreach (var city in searchModel.CityId)
-                                    clinicsSearchResurl.AddRange(FullSearchClinics(city, searchModel.Text));
-                                break;
-                            }
-                        case 2:
-                            {
-                                foreach (var city in searchModel.CityId)
-                                    clinicSpecializations.AddRange(FullSearchClinicSpecializations(city, searchModel.Text));
-                                break;
-                            }
-                    }
+            foreach (var type in searchModel.TypeId)
+                switch (type)
+                {
+                    case 1:
+                        {
+                            foreach (var city in searchModel.CityId)
+                                clinicsSearchResurl.AddRange(FullSearchClinics(city, searchModel.Text));
+                            break;
+                        }
+                    case 2:
+                        {
+                            foreach (var city in searchModel.CityId)
+                                clinicSpecializations.AddRange(FullSearchClinicSpecializations(city, searchModel.Text));
+                            break;
+                        }
+                }
 
             var result = new DtoSearchResultModel
             {
@@ -90,28 +88,25 @@ namespace Infodoctor.BL.Services
 
             if (IsVirtualCachesFull() == false)
                 BuildVirtualCache();
+            foreach (var type in searchModel.TypeId)
+                switch (type)
+                {
+                    case 1:
+                        result.AddRange(_virtualClinicsCache.Where(clinic => clinic.ToUpper().Contains(searchModel.Text.ToUpper())));
+                        break;
+                    case 2:
+                        result.AddRange(_virtualSpecssCache.Where(spec => spec.ToUpper().Contains(searchModel.Text.ToUpper())));
+                        break;
 
-            if (searchModel.Text.Length > 2)
-                foreach (var type in searchModel.TypeId)
-                    switch (type)
-                    {
-                        case 1:
-                            result.AddRange(_virtualClinicsCache.Where(clinic => clinic.ToUpper().Contains(searchModel.Text.ToUpper())));
-                            break;
-                        case 2:
-                            result.AddRange(_virtualSpecssCache.Where(spec => spec.ToUpper().Contains(searchModel.Text.ToUpper())));
-                            break;
-
-                            //case 1:
-                            //    foreach (var city in searchModel.CityId)
-                            //        result.AddRange(FastSearchClinics(city, searchModel.Text));
-                            //    break;
-                            //case 2:
-                            //    foreach (var city in searchModel.CityId)
-                            //        result.AddRange(FastSearchClinicSpecializations(city, searchModel.Text));
-                            //    break;
-                    }
-
+                        //case 1:
+                        //    foreach (var city in searchModel.CityId)
+                        //        result.AddRange(FastSearchClinics(city, searchModel.Text));
+                        //    break;
+                        //case 2:
+                        //    foreach (var city in searchModel.CityId)
+                        //        result.AddRange(FastSearchClinicSpecializations(city, searchModel.Text));
+                        //    break;
+                }
             return result;
         }
 

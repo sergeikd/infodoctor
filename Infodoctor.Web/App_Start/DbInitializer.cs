@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
+using System.Linq;
+using System.Web.WebPages;
 using Infodoctor.DAL;
 using Infodoctor.Domain;
 using Infodoctor.Domain.Entities;
@@ -89,35 +91,101 @@ namespace Infodoctor.Web
             }
             context.Countries.AddRange(countriesList);
 
+            var clinicReviewList = new List<ClinicReview>();
+            var rnd = new Random();
+            var ticks = DateTime.Now.Ticks - 100000000000000;
+            for (var i = 0; i < 30; i++)
+            {
+                clinicReviewList.Add(new ClinicReview
+                {
+                    Text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+                           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, " +
+                           "when an unknown printer took a galley of type and scrambled it to make a type specimen book. " +
+                           "It has survived not only five centuries, but also the leap into electronic typesetting, " +
+                           "remaining essentially unchanged. It was popularised in the 1960s with the release of " +
+                           "Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing " +
+                           "software like Aldus PageMaker including versions of Lorem Ipsum.",
+                    PublishTime = new DateTime(ticks + i * 1000000000000),
+                    ClinicId = i % 5 + 1,
+                    UserId = "7d374085-71e4-4819-8d09-91cfc8239463",
+                    UserName = "user0",
+                    RatePoliteness = rnd.Next(3) + 3,
+                    RatePrice = rnd.Next(3) + 3,
+                    RateQuality = rnd.Next(3) + 3
+                });
+            }
+            context.ClinicReviews.AddRange(clinicReviewList);
+
+            var doctorsReviewList = new List<DoctorReview>();
+            rnd = new Random();
+            ticks = DateTime.Now.Ticks - 100000000000000;
+            for (var i = 0; i < 30; i++)
+            {
+                doctorsReviewList.Add(new DoctorReview
+                {
+                    Text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+                           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, " +
+                           "when an unknown printer took a galley of type and scrambled it to make a type specimen book. " +
+                           "It has survived not only five centuries, but also the leap into electronic typesetting, " +
+                           "remaining essentially unchanged. It was popularised in the 1960s with the release of " +
+                           "Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing " +
+                           "software like Aldus PageMaker including versions of Lorem Ipsum.",
+                    PublishTime = new DateTime(ticks + i * 1000000000000),
+                    DoctorId = i % 5 + 1,
+                    UserId = "7d374085-71e4-4819-8d09-91cfc8239463",
+                    UserName = "user0",
+                    RatePoliteness = rnd.Next(3) + 3,
+                    RatePrice = rnd.Next(3) + 3,
+                    RateQuality = rnd.Next(3) + 3
+                });
+            }
+            context.DoctorReviews.AddRange(doctorsReviewList);
+
             var clinic1 = new Clinic()
             {
                 Email = "info@nordin.by",
-                Name = "Медицинский центр Нордин"
+                Name = "Медицинский центр Нордин",
+                RatePrice = clinicReviewList.Where(x => x.ClinicId == 1).Average(y => y.RatePrice),
+                RateQuality = clinicReviewList.Where(x => x.ClinicId == 1).Average(y => y.RateQuality),
+                RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 1).Average(y => y.RatePoliteness),
             };
-
+            clinic1.RateAverage = (clinic1.RatePrice + clinic1.RateQuality + clinic1.RatePoliteness)/3;
             var clinic2 = new Clinic()
             {
                 Email = string.Empty,
-                Name = "Стоматологический центр Дентко"
+                Name = "Стоматологический центр Дентко",
+                RatePrice = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RatePrice),
+                RateQuality = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RateQuality),
+                RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RatePoliteness)
             };
-
+            clinic2.RateAverage = (clinic2.RatePrice + clinic2.RateQuality + clinic2.RatePoliteness) / 3;
             var clinic3 = new Clinic()
             {
                 Email = "kravira@kravira.by",
-                Name = "Медицинский центр Кравира"
+                Name = "Медицинский центр Кравира",
+                RatePrice = clinicReviewList.Where(x => x.ClinicId == 3).Average(y => y.RatePrice),
+                RateQuality = clinicReviewList.Where(x => x.ClinicId == 3).Average(y => y.RateQuality),
+                RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 3).Average(y => y.RatePoliteness)
             };
+            clinic3.RateAverage = (clinic3.RatePrice + clinic3.RateQuality + clinic3.RatePoliteness) / 3;
             var clinic4 = new Clinic()
             {
                 Email = "medic4@tut.by",
-                Name = "4-я городская поликлиника г.Минска"
+                Name = "4-я городская поликлиника г.Минска",
+                RatePrice = clinicReviewList.Where(x => x.ClinicId == 4).Average(y => y.RatePrice),
+                RateQuality = clinicReviewList.Where(x => x.ClinicId == 4).Average(y => y.RateQuality),
+                RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 4).Average(y => y.RatePoliteness)
             };
-
+            clinic4.RateAverage = (clinic4.RatePrice + clinic4.RateQuality + clinic4.RatePoliteness) / 3;
             var clinic5 = new Clinic()
             {
                 Email = string.Empty,
-                Name = "2-я городская детская клиническая больница» г. Минска"
+                Name = "2-я городская детская клиническая больница» г. Минска",
+                RatePrice = clinicReviewList.Where(x => x.ClinicId == 5).Average(y => y.RatePrice),
+                RateQuality = clinicReviewList.Where(x => x.ClinicId == 5).Average(y => y.RateQuality),
+                RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 5).Average(y => y.RatePoliteness)
             };
-
+            clinic5.RateAverage = (clinic5.RatePrice + clinic5.RateQuality + clinic5.RatePoliteness) / 3;
             var clinicList = new List<Clinic> { clinic1, clinic2, clinic4, clinic5 };
             context.Сlinics.AddRange(clinicList);
 
@@ -129,40 +197,60 @@ namespace Infodoctor.Web
                 Email = "infosuperstepa1999@gmail.com",
                 Experience = 14,
                 Manipulation = "Может что-то хорошо.",
+                RatePrice = doctorsReviewList.Where(x => x.DoctorId == 1).Average(y => y.RatePrice),
+                RateQuality = doctorsReviewList.Where(x => x.DoctorId == 1).Average(y => y.RateQuality),
+                RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 1).Average(y => y.RatePoliteness),
                 Clinics = new List<Clinic> { clinic1 }
             };
+            doc001.RateAverage = (doc001.RatePrice + doc001.RateQuality + doc001.RatePoliteness) / 3;
             var doc002 = new Doctor()
             {
                 Name = "Степанов Иван Степанович",
                 Email = "giperivan2@gmail.com",
                 Experience = 20,
                 Manipulation = "Может что-то отлично.",
+                RatePrice = doctorsReviewList.Where(x => x.DoctorId == 2).Average(y => y.RatePrice),
+                RateQuality = doctorsReviewList.Where(x => x.DoctorId == 2).Average(y => y.RateQuality),
+                RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 2).Average(y => y.RatePoliteness),
                 Clinics = new List<Clinic> { clinic1,clinic2 }
             };
+            doc002.RateAverage = (doc002.RatePrice + doc002.RateQuality + doc002.RatePoliteness) / 3;
             var doc003 = new Doctor()
             {
                 Name = "Степанов Степан Иванович",
                 Email = "darmaed19@gmail.com",
                 Experience = 2,
                 Manipulation = "Может что-то нормально.",
+                RatePrice = doctorsReviewList.Where(x => x.DoctorId == 3).Average(y => y.RatePrice),
+                RateQuality = doctorsReviewList.Where(x => x.DoctorId == 3).Average(y => y.RateQuality),
+                RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 3).Average(y => y.RatePoliteness),
                 Clinics = new List<Clinic> { clinic1 }
             };
+            doc003.RateAverage = (doc003.RatePrice + doc003.RateQuality + doc003.RatePoliteness) / 3;
             var doc004 = new Doctor()
             {
                 Name = "Иванов Степан Степанович",
                 Email = "tainiidoctor2@gmail.com",
                 Experience = 14,
                 Manipulation = "Может что-то хорошо.",
+                RatePrice = doctorsReviewList.Where(x => x.DoctorId == 4).Average(y => y.RatePrice),
+                RateQuality = doctorsReviewList.Where(x => x.DoctorId == 4).Average(y => y.RateQuality),
+                RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 4).Average(y => y.RatePoliteness),
                 Clinics = new List<Clinic> { clinic2 }
             };
+            doc004.RateAverage = (doc004.RatePrice + doc004.RateQuality + doc004.RatePoliteness) / 3;
             var doc005 = new Doctor()
             {
                 Name = "Степанов Сергей Степанович",
                 Email = "123456789@gmail.com",
                 Experience = 29,
                 Manipulation = "Может что-то отлично.",
+                RatePrice = doctorsReviewList.Where(x => x.DoctorId == 5).Average(y => y.RatePrice),
+                RateQuality = doctorsReviewList.Where(x => x.DoctorId == 5).Average(y => y.RateQuality),
+                RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 5).Average(y => y.RatePoliteness),
                 Clinics = new List<Clinic> { clinic2 }
             };
+            doc005.RateAverage = (doc005.RatePrice + doc005.RateQuality + doc005.RatePoliteness) / 3;
             #endregion
             var doctors = new List<Doctor> { doc001, doc002, doc003, doc004, doc005 };
             context.Doctors.AddRange(doctors);
@@ -201,6 +289,7 @@ namespace Infodoctor.Web
 
             var clinicAddressList = new List<CityAddress> { ca1, ca2, ca3, ca4, ca5, ca6, ca7 };
             context.CityAddresses.AddRange(clinicAddressList);
+
 
             #region Очень длинный список городов РБ
             var city1 = new City() { Name = "Бобруйск" }; ;
@@ -331,8 +420,6 @@ namespace Infodoctor.Web
                 city111, city112};
             context.Cities.AddRange(citiesList);
 
-
-
             #region Категории врачей
             var cat001 = new DoctorCategory() { Name = "Без категории", Doctors = new List<Doctor> { doc003 } };
             var cat002 = new DoctorCategory() { Name = "Первая категория", Doctors = new List<Doctor> { doc002 } };
@@ -423,7 +510,7 @@ namespace Infodoctor.Web
                 dp059, dp148, dp273, dp340, dp411, dp595, dp629, dp720, dp848, dp928, dp1010, dp1125, dp1246, dp1367, dp1460, dp1567, dp168, dp1768, dp188, dp1911, dp2087, dp2144, dp2257, dp2393, dp2472, dp2595, dp2654, dp2758, dp2833, dp2998, dp3027, dp3164, dp320, dp3318, dp3462, dp3519, dp3656, dp3767, dp386, dp3922, dp4019, dp4180, dp4251, dp4351, dp4463, dp4557, dp4698, dp4751, dp4813, dp4935, dp5029, dp514, dp5288, dp5385, dp5489, dp5515, dp5691, dp5779, dp5867, dp5915, dp6041, dp6171, dp6287, dp6349, dp641, dp6546
 
             };
-            context.DoctorSpecializations.AddRange(doctorSpecialization);
+            context.DoctorSpecializations.AddRange(doctorSpecialization.OrderBy(d => d.Name));
 
             #region Очень длинный список специализаций клиник
             var cp10 = new ClinicSpecialization() { Name = "Аллергология", Clinics = new List<Clinic>() { clinic1 }, DoctorSpecializations = new List<DoctorSpecialization>() { dp059 } };
@@ -505,7 +592,7 @@ namespace Infodoctor.Web
                 cp81, cp301, cp461, cp561,cp239
             };
             #endregion
-            context.ClinicSpecializations.AddRange(specializationList);
+            context.ClinicSpecializations.AddRange(specializationList.OrderBy(d => d.Name));
 
             #region Первая версия таблицы специализаций клиник (на всякий случай)
             //var profilesList1 = new List<ClinicSpecialization>
@@ -583,56 +670,35 @@ namespace Infodoctor.Web
             var profilesList = new List<ClinicProfile> { cs10, cs20, cs30, cs40, cs50 };
             //context.ClinicProfiles.AddRange(profilesList);
 
-            var reviewList = new List<ClinicReview>();
-            var rnd = new Random();
-            var ticks = DateTime.Now.Ticks - 100000000000000;
-            for (var i = 0; i < 30; i++)
-            {
-                reviewList.Add(new ClinicReview
-                {
-                    Text = "orem Ipsum is simply dummy text of the printing and typesetting industry. " +
-                           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, " +
-                           "when an unknown printer took a galley of type and scrambled it to make a type specimen book. " +
-                           "It has survived not only five centuries, but also the leap into electronic typesetting, " +
-                           "remaining essentially unchanged. It was popularised in the 1960s with the release of " +
-                           "Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing " +
-                           "software like Aldus PageMaker including versions of Lorem Ipsum.",
-                    PublishTime = new DateTime(ticks + i * 1000000000000),
-                    ClinicId = i % 5 + 1,
-                    UserId = "7d374085-71e4-4819-8d09-91cfc8239463",
-                    UserName = "user0",
-                    RatePoliteness = rnd.Next(3) + 3,
-                    RatePrice = rnd.Next(3) + 3,
-                    RateQuality = rnd.Next(3) + 3
-                });
-            }
-            context.ClinicReviews.AddRange(reviewList);
 
-            var doctorsReviewList = new List<DoctorReview>();
-            rnd = new Random();
-            ticks = DateTime.Now.Ticks - 100000000000000;
-            for (var i = 0; i < 30; i++)
-            {
-                doctorsReviewList.Add(new DoctorReview
-                {
-                    Text = "orem Ipsum is simply dummy text of the printing and typesetting industry. " +
-                           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, " +
-                           "when an unknown printer took a galley of type and scrambled it to make a type specimen book. " +
-                           "It has survived not only five centuries, but also the leap into electronic typesetting, " +
-                           "remaining essentially unchanged. It was popularised in the 1960s with the release of " +
-                           "Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing " +
-                           "software like Aldus PageMaker including versions of Lorem Ipsum.",
-                    PublishTime = new DateTime(ticks + i * 1000000000000),
-                    DoctorId = i % 5 + 1,
-                    UserId = "7d374085-71e4-4819-8d09-91cfc8239463",
-                    UserName = "user0",
-                    RatePoliteness = rnd.Next(3) + 3,
-                    RatePrice = rnd.Next(3) + 3,
-                    RateQuality = rnd.Next(3) + 3
-                });
-            }
-            context.DoctorReviews.AddRange(doctorsReviewList);
 
+            //test clinic List
+            var testClinicsList = new List<Clinic>();
+            for (var i = 1; i < 5; i++) //клиники без рейтинга
+            {
+                var clinic = new Clinic()
+                {
+                    CityAddresses = new List<CityAddress>() { new CityAddress() { City = citiesList[i % 5] } },
+                    Name = "Test" + i,
+                    ClinicSpecializations = new List<ClinicSpecialization>() { new ClinicSpecialization() { Name = specializationList[i % 3].Name } }
+                };
+                testClinicsList.Add(clinic);
+            }
+            for (var i = 5; i < 15; i++)//клиники с рейтингом
+            {
+                var clinic = new Clinic()
+                {
+                    CityAddresses = new List<CityAddress>() { new CityAddress () {City = citiesList[i%5]} },
+                    Name = "Test" + i,
+                    ClinicSpecializations = new List<ClinicSpecialization>(){ new ClinicSpecialization() { Name = specializationList[i%3].Name } },
+                    RatePoliteness = rnd.Next(5) + 1,
+                    RatePrice = rnd.Next(5) + 1,
+                    RateQuality = rnd.Next(5) + 1
+                };
+                clinic.RateAverage = (clinic.RatePoliteness + clinic.RatePrice + clinic.RateQuality) /3;
+                testClinicsList.Add(clinic);
+            }
+            context.Сlinics.AddRange(testClinicsList);
             base.Seed(context);
         }
     }

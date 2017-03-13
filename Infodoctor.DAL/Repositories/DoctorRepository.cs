@@ -23,7 +23,20 @@ namespace Infodoctor.DAL.Repositories
         {
             return _context.Doctors.OrderBy(n => n.Id);
         }
-
+        public IQueryable<Doctor> GetSortedDoctors(string sortBy, bool descending)
+        {
+            switch (sortBy)
+            {
+                default:
+                    return descending ? _context.Doctors.OrderByDescending(c => c.Name) : _context.Doctors.OrderBy(c => c.Name);
+                case "alphabet":
+                    return descending ? _context.Doctors.OrderByDescending(c => c.Name) : _context.Doctors.OrderBy(c => c.Name);
+                case "rate":
+                    return descending ? _context.Doctors.OrderByDescending(c => c.RateAverage) : _context.Doctors.OrderBy(c => c.RateAverage);
+                case "price":
+                    return descending ? _context.Doctors.OrderByDescending(c => c.RatePrice) : _context.Doctors.OrderBy(c => c.RatePrice);
+            }
+        }
         public Doctor GetDoctorById(int id)
         {
             return _context.Doctors.First(d => d.Id == id);
