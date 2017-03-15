@@ -34,7 +34,7 @@ namespace Infodoctor.DAL.Repositories
                 case "rate":
                     return descending ? _context.Doctors.OrderByDescending(c => c.RateAverage) : _context.Doctors.OrderBy(c => c.RateAverage);
                 case "price":
-                    return descending ? _context.Doctors.OrderByDescending(c => c.RatePrice) : _context.Doctors.OrderBy(c => c.RatePrice);
+                    return descending ? _context.Doctors.OrderByDescending(c => c.RateProfessionalism) : _context.Doctors.OrderBy(c => c.RateProfessionalism);
             }
         }
         public Doctor GetDoctorById(int id)

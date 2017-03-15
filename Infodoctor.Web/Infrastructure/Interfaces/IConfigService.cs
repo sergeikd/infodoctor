@@ -5,6 +5,5 @@
         string PathToArticlesImages { get; }
         string PathToDoctorsImages { get; }
         string PathToClinicsImages { get; }
-        string ServerDomain { get; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
@@ -8,11 +7,13 @@ using Infodoctor.Web.Infrastructure.Interfaces;
 
 namespace Infodoctor.Web.Controllers
 {
+    [Authorize]
     public class ClinicController : ApiController
     {
         private readonly IClinicService _clinicService;
         private readonly IConfigService _configService;
 
+        
         public ClinicController(IClinicService clinicService, IConfigService configService)
         {
             if (clinicService == null)
@@ -26,69 +27,52 @@ namespace Infodoctor.Web.Controllers
         // GET: api/Clinic
         public IEnumerable<DtoClinic> Get()
         {
-            var clinics = _clinicService.GetAllClinics().ToArray();
-            var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-            for (var i = 0; i < clinics.Length; i++)
-            {
-                clinics[i].ImagePath = baseUrl + _configService.PathToClinicsImages + '/' + clinics[i].ImageName;
-            }
-
-            return clinics;
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            return _clinicService.GetAllClinics(pathToImage);
         }
 
         // GET: api/Clinic/page/perPage/numPage
+        [AllowAnonymous]
         [Route("api/Clinic/page/{perPage:int}/{numPage:int}")]
         [HttpGet]
         public DtoPagedClinic GetPage(int perPage, int numPage)
         {
-            var pages = _clinicService.GetPagedClinics(perPage, numPage);
-            var clinics = pages.Clinics.ToArray();
-            var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-            for (var i = 0; i < clinics.Length; i++)
-                clinics[i].ImagePath = baseUrl + _configService.PathToClinicsImages + '/' + clinics[i].ImageName;
-
-            pages.Clinics = clinics.ToList();
-
-            return pages;
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            return _clinicService.GetPagedClinics(perPage, numPage, pathToImage);
         }
 
         // api/clinic/search/perPage/numPage
+        [AllowAnonymous]
         [Route("api/clinic/search/{perPage:int}/{numPage:int}")]
         [HttpPost]
         public DtoPagedClinic SearchClinic(int perPage, int numPage, [FromBody]DtoClinicSearchModel searchModel)
         {
-            var pagedClinic = _clinicService.SearchClinics(perPage, numPage, searchModel);
-
-            var clinics = pagedClinic.Clinics.ToArray();
-            var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-            for (var i = 0; i < clinics.Length; i++)
-                clinics[i].ImagePath = baseUrl + _configService.PathToClinicsImages + '/' + clinics[i].ImageName;
-
-            pagedClinic.Clinics = clinics.ToList();
+            var  pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            var pagedClinic = _clinicService.SearchClinics(perPage, numPage, searchModel, pathToImage);
 
             return pagedClinic;
         }
         // GET: api/Clinic/5 
         public DtoClinic Get(int id)
         {
-            var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-            var clinic = _clinicService.GetClinicById(id);
-            clinic.ImagePath = baseUrl + _configService.PathToClinicsImages + '/' + clinic.ImageName;
-
-            return clinic;
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            return _clinicService.GetClinicById(id, pathToImage);
         }
 
         // POST: api/Clinic
+        [Authorize(Roles = "admin, moder")]
         public void Post([FromBody]string value)
         {
         }
 
         // PUT: api/Clinic/5
+        [Authorize(Roles = "admin, moder")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
         // DELETE: api/Clinic/5
+        [Authorize(Roles = "admin, moder")]
         public void Delete(int id)
         {
         }

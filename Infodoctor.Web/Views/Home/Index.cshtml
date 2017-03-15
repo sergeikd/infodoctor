@@ -1,10 +1,13 @@
-﻿<div class="registerForm">
-    <label>Введите email</label><br />
-    <input type="email" id="email" /> <br /><br />
-    <label>Введите пароль</label><br />
-    <input type="password" id="password" /><br /><br />
-    <label>Подтвердите пароль</label><br />
-    <input type="password" id="confirmpassword" /><br /><br />
+﻿<div class="authInfo">
+    <p>Авторизация: <span class="authData"></span></p>
+</div>
+<br />
+<div class="registerForm">
+    <label>email </label><input type="email" id="email" />
+    <label> пароль </label>
+    <input type="password" id="password" />
+    <label> Подтвердите пароль </label>
+    <input type="password" id="confirmpassword" />
     <input type="submit" id="submit" value="Регистрация" />
 </div>
 <div class="userInfo" style="display:none;">
@@ -12,34 +15,68 @@
     <input type="button" value="Выйти" id="logOut" />
 </div>
 <div class="loginForm">
-    <h3>Вход на сайт</h3>
-    <label>Введите email</label><br />
-    <input type="text" id="emailLogin" /> <br /><br />
-    <label>Введите пароль</label><br />
-    <input type="password" id="passwordLogin" /><br /><br />
-    <input type="submit" id="submitLogin" value="Логин" />
+    <h4>Вход на сайт</h4>
+    <label>email </label>
+    <input type="text" id="emailLogin" />
+    <label> пароль </label>
+    <input type="password" id="passwordLogin" />
+    <input type="submit" id="submitLogin" value="Логин" /><br/>
 </div>
 <div>
-    <input type="submit" id="getCountriesButton" value="GET страны" />
-    <input type="submit" id="getClinicsButton" value="GET клиники" />
-    <input type="submit" id="getPageClinicsButton" value="GET page клиник" />
-    <input type="submit" id="getClinic3Button" value="GET клиника 3" />
-    <input type="submit" id="getSpecializationsButton" value="GET специализации" />
+    <input type="button" id="getCountriesButton" value="GET страны" /><br />
+    <input type="button" id="getClinicsButton" value="GET клиники" />
+    <input type="button" id="getPageClinicsButton" value="GET page клиник" />
+    <input type="button" id="getClinic3Button" value="GET клиника 3" />
+    <input type="button" id="getClinicSpecializationsButton" value="GET специализации клиник" />
     <br />
-    <input type="submit" id="getCitiesUsedClinicButton" value="GET города с клиниками" />
-    <input type="submit" id="getPageClinicReviewsButton" value="GET page отзывы" />
-    <input type="submit" id="postClinicReviewButton" value="POST отзыв" />
+    <input type="button" id="getCitiesUsedClinicButton" value="GET города с клиниками" />
+    <input type="button" id="getPageClinicReviewsButton" value="GET page отзывы" />
+    <input type="button" id="postClinicReviewButton" value="POST отзыв" />
     <br />
     fast search:<input type="text" id="fastSeachTextBox" onkeyup="fastsearch()" />
     <br />
-    full search:<input type="text" id="fulltSeachTextBox" onkeyup="fullsearch()" />
+    full search:<input type="text" id="fulltSeachTextBox" onkeyup="fullsearch()"/>
+    <br />
+    <div class="registerForm">
+        <input type="text" id="search"/>
+        <input type="submit" id="searchClinicButton" value="поиск клиник"/><br/>
+    </div>
+    <br/>
+
+    @*доктора-----------------------------------------------*@
+    <input type="button" id="getDoctorsButton" value="GET врачи"/>
+    <input type="button" id="getPageDoctorsButton" value="GET page врачей"/>
+    <input type="button" id="getDoctor3Button" value="GET врач 3"/>
+    <input type="button" id="getDoctorSpecializationsButton" value="GET специализации врачей" />
 </div>
-<div class="registerForm">
-    <input type="text" id="search" /> 
-    <input type="submit" id="searchClinicButton" value="поиск клиник" /><br />
-</div>
+
+
 @section scripts{
     <script type="text/javascript">
+        function chechAuth() {
+            $.ajax({
+                type: 'POST',
+                url: '/api/account/isauthenticated',
+                beforeSend: function (xhr) {
+                    var token = sessionStorage.getItem(tokenKey);
+                    xhr.setRequestHeader("Authorization", "Bearer " + token);
+                },
+                success: function (data) {
+                    if (data === true)
+                        $('.authData').text("есть");
+                    else
+                        $('.authData').text("нет");
+                },
+                fail: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+        window.onload = function () {
+            chechAuth();
+        }
+
+
         function fastsearch() {
             var data = {
                 Text: $('#fastSeachTextBox').val(),
@@ -148,10 +185,6 @@
                     $.ajax({
                         type: 'GET',
                         url: '/api/clinic/page/2/2',
-                        beforeSend: function (xhr) {
-                            var token = sessionStorage.getItem(tokenKey);
-                            xhr.setRequestHeader("Authorization", "Bearer " + token);
-                        },
                         success: function (data) {
                             alert(JSON.stringify(data));
                         },
@@ -178,7 +211,7 @@
                     });
                 });
 
-                $('#getSpecializationsButton').click(function (e) {
+                $('#getClinicSpecializationsButton').click(function (e) {
                     e.preventDefault();
                     $.ajax({
                         type: 'GET',
@@ -217,6 +250,7 @@
                     // сохраняем в хранилище sessionStorage токен доступа
                     sessionStorage.setItem(tokenKey, data.access_token);
                     console.log(data.access_token);
+                    chechAuth();
                 }).fail(function (data) {
                     alert('При логине возникла ошибка');
                 });
@@ -286,7 +320,7 @@
                 var request = {
                     SearchWord: $('#search').val(),
                     CityId: 0,
-                    SpecializationId: [],
+                    SpecializationIds: [21,22],
                     SortBy: "price",
                     Descending: "false"
                 };
@@ -296,15 +330,81 @@
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(request)
                 }).success(function (data) {
-                    alert(data);
+                    alert(JSON.stringify(data));
                 }).fail(function (data) {
                     alert(data);
                 });
             });
-        });
 
+            //доктора---------------------------------------------------------------------------------------
+            $('#getDoctorsButton').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/doctor/',
+                    beforeSend: function (xhr) {
+                        var token = sessionStorage.getItem(tokenKey);
+                        xhr.setRequestHeader("Authorization", "Bearer " + token);
+                    },
+                    success: function (data) {
+                        alert(JSON.stringify(data));
+                    },
+                    fail: function (data) {
+                        alert(data);
+                    }
+                });
+            });
+            $('#getPageDoctorsButton').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/doctor/page/2/2',
+                    success: function (data) {
+                        alert(JSON.stringify(data));
+                    },
+                    fail: function (data) {
+                        alert(data);
+                    }
+                });
+            });
+        });
+        $('#getDoctor3Button').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'GET',
+                url: '/api/doctor/3',
+                beforeSend: function (xhr) {
+                    var token = sessionStorage.getItem(tokenKey);
+                    xhr.setRequestHeader("Authorization", "Bearer " + token);
+                },
+                success: function (data) {
+                    alert(JSON.stringify(data));
+                },
+                fail: function (data) {
+                    alert(data);
+                }
+            });
+        });
+        $('#getDoctorSpecializationsButton').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'GET',
+                url: '/api/doctorSpecialization/',
+                beforeSend: function (xhr) {
+                    var token = sessionStorage.getItem(tokenKey);
+                    xhr.setRequestHeader("Authorization", "Bearer " + token);
+                },
+                success: function (data) {
+                    alert(JSON.stringify(data));
+                },
+                fail: function (data) {
+                    alert(data);
+                }
+            });
+        });
+//------------------------------------------------------------------------
         var tokenKey = "tokenInfo";
-        $('#submitLogin').click(function (e) {
+        $('#submitLogin').click(function(e) {
             e.preventDefault();
             var loginData = {
                 grant_type: 'password',
@@ -312,10 +412,11 @@
                 password: $('#passwordLogin').val()
             };
 
-            $('#logOut').click(function (e) {
+            $('#logOut').click(function(e) {
                 e.preventDefault();
                 sessionStorage.removeItem(tokenKey);
+                chechAuth();
             });
-        })
+        });
     </script>
 }

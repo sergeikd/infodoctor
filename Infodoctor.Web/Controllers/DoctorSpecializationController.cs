@@ -7,18 +7,18 @@ using Infodoctor.BL.Intefaces;
 namespace Infodoctor.Web.Controllers
 {
     [Authorize]
-    public class DoctorSpecialisationsController : ApiController
+    public class DoctorSpecializationController : ApiController
     {
         private readonly IDoctorSpecializationService _doctorSpecializationService;
 
-        public DoctorSpecialisationsController(IDoctorSpecializationService doctorSpecializationService)
+        public DoctorSpecializationController(IDoctorSpecializationService doctorSpecializationService)
         {
             if (doctorSpecializationService == null)
                 throw new ArgumentNullException(nameof(doctorSpecializationService));
             _doctorSpecializationService = doctorSpecializationService;
         }
 
-        // GET api/doctorspecialisations
+        // GET api/doctorspecialization
         [AllowAnonymous]
         public IEnumerable<DtoDoctorSpecialisation> Get()
         {
@@ -26,28 +26,28 @@ namespace Infodoctor.Web.Controllers
         }
 
         [AllowAnonymous]
-        // GET api/doctorspecialisations/5
+        // GET api/doctorspecialization/5
         public DtoDoctorSpecialisation Get(int id)
         {
             return _doctorSpecializationService.GetSpecializationById(id);
         }
 
         [Authorize(Roles = "admin, moder")]
-        // POST api/doctorspecialisations
+        // POST api/doctorspecialization
         public void Post([FromBody]string value)
         {
             _doctorSpecializationService.Add(value);
         }
 
         [Authorize(Roles = "admin, moder")]
-        // PUT api/doctorspecialisations/5
+        // PUT api/doctorspecialization/5
         public void Put(int id, [FromBody]string value)
         {
             _doctorSpecializationService.Update(id, value);
         }
 
 
-        // DELETE api/doctorspecialisations/5
+        // DELETE api/doctorspecialization/5
         public void Delete(int id)
         {
             _doctorSpecializationService.Delete(id);

@@ -55,8 +55,8 @@ namespace Infodoctor.Web.Controllers
             {
                 DoctorId = doctorReview.DoctorId,
                 RatePoliteness = doctorReview.RatePoliteness,
-                RatePrice = doctorReview.RatePrice,
-                RateQuality = doctorReview.RateQuality,
+                RateProfessionalism = doctorReview.RateProfessionalism,
+                RateWaitingTime = doctorReview.RateWaitingTime,
                 Text = doctorReview.Text,
                 PublishTime = DateTime.Now,
                 UserId = User.Identity.GetUserId(),

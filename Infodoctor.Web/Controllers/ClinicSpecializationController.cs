@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Infodoctor.BL.Intefaces;
-using Infodoctor.Domain;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -14,42 +14,42 @@ namespace Infodoctor.Web.Controllers
 
         public ClinicSpecializationController(IClinicSpecializationService clinicSpecializationService)
         {
-            if (clinicSpecializationServic == null)
+            if (clinicSpecializationService == null)
                 throw new ArgumentNullException(nameof(clinicSpecializationService));
             _clinicSpecializationService = clinicSpecializationService;
         }
 
-        // GET api/clinicprofiles
-        public IEnumerable<ClinicProfile> Get()
+        // GET api/clinicspecialization
+        public IEnumerable<ClinicSpecialization> Get()
         {
-            return _clinicProfilesService.GetAllProfiles().ToList();
+            return _clinicSpecializationService.GetAllSpecializations();
         }
 
-        // GET api/clinicprofiles/5
-        public ClinicProfile Get(int id)
+        // GET api/clinicspecialization/5
+        public ClinicSpecialization Get(int id)
         {
-            return _clinicProfilesService.GetProfileById(id);
+            return _clinicSpecializationService.GetSpecializationById(id);
         }
 
-        // POST api/clinicprofiles
+        // POST api/clinicspecialization
         [Authorize(Roles = "admin, moder")]
         public void Post([FromBody]string value)
         {
-            _clinicProfilesService.Add(value);
+            _clinicSpecializationService.Add(value);
         }
 
-        // PUT api/clinicprofiles/5
+        // PUT api/clinicspecialization/5
         [Authorize(Roles = "admin, moder")]
         public void Put(int id, [FromBody]string value)
         {
-            _clinicProfilesService.Update(id, value);
+            _clinicSpecializationService.Update(id, value);
         }
 
-        // DELETE api/clinicprofiles/5
+        // DELETE api/clinicspecialization/5
         [Authorize(Roles = "admin, moder")]
         public void Delete(int id)
         {
-            _clinicProfilesService.Delete(id);
+            _clinicSpecializationService.Delete(id);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Infodoctor.BL.Services
             _clinicRepository = clinicRepository;
         }
 
-        public IEnumerable<DtoClinic> GetAllClinics()
+        public IEnumerable<DtoClinic> GetAllClinics(string pathToImage)
         {
             var clinicList = _clinicRepository.GetAllСlinics().ToList();
 
@@ -40,7 +40,7 @@ namespace Infodoctor.BL.Services
                     RatePrice = clinic.RatePrice,
                     RateQuality = clinic.RateQuality,
                     RateAverage = clinic.RateAverage,
-                    ImageName = clinic.ImageName
+                    Image = pathToImage + clinic.ImageName
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
                 foreach (var clinicAddress in clinic.CityAddresses)
@@ -104,7 +104,7 @@ namespace Infodoctor.BL.Services
             return dtoClinicList;
         }
 
-        public DtoClinic GetClinicById(int id)
+        public DtoClinic GetClinicById(int id, string pathToImage)
         {
             var clinic = _clinicRepository.GetClinicById(id);
             if (clinic == null)
@@ -120,7 +120,7 @@ namespace Infodoctor.BL.Services
                 RatePrice = clinic.RatePrice,
                 RateQuality = clinic.RateQuality,
                 RateAverage = clinic.RateAverage,
-                ImageName = clinic.ImageName
+                Image = pathToImage + clinic.ImageName
             };
             var dtoClinicAddressList = new List<DtoAddress>();
             foreach (var clinicAddress in clinic.CityAddresses)
@@ -169,7 +169,7 @@ namespace Infodoctor.BL.Services
             return dtoClinic;
         }
 
-        public DtoPagedClinic GetPagedClinics(int perPage, int numPage)
+        public DtoPagedClinic GetPagedClinics(int perPage, int numPage, string pathToImage)
         {
             if (perPage < 1 || numPage < 1)
             {
@@ -179,7 +179,7 @@ namespace Infodoctor.BL.Services
             var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
             if (!pagedList.Any())
             {
-                throw new ApplicationException("Page not found");
+                return null;
             }
             var dtoClinicList = new List<DtoClinic>();
             foreach (var clinic in pagedList)
@@ -193,7 +193,7 @@ namespace Infodoctor.BL.Services
                     RatePrice = clinic.RatePrice,
                     RateQuality = clinic.RateQuality,
                     RateAverage = clinic.RateAverage,
-                    ImageName = clinic.ImageName
+                    Image = pathToImage + clinic.ImageName
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
                 foreach (var clinicAddress in clinic.CityAddresses)
@@ -256,7 +256,7 @@ namespace Infodoctor.BL.Services
             return pagedDtoClinicList;
         }
 
-        public DtoPagedClinic SearchClinics(int perPage, int numPage, DtoClinicSearchModel searchModel)
+        public DtoPagedClinic SearchClinics(int perPage, int numPage, DtoClinicSearchModel searchModel, string pathToImage)
         {
             if (perPage < 1 || numPage < 1)
             {
@@ -274,35 +274,37 @@ namespace Infodoctor.BL.Services
             IQueryable<Clinic> clinics;
             if (searchModel.CityId == 0)
             {
-                if (searchModel.SpecializationId.Any())
+                if (searchModel.SpecializationIds.Any())
                 {
                     clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                        Where(x => x.Name.Contains(searchModel.SearchWord) &&
-                                   x.ClinicSpecializations.Any(y => searchModel.SpecializationId.Contains(y.Id)));
+                        Where(x => (x.Name.ToLowerInvariant().Contains(searchModel.SearchWord.ToLowerInvariant()) &&
+                        !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any()));
+                    //var clinicList = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending);
+                    //var searchResult = (from clinic in clinicList let isSubset = !searchModel.SpecializationId.Except(clinic.ClinicSpecializations.Select(x => x.Id)).Any() where isSubset select clinic);
+                    //var qqq = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
+                    //    Where(x => x.Name.Contains(searchModel.SearchWord) &&
+                    //    !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any()).ToList();
+                    //x.ClinicSpecializations.Any(z => z.Name.Contains(searchModel.SearchWord.ToLowerInvariant())
                 }
                 else
                 {
                     clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                        Where(x => x.Name.Contains(searchModel.SearchWord));
+                        Where(x => x.Name.ToLowerInvariant().Contains(searchModel.SearchWord.ToLowerInvariant()));
                 }
-                var aaa = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                    Where(x => x.Name.Contains(searchModel.SearchWord) && x.ClinicSpecializations.Any(y => searchModel.SpecializationId.Contains(y.Id))).ToList();
-                var bbb = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                    Where(x => x.Name.Contains(searchModel.SearchWord)).ToList();
             }
             else
             {
-                if (searchModel.SpecializationId.Any())
+                if (searchModel.SpecializationIds.Any())
                 {
                     clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                        Where(x => x.Name.Contains(searchModel.SearchWord) &&
-                                   x.ClinicSpecializations.Any(y => searchModel.SpecializationId.Contains(y.Id)) &&
-                                   x.CityAddresses.Any(y => y.City.Id == searchModel.CityId));
+                        Where(x => x.Name.ToLowerInvariant().Contains(searchModel.SearchWord.ToLowerInvariant()) &&
+                                   x.CityAddresses.Any(y => y.City.Id == searchModel.CityId) &&
+                                   !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any());
                 }
                 else
                 {
                     clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                        Where(x => x.Name.Contains(searchModel.SearchWord) &&
+                        Where(x => x.Name.ToLowerInvariant().Contains(searchModel.SearchWord.ToLowerInvariant()) &&
                         x.CityAddresses.Any(y => y.City.Id == searchModel.CityId));
                 }
             }
@@ -310,7 +312,7 @@ namespace Infodoctor.BL.Services
             var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
             if (!pagedList.Any())
             {
-                throw new ApplicationException("Page not found");
+                return null;
             }
             var dtoClinicList = new List<DtoClinic>();
             foreach (var clinic in pagedList)
@@ -320,7 +322,11 @@ namespace Infodoctor.BL.Services
                     Id = clinic.Id,
                     Name = clinic.Name,
                     Email = clinic.Email,
-                    ImageName = clinic.ImageName
+                    RatePoliteness = clinic.RatePoliteness,
+                    RatePrice = clinic.RatePrice,
+                    RateQuality = clinic.RateQuality,
+                    RateAverage = clinic.RateAverage,
+                    Image = pathToImage + clinic.ImageName
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
                 foreach (var clinicAddress in clinic.CityAddresses)

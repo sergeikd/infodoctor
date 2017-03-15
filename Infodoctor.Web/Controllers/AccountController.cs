@@ -379,6 +379,22 @@ namespace Infodoctor.Web.Controllers
             base.Dispose(disposing);
         }
 
+        [Route("IsAuthenticated")]
+        [HttpPost]
+        [AllowAnonymous]
+        public bool IsAuthenticated()
+        {
+            string userName = string.Empty;
+            if (System.Web.HttpContext.Current != null && System.Web.HttpContext.Current.User != null
+                    && System.Web.HttpContext.Current.User.Identity.Name != null)
+            {
+                userName = System.Web.HttpContext.Current.User.Identity.Name;
+            }
+
+            if (!string.IsNullOrEmpty(userName))
+                return true;
+            return false;
+        }
         #region Helpers
 
         private IAuthenticationManager Authentication

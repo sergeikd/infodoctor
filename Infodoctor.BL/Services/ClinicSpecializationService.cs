@@ -20,12 +20,12 @@ namespace Infodoctor.BL.Services
             _clinicSpecializationRepository = clinicSpecializationRepository;
         }
 
-        public IEnumerable<ClinicSpecialization> GetAllProfiles()
+        public IEnumerable<ClinicSpecialization> GetAllSpecializations()
         {
             return _clinicSpecializationRepository.GetAllClinicSpecializations().ToList();
         }
 
-        public ClinicSpecialization GetProfileById(int id)
+        public ClinicSpecialization GetSpecializationById(int id)
         {
             return _clinicSpecializationRepository.GetClinicSpecializationById(id);
         }

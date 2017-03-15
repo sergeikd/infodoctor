@@ -5,8 +5,8 @@ namespace Infodoctor.BL.DtoModels
     public class DtoDoctor
     {
         public int Id { get; set; }
-        public string ImageName { get; set; }
-        public string ImagePath { get; set; }
+        public string Image { get; set; }
+        //public string ImagePath { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public int Experience { get; set; }
@@ -14,10 +14,11 @@ namespace Infodoctor.BL.DtoModels
         public DtoAddress Address { get; set; }
         public string Specialization { get; set; }
         public string Category { get; set; }
-        public List<int> ClinicsId { get; set; } //сделано как List<int> для облегчения добавления клиники к доктору на фронте
-        public List<int> ReviewsId { get; set; } //сделано как List<int> для облегчения добавления клиники к доктору на фронте
-        public double RatePrice { get; set; }
-        public double RateQuality { get; set; }
+        public List<int> ClinicsIds { get; set; } //сделано как List<int> для облегчения добавления клиники к доктору на фронте
+        public List<int> ReviewsIds { get; set; } //сделано как List<int> для облегчения добавления клиники к доктору на фронте
+        public double RateProfessionalism { get; set; }
+        public double RateWaitingTime { get; set; }
         public double RatePoliteness { get; set; }
+        public double RateAverage { get; set; }
     }
 }

@@ -8,6 +8,5 @@ namespace Infodoctor.Web.Infrastructure
         public string PathToArticlesImages => ConfigurationManager.AppSettings["PathToArticlesImages"];
         public string PathToClinicsImages => ConfigurationManager.AppSettings["PathToClinicsImages"];
         public string PathToDoctorsImages => ConfigurationManager.AppSettings["PathToDoctorsImages"];
-        public string ServerDomain => ConfigurationManager.AppSettings["ServerDomain"];
     }
 }

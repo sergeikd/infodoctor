@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
@@ -25,14 +24,10 @@ namespace Infodoctor.Web.Controllers
         }
 
         // GET api/doctor
-        [AllowAnonymous]
         public IEnumerable<DtoDoctor> Get()
         {
-            var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-            var doctors = _doctorService.GetAllDoctors().ToArray();
-            for (var i = 0; i < doctors.Length; i++)
-                doctors[i].ImagePath = baseUrl + _configService.PathToDoctorsImages + '/' + doctors[i].ImageName;
-
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            var doctors = _doctorService.GetAllDoctors(pathToImage);
             return doctors;
         }
 
@@ -40,11 +35,8 @@ namespace Infodoctor.Web.Controllers
         [AllowAnonymous]
         public DtoDoctor Get(int id)
         {
-            var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-            var doctor = _doctorService.GetDoctorById(id);
-            doctor.ImagePath = baseUrl + _configService.PathToDoctorsImages + '/' + doctor.ImageName;
-
-            return doctor;
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            return _doctorService.GetDoctorById(id, pathToImage);
         }
 
         // GET: api/doctor/page/perPage/numPage 
@@ -53,16 +45,8 @@ namespace Infodoctor.Web.Controllers
         [AllowAnonymous]
         public DtoPagedDoctor GetPage(int perPage, int numPage)
         {
-            var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-            var pagedDoctor = _doctorService.GetPagedDoctors(perPage, numPage);
-            var doctors = pagedDoctor.Doctors.ToArray();     
-
-            for (var i = 0; i < doctors.Length; i++)
-                doctors[i].ImagePath = baseUrl + _configService.PathToDoctorsImages + '/' + doctors[i].ImageName;
-
-            pagedDoctor.Doctors = doctors.ToList();
-
-            return pagedDoctor;
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            return _doctorService.GetPagedDoctors(perPage, numPage, pathToImage);
         }
 
         // POST api/doctor

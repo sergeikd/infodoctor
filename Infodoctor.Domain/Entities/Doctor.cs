@@ -10,8 +10,8 @@ namespace Infodoctor.Domain.Entities
         public string Email { get; set; }
         public int Experience { get; set; }
         public string Manipulation { get; set; }
-        public double RatePrice { get; set; }
-        public double RateQuality { get; set; }
+        public double RateProfessionalism { get; set; }
+        public double RateWaitingTime { get; set; }
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
         public virtual DoctorSpecialization Specialization { get; set; }

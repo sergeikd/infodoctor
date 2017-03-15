@@ -15,9 +15,9 @@ namespace Infodoctor.BL.Services
         private readonly IDoctorSpecializationRepository _doctorSpecializationRepository;
         private readonly IDoctorCategoryRepository _doctorCategoryRepository;
         private readonly IСlinicRepository _clinicRepository;
-        private readonly IDoctorReviewService _doctorReviewService;
 
-        public DoctorService(IDoctorRepository doctorRepository, IDoctorSpecializationRepository doctorSpecializationRepository, IDoctorCategoryRepository doctorCategoryRepository, IСlinicRepository clinicRepository, IDoctorReviewService doctorReviewService)
+        public DoctorService(IDoctorRepository doctorRepository, IDoctorSpecializationRepository doctorSpecializationRepository, 
+                            IDoctorCategoryRepository doctorCategoryRepository, IСlinicRepository clinicRepository)
         {
             if (doctorRepository == null)
                 throw new ArgumentNullException(nameof(doctorRepository));
@@ -27,17 +27,13 @@ namespace Infodoctor.BL.Services
                 throw new ArgumentNullException(nameof(doctorRepository));
             if (clinicRepository == null)
                 throw new ArgumentNullException(nameof(clinicRepository));
-            if (doctorReviewService == null)
-                throw new ArgumentNullException(nameof(doctorReviewService));
-
-            _doctorReviewService = doctorReviewService;
             _clinicRepository = clinicRepository;
             _doctorRepository = doctorRepository;
             _doctorSpecializationRepository = doctorSpecializationRepository;
             _doctorCategoryRepository = doctorCategoryRepository;
         }
 
-        public IEnumerable<DtoDoctor> GetAllDoctors()
+        public IEnumerable<DtoDoctor> GetAllDoctors(string pathToImage)
         {
             var doctors = _doctorRepository.GetAllDoctors().ToList();
             var result = new List<DtoDoctor>();
@@ -53,7 +49,11 @@ namespace Infodoctor.BL.Services
                     Manipulation = doctor.Manipulation,
                     Specialization = doctor.Specialization.Name,
                     Category = doctor.Category.Name,
-                    ImageName = doctor.ImageName
+                    RatePoliteness = doctor.RatePoliteness,
+                    RateProfessionalism = doctor.RateProfessionalism,
+                    RateWaitingTime = doctor.RateWaitingTime,
+                    RateAverage = doctor.RateAverage,
+                    Image = pathToImage + doctor.ImageName
                 };
 
                 if (doctor.Address != null)
@@ -75,44 +75,19 @@ namespace Infodoctor.BL.Services
 
                 if (doctor.Clinics != null)
                 {
-                    dtoDoctor.ClinicsId = new List<int>();
+                    dtoDoctor.ClinicsIds = new List<int>();
                     foreach (var clinic in doctor.Clinics)
                     {
-                        dtoDoctor.ClinicsId.Add(clinic.Id);
+                        dtoDoctor.ClinicsIds.Add(clinic.Id);
                     }
                 }
-
-                var reviews = _doctorReviewService.GetReviewsByDoctorId(doctor.Id).ToList();
-                double ratePrice = 0;
-                double rateQuality = 0;
-                double ratePoliteness = 0;
-
-                foreach (var review in reviews)
-                {
-                    ratePrice += review.RatePrice;
-                    rateQuality += review.RateQuality;
-                    ratePoliteness += review.RatePoliteness;
-                }
-
-                if (reviews.Count != 0)
-                {
-                    ratePrice /= reviews.Count;
-                    rateQuality /= reviews.Count;
-                    ratePoliteness /= reviews.Count;
-                }
-
-                dtoDoctor.RatePrice = ratePrice;
-                dtoDoctor.RateQuality = rateQuality;
-                dtoDoctor.RatePoliteness = ratePoliteness;
-
-
                 result.Add(dtoDoctor);
             }
 
             return result;
         }
 
-        public DtoPagedDoctor GetPagedDoctors(int perPage, int numPage)
+        public DtoPagedDoctor GetPagedDoctors(int perPage, int numPage, string pathToImage)
         {
             if (perPage < 1 || numPage < 1)
             {
@@ -139,7 +114,11 @@ namespace Infodoctor.BL.Services
                     Manipulation = doctor.Manipulation,
                     Specialization = doctor.Specialization.Name,
                     Category = doctor.Category.Name,
-                    ImageName = doctor.ImageName
+                    RatePoliteness = doctor.RatePoliteness,
+                    RateProfessionalism = doctor.RateProfessionalism,
+                    RateWaitingTime = doctor.RateWaitingTime,
+                    RateAverage = doctor.RateAverage,
+                    Image = pathToImage + doctor.ImageName
                 };
 
                 if (doctor.Address != null)
@@ -161,36 +140,12 @@ namespace Infodoctor.BL.Services
 
                 if (doctor.Clinics != null)
                 {
-                    dtoDoctor.ClinicsId = new List<int>();
+                    dtoDoctor.ClinicsIds = new List<int>();
                     foreach (var clinic in doctor.Clinics)
                     {
-                        dtoDoctor.ClinicsId.Add(clinic.Id);
+                        dtoDoctor.ClinicsIds.Add(clinic.Id);
                     }
                 }
-
-                var reviews = _doctorReviewService.GetReviewsByDoctorId(doctor.Id).ToList();
-                double ratePrice = 0;
-                double rateQuality = 0;
-                double ratePoliteness = 0;
-
-                foreach (var review in reviews)
-                {
-                    ratePrice += review.RatePrice;
-                    rateQuality += review.RateQuality;
-                    ratePoliteness += review.RatePoliteness;
-                }
-
-                if (reviews.Count != 0)
-                {
-                    ratePrice /= reviews.Count;
-                    rateQuality /= reviews.Count;
-                    ratePoliteness /= reviews.Count;
-                }
-
-                dtoDoctor.RatePrice = ratePrice;
-                dtoDoctor.RateQuality = rateQuality;
-                dtoDoctor.RatePoliteness = ratePoliteness;
-
                 dtoDoctors.Add(dtoDoctor);
             }
 
@@ -205,7 +160,7 @@ namespace Infodoctor.BL.Services
             return pagedDtoDoclorList;
         }
 
-        public DtoDoctor GetDoctorById(int id)
+        public DtoDoctor GetDoctorById(int id, string pathToImage)
         {
             var doctor = _doctorRepository.GetDoctorById(id);
 
@@ -221,7 +176,11 @@ namespace Infodoctor.BL.Services
                 Manipulation = doctor.Manipulation,
                 Specialization = doctor.Specialization.Name,
                 Category = doctor.Category.Name,
-                ImageName = doctor.ImageName
+                RatePoliteness = doctor.RatePoliteness,
+                RateProfessionalism = doctor.RateProfessionalism,
+                RateWaitingTime = doctor.RateWaitingTime,
+                RateAverage = doctor.RateAverage,
+                Image = pathToImage + doctor.ImageName
             };
 
             if (doctor.Address != null)
@@ -243,36 +202,12 @@ namespace Infodoctor.BL.Services
 
             if (doctor.Clinics != null)
             {
-                dtoDoctor.ClinicsId = new List<int>();
+                dtoDoctor.ClinicsIds = new List<int>();
                 foreach (var clinic in doctor.Clinics)
                 {
-                    dtoDoctor.ClinicsId.Add(clinic.Id);
+                    dtoDoctor.ClinicsIds.Add(clinic.Id);
                 }
             }
-
-            var reviews = _doctorReviewService.GetReviewsByDoctorId(doctor.Id).ToList();
-            double ratePrice = 0;
-            double rateQuality = 0;
-            double ratePoliteness = 0;
-
-            foreach (var review in reviews)
-            {
-                ratePrice += review.RatePrice;
-                rateQuality += review.RateQuality;
-                ratePoliteness += review.RatePoliteness;
-            }
-
-            if (reviews.Count != 0)
-            {
-                ratePrice /= reviews.Count;
-                rateQuality /= reviews.Count;
-                ratePoliteness /= reviews.Count;
-            }
-
-            dtoDoctor.RatePrice = ratePrice;
-            dtoDoctor.RateQuality = rateQuality;
-            dtoDoctor.RatePoliteness = ratePoliteness;
-
             return dtoDoctor;
         }
 
@@ -287,12 +222,12 @@ namespace Infodoctor.BL.Services
                 Email = newDoctor.Email,
                 Experience = newDoctor.Experience,
                 Manipulation = newDoctor.Manipulation,
-                ImageName = newDoctor.ImageName
+                ImageName = newDoctor.Image
             };
 
             var clinicsList = new List<Clinic>();
 
-            foreach (var clinicId in newDoctor.ClinicsId)
+            foreach (var clinicId in newDoctor.ClinicsIds)
             {
                 var clinic = _clinicRepository.GetClinicById(clinicId);
                 if (clinic != null)
@@ -325,14 +260,14 @@ namespace Infodoctor.BL.Services
                 doctor.Email = newDoctor.Email;
                 doctor.Experience = newDoctor.Experience;
                 doctor.Manipulation = newDoctor.Manipulation;
-                doctor.ImageName = newDoctor.ImageName;
+                doctor.ImageName = newDoctor.Image;
 
                 var doctorSpesList =
                     _doctorSpecializationRepository.GetAllSpecializations().ToList();
                 var doctorCategotyList = _doctorCategoryRepository.GetAllCategories().ToList();
                 var clinicsList = new List<Clinic>();
 
-                foreach (var clinicId in newDoctor.ClinicsId)
+                foreach (var clinicId in newDoctor.ClinicsIds)
                 {
                     var clinic = _clinicRepository.GetClinicById(clinicId);
                     if (clinic != null)

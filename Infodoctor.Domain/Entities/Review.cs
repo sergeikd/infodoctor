@@ -16,23 +16,25 @@ namespace Infodoctor.Domain.Entities
         public string Text { get; set; }
         [Required]
         public DateTime PublishTime { get; set; }
-        [Required]
-        public double RatePrice { get; set; }
-        [Required]
-        public double RateQuality { get; set; }
-        [Required]
-        public double RatePoliteness { get; set; }
+        
+
     }
 
     public class ClinicReview : Review
     {
         [Required]
         public int ClinicId { get; set; }
+        public double RatePrice { get; set; }
+        public double RateQuality { get; set; }
+        public double RatePoliteness { get; set; }
     }
 
     public class DoctorReview : Review
     {
         [Required]
         public int DoctorId { get; set; }
+        public double RateProfessionalism { get; set; }
+        public double RateWaitingTime { get; set; }
+        public double RatePoliteness { get; set; }
     }
 }

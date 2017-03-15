@@ -63,7 +63,7 @@ namespace Infodoctor.BL.Services
                 throw new UnauthorizedAccessException("Incorrect user's credentials");
 
             if (dr.Text == "" || dr.DoctorId == 0 || dr.RatePoliteness == 0 ||
-                dr.RatePrice == 0 || dr.RateQuality == 0 || dr.Text == string.Empty)
+                dr.RateProfessionalism == 0 || dr.RateWaitingTime == 0 || dr.Text == string.Empty)
                 throw new ApplicationException("Incorrect data, some required fields are null or empty");
 
             _doctorReviewRepository.Add(dr);
@@ -75,7 +75,7 @@ namespace Infodoctor.BL.Services
                 throw new UnauthorizedAccessException("Incorrect user's credentials");
 
             if (dr.Text == "" || dr.DoctorId == 0 || dr.RatePoliteness == 0 ||
-                dr.RatePrice == 0 || dr.RateQuality == 0 || dr.Text == string.Empty)
+                dr.RateProfessionalism == 0 || dr.RateWaitingTime == 0 || dr.Text == string.Empty)
                 throw new ApplicationException("Incorrect data, some required fields are null or empty");
 
             _doctorReviewRepository.Update(dr);
@@ -89,7 +89,7 @@ namespace Infodoctor.BL.Services
             {
                 deleted = _doctorReviewRepository.GetDoctorReviewById(id);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new ApplicationException("Review not found");
             }

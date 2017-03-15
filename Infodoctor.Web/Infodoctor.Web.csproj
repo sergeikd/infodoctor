@@ -235,6 +235,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\DbInitializer.cs" />
+    <Compile Include="App_Start\DbInitializerExtention.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -245,13 +246,13 @@
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\ClinicController.cs" />
-    <Compile Include="Controllers\ClinicProfilesController.cs" />
     <Compile Include="Controllers\ClinicReviewController.cs" />
+    <Compile Include="Controllers\ClinicSpecializationController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\DoctorCategoriesController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\DoctorReviewController.cs" />
-    <Compile Include="Controllers\DoctorSpecialisationsController.cs" />
+    <Compile Include="Controllers\DoctorSpecializationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -279,6 +280,16 @@
     <Content Include="Content\ClinicProfilesList.txt" />
     <Content Include="Content\CountriesList.txt" />
     <Content Include="Content\DoctorsProfilesList.txt" />
+    <Content Include="Content\Images\Clinic\242c4ff4f8454af5bca78b631209902a.jpg" />
+    <Content Include="Content\Images\Clinic\df41387ab46b4241964b5d2663e3d843.jpg" />
+    <Content Include="Content\Images\Clinic\973b8fff8ba24b6c88c24808b97bd13d.jpg" />
+    <Content Include="Content\Images\Clinic\de0c4e3b3d6f479da03f0f337b65c417.jpg" />
+    <Content Include="Content\Images\Clinic\7cf505b425af4f4ab7293b3a74a3aa3d.jpg" />
+    <Content Include="Content\Images\Doctor\98344f63b5854a7badd654353f341790.jpg" />
+    <Content Include="Content\Images\Doctor\e314bb55fdfe46ceb369ce3da3a6adae.jpg" />
+    <Content Include="Content\Images\Doctor\5161c9cab8a4bee923a30e6a8c1b326.jpg" />
+    <Content Include="Content\Images\Doctor\0e76cf893e9a4b27bcaeeb3450f02e9c.jpg" />
+    <Content Include="Content\Images\Doctor\03206dbe56b04c1682ab90422923867c.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -317,8 +328,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\Article\" />
-    <Folder Include="Content\Images\CLinic\" />
-    <Folder Include="Content\Images\Doctor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
