@@ -52,7 +52,9 @@ namespace Infodoctor.Web.Controllers
 
             return pagedClinic;
         }
+
         // GET: api/Clinic/5 
+        [AllowAnonymous]
         public DtoClinic Get(int id)
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;

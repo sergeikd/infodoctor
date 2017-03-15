@@ -277,7 +277,7 @@ namespace Infodoctor.BL.Services
                 if (searchModel.SpecializationIds.Any())
                 {
                     clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                        Where(x => (x.Name.ToLowerInvariant().Contains(searchModel.SearchWord.ToLowerInvariant()) &&
+                        Where(x => (x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
                         !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any()));
                     //var clinicList = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending);
                     //var searchResult = (from clinic in clinicList let isSubset = !searchModel.SpecializationId.Except(clinic.ClinicSpecializations.Select(x => x.Id)).Any() where isSubset select clinic);
@@ -289,7 +289,7 @@ namespace Infodoctor.BL.Services
                 else
                 {
                     clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                        Where(x => x.Name.ToLowerInvariant().Contains(searchModel.SearchWord.ToLowerInvariant()));
+                        Where(x => x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()));
                 }
             }
             else
@@ -297,14 +297,14 @@ namespace Infodoctor.BL.Services
                 if (searchModel.SpecializationIds.Any())
                 {
                     clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                        Where(x => x.Name.ToLowerInvariant().Contains(searchModel.SearchWord.ToLowerInvariant()) &&
+                        Where(x => x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
                                    x.CityAddresses.Any(y => y.City.Id == searchModel.CityId) &&
                                    !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any());
                 }
                 else
                 {
                     clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                        Where(x => x.Name.ToLowerInvariant().Contains(searchModel.SearchWord.ToLowerInvariant()) &&
+                        Where(x => x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
                         x.CityAddresses.Any(y => y.City.Id == searchModel.CityId));
                 }
             }
