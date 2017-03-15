@@ -1,6 +1,9 @@
 ﻿using Infodoctor.BL.Intefaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Infodoctor.BL.DtoModels;
+using Infodoctor.DAL;
 using Infodoctor.DAL.Interfaces;
 using Infodoctor.Domain.Entities;
 
@@ -25,6 +28,29 @@ namespace Infodoctor.BL.Services
         public Article GetArticleById(int id)
         {
             return _articlesRepository.GetArticleById(id);
+        }
+
+        public DtoPagedArticles GetPagedArticles(int perPage, int numPage, string pathToImage)
+        {
+            if (perPage < 1 || numPage < 1)
+            {
+                throw new ApplicationException("Incorrect request parameter");
+            }
+            var articles = _articlesRepository.GetAllArticles();
+            var pagedList = new PagedList<Article>(articles, perPage, numPage);
+            if (!pagedList.Any())
+            {
+                return null;
+            }
+            
+            var paged = new DtoPagedArticles()
+            {
+                Articles = pagedList,
+                Page = pagedList.Page,
+                PageSize = pagedList.PageSize,
+                TotalCount = pagedList.TotalCount
+            };
+            return paged;
         }
 
         public void Add(Article art)

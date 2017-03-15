@@ -55,7 +55,7 @@ namespace Infodoctor.BL.Services
             return dtoImg;
         }
 
-        public void Add(HttpPostedFile imageFile, string imageFolderPath, int maxImageWidth)
+        public string Add(HttpPostedFile imageFile, string imageFolderPath, string pathToImage, int maxImageWidth)
         {
             if (imageFile == null)
                 throw new ArgumentNullException(nameof(imageFile));
@@ -64,12 +64,20 @@ namespace Infodoctor.BL.Services
             var filePath = AppDomain.CurrentDomain.BaseDirectory + imageFolderPath.Replace("~/", string.Empty).Replace("/", @"\") + imgFileName;
             var image = Image.FromStream(imageFile.InputStream, true, true);
 
-            var result = ResizeImage(image, imgFileName, imageFolderPath, maxImageWidth);
+            bool result = false;
 
-            var img = new ImageFile() { Name = imgFileName, Path = filePath};
+            if (maxImageWidth == 0)
+                result = ResizeImage(image, imgFileName, imageFolderPath, image.Width);
+            else
+                result = ResizeImage(image, imgFileName, imageFolderPath, maxImageWidth);
+
+
+            var img = new ImageFile() { Name = imgFileName, Path = filePath };
 
             if (result)
                 _imageRepository.Add(img);
+
+            return pathToImage + imgFileName;
         }
 
         public void Update(int id, HttpPostedFile imageFile, string imageFolderPath, int maxImageWidth)
@@ -80,7 +88,12 @@ namespace Infodoctor.BL.Services
             var img = _imageRepository.GetImageDyId(id);
             var image = Image.FromStream(imageFile.InputStream, true, true);
 
-            var result = ResizeImage(image, img.Name, imageFolderPath, maxImageWidth);
+            bool result = false;
+
+            if (maxImageWidth == 0)
+                result = ResizeImage(image, img.Name, imageFolderPath, image.Width);
+            else
+                result = ResizeImage(image, img.Name, imageFolderPath, maxImageWidth);
 
             if (result)
                 _imageRepository.Update(img);
@@ -89,7 +102,10 @@ namespace Infodoctor.BL.Services
         public void Delete(int id)
         {
             var img = _imageRepository.GetImageDyId(id);
-            File.Delete(img.Path);
+
+            if (File.Exists(img.Path))
+                File.Delete(img.Path);
+
             _imageRepository.Delete(img);
         }
 

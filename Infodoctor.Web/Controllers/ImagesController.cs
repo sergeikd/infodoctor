@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
@@ -15,6 +16,11 @@ namespace Infodoctor.Web.Controllers
 
         public ImagesController(IImagesService imagesService, IConfigService configService)
         {
+            if (imagesService == null)
+                throw new ArgumentNullException(nameof(imagesService));
+            if (configService == null)
+                throw new ArgumentNullException(nameof(configService));
+
             _imagesService = imagesService;
             _configService = configService;
         }
@@ -38,9 +44,10 @@ namespace Infodoctor.Web.Controllers
         public void Doctors()
         {
             var file = HttpContext.Current.Request.Files.Count > 0 ? HttpContext.Current.Request.Files[0] : null;
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
 
             if (file != null && file.ContentLength > 0)
-                _imagesService.Add(file, _configService.PathToDoctorsImages, 400);
+                _imagesService.Add(file, _configService.PathToDoctorsImages, pathToImage, 400);
         }
 
         // POST api/images/clinics
@@ -50,21 +57,10 @@ namespace Infodoctor.Web.Controllers
         public void Clinics()
         {
             var file = HttpContext.Current.Request.Files.Count > 0 ? HttpContext.Current.Request.Files[0] : null;
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
 
             if (file != null && file.ContentLength > 0)
-                _imagesService.Add(file, _configService.PathToClinicsImages, 400);
-        }
-
-        // POST api/images/articles
-        [Route("api/images/articles")]
-        [HttpPost]
-        [Authorize(Roles = "admin, moder")]
-        public void Articles()
-        {
-            var file = HttpContext.Current.Request.Files.Count > 0 ? HttpContext.Current.Request.Files[0] : null;
-
-            if (file != null && file.ContentLength > 0)
-                _imagesService.Add(file, _configService.PathToArticlesImages, 400);
+                _imagesService.Add(file, _configService.PathToClinicsImages, pathToImage, 400);
         }
 
         // PUT api/images/5

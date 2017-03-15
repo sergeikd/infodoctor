@@ -9,7 +9,7 @@ namespace Infodoctor.BL.Intefaces
     {
         IEnumerable<DtoImage> GetAllImages();
         DtoImage GetImageById(int id);
-        void Add(HttpPostedFile imageFile, string imageFolderPath, int maxImageWidth);
+        string Add(HttpPostedFile imageFile, string imageFolderPath, string pathToImage, int maxImageWidth);
         void Update(int id, HttpPostedFile imageFile, string imageFolderPath, int maxImageWidth);
         void Delete(int id);
         bool ResizeImage(Image origImage, string fileName, string folderPath, int width);
