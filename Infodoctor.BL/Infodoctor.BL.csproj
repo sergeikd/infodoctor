@@ -55,7 +55,7 @@
     <Compile Include="DtoModels\DtoPagedClinic.cs" />
     <Compile Include="DtoModels\DtoPagedDoctor.cs" />
     <Compile Include="DtoModels\DtoPagedDoctorReview.cs" />
-    <Compile Include="DtoModels\DtoSearchModel.cs" />
+    <Compile Include="DtoModels\DtoFastSearchModel.cs" />
     <Compile Include="DtoModels\DtoSearchResultModel.cs" />
     <Compile Include="Intefaces\IArticlesService.cs" />
     <Compile Include="Intefaces\ICitiesService.cs" />

@@ -10,13 +10,16 @@ namespace Infodoctor.BL.Services
     public class ClinicSpecializationService : IClinicSpecializationService
     {
         private readonly IClinicSpecializationRepository _clinicSpecializationRepository;
+        private readonly ISearchService _searchService;
 
-        public ClinicSpecializationService(IClinicSpecializationRepository clinicSpecializationRepository)
+        public ClinicSpecializationService(IClinicSpecializationRepository clinicSpecializationRepository, ISearchService searchService)
         {
             if (clinicSpecializationRepository == null)
-            {
                 throw new ArgumentNullException(nameof(clinicSpecializationRepository));
-            }
+            if (searchService == null)
+                throw new ArgumentNullException(nameof(searchService));
+
+            _searchService = searchService;
             _clinicSpecializationRepository = clinicSpecializationRepository;
         }
 
@@ -38,6 +41,7 @@ namespace Infodoctor.BL.Services
             var cp = new ClinicSpecialization() { Name = name };
 
             _clinicSpecializationRepository.Add(cp);
+            _searchService.RefreshCache();
         }
 
 
@@ -52,6 +56,7 @@ namespace Infodoctor.BL.Services
                 cp.Name = name;
 
                 _clinicSpecializationRepository.Update(cp);
+                _searchService.RefreshCache();
             }
 
         }
@@ -61,7 +66,10 @@ namespace Infodoctor.BL.Services
             var cp = _clinicSpecializationRepository.GetClinicSpecializationById(id);
 
             if (cp != null)
+            {
                 _clinicSpecializationRepository.Delete(cp);
+                _searchService.RefreshCache();
+            }    
         }
     }
 }

@@ -29,35 +29,14 @@ namespace Infodoctor.Web.Controllers
             return "value";
         }
 
-        // POST api/search/fullsearch
-        [Route("api/search/fullsearch")]
-        [HttpPost]
-        public PublicSearchResultModel FullSearch([FromBody]PublicSearchModel searchModel)
-        {
-            var result =
-                _searchService.FullSeacrh(new DtoSearchModel()
-                {
-                    CityId = searchModel.CityId,
-                    TypeId = searchModel.TypeId,
-                    Text = searchModel.Text
-                });
-            var pubResult = new PublicSearchResultModel()
-            {
-                Clinics = result.Clinics,
-                ClinicSpecializations = result.ClinicSpecializations
-            };
-            return pubResult;
-        }
-
         // POST api/search/fastsearch
         [Route("api/search/fastsearch")]
         [HttpPost]
-        public List<string> FastSearch([FromBody]PublicSearchModel searchModel)
+        public List<string> FastSearch([FromBody]PublicFastSearchModel searchModel)
         {
             var result =
-                _searchService.FastSearch(new DtoSearchModel()
+                _searchService.FastSearch(new DtoFastSearchModel()
                 {
-                    CityId = searchModel.CityId,
                     TypeId = searchModel.TypeId,
                     Text = searchModel.Text
                 });

@@ -13,13 +13,18 @@ namespace Infodoctor.BL.Services
     {
         private readonly IСlinicRepository _clinicRepository;
         private readonly IClinicReviewRepository _clinicReviewRepository;
+        private readonly ISearchService _searchService;
 
-        public ClinicService(IСlinicRepository clinicRepository, IClinicReviewRepository clinicReviewRepository)
+        public ClinicService(IСlinicRepository clinicRepository, IClinicReviewRepository clinicReviewRepository, ISearchService searchService)
         {
             if (clinicRepository == null)
                 throw new ArgumentNullException(nameof(clinicRepository));
             if (clinicReviewRepository == null)
                 throw new ArgumentNullException(nameof(clinicReviewRepository));
+            if (searchService == null)
+                throw new ArgumentNullException(nameof(searchService));
+
+            _searchService = searchService;
             _clinicReviewRepository = clinicReviewRepository;
             _clinicRepository = clinicRepository;
         }
@@ -372,8 +377,8 @@ namespace Infodoctor.BL.Services
             var c = clinic;
 
             _clinicRepository.Add(c);
+            _searchService.RefreshCache();
         }
-
 
         public void Update(int id, string name)
         {
@@ -386,6 +391,7 @@ namespace Infodoctor.BL.Services
                 c.Name = name;
 
                 _clinicRepository.Update(c);
+                _searchService.RefreshCache();
             }
         }
 
@@ -394,7 +400,10 @@ namespace Infodoctor.BL.Services
             var cp = _clinicRepository.GetClinicById(id);
 
             if (cp != null)
+            {
                 _clinicRepository.Delete(cp);
+                _searchService.RefreshCache();
+            }
         }
     }
 }

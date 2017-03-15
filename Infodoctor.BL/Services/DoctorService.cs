@@ -15,9 +15,13 @@ namespace Infodoctor.BL.Services
         private readonly IDoctorSpecializationRepository _doctorSpecializationRepository;
         private readonly IDoctorCategoryRepository _doctorCategoryRepository;
         private readonly IСlinicRepository _clinicRepository;
+        private readonly ISearchService _searchService;
 
-        public DoctorService(IDoctorRepository doctorRepository, IDoctorSpecializationRepository doctorSpecializationRepository, 
-                            IDoctorCategoryRepository doctorCategoryRepository, IСlinicRepository clinicRepository)
+        public DoctorService(IDoctorRepository doctorRepository, 
+            IDoctorSpecializationRepository doctorSpecializationRepository,
+            IDoctorCategoryRepository doctorCategoryRepository, 
+            IСlinicRepository clinicRepository, 
+            ISearchService searchService)
         {
             if (doctorRepository == null)
                 throw new ArgumentNullException(nameof(doctorRepository));
@@ -27,6 +31,10 @@ namespace Infodoctor.BL.Services
                 throw new ArgumentNullException(nameof(doctorRepository));
             if (clinicRepository == null)
                 throw new ArgumentNullException(nameof(clinicRepository));
+            if (searchService == null)
+                throw new ArgumentNullException(nameof(searchService));
+
+            _searchService = searchService;
             _clinicRepository = clinicRepository;
             _doctorRepository = doctorRepository;
             _doctorSpecializationRepository = doctorSpecializationRepository;
@@ -245,6 +253,7 @@ namespace Infodoctor.BL.Services
 
 
             _doctorRepository.Add(doctor);
+            _searchService.RefreshCache();
         }
 
         public void Update(int id, DtoDoctor newDoctor)
@@ -279,6 +288,7 @@ namespace Infodoctor.BL.Services
                 doctor.Category = doctorCategotyList.First(dc => string.Equals(dc.Name, newDoctor.Category, StringComparison.CurrentCultureIgnoreCase));
 
                 _doctorRepository.Update(doctor);
+                _searchService.RefreshCache();
             }
         }
 
@@ -286,7 +296,10 @@ namespace Infodoctor.BL.Services
         {
             var doctor = _doctorRepository.GetDoctorById(id);
             if (doctor != null)
+            {
                 _doctorRepository.Delete(doctor);
+                _searchService.RefreshCache();
+            }               
         }
     }
 }

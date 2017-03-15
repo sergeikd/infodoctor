@@ -5,7 +5,7 @@ namespace Infodoctor.BL.Intefaces
 {
     public interface ISearchService
     {
-        DtoSearchResultModel FullSeacrh(DtoSearchModel searchModel);
-        List<string> FastSearch(DtoSearchModel searchModel);
+        List<string> FastSearch(DtoFastSearchModel searchModel);
+        void RefreshCache();
     }
 }

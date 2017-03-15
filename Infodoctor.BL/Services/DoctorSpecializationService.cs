@@ -11,11 +11,18 @@ namespace Infodoctor.BL.Services
     public class DoctorSpecializationService : IDoctorSpecializationService
     {
         private readonly IDoctorSpecializationRepository _doctorSpecializationRepository;
+        private readonly ISearchService _searchService;
 
-        public DoctorSpecializationService(IDoctorSpecializationRepository doctorSpecializationRepository, IClinicSpecializationService clinicSpecializationService)
+        public DoctorSpecializationService(IDoctorSpecializationRepository doctorSpecializationRepository,
+            IClinicSpecializationService clinicSpecializationService,
+            ISearchService searchService)
         {
             if (doctorSpecializationRepository == null)
                 throw new ArgumentNullException(nameof(doctorSpecializationRepository));
+            if (searchService == null)
+                throw new ArgumentNullException(nameof(searchService));
+
+            _searchService = searchService;
             _doctorSpecializationRepository = doctorSpecializationRepository;
         }
 
@@ -69,8 +76,10 @@ namespace Infodoctor.BL.Services
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
+
             _doctorSpecializationRepository.Add(
-                new DoctorSpecialization() { Name = name});
+                new DoctorSpecialization() { Name = name });
+            _searchService.RefreshCache();
         }
 
         public void Update(int id, string name)
@@ -83,6 +92,7 @@ namespace Infodoctor.BL.Services
             {
                 ds.Name = name;
                 _doctorSpecializationRepository.Update(ds);
+                _searchService.RefreshCache();
             }
         }
 
@@ -90,7 +100,10 @@ namespace Infodoctor.BL.Services
         {
             var ds = _doctorSpecializationRepository.GetSpecializationById(id);
             if (ds != null)
+            {
                 _doctorSpecializationRepository.Delete(ds);
+                _searchService.RefreshCache();
+            }    
         }
     }
 }

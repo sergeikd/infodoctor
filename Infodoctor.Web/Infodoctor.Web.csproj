@@ -267,7 +267,7 @@
     <Compile Include="Models\ReviewBindingModel.cs" />
     <Compile Include="Models\PublicArticleModel.cs" />
     <Compile Include="Models\PublicCityModel.cs" />
-    <Compile Include="Models\PublicSearchModel.cs" />
+    <Compile Include="Models\PublicFastSearchModel.cs" />
     <Compile Include="Models\PublicSearchResultModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />

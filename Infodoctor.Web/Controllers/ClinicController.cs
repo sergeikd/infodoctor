@@ -25,6 +25,7 @@ namespace Infodoctor.Web.Controllers
         }
 
         // GET: api/Clinic
+        [AllowAnonymous]
         public IEnumerable<DtoClinic> Get()
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
