@@ -20,14 +20,14 @@ namespace Infodoctor.Web.Controllers
 
         // GET api/doctorspecialization
         [AllowAnonymous]
-        public IEnumerable<DtoDoctorSpecialisation> Get()
+        public IEnumerable<DtoDoctorSpecialization> Get()
         {
             return _doctorSpecializationService.GetAllSpecializations();
         }
 
         [AllowAnonymous]
         // GET api/doctorspecialization/5
-        public DtoDoctorSpecialisation Get(int id)
+        public DtoDoctorSpecialization Get(int id)
         {
             return _doctorSpecializationService.GetSpecializationById(id);
         }

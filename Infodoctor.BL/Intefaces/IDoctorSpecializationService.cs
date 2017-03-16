@@ -6,8 +6,8 @@ namespace Infodoctor.BL.Intefaces
 {
     public interface IDoctorSpecializationService
     {
-        IEnumerable<DtoDoctorSpecialisation> GetAllSpecializations();
-        DtoDoctorSpecialisation GetSpecializationById(int id);
+        IEnumerable<DtoDoctorSpecialization> GetAllSpecializations();
+        DtoDoctorSpecialization GetSpecializationById(int id);
         void Add(string name);
         void Update(int id, string name);
         void Delete(int id);

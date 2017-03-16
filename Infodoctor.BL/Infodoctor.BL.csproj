@@ -48,7 +48,8 @@
     <Compile Include="DtoModels\DtoClinicSpecialization.cs" />
     <Compile Include="DtoModels\DtoDoctor.cs" />
     <Compile Include="DtoModels\DtoDoctorCategory.cs" />
-    <Compile Include="DtoModels\DtoDoctorSpecialisation.cs" />
+    <Compile Include="DtoModels\DtoDoctorSearchModel.cs" />
+    <Compile Include="DtoModels\DtoDoctorSpecialization.cs" />
     <Compile Include="DtoModels\DtoImage.cs" />
     <Compile Include="DtoModels\DtoPagedArticles.cs" />
     <Compile Include="DtoModels\DtoPagedClinicReview.cs" />

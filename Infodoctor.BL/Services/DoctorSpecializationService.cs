@@ -26,45 +26,45 @@ namespace Infodoctor.BL.Services
             _doctorSpecializationRepository = doctorSpecializationRepository;
         }
 
-        public IEnumerable<DtoDoctorSpecialisation> GetAllSpecializations()
+        public IEnumerable<DtoDoctorSpecialization> GetAllSpecializations()
         {
-            var dsList = _doctorSpecializationRepository.GetAllSpecializations().ToList();
-            var dtoDsList = new List<DtoDoctorSpecialisation>();
+            var doctorSecializationList = _doctorSpecializationRepository.GetAllSpecializations().ToList();
+            var dtoDoctorSpecpalizationList = new List<DtoDoctorSpecialization>();
 
-            foreach (var ds in dsList)
+            foreach (var doctorSecialization in doctorSecializationList)
             {
-                var dtoDs = new DtoDoctorSpecialisation()
+                var dtoDoctorSpecialization = new DtoDoctorSpecialization()
                 {
-                    Id = ds.Id,
-                    Name = ds.Name,
-                    ClinicSpecializationId = ds.ClinicSpecialization.Id,
+                    Id = doctorSecialization.Id,
+                    Name = doctorSecialization.Name,
+                    ClinicSpecializationId = doctorSecialization.ClinicSpecialization.Id,
                     Doctors = new List<int>()
                 };
 
-                foreach (var doctor in ds.Doctors)
+                foreach (var doctor in doctorSecialization.Doctors)
                 {
-                    dtoDs.Doctors.Add(doctor.Id);
+                    dtoDoctorSpecialization.Doctors.Add(doctor.Id);
                 }
 
-                dtoDsList.Add(dtoDs);
+                dtoDoctorSpecpalizationList.Add(dtoDoctorSpecialization);
             }
 
-            return dtoDsList;
+            return dtoDoctorSpecpalizationList;
         }
 
-        public DtoDoctorSpecialisation GetSpecializationById(int id)
+        public DtoDoctorSpecialization GetSpecializationById(int id)
         {
-            var ds = _doctorSpecializationRepository.GetSpecializationById(id);
+            var doctorSpecialization = _doctorSpecializationRepository.GetSpecializationById(id);
 
-            var dtoDs = new DtoDoctorSpecialisation()
+            var dtoDs = new DtoDoctorSpecialization()
             {
-                Id = ds.Id,
-                Name = ds.Name,
-                ClinicSpecializationId = ds.ClinicSpecialization.Id,
+                Id = doctorSpecialization.Id,
+                Name = doctorSpecialization.Name,
+                ClinicSpecializationId = doctorSpecialization.ClinicSpecialization.Id,
                 Doctors = new List<int>()
             };
 
-            foreach (var doctor in ds.Doctors)
+            foreach (var doctor in doctorSpecialization.Doctors)
             {
                 dtoDs.Doctors.Add(doctor.Id);
             }
@@ -87,23 +87,21 @@ namespace Infodoctor.BL.Services
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
 
-            var ds = _doctorSpecializationRepository.GetSpecializationById(id);
-            if (ds != null)
+            var doctorSpecialization = _doctorSpecializationRepository.GetSpecializationById(id);
+            if (doctorSpecialization != null)
             {
-                ds.Name = name;
-                _doctorSpecializationRepository.Update(ds);
+                doctorSpecialization.Name = name;
+                _doctorSpecializationRepository.Update(doctorSpecialization);
                 _searchService.RefreshCache();
             }
         }
 
         public void Delete(int id)
         {
-            var ds = _doctorSpecializationRepository.GetSpecializationById(id);
-            if (ds != null)
-            {
-                _doctorSpecializationRepository.Delete(ds);
-                _searchService.RefreshCache();
-            }    
+            var doctorSpecialization = _doctorSpecializationRepository.GetSpecializationById(id);
+            if (doctorSpecialization == null) return;
+            _doctorSpecializationRepository.Delete(doctorSpecialization);
+            _searchService.RefreshCache();
         }
     }
 }

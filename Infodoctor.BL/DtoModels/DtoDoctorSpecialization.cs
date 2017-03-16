@@ -2,7 +2,7 @@
 
 namespace Infodoctor.BL.DtoModels
 {
-    public class DtoDoctorSpecialisation
+    public class DtoDoctorSpecialization
     {
         public int Id { get; set; }
         public string Name { get; set; }
