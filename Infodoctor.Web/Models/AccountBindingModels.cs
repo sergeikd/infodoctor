@@ -14,6 +14,19 @@ namespace Infodoctor.Web.Models
         public string ExternalAccessToken { get; set; }
     }
 
+    public class ChangeUserDataBindingMode
+    {
+        [Required]
+        public string UserName { get; set; }
+        [Required]
+        public string Email { get; set; }
+    }
+
+    public class ForgotPasswordViewModel
+    {
+        public string Email { get; set; }
+    }
+
     public class ChangePasswordBindingModel
     {
         [Required]

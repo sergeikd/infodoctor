@@ -108,6 +108,37 @@ namespace Infodoctor.Web.Controllers
             };
         }
 
+        // POST api/Account/ChangeUserData
+        [Route("ChangeUserData")]
+        public async Task<IHttpActionResult> ChangeUserData(ChangeUserDataBindingMode model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            if (user != null)
+            {
+                user.Email = model.Email;
+                user.UserName = model.UserName;
+
+                var result = await UserManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+            }
+            else
+            {
+                var res = new IdentityResult("User not found.");
+                return GetErrorResult(res);
+            }
+
+            return Ok();
+        }
+
+
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
@@ -117,15 +148,12 @@ namespace Infodoctor.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+
+            var result = await UserManager.ChangePasswordAsync(user.Id, model.OldPassword,
                 model.NewPassword);
 
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
+            return !result.Succeeded ? GetErrorResult(result) : Ok();
         }
 
         // POST api/Account/SetPassword
