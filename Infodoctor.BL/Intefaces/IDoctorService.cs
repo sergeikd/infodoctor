@@ -8,6 +8,7 @@ namespace Infodoctor.BL.Intefaces
         IEnumerable<DtoDoctor> GetAllDoctors(string pathToImage);
         DtoDoctor GetDoctorById(int id, string pathToImage);
         DtoPagedDoctor GetPagedDoctors(int perPage, int numPage, string pathToImage);
+        DtoPagedDoctor SearchDoctors(int perPage, int numPage, DtoDoctorSearchModel searchModel, string pathToImage);
         void Add(DtoDoctor newDoctor);
         void Update(int id, DtoDoctor newDoctor);
         void Delete(int id);

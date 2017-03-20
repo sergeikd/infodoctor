@@ -49,6 +49,18 @@ namespace Infodoctor.Web.Controllers
             return _doctorService.GetPagedDoctors(perPage, numPage, pathToImage);
         }
 
+        // api/clinic/doctor/perPage/numPage
+        [AllowAnonymous]
+        [Route("api/doctor/search/{perPage:int}/{numPage:int}")]
+        [HttpPost]
+        public DtoPagedDoctor SearchClinic(int perPage, int numPage, [FromBody]DtoDoctorSearchModel searchModel)
+        {
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            var pagedDoctors = _doctorService.SearchDoctors(perPage, numPage, searchModel, pathToImage);
+
+            return pagedDoctors;
+        }
+
         // POST api/doctor
         [Authorize(Roles = "admin, moder")]
         public void Post([FromBody]DtoDoctor value)

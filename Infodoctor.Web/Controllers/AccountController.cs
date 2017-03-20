@@ -37,7 +37,7 @@ namespace Infodoctor.Web.Controllers
 
         public AccountController(ApplicationUserManager userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat, 
-            IConfigService configService, 
+            IConfigService configService,
             IMailService mailService)
         {
             if (configService == null)
@@ -186,7 +186,7 @@ namespace Infodoctor.Web.Controllers
                         Password = _configService.Password
                     };
 
-                    _mailService.Send(mailMessage, mailConf);
+                    //_mailService.Send(mailMessage, mailConf);
                 }
             }
             else

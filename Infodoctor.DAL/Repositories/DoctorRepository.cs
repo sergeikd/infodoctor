@@ -28,13 +28,17 @@ namespace Infodoctor.DAL.Repositories
             switch (sortBy)
             {
                 default:
-                    return descending ? _context.Doctors.OrderByDescending(c => c.Name) : _context.Doctors.OrderBy(c => c.Name);
+                    return descending ? _context.Doctors.OrderByDescending(d => d.Name) : _context.Doctors.OrderBy(d => d.Name);
                 case "alphabet":
-                    return descending ? _context.Doctors.OrderByDescending(c => c.Name) : _context.Doctors.OrderBy(c => c.Name);
+                {
+                        var aaa = _context.Doctors.OrderBy(d => d.Name).ToList();
+                        return descending ? _context.Doctors.OrderByDescending(d => d.Name) : _context.Doctors.OrderBy(d => d.Name);
+                }
+                   
                 case "rate":
-                    return descending ? _context.Doctors.OrderByDescending(c => c.RateAverage) : _context.Doctors.OrderBy(c => c.RateAverage);
-                case "price":
-                    return descending ? _context.Doctors.OrderByDescending(c => c.RateProfessionalism) : _context.Doctors.OrderBy(c => c.RateProfessionalism);
+                    return descending ? _context.Doctors.OrderByDescending(d => d.RateAverage) : _context.Doctors.OrderBy(d => d.RateAverage);
+                case "prof":
+                    return descending ? _context.Doctors.OrderByDescending(d => d.RateProfessionalism) : _context.Doctors.OrderBy(d => d.RateProfessionalism);
             }
         }
         public Doctor GetDoctorById(int id)

@@ -13,7 +13,7 @@ namespace Infodoctor.DAL
         {
             if (source == null) return;
             Page = pageNum < 1 ? 1 : pageNum;
-            PageSize = perPage < 1 ? 1 : perPage; ;
+            PageSize = perPage < 1 ? 1 : perPage;
             TotalCount = source.Count();
             AddRange(source.Skip((Page - 1) * PageSize).Take(PageSize));
         }

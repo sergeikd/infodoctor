@@ -29,7 +29,6 @@ namespace Infodoctor.Web
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
             container.RegisterType<UserManager<ApplicationUser>>();
             container.RegisterType<ApplicationUserManager>();
-            container.RegisterType<AccountController>(new InjectionConstructor(), );
             //container.RegisterType<IAppDbContext, AppDbContext>();
             container.RegisterType<IAppDbContext, AppDbContext>(new HierarchicalLifetimeManager());//for keep the same dbContext instance per request
 

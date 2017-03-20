@@ -168,7 +168,7 @@ namespace Infodoctor.BL.Services
             return pagedDtoDoclorList;
         }
 
-        public DtoPagedDoctor SearchClinics(int perPage, int numPage, DtoDoctorSearchModel searchModel,
+        public DtoPagedDoctor SearchDoctors(int perPage, int numPage, DtoDoctorSearchModel searchModel,
             string pathToImage)
         {
             if (perPage < 1 || numPage < 1)
@@ -190,10 +190,9 @@ namespace Infodoctor.BL.Services
             {
                 case 0:
                 {
-                    switch (searchModel.SpecializationId == 0)
-                        //check whether ClinicSpecialization included in search request
-                    {
-                        case true:
+                    switch (searchModel.SpecializationId != 0) //check whether DoctorSpecialization included in search request
+                        {
+                            case true:
                         {
                             switch (searchModel.SearchWord == "") //check whether SearchWord included in search request
                             {
@@ -238,8 +237,7 @@ namespace Infodoctor.BL.Services
                 }
                 default:
                 {
-                    switch (searchModel.SpecializationId == 0)
-                        //check whether ClinicSpecialization included in search request
+                    switch (searchModel.SpecializationId == 0) //check whether DoctorSpecialization included in search request
                     {
                         case true:
                         {
@@ -247,9 +245,8 @@ namespace Infodoctor.BL.Services
                             {
                                 case true:
                                 {
-                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending)
-                                        .
-                                        Where(x => (x.Address.Id == searchModel.CityId) &&
+                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending).
+                                                   Where(x => (x.Address.Id == searchModel.CityId) &&
                                                    (x.Specialization.Id == searchModel.SpecializationId));
                                     break;
                                 }
