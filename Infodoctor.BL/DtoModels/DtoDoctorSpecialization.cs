@@ -6,7 +6,7 @@ namespace Infodoctor.BL.DtoModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<int> Doctors { get; set; }
-        public int ClinicSpecializationId { get; set; }
+        //public List<int> Doctors { get; set; }
+        //public int ClinicSpecializationId { get; set; }
     }
 }

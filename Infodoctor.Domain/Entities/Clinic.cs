@@ -12,7 +12,7 @@ namespace Infodoctor.Domain.Entities
         public double RateQuality { get; set; }
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
-        //public Guid OwnershipId { get; set; }
+        public bool Favorite { get; set; }
         public virtual ICollection<CityAddress> CityAddresses { get; set; }
         //public virtual ICollection<ClinicProfile> ClinicProfiles { get; set; }
         public virtual ICollection<ClinicSpecialization> ClinicSpecializations { get; set; }

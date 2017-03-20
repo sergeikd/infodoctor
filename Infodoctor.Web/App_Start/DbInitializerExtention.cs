@@ -62,6 +62,7 @@ namespace Infodoctor.Web
                 RatePrice = clinicReviewList.Where(x => x.ClinicId == 1).Average(y => y.RatePrice),
                 RateQuality = clinicReviewList.Where(x => x.ClinicId == 1).Average(y => y.RateQuality),
                 RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 1).Average(y => y.RatePoliteness),
+                Favorite = true,
                 ImageName = "7cf505b425af4f4ab7293b3a74a3aa3d.jpg"
             };
             clinic1.RateAverage = (clinic1.RatePrice + clinic1.RateQuality + clinic1.RatePoliteness) / 3;
@@ -72,6 +73,7 @@ namespace Infodoctor.Web
                 RatePrice = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RatePrice),
                 RateQuality = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RateQuality),
                 RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RatePoliteness),
+                Favorite = false,
                 ImageName = "973b8fff8ba24b6c88c24808b97bd13d.jpg"
             };
             clinic2.RateAverage = (clinic2.RatePrice + clinic2.RateQuality + clinic2.RatePoliteness) / 3;
@@ -82,6 +84,7 @@ namespace Infodoctor.Web
                 RatePrice = clinicReviewList.Where(x => x.ClinicId == 3).Average(y => y.RatePrice),
                 RateQuality = clinicReviewList.Where(x => x.ClinicId == 3).Average(y => y.RateQuality),
                 RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 3).Average(y => y.RatePoliteness),
+                Favorite = false,
                 ImageName = "de0c4e3b3d6f479da03f0f337b65c417.jpg"
             };
             clinic3.RateAverage = (clinic3.RatePrice + clinic3.RateQuality + clinic3.RatePoliteness) / 3;
@@ -92,6 +95,7 @@ namespace Infodoctor.Web
                 RatePrice = clinicReviewList.Where(x => x.ClinicId == 4).Average(y => y.RatePrice),
                 RateQuality = clinicReviewList.Where(x => x.ClinicId == 4).Average(y => y.RateQuality),
                 RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 4).Average(y => y.RatePoliteness),
+                Favorite = false,
                 ImageName = "df41387ab46b4241964b5d2663e3d843.jpg"
             };
             clinic4.RateAverage = (clinic4.RatePrice + clinic4.RateQuality + clinic4.RatePoliteness) / 3;
@@ -102,6 +106,7 @@ namespace Infodoctor.Web
                 RatePrice = clinicReviewList.Where(x => x.ClinicId == 5).Average(y => y.RatePrice),
                 RateQuality = clinicReviewList.Where(x => x.ClinicId == 5).Average(y => y.RateQuality),
                 RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 5).Average(y => y.RatePoliteness),
+                Favorite = false,
                 ImageName = "242c4ff4f8454af5bca78b631209902a.jpg"
             };
             clinic5.RateAverage = (clinic5.RatePrice + clinic5.RateQuality + clinic5.RatePoliteness) / 3;
@@ -118,6 +123,7 @@ namespace Infodoctor.Web
                 RateProfessionalism = doctorsReviewList.Where(x => x.DoctorId == 1).Average(y => y.RateProfessionalism),
                 RateWaitingTime = doctorsReviewList.Where(x => x.DoctorId == 1).Average(y => y.RateWaitingTime),
                 RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 1).Average(y => y.RatePoliteness),
+                Favorite = false,
                 Clinics = new List<Clinic> { clinic1 },
                 ImageName = "98344f63b5854a7badd654353f341790.jpg"
             };
@@ -131,6 +137,7 @@ namespace Infodoctor.Web
                 RateProfessionalism = doctorsReviewList.Where(x => x.DoctorId == 2).Average(y => y.RateProfessionalism),
                 RateWaitingTime = doctorsReviewList.Where(x => x.DoctorId == 2).Average(y => y.RateWaitingTime),
                 RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 2).Average(y => y.RatePoliteness),
+                Favorite = false,
                 Clinics = new List<Clinic> { clinic1, clinic2 },
                 ImageName = "e314bb55fdfe46ceb369ce3da3a6adae.jpg"
             };
@@ -144,6 +151,7 @@ namespace Infodoctor.Web
                 RateProfessionalism = doctorsReviewList.Where(x => x.DoctorId == 3).Average(y => y.RateProfessionalism),
                 RateWaitingTime = doctorsReviewList.Where(x => x.DoctorId == 3).Average(y => y.RateWaitingTime),
                 RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 3).Average(y => y.RatePoliteness),
+                Favorite = false,
                 Clinics = new List<Clinic> { clinic1 },
                 ImageName = "5161c9cab8a4bee923a30e6a8c1b326.jpg"
             };
@@ -157,6 +165,7 @@ namespace Infodoctor.Web
                 RateProfessionalism = doctorsReviewList.Where(x => x.DoctorId == 4).Average(y => y.RateProfessionalism),
                 RateWaitingTime = doctorsReviewList.Where(x => x.DoctorId == 4).Average(y => y.RateWaitingTime),
                 RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 4).Average(y => y.RatePoliteness),
+                Favorite = false,
                 Clinics = new List<Clinic> { clinic2 },
                 ImageName = "0e76cf893e9a4b27bcaeeb3450f02e9c.jpg"
             };
@@ -170,6 +179,7 @@ namespace Infodoctor.Web
                 RateProfessionalism = doctorsReviewList.Where(x => x.DoctorId == 5).Average(y => y.RateProfessionalism),
                 RateWaitingTime = doctorsReviewList.Where(x => x.DoctorId == 5).Average(y => y.RateWaitingTime),
                 RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 5).Average(y => y.RatePoliteness),
+                Favorite = true,
                 Clinics = new List<Clinic> { clinic2 },
                 ImageName = "03206dbe56b04c1682ab90422923867c.jpg"
             };

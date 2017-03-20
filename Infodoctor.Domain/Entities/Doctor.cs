@@ -14,6 +14,7 @@ namespace Infodoctor.Domain.Entities
         public double RateWaitingTime { get; set; }
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
+        public bool Favorite { get; set; }
         public virtual DoctorSpecialization Specialization { get; set; }
         public virtual DoctorCategory Category { get; set; }
         public virtual CityAddress Address { get; set; }

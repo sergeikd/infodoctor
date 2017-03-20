@@ -12,7 +12,7 @@ namespace Infodoctor.BL.DtoModels
         public int Experience { get; set; }
         public string Manipulation { get; set; }
         public DtoAddress Address { get; set; }
-        public string Specialization { get; set; }
+        public DtoDoctorSpecialization Specialization { get; set; }
         public string Category { get; set; }
         public List<int> ClinicsIds { get; set; } //сделано как List<int> для облегчения добавления клиники к доктору на фронте
         public List<int> ReviewsIds { get; set; } //сделано как List<int> для облегчения добавления клиники к доктору на фронте
@@ -20,5 +20,6 @@ namespace Infodoctor.BL.DtoModels
         public double RateWaitingTime { get; set; }
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
+        public bool Favorite { get; set; }
     }
 }

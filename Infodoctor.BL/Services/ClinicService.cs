@@ -45,6 +45,7 @@ namespace Infodoctor.BL.Services
                     RatePrice = clinic.RatePrice,
                     RateQuality = clinic.RateQuality,
                     RateAverage = clinic.RateAverage,
+                    Favorite = clinic.Favorite,
                     Image = pathToImage + clinic.ImageName
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
@@ -65,7 +66,7 @@ namespace Infodoctor.BL.Services
                 }
                 dtoClinic.ClinicAddress = dtoClinicAddressList;
 
-                var dtoSpecializationList = clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
+                var dtoSpecializationList = clinic.ClinicSpecializations.Select(specialization => new DtoClinicSpecialization() { Id = specialization.Id, Name = specialization.Name }).ToList();
                 dtoClinic.ClinicSpecialization = dtoSpecializationList;
 
                 dtoClinicList.Add(dtoClinic);
@@ -89,6 +90,7 @@ namespace Infodoctor.BL.Services
                 RatePrice = clinic.RatePrice,
                 RateQuality = clinic.RateQuality,
                 RateAverage = clinic.RateAverage,
+                Favorite = clinic.Favorite,
                 Image = pathToImage + clinic.ImageName
             };
             var dtoClinicAddressList = new List<DtoAddress>();
@@ -108,7 +110,7 @@ namespace Infodoctor.BL.Services
             }
             dtoClinic.ClinicAddress = dtoClinicAddressList;
 
-            var dtoSpecializationList = clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
+            var dtoSpecializationList = clinic.ClinicSpecializations.Select(specialization => new DtoClinicSpecialization() { Id = specialization.Id, Name = specialization.Name }).ToList();
             dtoClinic.ClinicSpecialization = dtoSpecializationList;
 
             return dtoClinic;
@@ -138,6 +140,7 @@ namespace Infodoctor.BL.Services
                     RatePrice = clinic.RatePrice,
                     RateQuality = clinic.RateQuality,
                     RateAverage = clinic.RateAverage,
+                    Favorite = clinic.Favorite,
                     Image = pathToImage + clinic.ImageName
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
@@ -162,7 +165,7 @@ namespace Infodoctor.BL.Services
                 dtoClinic.ClinicAddress = dtoClinicAddressList;
 
                 var dtoSpecializationList =
-                    clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
+                    clinic.ClinicSpecializations.Select(specialization => new DtoClinicSpecialization() {Id = specialization.Id, Name = specialization.Name}).ToList();
                 dtoClinic.ClinicSpecialization = dtoSpecializationList;
 
                 dtoClinicList.Add(dtoClinic);
@@ -312,6 +315,7 @@ namespace Infodoctor.BL.Services
                     RatePrice = clinic.RatePrice,
                     RateQuality = clinic.RateQuality,
                     RateAverage = clinic.RateAverage,
+                    Favorite = clinic.Favorite,
                     Image = pathToImage + clinic.ImageName
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
@@ -336,7 +340,7 @@ namespace Infodoctor.BL.Services
                 dtoClinic.ClinicAddress = dtoClinicAddressList;
 
                 var dtoSpecializationList =
-                    clinic.ClinicSpecializations.Select(specialization => specialization.Name).ToList();
+                   clinic.ClinicSpecializations.Select(specialization => new DtoClinicSpecialization() { Id = specialization.Id, Name = specialization.Name }).ToList();
                 dtoClinic.ClinicSpecialization = dtoSpecializationList;
 
                 dtoClinicList.Add(dtoClinic);

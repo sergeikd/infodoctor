@@ -11,12 +11,13 @@ namespace Infodoctor.BL.DtoModels
         //public Guid OwnershipId { get; set; }
         public List<DtoAddress> ClinicAddress { get; set; }
         //public IEnumerable<ClinicProfile> ClinicProfiles { get; set; }
-        public List<string> ClinicSpecialization { get; set; }
+        public List<DtoClinicSpecialization> ClinicSpecialization { get; set; }
         public List<DtoDoctor> Doctors { get; set; }
         public double RatePrice { get; set; }
         public double RateQuality { get; set; }
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
+        public bool Favorite { get; set; }
     }
 
     public class DtoAddress

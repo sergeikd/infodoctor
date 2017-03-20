@@ -55,7 +55,7 @@ namespace Infodoctor.BL.Services
                     Email = doctor.Email,
                     Experience = doctor.Experience,
                     Manipulation = doctor.Manipulation,
-                    Specialization = doctor.Specialization.Name,
+                    Specialization = new DtoDoctorSpecialization() { Id = doctor.Specialization.Id, Name = doctor.Specialization.Name},
                     Category = doctor.Category.Name,
                     RatePoliteness = doctor.RatePoliteness,
                     RateProfessionalism = doctor.RateProfessionalism,
@@ -120,7 +120,7 @@ namespace Infodoctor.BL.Services
                     Email = doctor.Email,
                     Experience = doctor.Experience,
                     Manipulation = doctor.Manipulation,
-                    Specialization = doctor.Specialization.Name,
+                    Specialization = new DtoDoctorSpecialization() { Id = doctor.Specialization.Id, Name = doctor.Specialization.Name },
                     Category = doctor.Category.Name,
                     RatePoliteness = doctor.RatePoliteness,
                     RateProfessionalism = doctor.RateProfessionalism,
@@ -302,7 +302,7 @@ namespace Infodoctor.BL.Services
                     Email = doctor.Email,
                     Experience = doctor.Experience,
                     Manipulation = doctor.Manipulation,
-                    Specialization = doctor.Specialization.Name,
+                    Specialization = new DtoDoctorSpecialization() { Id = doctor.Specialization.Id, Name = doctor.Specialization.Name },
                     Category = doctor.Category.Name,
                     RatePoliteness = doctor.RatePoliteness,
                     RateProfessionalism = doctor.RateProfessionalism,
@@ -364,7 +364,7 @@ namespace Infodoctor.BL.Services
                 Email = doctor.Email,
                 Experience = doctor.Experience,
                 Manipulation = doctor.Manipulation,
-                Specialization = doctor.Specialization.Name,
+                Specialization = new DtoDoctorSpecialization() { Id = doctor.Specialization.Id, Name = doctor.Specialization.Name },
                 Category = doctor.Category.Name,
                 RatePoliteness = doctor.RatePoliteness,
                 RateProfessionalism = doctor.RateProfessionalism,
@@ -428,10 +428,10 @@ namespace Infodoctor.BL.Services
 
             var doctorSpesList =
                 _doctorSpecializationRepository.GetAllSpecializations().ToList();
-            var doctorCategotyList = _doctorCategoryRepository.GetAllCategories().ToList();
+            var doctorCategoryList = _doctorCategoryRepository.GetAllCategories().ToList();
 
-            doctor.Specialization = doctorSpesList.First(ds => String.Equals(ds.Name, newDoctor.Specialization, StringComparison.CurrentCultureIgnoreCase));
-            doctor.Category = doctorCategotyList.First(dc => String.Equals(dc.Name, newDoctor.Category, StringComparison.CurrentCultureIgnoreCase));
+            doctor.Specialization = doctorSpesList.First(ds => String.Equals(ds.Name, newDoctor.Specialization.Name, StringComparison.CurrentCultureIgnoreCase));
+            doctor.Category = doctorCategoryList.First(dc => String.Equals(dc.Name, newDoctor.Category, StringComparison.CurrentCultureIgnoreCase));
 
 
             _doctorRepository.Add(doctor);
@@ -466,7 +466,7 @@ namespace Infodoctor.BL.Services
                 }
 
                 doctor.Clinics = clinicsList;
-                doctor.Specialization = doctorSpesList.First(ds => string.Equals(ds.Name, newDoctor.Specialization, StringComparison.CurrentCultureIgnoreCase));
+                doctor.Specialization = doctorSpesList.First(ds => string.Equals(ds.Name, newDoctor.Specialization.Name, StringComparison.CurrentCultureIgnoreCase));
                 doctor.Category = doctorCategotyList.First(dc => string.Equals(dc.Name, newDoctor.Category, StringComparison.CurrentCultureIgnoreCase));
 
                 _doctorRepository.Update(doctor);

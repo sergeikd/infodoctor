@@ -28,28 +28,14 @@ namespace Infodoctor.BL.Services
 
         public IEnumerable<DtoDoctorSpecialization> GetAllSpecializations()
         {
-            var doctorSecializationList = _doctorSpecializationRepository.GetAllSpecializations().ToList();
-            var dtoDoctorSpecpalizationList = new List<DtoDoctorSpecialization>();
+            var doctorSecializationList = _doctorSpecializationRepository.GetAllSpecializations();
 
-            foreach (var doctorSecialization in doctorSecializationList)
+            return doctorSecializationList.Select(doctorSecialization => new DtoDoctorSpecialization()
             {
-                var dtoDoctorSpecialization = new DtoDoctorSpecialization()
-                {
-                    Id = doctorSecialization.Id,
-                    Name = doctorSecialization.Name,
-                    ClinicSpecializationId = doctorSecialization.ClinicSpecialization.Id,
-                    Doctors = new List<int>()
-                };
-
-                foreach (var doctor in doctorSecialization.Doctors)
-                {
-                    dtoDoctorSpecialization.Doctors.Add(doctor.Id);
-                }
-
-                dtoDoctorSpecpalizationList.Add(dtoDoctorSpecialization);
-            }
-
-            return dtoDoctorSpecpalizationList;
+                Id = doctorSecialization.Id, Name = doctorSecialization.Name //,
+                //ClinicSpecializationId = doctorSecialization.ClinicSpecialization.Id,
+                //Doctors = new List<int>()
+            }).ToList();
         }
 
         public DtoDoctorSpecialization GetSpecializationById(int id)
@@ -60,14 +46,14 @@ namespace Infodoctor.BL.Services
             {
                 Id = doctorSpecialization.Id,
                 Name = doctorSpecialization.Name,
-                ClinicSpecializationId = doctorSpecialization.ClinicSpecialization.Id,
-                Doctors = new List<int>()
+                //ClinicSpecializationId = doctorSpecialization.ClinicSpecialization.Id,
+                //Doctors = new List<int>()
             };
 
-            foreach (var doctor in doctorSpecialization.Doctors)
-            {
-                dtoDs.Doctors.Add(doctor.Id);
-            }
+            //foreach (var doctor in doctorSpecialization.Doctors)
+            //{
+            //    dtoDs.Doctors.Add(doctor.Id);
+            //}
 
             return dtoDs;
         }

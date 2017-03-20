@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
 using Infodoctor.Domain.Entities;
 
@@ -21,14 +22,14 @@ namespace Infodoctor.Web.Controllers
 
         // GET api/clinicspecialization
         [AllowAnonymous]
-        public IEnumerable<ClinicSpecialization> Get()
+        public IEnumerable<DtoClinicSpecialization> Get()
         {
             return _clinicSpecializationService.GetAllSpecializations();
         }
 
         // GET api/clinicspecialization/5
         [AllowAnonymous]
-        public ClinicSpecialization Get(int id)
+        public DtoClinicSpecialization Get(int id)
         {
             return _clinicSpecializationService.GetSpecializationById(id);
         }

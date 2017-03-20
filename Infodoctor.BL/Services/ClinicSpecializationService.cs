@@ -3,6 +3,7 @@ using Infodoctor.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Infodoctor.BL.DtoModels;
 using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Services
@@ -23,14 +24,16 @@ namespace Infodoctor.BL.Services
             _clinicSpecializationRepository = clinicSpecializationRepository;
         }
 
-        public IEnumerable<ClinicSpecialization> GetAllSpecializations()
+        public IEnumerable<DtoClinicSpecialization> GetAllSpecializations()
         {
-            return _clinicSpecializationRepository.GetAllClinicSpecializations().ToList();
+            var clinicSpecializationList = _clinicSpecializationRepository.GetAllClinicSpecializations();
+            return clinicSpecializationList.Select(clinicSpecialization => new DtoClinicSpecialization() {Id = clinicSpecialization.Id, Name = clinicSpecialization.Name}).ToList();
         }
 
-        public ClinicSpecialization GetSpecializationById(int id)
+        public DtoClinicSpecialization GetSpecializationById(int id)
         {
-            return _clinicSpecializationRepository.GetClinicSpecializationById(id);
+            var clinicSpecialization = _clinicSpecializationRepository.GetClinicSpecializationById(id);
+            return new DtoClinicSpecialization() {Id = clinicSpecialization.Id, Name = clinicSpecialization.Name};
         }
 
         public void Add(string name)

@@ -35,7 +35,7 @@ namespace Infodoctor.Web.Controllers
         [AllowAnonymous]
         public DtoDoctor Get(int id)
         {
-            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
             return _doctorService.GetDoctorById(id, pathToImage);
         }
 
@@ -45,7 +45,7 @@ namespace Infodoctor.Web.Controllers
         [AllowAnonymous]
         public DtoPagedDoctor GetPage(int perPage, int numPage)
         {
-            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
             return _doctorService.GetPagedDoctors(perPage, numPage, pathToImage);
         }
 
@@ -55,7 +55,7 @@ namespace Infodoctor.Web.Controllers
         [HttpPost]
         public DtoPagedDoctor SearchClinic(int perPage, int numPage, [FromBody]DtoDoctorSearchModel searchModel)
         {
-            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
             var pagedDoctors = _doctorService.SearchDoctors(perPage, numPage, searchModel, pathToImage);
 
             return pagedDoctors;
