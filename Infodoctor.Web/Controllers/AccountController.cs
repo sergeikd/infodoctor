@@ -6,7 +6,10 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Infodoctor.BL.DtoModels;
+using Infodoctor.BL.Intefaces;
 using Infodoctor.Domain.Entities;
+using Infodoctor.Web.Infrastructure.Interfaces;
 using Infodoctor.Web.Models;
 using Infodoctor.Web.Providers;
 using Infodoctor.Web.Results;
@@ -25,14 +28,26 @@ namespace Infodoctor.Web.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private readonly IConfigService _configService;
+        private readonly IMailService _mailService;
 
         public AccountController()
         {
         }
 
         public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat, 
+            IConfigService configService, 
+            IMailService mailService)
         {
+            if (configService == null)
+                throw new ArgumentNullException(nameof(configService));
+            if (mailService == null)
+                throw new ArgumentNullException(nameof(mailService));
+
+            _configService = configService;
+            _mailService = mailService;
+
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
         }
@@ -138,6 +153,67 @@ namespace Infodoctor.Web.Controllers
             return Ok();
         }
 
+        // POST api/Account/ForgotPassword
+        [Route("ForgotPassword")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user != null)
+            {
+                var token = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    var mailMessage = new DtoMailMessage()
+                    {
+                        SendTo = user.Email,
+                        Subject = "Восстановление пароля",
+                        Body = $"Токен сброса пароля {token}"
+                    };
+
+                    var mailConf = new DtoMailServiceConfiguration()
+                    {
+                        SmtpServer = _configService.SmtpServer,
+                        SmtpPort = Convert.ToInt32(_configService.SmtpPort),
+                        Email = _configService.Email,
+                        Password = _configService.Password
+                    };
+
+                    _mailService.Send(mailMessage, mailConf);
+                }
+            }
+            else
+            {
+                var res = new IdentityResult("User not found.");
+                return GetErrorResult(res);
+            }
+
+            return Ok();
+        }
+
+        // POST api/Account/ResetPassword
+        [Route("ResetPassword")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            var user = await UserManager.FindByEmailAsync(model.Email);
+
+            var result = await UserManager.ResetPasswordAsync(user.Id, model.PasswordResetToken, model.NewPassword);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
 
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]

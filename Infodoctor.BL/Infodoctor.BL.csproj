@@ -51,6 +51,8 @@
     <Compile Include="DtoModels\DtoDoctorSearchModel.cs" />
     <Compile Include="DtoModels\DtoDoctorSpecialization.cs" />
     <Compile Include="DtoModels\DtoImage.cs" />
+    <Compile Include="DtoModels\DtoMailMessage.cs" />
+    <Compile Include="DtoModels\DtoMailServiceConfiguration.cs" />
     <Compile Include="DtoModels\DtoPagedArticles.cs" />
     <Compile Include="DtoModels\DtoPagedClinicReview.cs" />
     <Compile Include="DtoModels\DtoPagedClinic.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="Intefaces\IImagesService.cs" />
     <Compile Include="Intefaces\IArticleThemesService.cs" />
     <Compile Include="Intefaces\IClinicService.cs" />
+    <Compile Include="Intefaces\IMailService.cs" />
     <Compile Include="Intefaces\ISearchService.cs" />
     <Compile Include="Services\ArticlesService.cs" />
     <Compile Include="Services\CitiesService.cs" />
@@ -84,6 +87,7 @@
     <Compile Include="Services\CountryService.cs" />
     <Compile Include="Intefaces\ICountryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\MailService.cs" />
     <Compile Include="Services\NewSearchService.cs" />
     <Compile Include="Services\SearchService.cs" />
   </ItemGroup>

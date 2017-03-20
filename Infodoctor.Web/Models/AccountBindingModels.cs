@@ -22,6 +22,13 @@ namespace Infodoctor.Web.Models
         public string Email { get; set; }
     }
 
+    public class ResetPasswordViewModel
+    {
+        public string Email { get; set; }
+        public string PasswordResetToken { get; set; }
+        public string NewPassword { get; set; }
+    }
+
     public class ForgotPasswordViewModel
     {
         public string Email { get; set; }
