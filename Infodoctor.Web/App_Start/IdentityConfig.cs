@@ -1,4 +1,8 @@
-﻿using Infodoctor.DAL;
+﻿using System.Configuration;
+using System.Net.Configuration;
+using System.Net.Mail;
+using System.Threading.Tasks;
+using Infodoctor.DAL;
 using Infodoctor.Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -14,6 +18,35 @@ namespace Infodoctor.Web
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
         {
+        }
+
+        public new class EmailService
+        {
+            public void Send(IdentityMessage message)
+            {
+
+                var smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+
+                var from = smtpSection.Network.UserName;
+                var pass = smtpSection.Network.Password;
+
+                var mail = new MailMessage(from, message.Destination)
+                {
+                    Subject = message.Subject,
+                    Body = message.Body,
+                    IsBodyHtml = true
+                };
+
+                var client = new SmtpClient(smtpSection.Network.Host, smtpSection.Network.Port)
+                {
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new System.Net.NetworkCredential(from, pass),
+                    EnableSsl = true
+                };
+
+                client.Send(mail);
+            }
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)

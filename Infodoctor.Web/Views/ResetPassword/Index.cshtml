@@ -1,0 +1,37 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "Сброс пароля";
+}
+
+<div class="passForm">
+    <label> пароль </label>
+    <input type="text" id="newPassword" />
+    <input type="submit" id="submit" value="Сброс" />
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $('#submit').click(function (e) {
+            e.preventDefault();
+            var data = {
+                Email: '@Model[0]',
+                NewPassword: $('#newPassword').val(),
+                PasswordResetToken: '@Model[1]'
+            };
+
+            var jsondata = JSON.stringify(data);
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/Account/ResetPassword',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).success(function (data) {
+                alert("Сброс пройден");
+            }).fail(function (data) {
+                alert("В процесе сброса возникла ошибка");
+            });
+        });
+    </script>
+}

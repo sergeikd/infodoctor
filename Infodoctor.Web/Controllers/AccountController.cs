@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Infodoctor.BL.DtoModels;
 using Infodoctor.Domain.Entities;
 using Infodoctor.Web.Models;
 using Infodoctor.Web.Providers;
@@ -108,6 +109,32 @@ namespace Infodoctor.Web.Controllers
             };
         }
 
+        // POST api/Account/ChangeUserData
+        [Route("ChangeUserData")]
+        public async Task<IHttpActionResult> ChangeUserData(ChangeUserDataBindingMode model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            if (user != null)
+            {
+                user.Email = model.Email;
+                user.UserName = model.UserName;
+
+                var result = await UserManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                    return GetErrorResult(result);
+            }
+            else
+            {
+                var res = new IdentityResult("User not found.");
+                return GetErrorResult(res);
+            }
+
+            return Ok();
+        }
+
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
@@ -120,6 +147,67 @@ namespace Infodoctor.Web.Controllers
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
 
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+        // POST api/Account/ForgotPassword
+        [Route("ForgotPassword")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user != null)
+            {
+                var token = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    var callbackUrl = Url.Link("Default", new
+                    {
+                        Controller = "ResetPassword",
+                        Action = "Index",
+                        email = user.Email,
+                        code = token
+                    });
+
+                    var mailMessage = new IdentityMessage()
+                    {
+                        Destination = user.Email,
+                        Subject = "Восстановление пароля",
+                        Body = $"Для сброса пароля, перейдите по ссылке <a href=\"" + callbackUrl + "\">сбросить</a>"
+                    };
+
+                    var mailService = new ApplicationUserManager.EmailService();
+                    mailService.Send(mailMessage);
+                }
+            }
+            else
+            {
+                var res = new IdentityResult("User not found.");
+                return GetErrorResult(res);
+            }
+
+            return Ok();
+        }
+
+        // POST api/Account/ResetPassword
+        [Route("ResetPassword")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> ResetPassword(ResetPasswordModel model)
+        {
+            var user = await UserManager.FindByEmailAsync(model.Email);
+
+            var result = await UserManager.ResetPasswordAsync(user.Id, model.PasswordResetToken, model.NewPassword);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);

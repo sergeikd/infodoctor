@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Infodoctor.Web.Models
 {
@@ -22,7 +19,7 @@ namespace Infodoctor.Web.Models
         public string Email { get; set; }
     }
 
-    public class ResetPasswordViewModel
+    public class ResetPasswordModel
     {
         public string Email { get; set; }
         public string PasswordResetToken { get; set; }
