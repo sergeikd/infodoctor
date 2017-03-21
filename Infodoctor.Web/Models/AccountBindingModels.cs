@@ -26,6 +26,12 @@ namespace Infodoctor.Web.Models
         public string NewPassword { get; set; }
     }
 
+    public class ConfirmUserViewModel
+    {
+        public string Email { get; set; }
+        public string Token { get; set; }
+    }
+
     public class ForgotPasswordViewModel
     {
         public string Email { get; set; }

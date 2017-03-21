@@ -109,6 +109,23 @@ namespace Infodoctor.Web.Controllers
             };
         }
 
+        // POST api/Account/ConfirmUser
+        [Route("ConfirmUser")]
+        public async Task<IHttpActionResult> ConfirmUser(ConfirmUserViewModel model)
+        {
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user != null)
+            {
+                user.EmailConfirmed = true;
+
+                var result = await UserManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                    return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
         // POST api/Account/ChangeUserData
         [Route("ChangeUserData")]
         public async Task<IHttpActionResult> ChangeUserData(ChangeUserDataBindingMode model)
@@ -171,13 +188,9 @@ namespace Infodoctor.Web.Controllers
 
                 if (!string.IsNullOrEmpty(token))
                 {
-                    var callbackUrl = Url.Link("Default", new
-                    {
-                        Controller = "UserValidation",
-                        Action = "ResetPassword",
-                        email = user.Email,
-                        code = token
-                    });
+                    var domain = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+
+                    var callbackUrl = $"{domain}/password/reset/{user.Email}/{token}";
 
                     var mailMessage = new IdentityMessage()
                     {
@@ -421,13 +434,9 @@ namespace Infodoctor.Web.Controllers
 
                 if (!string.IsNullOrEmpty(token))
                 {
-                    var callbackUrl = Url.Link("Default", new
-                    {
-                        Controller = "UserValidation",
-                        Action = "ConfirmEmail",
-                        email = user.Email,
-                        code = token
-                    });
+                    var domain = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+
+                    var callbackUrl = $"{domain}/email/confirm/{user.Email}/{token}";
 
                     var mailMessage = new IdentityMessage()
                     {
