@@ -173,8 +173,8 @@ namespace Infodoctor.Web.Controllers
                 {
                     var callbackUrl = Url.Link("Default", new
                     {
-                        Controller = "ResetPassword",
-                        Action = "Index",
+                        Controller = "UserValidation",
+                        Action = "ResetPassword",
                         email = user.Email,
                         code = token
                     });
@@ -415,7 +415,32 @@ namespace Infodoctor.Web.Controllers
 
             var result = await UserManager.CreateAsync(user, model.Password);
 
-            if (!result.Succeeded)
+            if (result.Succeeded)
+            {
+                var token = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    var callbackUrl = Url.Link("Default", new
+                    {
+                        Controller = "UserValidation",
+                        Action = "ConfirmEmail",
+                        email = user.Email,
+                        code = token
+                    });
+
+                    var mailMessage = new IdentityMessage()
+                    {
+                        Destination = user.Email,
+                        Subject = "Подтверждение электронной почты",
+                        Body = $"Для завершения регистрации перейдите по ссылке <a href=\"" + callbackUrl + "\">сбросить</a>"
+                    };
+
+                    var mailService = new ApplicationUserManager.EmailService();
+                    mailService.Send(mailMessage);
+                }
+            }
+            else
             {
                 return GetErrorResult(result);
             }
