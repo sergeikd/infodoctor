@@ -8,6 +8,7 @@ namespace Infodoctor.Domain.Entities
         public string ImageName { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public string Site { get; set; }
         public double RatePrice { get; set; }
         public double RateQuality { get; set; }
         public double RatePoliteness { get; set; }
@@ -22,8 +23,9 @@ namespace Infodoctor.Domain.Entities
     public class CityAddress
     {
         public int Id { get; set; }
-        public string Street { get; set; }
+        public string Country { get; set; }
         public virtual City City { get; set; }
+        public string Street { get; set; }
         public virtual ICollection<ClinicPhone> ClinicPhones { get; set; }
         public virtual Clinic Clinic { get; set; }
         public virtual ICollection<Doctor> Doctors { get; set; }

@@ -8,6 +8,7 @@ namespace Infodoctor.BL.DtoModels
         public string Image { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public string Site { get; set; }
         //public Guid OwnershipId { get; set; }
         public List<DtoAddress> ClinicAddress { get; set; }
         //public IEnumerable<ClinicProfile> ClinicProfiles { get; set; }
@@ -22,8 +23,9 @@ namespace Infodoctor.BL.DtoModels
 
     public class DtoAddress
     {
-        public string Street { get; set; }
+        public string Country { get; set; }
         public string City { get; set; }
+        public string Street { get; set; }
         public List <DtoPhone> ClinicPhones { get;set;}
 }
 

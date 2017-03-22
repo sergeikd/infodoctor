@@ -80,6 +80,7 @@ namespace Infodoctor.Web
             var clinic3 = new Clinic()
             {
                 Email = "kravira@kravira.by",
+                Site = "https://kravira.by/",
                 Name = "Медицинский центр Кравира",
                 RatePrice = clinicReviewList.Where(x => x.ClinicId == 3).Average(y => y.RatePrice),
                 RateQuality = clinicReviewList.Where(x => x.ClinicId == 3).Average(y => y.RateQuality),
@@ -91,6 +92,7 @@ namespace Infodoctor.Web
             var clinic4 = new Clinic()
             {
                 Email = "medic4@tut.by",
+                Site = "http://www.4gp.by/",
                 Name = "4-я городская поликлиника г.Минска",
                 RatePrice = clinicReviewList.Where(x => x.ClinicId == 4).Average(y => y.RatePrice),
                 RateQuality = clinicReviewList.Where(x => x.ClinicId == 4).Average(y => y.RateQuality),
@@ -220,13 +222,13 @@ namespace Infodoctor.Web
                 phone1, phone2, phone3, phone4, phone5, phone6, phone7, phone8, phone9,
                 phone10, phone11, phone12, phone13, phone14, phone15, phone16, phone17, phone18};
 
-            var ca1 = new CityAddress() { Street = "ул.Сурганова 47Б", Clinic = clinic1, Doctors = new List<Doctor> { doc001, doc002, doc003 }, ClinicPhones = new List<ClinicPhone>() { phone1, phone2 } };
-            var ca2 = new CityAddress() { Street = "пр-т. Независимости 58", Clinic = clinic2, Doctors = new List<Doctor> { doc004, doc002, doc005 }, ClinicPhones = new List<ClinicPhone>() { phone3 } };
-            var ca3 = new CityAddress() { Street = "пр-т. Победителей 75,", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone4, phone5 } };
-            var ca4 = new CityAddress() { Street = "ул.Скрипникова 11Б,", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone6, phone7 } };
-            var ca5 = new CityAddress() { Street = "ул.Захарова 50Д", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone8, phone9 } };
-            var ca6 = new CityAddress() { Street = "ул.Победителей 93", Clinic = clinic4, ClinicPhones = new List<ClinicPhone>() { phone10, phone11, phone12, phone13, phone14, phone15, phone16 } };
-            var ca7 = new CityAddress() { Street = "ул. Нарочанская 17", Clinic = clinic5, ClinicPhones = new List<ClinicPhone>() { phone17, phone18 } };
+            var ca1 = new CityAddress() { Country = "Беларусь", Street = "ул.Сурганова 47Б", Clinic = clinic1, Doctors = new List<Doctor> { doc001, doc002, doc003 }, ClinicPhones = new List<ClinicPhone>() { phone1, phone2 } };
+            var ca2 = new CityAddress() { Country = "Беларусь", Street = "пр-т. Независимости 58", Clinic = clinic2, Doctors = new List<Doctor> { doc004, doc002, doc005 }, ClinicPhones = new List<ClinicPhone>() { phone3 } };
+            var ca3 = new CityAddress() { Country = "Беларусь", Street = "пр-т. Победителей 75,", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone4, phone5 } };
+            var ca4 = new CityAddress() { Country = "Беларусь", Street = "ул.Скрипникова 11Б,", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone6, phone7 } };
+            var ca5 = new CityAddress() { Country = "Беларусь", Street = "ул.Захарова 50Д", Clinic = clinic3, ClinicPhones = new List<ClinicPhone>() { phone8, phone9 } };
+            var ca6 = new CityAddress() { Country = "Беларусь", Street = "ул.Победителей 93", Clinic = clinic4, ClinicPhones = new List<ClinicPhone>() { phone10, phone11, phone12, phone13, phone14, phone15, phone16 } };
+            var ca7 = new CityAddress() { Country = "Беларусь", Street = "ул. Нарочанская 17", Clinic = clinic5, ClinicPhones = new List<ClinicPhone>() { phone17, phone18 } };
 
             clinicAddressList = new List<CityAddress> { ca1, ca2, ca3, ca4, ca5, ca6, ca7 };
 

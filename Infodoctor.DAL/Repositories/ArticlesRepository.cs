@@ -20,7 +20,7 @@ namespace Infodoctor.DAL.Repositories
 
         public IQueryable<Article> GetAllArticles()
         {
-            return _context.Articles.OrderBy(n => n.Id);
+            return _context.Articles.OrderByDescending(n => n.PublishDate);
         }
 
         public Article GetArticleById(int id)

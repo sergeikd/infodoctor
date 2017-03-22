@@ -41,6 +41,7 @@ namespace Infodoctor.BL.Services
                     Id = clinic.Id,
                     Name = clinic.Name,
                     Email = clinic.Email,
+                    Site = clinic.Site,
                     RatePoliteness = clinic.RatePoliteness,
                     RatePrice = clinic.RatePrice,
                     RateQuality = clinic.RateQuality,
@@ -53,6 +54,7 @@ namespace Infodoctor.BL.Services
                 {
                     var dtoClinicAddress = new DtoAddress
                     {
+                        Country = clinicAddress.Country,
                         City = clinicAddress.City.Name,
                         Street = clinicAddress.Street,
                         ClinicPhones = new List<DtoPhone>()
@@ -86,6 +88,7 @@ namespace Infodoctor.BL.Services
                 Id = clinic.Id,
                 Name = clinic.Name,
                 Email = clinic.Email,
+                Site = clinic.Site,
                 RatePoliteness = clinic.RatePoliteness,
                 RatePrice = clinic.RatePrice,
                 RateQuality = clinic.RateQuality,
@@ -98,6 +101,7 @@ namespace Infodoctor.BL.Services
             {
                 var dtoClinicAddress = new DtoAddress
                 {
+                    Country = clinicAddress.Country,
                     City = clinicAddress.City.Name,
                     Street = clinicAddress.Street,
                     ClinicPhones = new List<DtoPhone>()
@@ -136,6 +140,7 @@ namespace Infodoctor.BL.Services
                     Id = clinic.Id,
                     Name = clinic.Name,
                     Email = clinic.Email,
+                    Site = clinic.Site,
                     RatePoliteness = clinic.RatePoliteness,
                     RatePrice = clinic.RatePrice,
                     RateQuality = clinic.RateQuality,
@@ -148,6 +153,7 @@ namespace Infodoctor.BL.Services
                 {
                     var dtoClinicAddress = new DtoAddress
                     {
+                        Country = clinicAddress.Country,
                         City = clinicAddress.City.Name,
                         Street = clinicAddress.Street,
                         ClinicPhones = new List<DtoPhone>()
@@ -311,6 +317,7 @@ namespace Infodoctor.BL.Services
                     Id = clinic.Id,
                     Name = clinic.Name,
                     Email = clinic.Email,
+                    Site = clinic.Site,
                     RatePoliteness = clinic.RatePoliteness,
                     RatePrice = clinic.RatePrice,
                     RateQuality = clinic.RateQuality,
@@ -323,6 +330,7 @@ namespace Infodoctor.BL.Services
                 {
                     var dtoClinicAddress = new DtoAddress
                     {
+                        Country = clinicAddress.Country,
                         City = clinicAddress.City.Name,
                         Street = clinicAddress.Street,
                         ClinicPhones = new List<DtoPhone>()
