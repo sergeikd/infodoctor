@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DtoModels\DtoDoctorReview.cs" />
+    <Compile Include="DtoModels\DtoClinicReview.cs" />
     <Compile Include="DtoModels\DtoCity.cs" />
     <Compile Include="DtoModels\DtoClinic.cs" />
     <Compile Include="DtoModels\DtoClinicSearchModel.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="DtoModels\DtoPagedDoctor.cs" />
     <Compile Include="DtoModels\DtoPagedDoctorReview.cs" />
     <Compile Include="DtoModels\DtoFastSearchModel.cs" />
+    <Compile Include="DtoModels\DtoReview.cs" />
     <Compile Include="DtoModels\DtoSearchResultModel.cs" />
     <Compile Include="Intefaces\IArticlesService.cs" />
     <Compile Include="Intefaces\ICitiesService.cs" />

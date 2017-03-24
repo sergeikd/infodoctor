@@ -7,13 +7,13 @@ namespace Infodoctor.Web
 {
     public class DbInitializerExtention
     {
-        internal void PrepareLists(out List<ClinicReview> clinicReviewList, out List<DoctorReview> doctorsReviewList, out List<Clinic> clinicList, out List<Doctor> doctors,
+        internal void PrepareLists(out List<ClinicReview> clinicReviewList, out List<DoctorReview> doctorReviewList, out List<Clinic> clinicList, out List<Doctor> doctors,
             out List<ClinicPhone> phonesList, out List<CityAddress> clinicAddressList, out List<City> citiesList, out List<DoctorCategory> categoriesList)
         {
             clinicReviewList = new List<ClinicReview>();
             var rnd = new Random();
             var ticks = DateTime.Now.Ticks - 100000000000000;
-            for (var i = 0; i < 30; i++)
+            for (var i = 0; i < 25; i++)
             {
                 clinicReviewList.Add(new ClinicReview
                 {
@@ -25,19 +25,95 @@ namespace Infodoctor.Web
                            "Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing " +
                            "software like Aldus PageMaker including versions of Lorem Ipsum.",
                     PublishTime = new DateTime(ticks + i * 1000000000000),
-                    ClinicId = i % 5 + 1,
+                    //ClinicId = i % 5 + 1,
                     UserId = "7d374085-71e4-4819-8d09-91cfc8239463",
                     UserName = "user0",
                     RatePoliteness = rnd.Next(3) + 3,
                     RatePrice = rnd.Next(3) + 3,
-                    RateQuality = rnd.Next(3) + 3
+                    RateQuality = rnd.Next(3) + 3,
+                    IsApproved = true
                 });
             }
 
-            doctorsReviewList = new List<DoctorReview>();
+
+            List<ClinicReview> clinicReviewSubList;
+            clinicReviewSubList = clinicReviewList.Take(5).ToList();
+            var clinic1 = new Clinic()
+            {
+                Email = "info@nordin.by",
+                Name = "Медицинский центр Нордин",
+                RatePrice = clinicReviewSubList.Select(x => x.RatePrice).Average(),
+                RateQuality = clinicReviewSubList.Select(x => x.RateQuality).Average(),
+                RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
+                ClinicReviews = clinicReviewSubList,
+                Favorite = true,
+                ImageName = "7cf505b425af4f4ab7293b3a74a3aa3d.jpg"
+            };
+            clinic1.RateAverage = (clinic1.RatePrice + clinic1.RateQuality + clinic1.RatePoliteness) / 3;
+
+            clinicReviewSubList = clinicReviewList.Skip(5).Take(5).ToList();
+            var clinic2 = new Clinic()
+            {
+                Email = string.Empty,
+                Name = "Стоматологический центр Дентко",
+                RatePrice = clinicReviewSubList.Select(x => x.RatePrice).Average(),
+                RateQuality = clinicReviewSubList.Select(x => x.RateQuality).Average(),
+                RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
+                ClinicReviews = clinicReviewSubList,
+                Favorite = false,
+                ImageName = "973b8fff8ba24b6c88c24808b97bd13d.jpg"
+            };
+            clinic2.RateAverage = (clinic2.RatePrice + clinic2.RateQuality + clinic2.RatePoliteness) / 3;
+
+            clinicReviewSubList = clinicReviewList.Skip(10).Take(5).ToList();
+            var clinic3 = new Clinic()
+            {
+                Email = "kravira@kravira.by",
+                Site = "https://kravira.by/",
+                Name = "Медицинский центр Кравира",
+                RatePrice = clinicReviewSubList.Select(x => x.RatePrice).Average(),
+                RateQuality = clinicReviewSubList.Select(x => x.RateQuality).Average(),
+                RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
+                ClinicReviews = clinicReviewSubList,
+                Favorite = false,
+                ImageName = "de0c4e3b3d6f479da03f0f337b65c417.jpg"
+            };
+            clinic3.RateAverage = (clinic3.RatePrice + clinic3.RateQuality + clinic3.RatePoliteness) / 3;
+
+            clinicReviewSubList = clinicReviewList.Skip(15).Take(5).ToList();
+            var clinic4 = new Clinic()
+            {
+                Email = "medic4@tut.by",
+                Site = "http://www.4gp.by/",
+                Name = "4-я городская поликлиника г.Минска",
+                RatePrice = clinicReviewSubList.Select(x => x.RatePrice).Average(),
+                RateQuality = clinicReviewSubList.Select(x => x.RateQuality).Average(),
+                RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
+                ClinicReviews = clinicReviewSubList,
+                Favorite = false,
+                ImageName = "df41387ab46b4241964b5d2663e3d843.jpg"
+            };
+            clinic4.RateAverage = (clinic4.RatePrice + clinic4.RateQuality + clinic4.RatePoliteness) / 3;
+
+            clinicReviewSubList = clinicReviewList.Skip(20).Take(5).ToList();
+            var clinic5 = new Clinic()
+            {
+                Email = string.Empty,
+                Name = "2-я городская детская клиническая больница» г. Минска",
+                RatePrice = clinicReviewSubList.Select(x => x.RatePrice).Average(),
+                RateQuality = clinicReviewSubList.Select(x => x.RateQuality).Average(),
+                RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
+                ClinicReviews = clinicReviewSubList,
+                Favorite = false,
+                ImageName = "242c4ff4f8454af5bca78b631209902a.jpg"
+            };
+            clinic5.RateAverage = (clinic5.RatePrice + clinic5.RateQuality + clinic5.RatePoliteness) / 3;
+            clinicList = new List<Clinic> { clinic1, clinic2, clinic3, clinic4, clinic5 };
+
+            doctorReviewList = new List<DoctorReview>();
             for (var i = 0; i < 30; i++)
             {
-                doctorsReviewList.Add(new DoctorReview
+                doctorReviewList.Add(new DoctorReview
                 {
                     Text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
                            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, " +
@@ -47,142 +123,98 @@ namespace Infodoctor.Web
                            "Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing " +
                            "software like Aldus PageMaker including versions of Lorem Ipsum.",
                     PublishTime = new DateTime(ticks + i * 1000000000000),
-                    DoctorId = i % 5 + 1,
+                    //DoctorId = i % 5 + 1,
                     UserId = "7d374085-71e4-4819-8d09-91cfc8239463",
                     UserName = "user0",
                     RatePoliteness = rnd.Next(3) + 3,
                     RateProfessionalism = rnd.Next(3) + 3,
-                    RateWaitingTime = rnd.Next(3) + 3
+                    RateWaitingTime = rnd.Next(3) + 3,
+                    IsApproved = true
                 });
             }
-            var clinic1 = new Clinic()
-            {
-                Email = "info@nordin.by",
-                Name = "Медицинский центр Нордин",
-                RatePrice = clinicReviewList.Where(x => x.ClinicId == 1).Average(y => y.RatePrice),
-                RateQuality = clinicReviewList.Where(x => x.ClinicId == 1).Average(y => y.RateQuality),
-                RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 1).Average(y => y.RatePoliteness),
-                Favorite = true,
-                ImageName = "7cf505b425af4f4ab7293b3a74a3aa3d.jpg"
-            };
-            clinic1.RateAverage = (clinic1.RatePrice + clinic1.RateQuality + clinic1.RatePoliteness) / 3;
-            var clinic2 = new Clinic()
-            {
-                Email = string.Empty,
-                Name = "Стоматологический центр Дентко",
-                RatePrice = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RatePrice),
-                RateQuality = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RateQuality),
-                RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 2).Average(y => y.RatePoliteness),
-                Favorite = false,
-                ImageName = "973b8fff8ba24b6c88c24808b97bd13d.jpg"
-            };
-            clinic2.RateAverage = (clinic2.RatePrice + clinic2.RateQuality + clinic2.RatePoliteness) / 3;
-            var clinic3 = new Clinic()
-            {
-                Email = "kravira@kravira.by",
-                Site = "https://kravira.by/",
-                Name = "Медицинский центр Кравира",
-                RatePrice = clinicReviewList.Where(x => x.ClinicId == 3).Average(y => y.RatePrice),
-                RateQuality = clinicReviewList.Where(x => x.ClinicId == 3).Average(y => y.RateQuality),
-                RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 3).Average(y => y.RatePoliteness),
-                Favorite = false,
-                ImageName = "de0c4e3b3d6f479da03f0f337b65c417.jpg"
-            };
-            clinic3.RateAverage = (clinic3.RatePrice + clinic3.RateQuality + clinic3.RatePoliteness) / 3;
-            var clinic4 = new Clinic()
-            {
-                Email = "medic4@tut.by",
-                Site = "http://www.4gp.by/",
-                Name = "4-я городская поликлиника г.Минска",
-                RatePrice = clinicReviewList.Where(x => x.ClinicId == 4).Average(y => y.RatePrice),
-                RateQuality = clinicReviewList.Where(x => x.ClinicId == 4).Average(y => y.RateQuality),
-                RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 4).Average(y => y.RatePoliteness),
-                Favorite = false,
-                ImageName = "df41387ab46b4241964b5d2663e3d843.jpg"
-            };
-            clinic4.RateAverage = (clinic4.RatePrice + clinic4.RateQuality + clinic4.RatePoliteness) / 3;
-            var clinic5 = new Clinic()
-            {
-                Email = string.Empty,
-                Name = "2-я городская детская клиническая больница» г. Минска",
-                RatePrice = clinicReviewList.Where(x => x.ClinicId == 5).Average(y => y.RatePrice),
-                RateQuality = clinicReviewList.Where(x => x.ClinicId == 5).Average(y => y.RateQuality),
-                RatePoliteness = clinicReviewList.Where(x => x.ClinicId == 5).Average(y => y.RatePoliteness),
-                Favorite = false,
-                ImageName = "242c4ff4f8454af5bca78b631209902a.jpg"
-            };
-            clinic5.RateAverage = (clinic5.RatePrice + clinic5.RateQuality + clinic5.RatePoliteness) / 3;
-            clinicList = new List<Clinic> { clinic1, clinic2, clinic3, clinic4, clinic5 };
-
             #region Список врачей
-
+            List<DoctorReview> doctorReviewSubList;
+            doctorReviewSubList = doctorReviewList.Take(5).ToList();
             var doc001 = new Doctor()
             {
                 Name = "Степанов Степан Степанович",
                 Email = "infosuperstepa1999@gmail.com",
                 Experience = 14,
                 Manipulation = "Может что-то хорошо.",
-                RateProfessionalism = doctorsReviewList.Where(x => x.DoctorId == 1).Average(y => y.RateProfessionalism),
-                RateWaitingTime = doctorsReviewList.Where(x => x.DoctorId == 1).Average(y => y.RateWaitingTime),
-                RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 1).Average(y => y.RatePoliteness),
+                RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
+                RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
+                RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
                 Favorite = false,
                 Clinics = new List<Clinic> { clinic1 },
+                DoctorReviews = doctorReviewSubList,
                 ImageName = "98344f63b5854a7badd654353f341790.jpg"
             };
             doc001.RateAverage = (doc001.RateProfessionalism + doc001.RateWaitingTime + doc001.RatePoliteness) / 3;
+
+            doctorReviewSubList = doctorReviewList.Skip(5).Take(5).ToList();
             var doc002 = new Doctor()
             {
                 Name = "Степанов Иван Степанович",
                 Email = "giperivan2@gmail.com",
                 Experience = 20,
                 Manipulation = "Может что-то отлично.",
-                RateProfessionalism = doctorsReviewList.Where(x => x.DoctorId == 2).Average(y => y.RateProfessionalism),
-                RateWaitingTime = doctorsReviewList.Where(x => x.DoctorId == 2).Average(y => y.RateWaitingTime),
-                RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 2).Average(y => y.RatePoliteness),
+                RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
+                RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
+                RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
                 Favorite = false,
                 Clinics = new List<Clinic> { clinic1, clinic2 },
+                DoctorReviews = doctorReviewSubList,
                 ImageName = "e314bb55fdfe46ceb369ce3da3a6adae.jpg"
             };
             doc002.RateAverage = (doc002.RateProfessionalism + doc002.RateWaitingTime + doc002.RatePoliteness) / 3;
+
+            doctorReviewSubList = doctorReviewList.Skip(10).Take(5).ToList();
             var doc003 = new Doctor()
             {
                 Name = "Степанов Степан Иванович",
                 Email = "darmaed19@gmail.com",
                 Experience = 2,
                 Manipulation = "Может что-то нормально.",
-                RateProfessionalism = doctorsReviewList.Where(x => x.DoctorId == 3).Average(y => y.RateProfessionalism),
-                RateWaitingTime = doctorsReviewList.Where(x => x.DoctorId == 3).Average(y => y.RateWaitingTime),
-                RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 3).Average(y => y.RatePoliteness),
+                RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
+                RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
+                RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
                 Favorite = false,
                 Clinics = new List<Clinic> { clinic1 },
+                DoctorReviews = doctorReviewSubList,
                 ImageName = "5161c9cab8a4bee923a30e6a8c1b326.jpg"
             };
             doc003.RateAverage = (doc003.RateProfessionalism + doc003.RateWaitingTime + doc003.RatePoliteness) / 3;
+
+            doctorReviewSubList = doctorReviewList.Skip(15).Take(5).ToList();
             var doc004 = new Doctor()
             {
                 Name = "Иванов Степан Степанович",
                 Email = "tainiidoctor2@gmail.com",
                 Experience = 14,
                 Manipulation = "Может что-то хорошо.",
-                RateProfessionalism = doctorsReviewList.Where(x => x.DoctorId == 4).Average(y => y.RateProfessionalism),
-                RateWaitingTime = doctorsReviewList.Where(x => x.DoctorId == 4).Average(y => y.RateWaitingTime),
-                RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 4).Average(y => y.RatePoliteness),
+                RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
+                RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
+                RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
                 Favorite = false,
                 Clinics = new List<Clinic> { clinic2 },
+                DoctorReviews = doctorReviewSubList,
                 ImageName = "0e76cf893e9a4b27bcaeeb3450f02e9c.jpg"
             };
             doc004.RateAverage = (doc004.RateProfessionalism + doc004.RateWaitingTime + doc004.RatePoliteness) / 3;
+
+            doctorReviewSubList = doctorReviewList.Skip(20).Take(5).ToList();
             var doc005 = new Doctor()
             {
                 Name = "Степанов Сергей Степанович",
                 Email = "123456789@gmail.com",
                 Experience = 29,
                 Manipulation = "Может что-то отлично.",
-                RateProfessionalism = doctorsReviewList.Where(x => x.DoctorId == 5).Average(y => y.RateProfessionalism),
-                RateWaitingTime = doctorsReviewList.Where(x => x.DoctorId == 5).Average(y => y.RateWaitingTime),
-                RatePoliteness = doctorsReviewList.Where(x => x.DoctorId == 5).Average(y => y.RatePoliteness),
+                RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
+                RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
+                RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
                 Favorite = true,
                 Clinics = new List<Clinic> { clinic2 },
+                DoctorReviews = doctorReviewSubList,
                 ImageName = "03206dbe56b04c1682ab90422923867c.jpg"
             };
             doc005.RateAverage = (doc005.RateProfessionalism + doc005.RateWaitingTime + doc005.RatePoliteness) / 3;

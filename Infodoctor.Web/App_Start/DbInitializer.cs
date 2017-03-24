@@ -116,17 +116,17 @@ namespace Infodoctor.Web
 
             var dbInitializerExtention = new DbInitializerExtention();
             List<ClinicReview> clinicReviewList;
-            List<DoctorReview> doctorsReviewList;
+            List<DoctorReview> doctorReviewList;
             List<Clinic> clinicList;
             List<Doctor> doctorsList;
             List<ClinicPhone> phonesList;
             List<CityAddress> clinicAddressList;
             List<City> citiesList;
             List<DoctorCategory> categoriesList;
-            List<ImageFile> imagesList;
-            dbInitializerExtention.PrepareLists(out clinicReviewList, out doctorsReviewList, out clinicList, out doctorsList, out phonesList, out clinicAddressList, out citiesList, out categoriesList);
+            //List<ImageFile> imagesList;
+            dbInitializerExtention.PrepareLists(out clinicReviewList, out doctorReviewList, out clinicList, out doctorsList, out phonesList, out clinicAddressList, out citiesList, out categoriesList);
             context.ClinicReviews.AddRange(clinicReviewList);
-            context.DoctorReviews.AddRange(doctorsReviewList);
+            context.DoctorReviews.AddRange(doctorReviewList);
             context.Сlinics.AddRange(clinicList);
             context.Doctors.AddRange(doctorsList);
             context.ClinicPhones.AddRange(phonesList);

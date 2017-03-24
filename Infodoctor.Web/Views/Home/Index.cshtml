@@ -23,13 +23,15 @@
     <input type="submit" id="submitLogin" value="Логин" /><br/>
 </div>
 <div>
-    <input type="button" id="getCountriesButton" value="GET страны" /><br />
+    <input type="button" id="getCountriesButton" value="GET страны"/>
+    <input type="button" id="getCitiesUsedClinicButton" value="GET города с клиниками"/>
+    <input type="button" id="postCityButton" value="POST город" /><br />
     <input type="button" id="getClinicsButton" value="GET клиники" />
     <input type="button" id="getPageClinicsButton" value="GET page клиник" />
     <input type="button" id="getClinic3Button" value="GET клиника 3" />
     <input type="button" id="getClinicSpecializationsButton" value="GET специализации клиник" />
     <br />
-    <input type="button" id="getCitiesUsedClinicButton" value="GET города с клиниками" />
+    
     <input type="button" id="getPageClinicReviewsButton" value="GET page отзывы" />
     <input type="button" id="postClinicReviewButton" value="POST отзыв" />
     <br />
@@ -159,6 +161,26 @@
                         fail: function (data) {
                             alert(data);
                         }
+                    });
+                });
+
+                $('#postCityButton').click(function (e) {
+                    e.preventDefault();
+                    var data = "TestCity";
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'api/cities',
+                        beforeSend: function (xhr) {
+                            var token = sessionStorage.getItem(tokenKey);
+                            xhr.setRequestHeader("Authorization", "Bearer " + token);
+                        },
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data)
+                    }).success(function (data) {
+                        alert("Город добавлен");
+                    }).fail(function (data) {
+                        alert("В процесе добавления города возникла ошибка");
                     });
                 });
 

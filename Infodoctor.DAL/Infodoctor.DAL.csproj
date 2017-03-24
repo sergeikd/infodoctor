@@ -71,7 +71,7 @@
     <Compile Include="Interfaces\IClinicSpecializationRepository.cs" />
     <Compile Include="Interfaces\ICountryRepository.cs" />
     <Compile Include="Interfaces\IOwnerShipsRepository.cs" />
-    <Compile Include="Interfaces\IСlinicRepository.cs" />
+    <Compile Include="Interfaces\IClinicRepository.cs" />
     <Compile Include="PagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ArticlesRepository.cs" />
@@ -86,7 +86,7 @@
     <Compile Include="Repositories\ClinicSpecializationRepository.cs" />
     <Compile Include="Repositories\CountryRepository.cs" />
     <Compile Include="Repositories\OwnerShipsRepository.cs" />
-    <Compile Include="Repositories\СlinicRepository.cs" />
+    <Compile Include="Repositories\ClinicRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

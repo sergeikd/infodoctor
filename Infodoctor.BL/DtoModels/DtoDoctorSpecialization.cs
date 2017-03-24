@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Infodoctor.BL.DtoModels
+﻿namespace Infodoctor.BL.DtoModels
 {
     public class DtoDoctorSpecialization
     {

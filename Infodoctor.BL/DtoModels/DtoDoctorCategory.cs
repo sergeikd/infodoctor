@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.DtoModels
 {

@@ -9,7 +9,7 @@ namespace Infodoctor.BL.Services
 {
     public class SearchService : ISearchService
     {
-        private readonly IСlinicRepository _clinicRepository;
+        private readonly IClinicRepository _clinicRepository;
         private readonly IDoctorRepository _doctorRepository;
         private readonly IClinicSpecializationRepository _clinicSpecializationRepository;
         private readonly IDoctorSpecializationRepository _doctorSpecializationRepository;
@@ -17,7 +17,7 @@ namespace Infodoctor.BL.Services
         private static List<string> VirtualClinicsAndSpecialisationsCache { get; set; }
         private static List<string> VirtualDoctorsCache { get; set; }
 
-        public SearchService(IСlinicRepository clinicRepository,
+        public SearchService(IClinicRepository clinicRepository,
             IClinicSpecializationRepository clinicSpecializationRepository, 
             IDoctorRepository doctorRepository, 
             IDoctorSpecializationRepository doctorSpecializationRepository)

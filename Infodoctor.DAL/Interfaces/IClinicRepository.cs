@@ -3,7 +3,7 @@ using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Interfaces
 {
-    public interface IСlinicRepository
+    public interface IClinicRepository
     {
         IQueryable<Clinic> GetAllСlinics();
         IQueryable<Clinic> GetSortedСlinics(string sortBy, bool descending);

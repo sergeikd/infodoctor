@@ -57,10 +57,11 @@ namespace Infodoctor.BL.Services
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
+            _citiesRepository.Add(new City { Name = name });
 
-            var city = new City { Name = name };
-            if (IsNewElement(city))
-                _citiesRepository.Add(city);
+            //var city = new City { Name = name };
+            //if (IsNewElement(city))
+            //    _citiesRepository.Add(city);
         }
 
         public void Update(int id, string name)
@@ -71,16 +72,17 @@ namespace Infodoctor.BL.Services
             if (updated != null)
             {
                 updated.Name = name;
-                if (IsNewElement(updated))
-                    _citiesRepository.Update(updated);
+                _citiesRepository.Update(updated);
+                //if (IsNewElement(updated))
+                //    _citiesRepository.Update(updated);
             }
         }
 
         public void Delete(int id)
         {
-            var deleted = _citiesRepository.GetCityById(id);
-            if (deleted != null)
-                _citiesRepository.Delete(deleted);
+            var city = _citiesRepository.GetCityById(id);
+            if (city != null)
+                _citiesRepository.Delete(city);
         }
 
         private bool IsNewElement(City city)

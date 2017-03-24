@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using Infodoctor.BL.DtoModels;
-using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Intefaces
 {
     public interface IDoctorReviewService
     {
-        IEnumerable<DoctorReview> GetAllReviews();
-        IEnumerable<DoctorReview> GetReviewsByDoctorId(int id);
+        IEnumerable<DtoDoctorReview> GetAllReviews();
+        IEnumerable<DtoDoctorReview> GetReviewsByDoctorId(int id);
         DtoPagedDoctorReview GetPagedReviewByDoctorId(int id, int perPage, int numPage);
-        DoctorReview GetReviewById(int id);
-        void Add(DoctorReview dr);
-        void Update(DoctorReview dr);
+        DtoDoctorReview GetReviewById(int id);
+        void Add(DtoDoctorReview dr);
+        void Update(DtoDoctorReview dr);
         void Delete(int id);
     }
 }

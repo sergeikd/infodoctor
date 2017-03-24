@@ -18,6 +18,7 @@ namespace Infodoctor.Domain.Entities
         //public virtual ICollection<ClinicProfile> ClinicProfiles { get; set; }
         public virtual ICollection<ClinicSpecialization> ClinicSpecializations { get; set; }
         public virtual ICollection<Doctor> Doctors { get; set; }
+        public virtual ICollection<ClinicReview> ClinicReviews { get; set; }
     }
 
     public class CityAddress

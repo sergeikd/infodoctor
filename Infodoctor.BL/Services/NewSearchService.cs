@@ -10,13 +10,13 @@ namespace Infodoctor.BL.Services
 {
     public class NewSearchService
     {
-        private readonly IСlinicRepository _clinicRepository;
+        private readonly IClinicRepository _clinicRepository;
         private readonly IClinicSpecializationRepository _clinicSpecializationRepository;
 
         private static List<string> ClinicsCache { get; set; }
         private static List<string> _virtualSpecssCache { get; set; }
 
-        public NewSearchService(IСlinicRepository clinicRepository,
+        public NewSearchService(IClinicRepository clinicRepository,
             IClinicSpecializationRepository clinicSpecializationRepository)
         {
             if (clinicRepository == null)

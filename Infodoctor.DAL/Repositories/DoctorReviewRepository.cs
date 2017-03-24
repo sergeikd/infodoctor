@@ -23,7 +23,7 @@ namespace Infodoctor.DAL.Repositories
 
         public IQueryable<DoctorReview> GetReviewsByDoctorId(int id)
         {
-            return _context.DoctorReviews.Where(r => r.DoctorId == id).OrderByDescending(n => n.PublishTime);
+            return _context.DoctorReviews.Where(r => r.Doctor.Id == id).OrderByDescending(n => n.PublishTime);
         }
 
         public DoctorReview GetDoctorReviewById(int id)

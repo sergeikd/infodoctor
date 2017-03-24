@@ -19,5 +19,6 @@ namespace Infodoctor.Domain.Entities
         public virtual DoctorCategory Category { get; set; }
         public virtual CityAddress Address { get; set; }
         public virtual ICollection<Clinic> Clinics { get; set; }
+        public virtual ICollection<DoctorReview> DoctorReviews { get; set; }
     }
 }

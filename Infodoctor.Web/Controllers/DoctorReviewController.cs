@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Intefaces;
-using Infodoctor.Domain.Entities;
 using Infodoctor.Web.Models;
 using Microsoft.AspNet.Identity;
 
@@ -22,13 +21,13 @@ namespace Infodoctor.Web.Controllers
         }
 
         // GET api/doctorreview
-        public IEnumerable<DoctorReview> Get()
+        public IEnumerable<DtoDoctorReview> Get()
         {
             return _doctorReviewService.GetAllReviews();
         }
 
         // GET api/doctorreview/5
-        public DoctorReview Get(int id)
+        public DtoDoctorReview Get(int id)
         {
             return _doctorReviewService.GetReviewById(id);
         }
@@ -51,7 +50,7 @@ namespace Infodoctor.Web.Controllers
                 throw new ApplicationException("Incorrect review object");
             }
 
-            var review = new DoctorReview()
+            var review = new DtoDoctorReview()
             {
                 DoctorId = doctorReview.DoctorId,
                 RatePoliteness = doctorReview.RatePoliteness,

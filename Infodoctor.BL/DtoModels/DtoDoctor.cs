@@ -20,6 +20,7 @@ namespace Infodoctor.BL.DtoModels
         public double RateWaitingTime { get; set; }
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
+        public int ReviewCount { get; set; }
         public bool Favorite { get; set; }
     }
 }

@@ -14,13 +14,13 @@ namespace Infodoctor.BL.Services
         private readonly IDoctorRepository _doctorRepository;
         private readonly IDoctorSpecializationRepository _doctorSpecializationRepository;
         private readonly IDoctorCategoryRepository _doctorCategoryRepository;
-        private readonly IСlinicRepository _clinicRepository;
+        private readonly IClinicRepository _clinicRepository;
         private readonly ISearchService _searchService;
 
         public DoctorService(IDoctorRepository doctorRepository, 
             IDoctorSpecializationRepository doctorSpecializationRepository,
             IDoctorCategoryRepository doctorCategoryRepository, 
-            IСlinicRepository clinicRepository, 
+            IClinicRepository clinicRepository, 
             ISearchService searchService)
         {
             if (doctorRepository == null)
@@ -61,6 +61,7 @@ namespace Infodoctor.BL.Services
                     RateProfessionalism = doctor.RateProfessionalism,
                     RateWaitingTime = doctor.RateWaitingTime,
                     RateAverage = doctor.RateAverage,
+                    ReviewCount = doctor.DoctorReviews.Count,
                     Image = pathToImage + doctor.ImageName
                 };
 
@@ -126,6 +127,7 @@ namespace Infodoctor.BL.Services
                     RateProfessionalism = doctor.RateProfessionalism,
                     RateWaitingTime = doctor.RateWaitingTime,
                     RateAverage = doctor.RateAverage,
+                    ReviewCount = doctor.DoctorReviews.Count,
                     Image = pathToImage + doctor.ImageName
                 };
 
@@ -308,6 +310,7 @@ namespace Infodoctor.BL.Services
                     RateProfessionalism = doctor.RateProfessionalism,
                     RateWaitingTime = doctor.RateWaitingTime,
                     RateAverage = doctor.RateAverage,
+                    ReviewCount = doctor.DoctorReviews.Count,
                     Image = pathToImage + doctor.ImageName
                 };
 
@@ -370,6 +373,7 @@ namespace Infodoctor.BL.Services
                 RateProfessionalism = doctor.RateProfessionalism,
                 RateWaitingTime = doctor.RateWaitingTime,
                 RateAverage = doctor.RateAverage,
+                ReviewCount = doctor.DoctorReviews.Count,
                 Image = pathToImage + doctor.ImageName
             };
 

@@ -13,22 +13,60 @@ namespace Infodoctor.BL.Services
     public class DoctorReviewService : IDoctorReviewService
     {
         private readonly IDoctorReviewRepository _doctorReviewRepository;
+        private readonly IDoctorRepository _doctorRepository;
 
-        public DoctorReviewService(IDoctorReviewRepository doctorReviewRepository)
+        public DoctorReviewService(IDoctorReviewRepository doctorReviewRepository, IDoctorRepository doctorRepository)
         {
             if (doctorReviewRepository == null)
                 throw new ArgumentNullException(nameof(doctorReviewRepository));
+            if (doctorRepository == null)
+                throw new ArgumentNullException(nameof(doctorRepository));
             _doctorReviewRepository = doctorReviewRepository;
+            _doctorRepository = doctorRepository;
         }
 
-        public IEnumerable<DoctorReview> GetAllReviews()
+        public IEnumerable<DtoDoctorReview> GetAllReviews()
         {
-            return _doctorReviewRepository.GetAllDoctorReviews().ToList();
+            var doctorReviewsList = _doctorReviewRepository.GetAllDoctorReviews();
+            var dtoDoctorReviewsList = new List<DtoDoctorReview>();
+            foreach (var doctorReview in doctorReviewsList)
+            {
+                dtoDoctorReviewsList.Add(new DtoDoctorReview()
+                {
+                    Id = doctorReview.Id,
+                    Text = doctorReview.Text,
+                    UserName = doctorReview.UserName,
+                    UserId = doctorReview.UserId,
+                    PublishTime = doctorReview.PublishTime,
+                    RatePoliteness = doctorReview.RatePoliteness,
+                    RateWaitingTime = doctorReview.RateWaitingTime,
+                    RateProfessionalism = doctorReview.RateProfessionalism,
+                    DoctorId = doctorReview.Doctor.Id
+                });
+            }
+            return dtoDoctorReviewsList;
         }
 
-        public IEnumerable<DoctorReview> GetReviewsByDoctorId(int id)
+        public IEnumerable<DtoDoctorReview> GetReviewsByDoctorId(int id)
         {
-            return _doctorReviewRepository.GetReviewsByDoctorId(id).ToList();
+            var doctorReviewsList = _doctorReviewRepository.GetReviewsByDoctorId(id).ToList();
+            var dtoDoctorReviewsList = new List<DtoDoctorReview>();
+            foreach (var doctorReview in doctorReviewsList)
+            {
+                dtoDoctorReviewsList.Add(new DtoDoctorReview()
+                {
+                    Id = doctorReview.Id,
+                    Text = doctorReview.Text,
+                    UserName = doctorReview.UserName,
+                    UserId = doctorReview.UserId,
+                    PublishTime = doctorReview.PublishTime,
+                    RatePoliteness = doctorReview.RatePoliteness,
+                    RateWaitingTime = doctorReview.RateWaitingTime,
+                    RateProfessionalism = doctorReview.RateProfessionalism,
+                    DoctorId = doctorReview.Doctor.Id
+                });
+            }
+            return dtoDoctorReviewsList;
         }
 
         public DtoPagedDoctorReview GetPagedReviewByDoctorId(int id, int perPage, int numPage)
@@ -52,33 +90,102 @@ namespace Infodoctor.BL.Services
             return result;
         }
 
-        public DoctorReview GetReviewById(int id)
+        public DtoDoctorReview GetReviewById(int id)
         {
-            return _doctorReviewRepository.GetDoctorReviewById(id);
+            DoctorReview doctorReview;
+            try
+            {
+                doctorReview = _doctorReviewRepository.GetDoctorReviewById(id);
+            }
+            catch
+            {
+                throw new ApplicationException("DoctorReview not found");
+            }
+            var dtoDoctorReview  = new DtoDoctorReview()
+            {
+                Id = doctorReview.Id,
+                Text = doctorReview.Text,
+                UserName = doctorReview.UserName,
+                UserId = doctorReview.UserId,
+                PublishTime = doctorReview.PublishTime,
+                RatePoliteness = doctorReview.RatePoliteness,
+                RateWaitingTime = doctorReview.RateWaitingTime,
+                RateProfessionalism = doctorReview.RateProfessionalism,
+                DoctorId = doctorReview.Doctor.Id
+            };
+            return dtoDoctorReview;
         }
 
-        public void Add(DoctorReview dr)
+        public void Add(DtoDoctorReview doctorReview)
         {
-            if (dr.UserId == null || dr.UserName == null)
+            if (doctorReview.UserId == null || doctorReview.UserName == null)
                 throw new UnauthorizedAccessException("Incorrect user's credentials");
-
-            if (dr.Text == "" || dr.DoctorId == 0 || dr.RatePoliteness == 0 ||
-                dr.RateProfessionalism == 0 || dr.RateWaitingTime == 0 || dr.Text == string.Empty)
+            Doctor doctor;
+            try
+            {
+                doctor = _doctorRepository.GetDoctorById(doctorReview.DoctorId);
+            }
+            catch
+            {
+                throw new ApplicationException("Doctor not found");
+            }
+            if (doctorReview.Text == "" || doctorReview.DoctorId < 0 || doctorReview.RatePoliteness < 0 ||
+                doctorReview.RateProfessionalism < 0 || doctorReview.RateWaitingTime < 0 || doctorReview.Text == string.Empty)
                 throw new ApplicationException("Incorrect data, some required fields are null or empty");
-
-            _doctorReviewRepository.Add(dr);
+            var newDoctorReview = new DoctorReview()
+            {
+                Id = doctorReview.Id,
+                Text = doctorReview.Text,
+                UserName = doctorReview.UserName,
+                UserId = doctorReview.UserId,
+                PublishTime = doctorReview.PublishTime,
+                RatePoliteness = doctorReview.RatePoliteness,
+                RateWaitingTime = doctorReview.RateWaitingTime,
+                RateProfessionalism = doctorReview.RateProfessionalism,
+                Doctor = doctor,
+                IsApproved = true //TODO: change to false when moderator control will be done
+            };
+            _doctorReviewRepository.Add(newDoctorReview);
         }
 
-        public void Update(DoctorReview dr)
+        public void Update(DtoDoctorReview doctorReview)
         {
-            if (dr.UserId == null || dr.UserName == null)
+            if (doctorReview.UserId == null || doctorReview.UserName == null)
                 throw new UnauthorizedAccessException("Incorrect user's credentials");
 
-            if (dr.Text == "" || dr.DoctorId == 0 || dr.RatePoliteness == 0 ||
-                dr.RateProfessionalism == 0 || dr.RateWaitingTime == 0 || dr.Text == string.Empty)
+            if (doctorReview.Text == "" || doctorReview.DoctorId < 0 || doctorReview.RatePoliteness < 0 ||
+                doctorReview.RateProfessionalism < 0 || doctorReview.RateWaitingTime < 0 || doctorReview.Text == string.Empty)
                 throw new ApplicationException("Incorrect data, some required fields are null or empty");
-
-            _doctorReviewRepository.Update(dr);
+            DoctorReview updatedDoctorReview;
+            try
+            {
+                updatedDoctorReview = _doctorReviewRepository.GetDoctorReviewById(doctorReview.Id);
+            }
+            catch
+            {
+                throw new ApplicationException("Review not found");
+            }
+            if (updatedDoctorReview == null) return;
+            Doctor doctor;
+            try
+            {
+                doctor = _doctorRepository.GetDoctorById(doctorReview.DoctorId);
+            }
+            catch
+            {
+                throw new ApplicationException("Doctor not found");
+            }
+            updatedDoctorReview.Id = doctorReview.Id;
+            updatedDoctorReview.Text = doctorReview.Text;
+            updatedDoctorReview.UserName = doctorReview.UserName;
+            updatedDoctorReview.UserId = doctorReview.UserId;
+            updatedDoctorReview.PublishTime = doctorReview.PublishTime;
+            updatedDoctorReview.RatePoliteness = doctorReview.RatePoliteness;
+            updatedDoctorReview.RateWaitingTime = doctorReview.RateWaitingTime;
+            updatedDoctorReview.RateProfessionalism = doctorReview.RateProfessionalism;
+            updatedDoctorReview.Doctor = doctor;
+            updatedDoctorReview.IsApproved = true; //TODO: change to false when moderator control will be done
+            _doctorReviewRepository.Update(updatedDoctorReview);
         }
 
         public void Delete(int id)

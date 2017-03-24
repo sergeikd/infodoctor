@@ -5,11 +5,11 @@ using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Repositories
 {
-    public class СlinicRepository: IСlinicRepository
+    public class ClinicRepository: IClinicRepository
     {
         private readonly IAppDbContext _context;
 
-        public СlinicRepository(IAppDbContext context)
+        public ClinicRepository(IAppDbContext context)
         {
             if (context == null)
             {
