@@ -424,12 +424,16 @@ namespace Infodoctor.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Phone = model.Phone};
+            var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.Phone };
 
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
+                var role = new IdentityRole { Name = "user" };
+
+                UserManager.AddToRole(user.Id, role.Name);
+
                 var token = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
                 if (!string.IsNullOrEmpty(token))
