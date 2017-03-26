@@ -26,7 +26,7 @@ namespace Infodoctor.BL.Services
 
         public IEnumerable<DtoClinicReview> GetClinicReviews()
         {
-            var clinicReviewsList = _clinicReviewRepository.GetAllClinicReviews();
+            var clinicReviewsList = _clinicReviewRepository.GetAllClinicReviews().ToList();
             var dtoClinicReviewsList = new List<DtoClinicReview>();
             foreach (var clinicReview in clinicReviewsList)
             {
@@ -48,7 +48,7 @@ namespace Infodoctor.BL.Services
 
         public IEnumerable<DtoClinicReview> GetReviewsByClinicId(int id)
         {
-            var clinicReviewsList = _clinicReviewRepository.GetReviewsByClinicId(id);
+            var clinicReviewsList = _clinicReviewRepository.GetReviewsByClinicId(id).ToList();
             var dtoClinicReviewsList = new List<DtoClinicReview>();
             foreach (var clinicReview in clinicReviewsList)
             {
@@ -136,7 +136,7 @@ namespace Infodoctor.BL.Services
             {
                 throw new UnauthorizedAccessException("Incorrect user's credentials");
             }
-            Domain.Entities.Clinic clinic;
+            Clinic clinic;
             try
             {
                 clinic = _clinicRepository.GetClinicById(clinicReview.ClinicId);

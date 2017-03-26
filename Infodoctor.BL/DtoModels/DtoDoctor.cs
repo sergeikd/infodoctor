@@ -15,7 +15,7 @@ namespace Infodoctor.BL.DtoModels
         public DtoDoctorSpecialization Specialization { get; set; }
         public string Category { get; set; }
         public List<int> ClinicsIds { get; set; } //сделано как List<int> для облегчения добавления клиники к доктору на фронте
-        public List<int> ReviewsIds { get; set; } //сделано как List<int> для облегчения добавления клиники к доктору на фронте
+        //public List<int> ReviewsIds { get; set; } //сделано как List<int> для облегчения добавления клиники к доктору на фронте
         public double RateProfessionalism { get; set; }
         public double RateWaitingTime { get; set; }
         public double RatePoliteness { get; set; }

@@ -27,7 +27,7 @@ namespace Infodoctor.BL.Services
 
         public IEnumerable<DtoDoctorReview> GetAllReviews()
         {
-            var doctorReviewsList = _doctorReviewRepository.GetAllDoctorReviews();
+            var doctorReviewsList = _doctorReviewRepository.GetAllDoctorReviews().ToList();
             var dtoDoctorReviewsList = new List<DtoDoctorReview>();
             foreach (var doctorReview in doctorReviewsList)
             {
