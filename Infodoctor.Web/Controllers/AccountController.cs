@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -188,15 +189,18 @@ namespace Infodoctor.Web.Controllers
 
                 if (!string.IsNullOrEmpty(token))
                 {
-                    var domain = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+                    //var domain = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+                    var domain = ConfigurationManager.AppSettings["UrlForCallbackFromMail"];
+                    var localDomail = "localhost:8000/";
 
                     var callbackUrl = $"{domain}/password/reset/{user.Email}/{token}";
+                    var callbackUrlLocal = $"{localDomail}/password/reset/{user.Email}/{token}";
 
                     var mailMessage = new IdentityMessage()
                     {
                         Destination = user.Email,
                         Subject = "Восстановление пароля",
-                        Body = $"Для сброса пароля, перейдите по ссылке <a href=\"" + callbackUrl + "\">сбросить</a>"
+                        Body = $"Для сброса пароля, перейдите по ссылке <a href=\"" + callbackUrl + "\">сбросить(host)</a> <a href=\"" + callbackUrlLocal + "\">сбросить(localhost)</a>"
                     };
 
                     var mailService = new ApplicationUserManager.EmailService();
@@ -438,15 +442,18 @@ namespace Infodoctor.Web.Controllers
 
                 if (!string.IsNullOrEmpty(token))
                 {
-                    var domain = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+                    //var domain = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+                    var domain = ConfigurationManager.AppSettings["UrlForCallbackFromMail"];
+                    var localDomail = "localhost:8000";
 
                     var callbackUrl = $"{domain}/email/confirm/{user.Email}/{token}";
+                    var callbackUrlLocal = $"{localDomail}/email/confirm/{user.Email}/{token}";
 
                     var mailMessage = new IdentityMessage()
                     {
                         Destination = user.Email,
                         Subject = "Подтверждение электронной почты",
-                        Body = $"Для завершения регистрации перейдите по ссылке <a href=\"" + callbackUrl + "\">сбросить</a>"
+                        Body = $"Для завершения регистрации перейдите по ссылке <a href=\"" + callbackUrl + "\">сбросить(host)</a> <a href=\"" + callbackUrlLocal + "\">сбросить(localhost)</a>"
                     };
 
                     var mailService = new ApplicationUserManager.EmailService();
