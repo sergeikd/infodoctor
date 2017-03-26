@@ -50,16 +50,23 @@ namespace Infodoctor.Web.Controllers
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
-        public UserInfoViewModel GetUserInfo()
+        public async Task<UserInfoViewModel> GetUserInfo()
         {
             var externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            var user = await UserManager.FindByNameAsync(User.Identity.GetUserName());
 
-            return new UserInfoViewModel
+            if (user != null)
             {
-                Email = User.Identity.GetUserName(),
-                HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-            };
+                return new UserInfoViewModel
+                {
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    HasRegistered = externalLogin == null
+                    //LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                };
+            }
+            return null;
         }
 
         // POST api/Account/Logout
@@ -200,7 +207,7 @@ namespace Infodoctor.Web.Controllers
                     {
                         Destination = user.Email,
                         Subject = "Восстановление пароля",
-                        Body = $"Для сброса пароля, перейдите по ссылке: <br/>сервер: <a href=\"" + callbackUrl + "\">подтвердить</a> <br/> localhost: "+ callbackUrlLocal
+                        Body = $"Для сброса пароля, перейдите по ссылке: <br/>сервер: <a href=\"" + callbackUrl + "\">подтвердить</a> <br/> localhost: " + callbackUrlLocal
                     };
 
                     var mailService = new ApplicationUserManager.EmailService();
@@ -453,7 +460,7 @@ namespace Infodoctor.Web.Controllers
                     {
                         Destination = user.Email,
                         Subject = "Подтверждение электронной почты",
-                        Body = $"Для завершения регистрации перейдите по ссылке: <br/>сервер: <a href=\"" + callbackUrl + "\">сбросить</a> <br/> localhost: "+ callbackUrlLocal
+                        Body = $"Для завершения регистрации перейдите по ссылке: <br/>сервер: <a href=\"" + callbackUrl + "\">сбросить</a> <br/> localhost: " + callbackUrlLocal
                     };
 
                     var mailService = new ApplicationUserManager.EmailService();
