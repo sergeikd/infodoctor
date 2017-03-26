@@ -111,7 +111,7 @@ namespace Infodoctor.Web
             clinicList = new List<Clinic> { clinic1, clinic2, clinic3, clinic4, clinic5 };
 
             doctorReviewList = new List<DoctorReview>();
-            for (var i = 0; i < 30; i++)
+            for (var i = 0; i < 25; i++)
             {
                 doctorReviewList.Add(new DoctorReview
                 {
