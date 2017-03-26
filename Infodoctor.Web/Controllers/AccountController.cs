@@ -200,7 +200,7 @@ namespace Infodoctor.Web.Controllers
                     {
                         Destination = user.Email,
                         Subject = "Восстановление пароля",
-                        Body = $"Для сброса пароля, перейдите по ссылке <a href=\"" + callbackUrl + "\">сбросить(host)</a> <a href=\"" + callbackUrlLocal + "\">сбросить(localhost)</a>"
+                        Body = $"Для сброса пароля, перейдите по ссылке: <br/>сервер: <a href=\"" + callbackUrl + "\">подтвердить</a> <br/> localhost: "+ callbackUrlLocal
                     };
 
                     var mailService = new ApplicationUserManager.EmailService();
@@ -453,7 +453,7 @@ namespace Infodoctor.Web.Controllers
                     {
                         Destination = user.Email,
                         Subject = "Подтверждение электронной почты",
-                        Body = $"Для завершения регистрации перейдите по ссылке <a href=\"" + callbackUrl + "\">сбросить(host)</a> <a href=\"" + callbackUrlLocal + "\">сбросить(localhost)</a>"
+                        Body = $"Для завершения регистрации перейдите по ссылке: <br/>сервер: <a href=\"" + callbackUrl + "\">сбросить</a> <br/> localhost: "+ callbackUrlLocal
                     };
 
                     var mailService = new ApplicationUserManager.EmailService();
