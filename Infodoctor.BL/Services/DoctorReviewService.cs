@@ -79,10 +79,25 @@ namespace Infodoctor.BL.Services
 
             if (!pagedList.Any())
                 throw new ApplicationException("Page not found");
-
+            var dtoDoctorReviewsList = new List<DtoDoctorReview>();
+            foreach (var doctorReview in pagedList)
+            {
+                dtoDoctorReviewsList.Add(new DtoDoctorReview()
+                {
+                    Id = doctorReview.Id,
+                    Text = doctorReview.Text,
+                    UserName = doctorReview.UserName,
+                    UserId = doctorReview.UserId,
+                    PublishTime = doctorReview.PublishTime,
+                    RatePoliteness = doctorReview.RatePoliteness,
+                    RateWaitingTime = doctorReview.RateWaitingTime,
+                    RateProfessionalism = doctorReview.RateProfessionalism,
+                    DoctorId = doctorReview.Doctor.Id
+                });
+            }
             var result = new DtoPagedDoctorReview()
             {
-                DoctorReviews = pagedList.ToList(),
+                DoctorReviews = dtoDoctorReviewsList,
                 TotalCount = pagedList.TotalCount,
                 Page = pagedList.Page,
                 PageSize = pagedList.PageSize
