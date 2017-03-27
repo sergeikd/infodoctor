@@ -50,23 +50,36 @@ namespace Infodoctor.Web.Controllers
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
-        public async Task<UserInfoViewModel> GetUserInfo()
+        public UserInfoViewModel GetUserInfo()
         {
             var externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-            var user = await UserManager.FindByNameAsync(User.Identity.GetUserName());
 
-            if (user != null)
+            return new UserInfoViewModel
             {
-                return new UserInfoViewModel
-                {
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    PhoneNumber = user.PhoneNumber,
-                    HasRegistered = externalLogin == null
-                    //LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-                };
+                Email = User.Identity.GetUserName(),
+                HasRegistered = externalLogin == null,
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+            };
+        }
+
+        // GET api/Account/UserData
+        [Route("UserData")]
+        public async Task<UserDataViewModel> GetUserData()
+        {
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return null;
             }
-            return null;
+
+            var userData = new UserDataViewModel()
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            return userData;
         }
 
         // POST api/Account/Logout
@@ -142,20 +155,20 @@ namespace Infodoctor.Web.Controllers
                 return BadRequest(ModelState);
 
             var user = await UserManager.FindByNameAsync(User.Identity.Name);
-            if (user != null)
-            {
-                user.Email = model.Email;
-                user.UserName = model.UserName;
 
-                var result = await UserManager.UpdateAsync(user);
-                if (!result.Succeeded)
-                    return GetErrorResult(result);
-            }
-            else
+            if (user == null)
             {
                 var res = new IdentityResult("User not found.");
                 return GetErrorResult(res);
             }
+
+            user.Email = model.Email;
+            user.UserName = model.UserName;
+            user.PhoneNumber = model.PhoneNumber;
+
+            var result = await UserManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                return GetErrorResult(result);
 
             return Ok();
         }

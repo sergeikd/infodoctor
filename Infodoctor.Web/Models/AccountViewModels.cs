@@ -28,14 +28,16 @@ namespace Infodoctor.Web.Models
     {
         public string Email { get; set; }
 
-        public string UserName { get; set; }
-
-        public string PhoneNumber { get; set; }
-
         public bool HasRegistered { get; set; }
 
-        //public string LoginProvider { get; set; }
+        public string LoginProvider { get; set; }
+    }
 
+    public class UserDataViewModel
+    {
+        public string Email { get; set; }
+        public string UserName { get; set; }
+        public string PhoneNumber { get; set; }
     }
 
     public class UserLoginInfoViewModel
