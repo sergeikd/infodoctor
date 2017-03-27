@@ -211,10 +211,12 @@ namespace Infodoctor.Web.Controllers
                 {
                     //var domain = Request.RequestUri.GetLeftPart(UriPartial.Authority);
                     var domain = ConfigurationManager.AppSettings["UrlForCallbackFromMail"];
-                    var localDomail = "localhost:8000/";
+                    var localDomail = "localhost:8000";
 
-                    var callbackUrl = $"{domain}/password/reset/{user.Email}/{token}";
-                    var callbackUrlLocal = $"{localDomail}/password/reset/{user.Email}/{token}";
+                    //domain/password/reset?email = email & token = token
+
+                    var callbackUrl = $"{domain}/password/reset?email={user.Email}&token={token}";
+                    var callbackUrlLocal = $"{localDomail}/password/reset?email={user.Email}&token={token}";
 
                     var mailMessage = new IdentityMessage()
                     {
@@ -466,8 +468,8 @@ namespace Infodoctor.Web.Controllers
                     var domain = ConfigurationManager.AppSettings["UrlForCallbackFromMail"];
                     var localDomail = "localhost:8000";
 
-                    var callbackUrl = $"{domain}/email/confirm/{user.Email}/{token}";
-                    var callbackUrlLocal = $"{localDomail}/email/confirm/{user.Email}/{token}";
+                    var callbackUrl = $"{domain}/email/confirm?email={user.Email}&token={token}";
+                    var callbackUrlLocal = $"{localDomail}/email/confirm?email={user.Email}&token={token}";
 
                     var mailMessage = new IdentityMessage()
                     {
