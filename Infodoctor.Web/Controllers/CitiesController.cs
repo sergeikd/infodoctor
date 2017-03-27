@@ -44,16 +44,16 @@ namespace Infodoctor.Web.Controllers
 
         // POST api/cities
         [Authorize(Roles = "admin, moder")]
-        public void Post([FromBody]CityPostBindingModel value)
+        public void Post([FromBody]CityPostBindingModel model)
         {
-            _citiesService.Add(value.Name);
+            _citiesService.Add(model.Name);
         }
 
         // PUT api/cities/5
         [Authorize(Roles = "admin, moder")]
-        public void Put(int id, [FromBody]string value)
+        public void Put([FromBody]CityPostBindingModel model)
         {
-            _citiesService.Update(id,value);
+            _citiesService.Update(model.Id, model.Name);
         }
 
         // DELETE api/cities/5
