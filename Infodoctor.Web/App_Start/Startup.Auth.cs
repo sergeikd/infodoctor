@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Infodoctor.Web.Providers;
+using Microsoft.Owin.Security.Infrastructure;
 
 namespace Infodoctor.Web
 {
@@ -37,9 +38,10 @@ namespace Infodoctor.Web
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 // In production mode set AllowInsecureHttp = false
-                AllowInsecureHttp = true
+                AllowInsecureHttp = true,
+                RefreshTokenProvider = new ApplicationRefreshTokenProvider()
             };
-
+            
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
 
@@ -61,6 +63,21 @@ namespace Infodoctor.Web
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+        }
+    }
+    public class ApplicationRefreshTokenProvider : AuthenticationTokenProvider
+    {
+        public override void Create(AuthenticationTokenCreateContext context)
+        {
+
+            var expire = 1;
+            context.Ticket.Properties.ExpiresUtc = new DateTimeOffset(DateTime.UtcNow.AddDays(expire));
+            context.SetToken(context.SerializeTicket());
+        }
+
+        public override void Receive(AuthenticationTokenReceiveContext context)
+        {
+            context.DeserializeTicket(context.Token);
         }
     }
 }
