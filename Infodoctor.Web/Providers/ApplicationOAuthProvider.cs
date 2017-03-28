@@ -34,6 +34,12 @@ namespace Infodoctor.Web.Providers
                 return;
             }
 
+            if (!user.EmailConfirmed)
+            {
+                context.SetError("invalid_grant", "Account pending approval.");
+                return;
+            }
+
             var oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             var cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,

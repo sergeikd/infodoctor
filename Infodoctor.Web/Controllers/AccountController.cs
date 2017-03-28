@@ -131,6 +131,7 @@ namespace Infodoctor.Web.Controllers
         }
 
         // POST api/Account/ConfirmUser
+        [AllowAnonymous]
         [Route("ConfirmUser")]
         public async Task<IHttpActionResult> ConfirmUser(ConfirmUserViewModel model)
         {
