@@ -36,7 +36,8 @@ namespace Infodoctor.Web
             var admin = new ApplicationUser
             {
                 Email = "admin@infodoctor.by",
-                UserName = "admin"
+                UserName = "admin",
+                EmailConfirmed = true
             };
             var password = "admin_";
             var result = userManager.Create(admin, password);
@@ -50,7 +51,8 @@ namespace Infodoctor.Web
             var adminVlad = new ApplicationUser
             {
                 Email = "v.korbut8@gmail.com",
-                UserName = "Vlad_admin"
+                UserName = "Vlad_admin",
+                EmailConfirmed = true
             };
             password = "1234qw";
             result = userManager.Create(adminVlad, password);
@@ -65,7 +67,8 @@ namespace Infodoctor.Web
             var moder = new ApplicationUser
             {
                 Email = "moder@infodoctor.by",
-                UserName = "moder"
+                UserName = "moder",
+                EmailConfirmed = true
             };
             password = "moder_";
             result = userManager.Create(moder, password);
@@ -77,7 +80,8 @@ namespace Infodoctor.Web
             var moderVlad = new ApplicationUser
             {
                 Email = "asdrudes@gmail.com",
-                UserName = "Vlad_moder"
+                UserName = "Vlad_moder",
+                EmailConfirmed = true
             };
             password = "1234qw";
             result = userManager.Create(moderVlad, password);
@@ -91,7 +95,8 @@ namespace Infodoctor.Web
                 var user = new ApplicationUser
                 {
                     Email = "user" + i + "@infodoctor.by",
-                    UserName = "user" + i
+                    UserName = "user" + i,
+                    EmailConfirmed = true
                 };
                 password = "123456";
                 result = userManager.Create(user, password);

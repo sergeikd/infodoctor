@@ -60,7 +60,7 @@
                 type: 'POST',
                 url: '/api/account/isauthenticated',
                 beforeSend: function (xhr) {
-                    var token = sessionStorage.getItem(tokenKey);
+                    var token = localStorage.getItem(tokenKey);
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function (data) {
@@ -152,7 +152,7 @@
                         type: 'GET',
                         url: '/api/country/',
                         beforeSend: function (xhr) {
-                            var token = sessionStorage.getItem(tokenKey);
+                            var token = localStorage.getItem(tokenKey);
                             xhr.setRequestHeader("Authorization", "Bearer " + token);
                         },
                         success: function (data) {
@@ -172,7 +172,7 @@
                         type: 'POST',
                         url: 'api/cities',
                         beforeSend: function (xhr) {
-                            var token = sessionStorage.getItem(tokenKey);
+                            var token = localStorage.getItem(tokenKey);
                             xhr.setRequestHeader("Authorization", "Bearer " + token);
                         },
                         contentType: 'application/json; charset=utf-8',
@@ -190,7 +190,7 @@
                         type: 'GET',
                         url: '/api/clinic/',
                         beforeSend: function (xhr) {
-                            var token = sessionStorage.getItem(tokenKey);
+                            var token = localStorage.getItem(tokenKey);
                             xhr.setRequestHeader("Authorization", "Bearer " + token);
                         },
                         success: function (data) {
@@ -221,7 +221,7 @@
                         type: 'GET',
                         url: '/api/clinic/3',
                         beforeSend: function (xhr) {
-                            var token = sessionStorage.getItem(tokenKey);
+                            var token = localStorage.getItem(tokenKey);
                             xhr.setRequestHeader("Authorization", "Bearer " + token);
                         },
                         success: function (data) {
@@ -239,7 +239,7 @@
                         type: 'GET',
                         url: '/api/clinicSpecialization/',
                         beforeSend: function (xhr) {
-                            var token = sessionStorage.getItem(tokenKey);
+                            var token = localStorage.getItem(tokenKey);
                             xhr.setRequestHeader("Authorization", "Bearer " + token);
                         },
                         success: function (data) {
@@ -270,7 +270,7 @@
                     $('.userInfo').css('display', 'block');
                     $('.loginForm').css('display', 'none');
                     // сохраняем в хранилище sessionStorage токен доступа
-                    sessionStorage.setItem(tokenKey, data.access_token);
+                    localStorage.setItem(tokenKey, data.access_token);
                     console.log(data.access_token);
                     chechAuth();
                 }).fail(function (data) {
@@ -284,7 +284,7 @@
                     type: 'GET',
                     url: 'api/cities/clinicused',
                     beforeSend: function (xhr) {
-                        var token = sessionStorage.getItem(tokenKey);
+                        var token = localStorage.getItem(tokenKey);
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     },
                     success: function (data) {
@@ -301,7 +301,7 @@
                     type: 'GET',
                     url: 'api/ClinicReview/page/3/2/2',
                     beforeSend: function (xhr) {
-                        var token = sessionStorage.getItem(tokenKey);
+                        var token = localStorage.getItem(tokenKey);
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     },
                     success: function (data) {
@@ -326,7 +326,7 @@
                     type: 'POST',
                     url: 'api/ClinicReview',
                     beforeSend: function (xhr) {
-                        var token = sessionStorage.getItem(tokenKey);
+                        var token = localStorage.getItem(tokenKey);
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     },
                     contentType: 'application/json; charset=utf-8',
@@ -365,7 +365,7 @@
                     type: 'GET',
                     url: '/api/doctor/',
                     beforeSend: function (xhr) {
-                        var token = sessionStorage.getItem(tokenKey);
+                        var token = localStorage.getItem(tokenKey);
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     },
                     success: function (data) {
@@ -396,7 +396,7 @@
                 type: 'GET',
                 url: '/api/doctor/3',
                 beforeSend: function (xhr) {
-                    var token = sessionStorage.getItem(tokenKey);
+                    var token = localStorage.getItem(tokenKey);
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function (data) {
@@ -413,7 +413,7 @@
                 type: 'GET',
                 url: '/api/doctorSpecialization/',
                 beforeSend: function (xhr) {
-                    var token = sessionStorage.getItem(tokenKey);
+                    var token = localStorage.getItem(tokenKey);
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function (data) {
@@ -436,7 +436,7 @@
 
             $('#logOut').click(function(e) {
                 e.preventDefault();
-                sessionStorage.removeItem(tokenKey);
+                localStorage.removeItem(tokenKey);
                 chechAuth();
             });
         });
