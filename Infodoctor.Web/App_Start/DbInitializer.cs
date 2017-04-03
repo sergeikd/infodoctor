@@ -436,13 +436,13 @@ namespace Infodoctor.Web
             var articles = new List<Article>() { art1, art2 };
 
             context.Articles.AddRange(articles.OrderBy(d => d.PublishDate));
-
+            var userName = userManager.Users.First(u => u.UserName == "admin");
             var comment1 = new ArticleComment()
             {
                 IsApproved = true,
                 PublishTime = DateTime.Now.AddDays(-1),
                 Text = "Спасибо. Очень информативно.",
-                UserId = "",
+                UserId = userName.Id,
                 UserName = "admin",
                 Article = art1
             };
@@ -452,8 +452,8 @@ namespace Infodoctor.Web
                 IsApproved = true,
                 PublishTime = DateTime.Now.AddDays(-1),
                 Text = "Спасибо. Очень информативно.",
-                UserId = "",
-                UserName = "moder",
+                UserId = userName.Id,
+                UserName = "admin",
                 Article = art1
             };
 
@@ -463,7 +463,7 @@ namespace Infodoctor.Web
                 IsApproved = true,
                 PublishTime = DateTime.Now.AddDays(-1),
                 Text = "Спасибо. Очень информативно.",
-                UserId = "",
+                UserId = userName.Id,
                 UserName = "admin",
                 Article = art2
             };
@@ -473,14 +473,14 @@ namespace Infodoctor.Web
                 IsApproved = true,
                 PublishTime = DateTime.Now.AddDays(-1),
                 Text = "Спасибо. Очень информативно.",
-                UserId = "",
-                UserName = "moder",
+                UserId = userName.Id,
+                UserName = "admin",
                 Article = art2
             };
 
             var comments = new List<ArticleComment>() { comment1, comment2, comment3, comment4 };
 
-            //context.ArticleComments.AddRange(comments.OrderBy(d => d.PublishTime));
+            context.ArticleComments.AddRange(comments.OrderBy(d => d.PublishTime));
 
             base.Seed(context);
         }
