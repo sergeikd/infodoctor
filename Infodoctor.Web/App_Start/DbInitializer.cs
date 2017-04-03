@@ -439,6 +439,55 @@ namespace Infodoctor.Web
 
             context.Articles.AddRange(articles.OrderBy(d => d.Id));
 
+            var comment1 = new ArticleComment()
+            {
+                Id = 1,
+                IsApproved = true,
+                PublishTime = DateTime.Now.AddDays(-1),
+                Text = "Спасибо. Очень информативно.",
+                UserId = "",
+                UserName = "admin",
+                Article = art1
+            };
+
+            var comment2 = new ArticleComment()
+            {
+                Id = 2,
+                IsApproved = true,
+                PublishTime = DateTime.Now.AddDays(-1),
+                Text = "Спасибо. Очень информативно.",
+                UserId = "",
+                UserName = "moder",
+                Article = art1
+            };
+
+
+            var comment3 = new ArticleComment()
+            {
+                Id = 3,
+                IsApproved = true,
+                PublishTime = DateTime.Now.AddDays(-1),
+                Text = "Спасибо. Очень информативно.",
+                UserId = "",
+                UserName = "admin",
+                Article = art2
+            };
+
+            var comment4 = new ArticleComment()
+            {
+                Id = 4,
+                IsApproved = true,
+                PublishTime = DateTime.Now.AddDays(-1),
+                Text = "Спасибо. Очень информативно.",
+                UserId = "",
+                UserName = "moder",
+                Article = art2
+            };
+
+            var comments = new List<ArticleComment>() { comment1, comment2, comment3, comment4 };
+
+            context.ArticleComments.AddRange(comments.OrderBy(d => d.Id));
+
             base.Seed(context);
         }
     }

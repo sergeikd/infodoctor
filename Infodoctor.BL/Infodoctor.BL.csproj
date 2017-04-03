@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DtoModels\DtoArticleComment.cs" />
     <Compile Include="DtoModels\DtoDoctorReview.cs" />
     <Compile Include="DtoModels\DtoClinicReview.cs" />
     <Compile Include="DtoModels\DtoCity.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="DtoModels\DtoImage.cs" />
     <Compile Include="DtoModels\DtoMailMessage.cs" />
     <Compile Include="DtoModels\DtoMailServiceConfiguration.cs" />
+    <Compile Include="DtoModels\DtoPagedArticleComments.cs" />
     <Compile Include="DtoModels\DtoPagedArticles.cs" />
     <Compile Include="DtoModels\DtoPagedClinicReview.cs" />
     <Compile Include="DtoModels\DtoPagedClinic.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="DtoModels\DtoFastSearchModel.cs" />
     <Compile Include="DtoModels\DtoReview.cs" />
     <Compile Include="DtoModels\DtoSearchResultModel.cs" />
+    <Compile Include="Intefaces\IArticleCommentsService.cs" />
     <Compile Include="Intefaces\IArticlesService.cs" />
     <Compile Include="Intefaces\ICitiesService.cs" />
     <Compile Include="Intefaces\IClinicReviewService.cs" />
@@ -76,6 +79,7 @@
     <Compile Include="Intefaces\IClinicService.cs" />
     <Compile Include="Intefaces\IMailService.cs" />
     <Compile Include="Intefaces\ISearchService.cs" />
+    <Compile Include="Services\ArticleCommentsService.cs" />
     <Compile Include="Services\ArticlesService.cs" />
     <Compile Include="Services\CitiesService.cs" />
     <Compile Include="Services\ClinicReviewService.cs" />

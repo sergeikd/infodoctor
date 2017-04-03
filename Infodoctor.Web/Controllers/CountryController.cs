@@ -19,7 +19,9 @@ namespace Infodoctor.Web.Controllers
             }
             _countryService = countryService;
         }
+
         // GET: api/Country
+        [AllowAnonymous]
         public IEnumerable<Country> Get()
         {
             var countries = _countryService.GetAllCountries().ToList();
@@ -27,6 +29,7 @@ namespace Infodoctor.Web.Controllers
         }
 
         // GET: api/Country/5
+        [AllowAnonymous]
         public string Get(int id)
         {
             return "value";

@@ -12,11 +12,10 @@ namespace Infodoctor.DAL.Interfaces
         DbSet<ClinicPhone> ClinicPhones { get; set; }
         DbSet<CityAddress> CityAddresses { get; set; }
         DbSet<City> Cities { get; set; }
-        //DbSet<ClinicProfile> ClinicProfiles { get; set; }
         DbSet<ClinicSpecialization> ClinicSpecializations { get; set; }
         DbSet<OwnerShip> OwnerShips { get; set; }
         DbSet<Article> Articles { get; set; }
-        //DbSet<ArticleTheme> ArticleThemes { get; set; }
+        DbSet<ArticleComment> ArticleComments { get; set; }
         DbSet<ImageFile> Images { get; set; }
         DbSet<ClinicReview> ClinicReviews { get; set; }
         DbSet<DoctorReview> DoctorReviews { get; set; }

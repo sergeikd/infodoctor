@@ -38,4 +38,9 @@ namespace Infodoctor.Domain.Entities
         public double RatePoliteness { get; set; }
         public virtual Doctor Doctor { get; set; }
     }
+
+    public class ArticleComment : Review
+    {
+        public virtual Article Article { get; set; }
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Infodoctor.Domain.Entities
 {
@@ -9,5 +10,6 @@ namespace Infodoctor.Domain.Entities
         public string Content { get; set; }
         public DateTime PublishDate { get; set; }
         public string Author { get; set; }
+        public virtual ICollection<ArticleComment> Comments { get; set; }
     }
 }

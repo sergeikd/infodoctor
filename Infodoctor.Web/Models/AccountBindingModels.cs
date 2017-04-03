@@ -14,8 +14,6 @@ namespace Infodoctor.Web.Models
     public class ChangeUserDataBindingMode
     {
         [Required]
-        public string UserName { get; set; }
-        [Required]
         public string Email { get; set; }
 
         [Required]

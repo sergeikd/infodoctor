@@ -16,11 +16,10 @@ namespace Infodoctor.DAL
         public DbSet<ClinicPhone> ClinicPhones { get; set; }
         public DbSet<CityAddress> CityAddresses { get; set; }
         public DbSet<City> Cities { get; set; }
-        //public DbSet<ClinicProfile> ClinicProfiles { get; set; }
         public DbSet<ClinicSpecialization> ClinicSpecializations { get; set; }
         public DbSet<OwnerShip> OwnerShips { get; set; }
         public DbSet<Article> Articles { get; set; }
-        //public DbSet<ArticleTheme> ArticleThemes { get; set; }
+        public DbSet<ArticleComment> ArticleComments { get; set; }
         public DbSet<ImageFile> Images { get; set; }
         public DbSet<ClinicReview> ClinicReviews { get; set; }
         public DbSet<DoctorReview> DoctorReviews { get; set; }

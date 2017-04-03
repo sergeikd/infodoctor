@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using Infodoctor.BL.DtoModels;
 using Infodoctor.Domain.Entities;
 using Infodoctor.Web.Models;
 using Infodoctor.Web.Providers;
@@ -164,7 +163,6 @@ namespace Infodoctor.Web.Controllers
             }
 
             user.Email = model.Email;
-            user.UserName = model.UserName;
             user.PhoneNumber = model.PhoneNumber;
 
             var result = await UserManager.UpdateAsync(user);

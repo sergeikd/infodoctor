@@ -61,6 +61,8 @@ namespace Infodoctor.Web
             container.RegisterType<IDoctorService, DoctorService>();
             container.RegisterType<IDoctorReviewRepository, DoctorReviewRepository>();
             container.RegisterType<IDoctorReviewService, DoctorReviewService>();
+            container.RegisterType<IArticleCommentsRepository, ArticleCommentsRepository>();
+            container.RegisterType<IArticleCommentsService, ArticleCommentsService>();
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }

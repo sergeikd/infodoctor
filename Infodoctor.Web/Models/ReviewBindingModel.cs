@@ -20,4 +20,9 @@
         public double RateWaitingTime { get; set; }
         public double RatePoliteness { get; set; }
     }
+
+    public class ArticleCommentBindingModel : ReviewBindingModel
+    {
+        public int ArticleId { get; set; }
+    }
 }
