@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DtoModels\DtoArticleComment.cs" />
+    <Compile Include="DtoModels\DtoCountry.cs" />
     <Compile Include="DtoModels\DtoDoctorReview.cs" />
     <Compile Include="DtoModels\DtoClinicReview.cs" />
     <Compile Include="DtoModels\DtoCity.cs" />

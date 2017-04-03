@@ -266,6 +266,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CityPostBindingModel.cs" />
     <Compile Include="Models\ClinicPageModel.cs" />
+    <Compile Include="Models\CountryPostBindingModel.cs" />
     <Compile Include="Models\ResetPasswordViewModel.cs" />
     <Compile Include="Models\ReviewBindingModel.cs" />
     <Compile Include="Models\PublicArticleModel.cs" />

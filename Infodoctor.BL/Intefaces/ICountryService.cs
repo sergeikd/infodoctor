@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
-using Infodoctor.Domain.Entities;
+using Infodoctor.BL.DtoModels;
 
 namespace Infodoctor.BL.Intefaces
 {
     public interface ICountryService
     {
-        IEnumerable<Country> GetAllCountries();
+        IEnumerable<DtoCountry> GetAllCountries();
+        DtoCountry GetCountryById(int id);
+        void Add(DtoCountry country);
+        void Update(DtoCountry country);
+        void Delete(int id);
     }
 }

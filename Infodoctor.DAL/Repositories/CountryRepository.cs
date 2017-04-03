@@ -22,5 +22,29 @@ namespace Infodoctor.DAL.Repositories
         {
             return _context.Countries;
         }
+
+        public Country GetCountryById(int id)
+        {
+            return _context.Countries.First(c => c.Id == id);
+        }
+
+        public void Add(Country country)
+        {
+            _context.Countries.Add(country);
+            _context.SaveChanges();
+        }
+
+        public void Update(Country country)
+        {
+            var updated = _context.Countries.First(c => c.Id == country.Id);
+            updated = country;
+            _context.SaveChanges();
+        }
+
+        public void Delete(Country country)
+        {
+            _context.Countries.Remove(country);
+            _context.SaveChanges();
+        }
     }
 }
