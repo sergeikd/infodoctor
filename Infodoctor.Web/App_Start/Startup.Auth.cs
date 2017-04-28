@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Http;
 using Infodoctor.DAL;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
@@ -35,6 +36,7 @@ namespace Infodoctor.Web
             {
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
+                //Provider = (IOAuthAuthorizationServerProvider)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IOAuthAuthorizationServerProvider)),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 // In production mode set AllowInsecureHttp = false

@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 using Infodoctor.BL.DtoModels;
-using Infodoctor.BL.Intefaces;
+using Infodoctor.BL.Interfaces;
 
 namespace Infodoctor.BL.Services
 {

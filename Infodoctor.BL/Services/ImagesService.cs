@@ -1,5 +1,4 @@
-﻿using Infodoctor.BL.Intefaces;
-using Infodoctor.DAL.Interfaces;
+﻿using Infodoctor.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -9,6 +8,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using Infodoctor.BL.DtoModels;
+using Infodoctor.BL.Interfaces;
 using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Services

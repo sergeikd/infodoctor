@@ -1,8 +1,7 @@
-﻿using Infodoctor.BL.Intefaces;
-using Infodoctor.DAL.Interfaces;
+﻿using Infodoctor.DAL.Interfaces;
 using System;
-using Infodoctor.Domain;
 using System.Collections.Generic;
+using Infodoctor.BL.Interfaces;
 using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Services

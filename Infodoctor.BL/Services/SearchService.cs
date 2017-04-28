@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Infodoctor.BL.DtoModels;
-using Infodoctor.BL.Intefaces;
+using Infodoctor.BL.Interfaces;
 using Infodoctor.DAL.Interfaces;
 
 namespace Infodoctor.BL.Services

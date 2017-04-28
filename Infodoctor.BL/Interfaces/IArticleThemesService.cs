@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Infodoctor.Domain.Entities;
 
-namespace Infodoctor.BL.Intefaces
+namespace Infodoctor.BL.Interfaces
 {
     public interface IArticleThemesService
     {

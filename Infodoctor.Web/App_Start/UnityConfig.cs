@@ -1,5 +1,5 @@
 ﻿using System.Web.Http;
-using Infodoctor.BL.Intefaces;
+using Infodoctor.BL.Interfaces;
 using Infodoctor.BL.Services;
 using Infodoctor.DAL;
 using Infodoctor.DAL.Interfaces;
@@ -63,6 +63,10 @@ namespace Infodoctor.Web
             container.RegisterType<IDoctorReviewService, DoctorReviewService>();
             container.RegisterType<IArticleCommentsRepository, ArticleCommentsRepository>();
             container.RegisterType<IArticleCommentsService, ArticleCommentsService>();
+            container.RegisterType<ITestService, TestService>();
+
+            //container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new InjectionConstructor(typeof(AppDbContext)));
+
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }

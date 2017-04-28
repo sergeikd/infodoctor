@@ -1,6 +1,6 @@
 ﻿using Infodoctor.BL.DtoModels;
 
-namespace Infodoctor.BL.Intefaces
+namespace Infodoctor.BL.Interfaces
 {
    public interface IMailService
    {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
-using Infodoctor.BL.Intefaces;
+using Infodoctor.BL.Interfaces;
 
 namespace Infodoctor.Web.Controllers
 {

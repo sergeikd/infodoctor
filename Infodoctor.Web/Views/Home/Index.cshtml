@@ -29,11 +29,12 @@
     <input type="button" id="getClinicsButton" value="GET клиники" />
     <input type="button" id="getPageClinicsButton" value="GET page клиник" />
     <input type="button" id="getClinic3Button" value="GET клиника 3" />
-    <input type="button" id="getClinicSpecializationsButton" value="GET специализации клиник" />
+    <input type="button" id="getClinicSpecializationsButton" value="GET специализации клиник"/>
     <br />
     
     <input type="button" id="getPageClinicReviewsButton" value="GET page отзывы" />
-    <input type="button" id="postClinicReviewButton" value="POST отзыв" />
+    <input type="button" id="postClinicReviewButton" value="POST отзыв"/>
+    <input type="button" id="getAdd100Clinics" value="Add100Clinics" />
     <br />
     fast search:<input type="text" id="fastSeachTextBox" onkeyup="fastsearch()" />
     <br />
@@ -55,7 +56,7 @@
 
 @section scripts{
     <script type="text/javascript">
-        function chechAuth() {
+        function checkAuth() {
             $.ajax({
                 type: 'POST',
                 url: '/api/account/isauthenticated',
@@ -67,7 +68,7 @@
                     if (data === true)
                         $('.authData').text("есть");
                     else
-                        $('.authData').text("нет");
+                        $('.authData').text("error");
                 },
                 fail: function (data) {
                     console.log(data);
@@ -75,7 +76,7 @@
             });
         }
         window.onload = function () {
-            chechAuth();
+            checkAuth();
         }
 
 
@@ -337,6 +338,25 @@
                     alert("В процесе добавления отзыва возникла ошибка");
                 });
             });
+
+            $('#getAdd100Clinics').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/test/add100clinics',
+                    beforeSend: function (xhr) {
+                        var token = localStorage.getItem(tokenKey);
+                        xhr.setRequestHeader("Authorization", "Bearer " + token);
+                    },
+                    success: function (data) {
+                        alert(data);
+                    },
+                    fail: function (data) {
+                        alert(data);
+                    }
+                });
+            });
+
             $('#searchClinicButton').click(function (e) {
                 e.preventDefault();
                 var request = {

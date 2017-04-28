@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Infodoctor.BL.DtoModels;
-using Infodoctor.Domain;
 
-namespace Infodoctor.BL.Intefaces
+namespace Infodoctor.BL.Interfaces
 {
     public interface ICitiesService
     {

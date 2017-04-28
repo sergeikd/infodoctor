@@ -1,9 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
-using Infodoctor.BL.Intefaces;
+using Infodoctor.BL.Interfaces;
+using Infodoctor.DAL;
+using Infodoctor.DAL.Interfaces;
+using Infodoctor.Domain.Entities;
 using Infodoctor.Web.Infrastructure.Interfaces;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -11,9 +18,7 @@ namespace Infodoctor.Web.Controllers
     public class ClinicController : ApiController
     {
         private readonly IClinicService _clinicService;
-        private readonly IConfigService _configService;
-
-        
+        private readonly IConfigService _configService;    
         public ClinicController(IClinicService clinicService, IConfigService configService)
         {
             if (clinicService == null)

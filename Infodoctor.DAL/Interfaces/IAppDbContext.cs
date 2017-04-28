@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Infodoctor.Domain.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Infodoctor.DAL.Interfaces
 {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using Infodoctor.BL.Intefaces;
 using Infodoctor.Web.Models;
 using System.Web;
 using Infodoctor.BL.DtoModels;
+using Infodoctor.BL.Interfaces;
 using Infodoctor.Domain.Entities;
 using Infodoctor.Web.Infrastructure.Interfaces;
 

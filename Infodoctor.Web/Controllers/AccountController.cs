@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -538,11 +539,11 @@ namespace Infodoctor.Web.Controllers
         [AllowAnonymous]
         public bool IsAuthenticated()
         {
-            string userName = string.Empty;
-            if (System.Web.HttpContext.Current != null && System.Web.HttpContext.Current.User != null
-                    && System.Web.HttpContext.Current.User.Identity.Name != null)
+            var userName = string.Empty;
+            if (HttpContext.Current != null && HttpContext.Current.User != null
+                    && HttpContext.Current.User.Identity.Name != null)
             {
-                userName = System.Web.HttpContext.Current.User.Identity.Name;
+                userName = HttpContext.Current.User.Identity.Name;
             }
 
             if (!string.IsNullOrEmpty(userName))
