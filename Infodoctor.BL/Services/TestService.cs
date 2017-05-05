@@ -52,7 +52,7 @@ namespace Infodoctor.BL.Services
                         City = cityList[i % 5],
                         Country = "TestCountry" + i,
                         Street = "TestStreet" + i,
-                        ClinicPhones = new List<ClinicPhone>() { new ClinicPhone() {Description = "ClinicPhone" + i, Number = i + " 00 00"}
+                        Phones = new List<Phone>() { new Phone() {Description = "Phone" + i, Number = i + " 00 00"}
                 }}};
                 var clinicSpecializations = new List<ClinicSpecialization>();
                 for (var j = 0; j < _rnd.Next(10); j++)

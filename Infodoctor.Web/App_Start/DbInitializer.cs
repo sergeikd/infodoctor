@@ -7,6 +7,7 @@ using Infodoctor.DAL;
 using Infodoctor.Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using static System.String;
 
 namespace Infodoctor.Web
 {
@@ -124,7 +125,7 @@ namespace Infodoctor.Web
             List<DoctorReview> doctorReviewList;
             List<Clinic> clinicList;
             List<Doctor> doctorsList;
-            List<ClinicPhone> phonesList;
+            List<Phone> phonesList;
             List<CityAddress> clinicAddressList;
             List<City> citiesList;
             List<DoctorCategory> categoriesList;
@@ -446,7 +447,6 @@ namespace Infodoctor.Web
                 UserName = "admin",
                 Article = art1
             };
-
             var comment2 = new ArticleComment()
             {
                 IsApproved = true,
@@ -456,8 +456,6 @@ namespace Infodoctor.Web
                 UserName = "admin",
                 Article = art1
             };
-
-
             var comment3 = new ArticleComment()
             {
                 IsApproved = true,
@@ -467,7 +465,6 @@ namespace Infodoctor.Web
                 UserName = "admin",
                 Article = art2
             };
-
             var comment4 = new ArticleComment()
             {
                 IsApproved = true,
@@ -477,10 +474,63 @@ namespace Infodoctor.Web
                 UserName = "admin",
                 Article = art2
             };
-
             var comments = new List<ArticleComment>() { comment1, comment2, comment3, comment4 };
 
             context.ArticleComments.AddRange(comments.OrderBy(d => d.PublishTime));
+
+            var resortRevs = new List<ResortReview>();
+
+            var rnd = new Random();
+            var ticks = DateTime.Now.Ticks - 100000000000000;
+            for (var i = 0; i < 126; i++)
+            {
+                resortRevs.Add(new ResortReview()
+                {
+                    Text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+                           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, " +
+                           "when an unknown printer took a galley of type and scrambled it to make a type specimen book. " +
+                           "It has survived not only five centuries, but also the leap into electronic typesetting, " +
+                           "remaining essentially unchanged. It was popularised in the 1960s with the release of " +
+                           "Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing " +
+                           "software like Aldus PageMaker including versions of Lorem Ipsum.",
+                    PublishTime = new DateTime(ticks + i * 1000000000000),
+                    //ClinicId = i % 5 + 1,
+                    UserId = "7d374085-71e4-4819-8d09-91cfc8239463",
+                    UserName = "user0",
+                    RatePoliteness = rnd.Next(3) + 3,
+                    RatePrice = rnd.Next(3) + 3,
+                    RateQuality = rnd.Next(3) + 3,
+                    IsApproved = true
+                });
+            }
+
+            var resortReviewSubList = resortRevs.Take(3).ToList();
+            var resort1 = new Resort()
+            {
+                Name = "Санаторий \"Буг\"",
+                Email = "bug-marketing@mail.ru",
+                Site = "http://sunbug.by/",
+                Specialisations = @"Медицинская база,Диагностическая база,Лечебные комплексы"
+            };
+
+            var nums1 = new List<Phone>()
+            {
+                new Phone() { Description = "", Number = "375(1641) 38-2-19" },
+                new Phone() { Description = "Факс", Number = "375(1641) 38-2-22" },
+                new Phone() { Description = "Мтс", Number = "375 (29) 866-86-69" },
+                new Phone() { Description = "", Number = "375 (29) 366-86-67" }
+            };
+
+            var ard1 = new CityAddress()
+            {
+                Country = "Беларусь",
+                City = citiesList.First(c => string.Equals(c.Name, "Брестская область",
+                    StringComparison.CurrentCultureIgnoreCase)),
+                Street = "урочище \"Сосновый бор\"",
+                Resort = resort1,
+                Phones = nums1
+            };
+            context.Resorts.Add(resort1);
 
             base.Seed(context);
         }

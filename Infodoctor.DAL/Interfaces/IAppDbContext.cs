@@ -10,7 +10,7 @@ namespace Infodoctor.DAL.Interfaces
     {
         DbSet<Country> Countries { get; set; }
         DbSet<Clinic> Сlinics { get; set; }
-        DbSet<ClinicPhone> ClinicPhones { get; set; }
+        DbSet<Phone> ClinicPhones { get; set; }
         DbSet<CityAddress> CityAddresses { get; set; }
         DbSet<City> Cities { get; set; }
         DbSet<ClinicSpecialization> ClinicSpecializations { get; set; }

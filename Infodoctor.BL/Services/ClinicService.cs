@@ -61,7 +61,7 @@ namespace Infodoctor.BL.Services
                         Street = clinicAddress.Street,
                         ClinicPhones = new List<DtoPhone>()
                     };
-                    foreach (var clinicPhone in clinicAddress.ClinicPhones)
+                    foreach (var clinicPhone in clinicAddress.Phones)
                     {
                         var dtoClinicPhone = new DtoPhone {Desc = clinicPhone.Description, Phone = clinicPhone.Number};
                         dtoClinicAddress.ClinicPhones.Add(dtoClinicPhone);
@@ -114,7 +114,7 @@ namespace Infodoctor.BL.Services
                 };
                 foreach (
                     var dtoClinicPhone in
-                        clinicAddress.ClinicPhones.Select(
+                        clinicAddress.Phones.Select(
                             clinicPhone => new DtoPhone {Desc = clinicPhone.Description, Phone = clinicPhone.Number}))
                 {
                     dtoClinicAddress.ClinicPhones.Add(dtoClinicPhone);
@@ -171,7 +171,7 @@ namespace Infodoctor.BL.Services
                         Street = clinicAddress.Street,
                         ClinicPhones = new List<DtoPhone>()
                     };
-                    foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new DtoPhone
+                    foreach (var dtoClinicPhone in clinicAddress.Phones.Select(clinicPhone => new DtoPhone
                     {
                         Desc = clinicPhone.Description,
                         Phone = clinicPhone.Number
@@ -363,7 +363,7 @@ namespace Infodoctor.BL.Services
                         Street = clinicAddress.Street,
                         ClinicPhones = new List<DtoPhone>()
                     };
-                    foreach (var dtoClinicPhone in clinicAddress.ClinicPhones.Select(clinicPhone => new DtoPhone
+                    foreach (var dtoClinicPhone in clinicAddress.Phones.Select(clinicPhone => new DtoPhone
                     {
                         Desc = clinicPhone.Description,
                         Phone = clinicPhone.Number

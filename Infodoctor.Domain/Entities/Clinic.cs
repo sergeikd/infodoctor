@@ -27,17 +27,17 @@ namespace Infodoctor.Domain.Entities
         public string Country { get; set; }
         public virtual City City { get; set; }
         public string Street { get; set; }
-        public virtual ICollection<ClinicPhone> ClinicPhones { get; set; }
+        public virtual ICollection<Phone> Phones { get; set; }
         public virtual Clinic Clinic { get; set; }
         public virtual ICollection<Doctor> Doctors { get; set; }
         public virtual Resort Resort { get; set; }
     }
 
-    public class ClinicPhone
+    public class Phone
     {
         public int Id { get; set; }
         public string Description { get; set; }
         public string Number { get; set; }
-        public virtual CityAddress ClinicAddress { get; set; }
+        public virtual CityAddress Address { get; set; }
     }
 }

@@ -74,7 +74,7 @@ namespace Infodoctor.BL.Services
                         ClinicPhones = new List<DtoPhone>()
                     };
 
-                    foreach (var phone in doctor.Address.ClinicPhones)
+                    foreach (var phone in doctor.Address.Phones)
                     {
                         var dtoPhone = new DtoPhone() { Desc = phone.Description, Phone = phone.Number };
                         dtoAddress.ClinicPhones.Add(dtoPhone);
@@ -140,7 +140,7 @@ namespace Infodoctor.BL.Services
                         ClinicPhones = new List<DtoPhone>()
                     };
 
-                    foreach (var phone in doctor.Address.ClinicPhones)
+                    foreach (var phone in doctor.Address.Phones)
                     {
                         var dtoPhone = new DtoPhone() { Desc = phone.Description, Phone = phone.Number };
                         dtoAddress.ClinicPhones.Add(dtoPhone);
@@ -323,7 +323,7 @@ namespace Infodoctor.BL.Services
                         ClinicPhones = new List<DtoPhone>()
                     };
 
-                    foreach (var phone in doctor.Address.ClinicPhones)
+                    foreach (var phone in doctor.Address.Phones)
                     {
                         var dtoPhone = new DtoPhone() { Desc = phone.Description, Phone = phone.Number };
                         dtoAddress.ClinicPhones.Add(dtoPhone);
@@ -386,7 +386,7 @@ namespace Infodoctor.BL.Services
                     ClinicPhones = new List<DtoPhone>()
                 };
 
-                foreach (var phone in doctor.Address.ClinicPhones)
+                foreach (var phone in doctor.Address.Phones)
                 {
                     var dtoPhone = new DtoPhone() { Desc = phone.Description, Phone = phone.Number };
                     dtoAddress.ClinicPhones.Add(dtoPhone);

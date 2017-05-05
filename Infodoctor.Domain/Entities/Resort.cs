@@ -15,7 +15,7 @@ namespace Infodoctor.Domain.Entities
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
         public bool Favorite { get; set; }
-        public virtual CityAddress Addresses { get; set; }
+        public virtual CityAddress Address { get; set; }
         public virtual ICollection<ResortReview> Reviews { get; set; }
     }
 }

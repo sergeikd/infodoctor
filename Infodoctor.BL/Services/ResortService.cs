@@ -32,13 +32,13 @@ namespace Infodoctor.BL.Services
             {
                 var dtoResortAddress = new DtoAddress()
                 {
-                    Country = resort.Addresses.Country,
-                    City = resort.Addresses.City.Name,
-                    Street = resort.Addresses.Street,
+                    Country = resort.Address.Country,
+                    City = resort.Address.City.Name,
+                    Street = resort.Address.Street,
                     ClinicPhones = new List<DtoPhone>()
                 };
 
-                foreach (var phone in resort.Addresses.ClinicPhones)
+                foreach (var phone in resort.Address.Phones)
                 {
                     var dtoClinicPhone = new DtoPhone()
                     {
@@ -91,13 +91,13 @@ namespace Infodoctor.BL.Services
             {
                 var dtoResortAddress = new DtoAddress()
                 {
-                    Country = resort.Addresses.Country,
-                    City = resort.Addresses.City.Name,
-                    Street = resort.Addresses.Street,
+                    Country = resort.Address.Country,
+                    City = resort.Address.City.Name,
+                    Street = resort.Address.Street,
                     ClinicPhones = new List<DtoPhone>()
                 };
 
-                foreach (var phone in resort.Addresses.ClinicPhones)
+                foreach (var phone in resort.Address.Phones)
                 {
                     var dtoClinicPhone = new DtoPhone()
                     {
@@ -185,14 +185,14 @@ namespace Infodoctor.BL.Services
                             case true:
                                 {
                                     resorts = _resort.GetSortedResorts(searchModel.SortBy, descending)
-                                        .Where(r => r.Addresses.City.Id == searchModel.CityId);
+                                        .Where(r => r.Address.City.Id == searchModel.CityId);
                                     break;
                                 }
                             default:
                                 {
                                     resorts = _resort.GetSortedResorts(searchModel.SortBy, descending)
                                         .Where(r => (r.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                     r.Addresses.City.Id == searchModel.CityId) || (r.Specialisations.ToLower().Contains(searchModel.SearchWord.ToLower()) && r.Addresses.City.Id == searchModel.CityId));
+                                                     r.Address.City.Id == searchModel.CityId) || (r.Specialisations.ToLower().Contains(searchModel.SearchWord.ToLower()) && r.Address.City.Id == searchModel.CityId));
                                     break;
                                 }
                         }
@@ -213,13 +213,13 @@ namespace Infodoctor.BL.Services
             {
                 var dtoResortAddress = new DtoAddress()
                 {
-                    Country = resort.Addresses.Country,
-                    City = resort.Addresses.City.Name,
-                    Street = resort.Addresses.Street,
+                    Country = resort.Address.Country,
+                    City = resort.Address.City.Name,
+                    Street = resort.Address.Street,
                     ClinicPhones = new List<DtoPhone>()
                 };
 
-                foreach (var phone in resort.Addresses.ClinicPhones)
+                foreach (var phone in resort.Address.Phones)
                 {
                     var dtoClinicPhone = new DtoPhone()
                     {
@@ -268,13 +268,13 @@ namespace Infodoctor.BL.Services
 
             var dtoResortAddress = new DtoAddress()
             {
-                Country = resort.Addresses.Country,
-                City = resort.Addresses.City.Name,
-                Street = resort.Addresses.Street,
+                Country = resort.Address.Country,
+                City = resort.Address.City.Name,
+                Street = resort.Address.Street,
                 ClinicPhones = new List<DtoPhone>()
             };
 
-            foreach (var phone in resort.Addresses.ClinicPhones)
+            foreach (var phone in resort.Address.Phones)
             {
                 var dtoClinicPhone = new DtoPhone()
                 {
