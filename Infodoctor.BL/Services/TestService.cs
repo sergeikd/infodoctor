@@ -46,13 +46,13 @@ namespace Infodoctor.BL.Services
                 clinic.Email = "testclinic" + i + "@infodoctor.by";
                 clinic.Site = "TestClinic" + i + ".by";
                 clinic.Doctors = new List<Doctor>() {doctrorList[i%doctrorList.Count]};
-                clinic.CityAddresses = new List<CityAddress>()
+                clinic.CityAddresses = new List<ClinicAddress>()
                 {
-                    new CityAddress(){
+                    new ClinicAddress(){
                         City = cityList[i % 5],
                         Country = "TestCountry" + i,
                         Street = "TestStreet" + i,
-                        Phones = new List<Phone>() { new Phone() {Description = "Phone" + i, Number = i + " 00 00"}
+                        Phones = new List<ClinicPhone>() { new ClinicPhone() {Description = "ClinicPhone" + i, Number = i + " 00 00"}
                 }}};
                 var clinicSpecializations = new List<ClinicSpecialization>();
                 for (var j = 0; j < _rnd.Next(10); j++)
@@ -80,7 +80,7 @@ namespace Infodoctor.BL.Services
             clinic.Email = "";
             clinic.Site = "";
             clinic.Doctors = new List<Doctor>();
-            clinic.CityAddresses = new List<CityAddress>();
+            clinic.CityAddresses = new List<ClinicAddress>();
             clinic.ClinicSpecializations = new List<ClinicSpecialization>();
             clinic.Favorite = false;
             return clinic;

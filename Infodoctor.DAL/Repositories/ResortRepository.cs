@@ -20,7 +20,7 @@ namespace Infodoctor.DAL.Repositories
             return _context.Resorts.OrderBy(r => r.Id);
         }
 
-        public IQueryable<Resort> GetSortedResorts(string sortBy, bool @descending)
+        public IQueryable<Resort> GetSortedResorts(string sortBy, bool descending)
         {
             switch (sortBy)
             {

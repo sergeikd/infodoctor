@@ -8,7 +8,7 @@ namespace Infodoctor.Web
     public class DbInitializerExtention
     {
         internal void PrepareLists(out List<ClinicReview> clinicReviewList, out List<DoctorReview> doctorReviewList, out List<Clinic> clinicList, out List<Doctor> doctors,
-            out List<Phone> phonesList, out List<CityAddress> clinicAddressList, out List<City> citiesList, out List<DoctorCategory> categoriesList)
+            out List<ClinicPhone> phonesList, out List<ClinicAddress> clinicAddressList, out List<City> citiesList, out List<DoctorCategory> categoriesList)
         {
             clinicReviewList = new List<ClinicReview>();
             var rnd = new Random();
@@ -231,38 +231,38 @@ namespace Infodoctor.Web
             #endregion
             categoriesList = new List<DoctorCategory>() { cat001, cat002, cat003, cat004, cat005, cat006 };
 
-            var phone1 = new Phone() { Description = string.Empty, Number = "159" };
-            var phone2 = new Phone() { Description = string.Empty, Number = "(017) 296 62 72" };
-            var phone3 = new Phone() { Description = string.Empty, Number = "+375 29 110 12 12" };
-            var phone4 = new Phone() { Description = string.Empty, Number = "+375 17 211 28 61" };
-            var phone5 = new Phone() { Description = string.Empty, Number = "+375 29 611 28 61" };
-            var phone6 = new Phone() { Description = string.Empty, Number = "+375 17 314 94 94" };
-            var phone7 = new Phone() { Description = string.Empty, Number = "+375 29 664 44 44" };
-            var phone8 = new Phone() { Description = string.Empty, Number = "+375 17 253 33 33" };
-            var phone9 = new Phone() { Description = string.Empty, Number = "+375 29 103 43 43" };
-            var phone10 = new Phone() { Description = "взрослые", Number = "+375 17 369 64 59" };
-            var phone11 = new Phone() { Description = "взрослые", Number = "+375 17 369 69 16" };
-            var phone12 = new Phone() { Description = "дети", Number = "+375 17 369 64 57" };
-            var phone13 = new Phone() { Description = "дети", Number = "+375 17 369 65 56" };
-            var phone14 = new Phone() { Description = "стоматология", Number = "+375 17 369 67 65" };
-            var phone15 = new Phone() { Description = "платные услуги", Number = "+375 17 369 52 04" };
-            var phone16 = new Phone() { Description = "платные услуги", Number = "+375 44 580 90 33" };
-            var phone17 = new Phone() { Description = string.Empty, Number = "+375 17 290 81 11" };
-            var phone18 = new Phone() { Description = string.Empty, Number = "+375 44 575 08 89" };
+            var phone1 = new ClinicPhone() { Description = string.Empty, Number = "159" };
+            var phone2 = new ClinicPhone() { Description = string.Empty, Number = "(017) 296 62 72" };
+            var phone3 = new ClinicPhone() { Description = string.Empty, Number = "+375 29 110 12 12" };
+            var phone4 = new ClinicPhone() { Description = string.Empty, Number = "+375 17 211 28 61" };
+            var phone5 = new ClinicPhone() { Description = string.Empty, Number = "+375 29 611 28 61" };
+            var phone6 = new ClinicPhone() { Description = string.Empty, Number = "+375 17 314 94 94" };
+            var phone7 = new ClinicPhone() { Description = string.Empty, Number = "+375 29 664 44 44" };
+            var phone8 = new ClinicPhone() { Description = string.Empty, Number = "+375 17 253 33 33" };
+            var phone9 = new ClinicPhone() { Description = string.Empty, Number = "+375 29 103 43 43" };
+            var phone10 = new ClinicPhone() { Description = "взрослые", Number = "+375 17 369 64 59" };
+            var phone11 = new ClinicPhone() { Description = "взрослые", Number = "+375 17 369 69 16" };
+            var phone12 = new ClinicPhone() { Description = "дети", Number = "+375 17 369 64 57" };
+            var phone13 = new ClinicPhone() { Description = "дети", Number = "+375 17 369 65 56" };
+            var phone14 = new ClinicPhone() { Description = "стоматология", Number = "+375 17 369 67 65" };
+            var phone15 = new ClinicPhone() { Description = "платные услуги", Number = "+375 17 369 52 04" };
+            var phone16 = new ClinicPhone() { Description = "платные услуги", Number = "+375 44 580 90 33" };
+            var phone17 = new ClinicPhone() { Description = string.Empty, Number = "+375 17 290 81 11" };
+            var phone18 = new ClinicPhone() { Description = string.Empty, Number = "+375 44 575 08 89" };
 
-            phonesList = new List<Phone>{
+            phonesList = new List<ClinicPhone>{
                 phone1, phone2, phone3, phone4, phone5, phone6, phone7, phone8, phone9,
                 phone10, phone11, phone12, phone13, phone14, phone15, phone16, phone17, phone18};
 
-            var ca1 = new CityAddress() { Country = "Беларусь", Street = "ул.Сурганова 47Б", Clinic = clinic1, Doctors = new List<Doctor> { doc001, doc002, doc003 }, Phones = new List<Phone>() { phone1, phone2 } };
-            var ca2 = new CityAddress() { Country = "Беларусь", Street = "пр-т. Независимости 58", Clinic = clinic2, Doctors = new List<Doctor> { doc004, doc002, doc005 }, Phones = new List<Phone>() { phone3 } };
-            var ca3 = new CityAddress() { Country = "Беларусь", Street = "пр-т. Победителей 75,", Clinic = clinic3, Phones = new List<Phone>() { phone4, phone5 } };
-            var ca4 = new CityAddress() { Country = "Беларусь", Street = "ул.Скрипникова 11Б,", Clinic = clinic3, Phones = new List<Phone>() { phone6, phone7 } };
-            var ca5 = new CityAddress() { Country = "Беларусь", Street = "ул.Захарова 50Д", Clinic = clinic3, Phones = new List<Phone>() { phone8, phone9 } };
-            var ca6 = new CityAddress() { Country = "Беларусь", Street = "ул.Победителей 93", Clinic = clinic4, Phones = new List<Phone>() { phone10, phone11, phone12, phone13, phone14, phone15, phone16 } };
-            var ca7 = new CityAddress() { Country = "Беларусь", Street = "ул. Нарочанская 17", Clinic = clinic5, Phones = new List<Phone>() { phone17, phone18 } };
+            var ca1 = new ClinicAddress() { Country = "Беларусь", Street = "ул.Сурганова 47Б", Clinic = clinic1, Doctors = new List<Doctor> { doc001, doc002, doc003 }, Phones = new List<ClinicPhone>() { phone1, phone2 } };
+            var ca2 = new ClinicAddress() { Country = "Беларусь", Street = "пр-т. Независимости 58", Clinic = clinic2, Doctors = new List<Doctor> { doc004, doc002, doc005 }, Phones = new List<ClinicPhone>() { phone3 } };
+            var ca3 = new ClinicAddress() { Country = "Беларусь", Street = "пр-т. Победителей 75,", Clinic = clinic3, Phones = new List<ClinicPhone>() { phone4, phone5 } };
+            var ca4 = new ClinicAddress() { Country = "Беларусь", Street = "ул.Скрипникова 11Б,", Clinic = clinic3, Phones = new List<ClinicPhone>() { phone6, phone7 } };
+            var ca5 = new ClinicAddress() { Country = "Беларусь", Street = "ул.Захарова 50Д", Clinic = clinic3, Phones = new List<ClinicPhone>() { phone8, phone9 } };
+            var ca6 = new ClinicAddress() { Country = "Беларусь", Street = "ул.Победителей 93", Clinic = clinic4, Phones = new List<ClinicPhone>() { phone10, phone11, phone12, phone13, phone14, phone15, phone16 } };
+            var ca7 = new ClinicAddress() { Country = "Беларусь", Street = "ул. Нарочанская 17", Clinic = clinic5, Phones = new List<ClinicPhone>() { phone17, phone18 } };
 
-            clinicAddressList = new List<CityAddress> { ca1, ca2, ca3, ca4, ca5, ca6, ca7 };
+            clinicAddressList = new List<ClinicAddress> { ca1, ca2, ca3, ca4, ca5, ca6, ca7 };
 
 
             #region Очень длинный список городов РБ
@@ -331,7 +331,7 @@ namespace Infodoctor.Web
             var city63 = new City() { Name = "Малорита" };
             var city64 = new City() { Name = "Марьина Горка" };
             var city65 = new City() { Name = "Микашевичи" };
-            var city66 = new City() { Name = "Минск", Adresses = new List<CityAddress>() { ca1, ca2, ca3, ca4, ca5, ca6, ca7 } };
+            var city66 = new City() { Name = "Минск", Adresses = new List<ClinicAddress>() { ca1, ca2, ca3, ca4, ca5, ca6, ca7 } };
             var city67 = new City() { Name = "Миоры" };
             var city68 = new City() { Name = "Могилев" };
             var city69 = new City() { Name = "Молодечно" };

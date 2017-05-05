@@ -63,7 +63,7 @@ namespace Infodoctor.BL.Services
                     };
                     foreach (var clinicPhone in clinicAddress.Phones)
                     {
-                        var dtoClinicPhone = new DtoPhone {Desc = clinicPhone.Description, Phone = clinicPhone.Number};
+                        var dtoClinicPhone = new DtoPhone { Desc = clinicPhone.Description, Phone = clinicPhone.Number};
                         dtoClinicAddress.ClinicPhones.Add(dtoClinicPhone);
                     }
                     dtoClinicAddressList.Add(dtoClinicAddress);

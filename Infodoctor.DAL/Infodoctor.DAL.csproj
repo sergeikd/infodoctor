@@ -74,7 +74,7 @@
     <Compile Include="Interfaces\IOwnerShipsRepository.cs" />
     <Compile Include="Interfaces\IClinicRepository.cs" />
     <Compile Include="Interfaces\IResortRepository.cs" />
-    <Compile Include="Interfaces\IResoteReviewRepository.cs" />
+    <Compile Include="Interfaces\IResortReviewRepository.cs" />
     <Compile Include="PagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ArticleCommentsRepository.cs" />
@@ -92,7 +92,7 @@
     <Compile Include="Repositories\OwnerShipsRepository.cs" />
     <Compile Include="Repositories\ClinicRepository.cs" />
     <Compile Include="Repositories\ResortRepository.cs" />
-    <Compile Include="Repositories\ResoteReviewRepository.cs" />
+    <Compile Include="Repositories\ResortReviewRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -15,7 +15,25 @@ namespace Infodoctor.Domain.Entities
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
         public bool Favorite { get; set; }
-        public virtual CityAddress Address { get; set; }
+        public virtual ResortAddress Address { get; set; }
         public virtual ICollection<ResortReview> Reviews { get; set; }
+    }
+
+    public class ResortAddress
+    {
+        public int Id { get; set; }
+        public string Country { get; set; }
+        public virtual City City { get; set; }
+        public string Street { get; set; }
+        public virtual ICollection<ResortPhone> Phones { get; set; }
+        public virtual Resort Resort { get; set; }
+    }
+
+    public class ResortPhone
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public string Number { get; set; }
+        public virtual ResortAddress Address { get; set; }
     }
 }

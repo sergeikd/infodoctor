@@ -125,8 +125,8 @@ namespace Infodoctor.Web
             List<DoctorReview> doctorReviewList;
             List<Clinic> clinicList;
             List<Doctor> doctorsList;
-            List<Phone> phonesList;
-            List<CityAddress> clinicAddressList;
+            List<ClinicPhone> phonesList;
+            List<ClinicAddress> clinicAddressList;
             List<City> citiesList;
             List<DoctorCategory> categoriesList;
             //List<ImageFile> imagesList;
@@ -398,7 +398,7 @@ namespace Infodoctor.Web
             //{
             //    var clinic = new Clinic()
             //    {
-            //        CityAddresses = new List<CityAddress>() { new CityAddress() { City = citiesList[i % 5] } },
+            //        CityAddresses = new List<Address>() { new Address() { City = citiesList[i % 5] } },
             //        Name = "Test" + i,
             //        ClinicSpecializations = new List<ClinicSpecialization>() { new ClinicSpecialization() { Name = specializationList[i % 3].Name } }
             //    };
@@ -408,7 +408,7 @@ namespace Infodoctor.Web
             //{
             //    var clinic = new Clinic()
             //    {
-            //        CityAddresses = new List<CityAddress>() { new CityAddress () {City = citiesList[i%5]} },
+            //        CityAddresses = new List<Address>() { new Address () {City = citiesList[i%5]} },
             //        Name = "Test" + i,
             //        ClinicSpecializations = new List<ClinicSpecialization>(){ new ClinicSpecialization() { Name = specializationList[i%3].Name } },
             //        RatePoliteness = rnd.Next(5) + 1,
@@ -505,6 +505,10 @@ namespace Infodoctor.Web
             }
 
             var resortReviewSubList = resortRevs.Take(3).ToList();
+            var resorts = new List<Resort>();
+            var resAdrs = new List<ResortAddress>();
+            var resPhones = new List<ResortPhone>();
+
             var resort1 = new Resort()
             {
                 Name = "Санаторий \"Буг\"",
@@ -512,16 +516,18 @@ namespace Infodoctor.Web
                 Site = "http://sunbug.by/",
                 Specialisations = @"Медицинская база,Диагностическая база,Лечебные комплексы"
             };
+            resorts.Add(resort1);
 
-            var nums1 = new List<Phone>()
+            var nums1 = new List<ResortPhone>()
             {
-                new Phone() { Description = "", Number = "375(1641) 38-2-19" },
-                new Phone() { Description = "Факс", Number = "375(1641) 38-2-22" },
-                new Phone() { Description = "Мтс", Number = "375 (29) 866-86-69" },
-                new Phone() { Description = "", Number = "375 (29) 366-86-67" }
+                new ResortPhone() { Description = "", Number = "375(1641) 38-2-19" },
+                new ResortPhone() { Description = "Факс", Number = "375(1641) 38-2-22" },
+                new ResortPhone() { Description = "Мтс", Number = "375 (29) 866-86-69" },
+                new ResortPhone() { Description = "", Number = "375 (29) 366-86-67" }
             };
+            resPhones.AddRange(nums1);
 
-            var ard1 = new CityAddress()
+            var adr1 = new ResortAddress()
             {
                 Country = "Беларусь",
                 City = citiesList.First(c => string.Equals(c.Name, "Брестская область",
@@ -530,7 +536,12 @@ namespace Infodoctor.Web
                 Resort = resort1,
                 Phones = nums1
             };
-            context.Resorts.Add(resort1);
+            resAdrs.Add(adr1);
+
+            context.Resorts.AddRange(resorts);
+            context.ResortPhones.AddRange(resPhones);
+            context.ResortAddresses.AddRange(resAdrs);
+
 
             base.Seed(context);
         }

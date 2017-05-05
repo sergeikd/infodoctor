@@ -3,7 +3,7 @@ using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Interfaces
 {
-    public interface IResoteReviewRepository
+    public interface IResortReviewRepository
     {
         IQueryable<ResortReview> GetResortReviews();
         IQueryable<ResortReview> GetResortReviewsByClinicId(int id);

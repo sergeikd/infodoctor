@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Infodoctor.DAL.Interfaces;
 using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Repositories
 {
-    public class ResoteReviewRepository : IResoteReviewRepository
+    public class ResortReviewRepository : IResortReviewRepository
     {
         private readonly IAppDbContext _context;
 
-        public ResoteReviewRepository(IAppDbContext context)
+        public ResortReviewRepository(IAppDbContext context)
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
             _context = context;

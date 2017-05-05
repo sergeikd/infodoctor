@@ -14,7 +14,7 @@ namespace Infodoctor.BL.Services
         private readonly IResortRepository _resort;
         private readonly ISearchService _search;
 
-        public ResortService(IResortRepository resort, IResoteReviewRepository review, ISearchService search)
+        public ResortService(IResortRepository resort, ISearchService search)
         {
             if (resort == null) throw new ArgumentNullException(nameof(resort));
             if (search == null) throw new ArgumentNullException(nameof(search));

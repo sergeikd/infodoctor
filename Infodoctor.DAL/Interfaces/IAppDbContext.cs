@@ -10,8 +10,8 @@ namespace Infodoctor.DAL.Interfaces
     {
         DbSet<Country> Countries { get; set; }
         DbSet<Clinic> Сlinics { get; set; }
-        DbSet<Phone> ClinicPhones { get; set; }
-        DbSet<CityAddress> CityAddresses { get; set; }
+        DbSet<ClinicPhone> ClinicPhones { get; set; }
+        DbSet<ClinicAddress> CityAddresses { get; set; }
         DbSet<City> Cities { get; set; }
         DbSet<ClinicSpecialization> ClinicSpecializations { get; set; }
         DbSet<OwnerShip> OwnerShips { get; set; }
@@ -24,6 +24,8 @@ namespace Infodoctor.DAL.Interfaces
         DbSet<DoctorCategory> DoctorCategories { get; set; }
         DbSet<Doctor> Doctors { get; set; }
         DbSet<Resort> Resorts { get; set; }
+        DbSet<ResortAddress> ResortAddresses { get; set; }
+        DbSet<ResortPhone> ResortPhones { get; set; }
         DbSet<ResortReview> ResortReviews { get; set; }
 
         int SaveChanges();
