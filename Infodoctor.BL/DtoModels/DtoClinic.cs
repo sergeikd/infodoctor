@@ -27,12 +27,12 @@ namespace Infodoctor.BL.DtoModels
         public string Country { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
-        public List <DtoPhone> ClinicPhones { get;set;}
-}
+        public List<DtoPhone> ClinicPhones { get; set; }
+    }
 
-public class DtoPhone
-{
-    public string Desc { get; set; }
-    public string Phone { get; set; }
-}
+    public class DtoPhone
+    {
+        public string Desc { get; set; }
+        public string Phone { get; set; }
+    }
 }

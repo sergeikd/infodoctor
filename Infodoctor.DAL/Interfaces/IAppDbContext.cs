@@ -23,6 +23,9 @@ namespace Infodoctor.DAL.Interfaces
         DbSet<DoctorSpecialization> DoctorSpecializations { get; set; }
         DbSet<DoctorCategory> DoctorCategories { get; set; }
         DbSet<Doctor> Doctors { get; set; }
+        DbSet<Resort> Resorts { get; set; }
+        DbSet<ResortReview> ResortReviews { get; set; }
+
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

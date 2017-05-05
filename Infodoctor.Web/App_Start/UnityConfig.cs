@@ -63,6 +63,8 @@ namespace Infodoctor.Web
             container.RegisterType<IDoctorReviewService, DoctorReviewService>();
             container.RegisterType<IArticleCommentsRepository, ArticleCommentsRepository>();
             container.RegisterType<IArticleCommentsService, ArticleCommentsService>();
+            container.RegisterType<IResortRepository, ResortRepository>();
+            container.RegisterType<IResortService, ResortService>();
             container.RegisterType<ITestService, TestService>();
 
             //container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new InjectionConstructor(typeof(AppDbContext)));

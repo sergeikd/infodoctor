@@ -5,7 +5,7 @@ using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Repositories
 {
-    public class ClinicRepository: IClinicRepository
+    public class ClinicRepository : IClinicRepository
     {
         private readonly IAppDbContext _context;
 

@@ -26,6 +26,8 @@ namespace Infodoctor.DAL
         public DbSet<DoctorSpecialization> DoctorSpecializations { get; set; }
         public DbSet<DoctorCategory> DoctorCategories { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Resort> Resorts { get; set; }
+        public DbSet<ResortReview> ResortReviews { get; set; }
 
         public static AppDbContext Create()
         {

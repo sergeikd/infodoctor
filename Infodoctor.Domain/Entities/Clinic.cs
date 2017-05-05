@@ -30,6 +30,7 @@ namespace Infodoctor.Domain.Entities
         public virtual ICollection<ClinicPhone> ClinicPhones { get; set; }
         public virtual Clinic Clinic { get; set; }
         public virtual ICollection<Doctor> Doctors { get; set; }
+        public virtual Resort Resort { get; set; }
     }
 
     public class ClinicPhone

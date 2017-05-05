@@ -29,6 +29,14 @@ namespace Infodoctor.Domain.Entities
         public virtual Clinic Clinic { get; set; }
     }
 
+    public class ResortReview : Review
+    {
+        public double RatePrice { get; set; }
+        public double RateQuality { get; set; }
+        public double RatePoliteness { get; set; }
+        public virtual Resort Resort { get; set; }
+    }
+
     public class DoctorReview : Review
     {
         [Required]
