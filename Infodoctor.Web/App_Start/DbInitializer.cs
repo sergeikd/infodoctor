@@ -504,19 +504,9 @@ namespace Infodoctor.Web
                 });
             }
 
-            var resortReviewSubList = resortRevs.Take(3).ToList();
             var resorts = new List<Resort>();
             var resAdrs = new List<ResortAddress>();
             var resPhones = new List<ResortPhone>();
-
-            var resort1 = new Resort()
-            {
-                Name = "Санаторий \"Буг\"",
-                Email = "bug-marketing@mail.ru",
-                Site = "http://sunbug.by/",
-                Specialisations = @"Медицинская база,Диагностическая база,Лечебные комплексы"
-            };
-            resorts.Add(resort1);
 
             var nums1 = new List<ResortPhone>()
             {
@@ -526,6 +516,7 @@ namespace Infodoctor.Web
                 new ResortPhone() { Description = "", Number = "375 (29) 366-86-67" }
             };
             resPhones.AddRange(nums1);
+            context.ResortPhones.AddRange(resPhones);
 
             var adr1 = new ResortAddress()
             {
@@ -533,14 +524,30 @@ namespace Infodoctor.Web
                 City = citiesList.First(c => string.Equals(c.Name, "Брестская область",
                     StringComparison.CurrentCultureIgnoreCase)),
                 Street = "урочище \"Сосновый бор\"",
-                Resort = resort1,
                 Phones = nums1
             };
             resAdrs.Add(adr1);
+            context.ResortAddresses.AddRange(resAdrs);
+
+            var resortReviewSubList = resortRevs.Take(3).ToList();
+
+            var resort1 = new Resort()
+            {
+                Name = "Санаторий \"Буг\"",
+                Email = "bug-marketing@mail.ru",
+                Site = "http://sunbug.by/",
+                Specialisations = @"Медицинская база,Диагностическая база,Лечебные комплексы",
+                Address = adr1,
+                Reviews = resortReviewSubList
+            };
+            resorts.Add(resort1);
+            
+
+
 
             context.Resorts.AddRange(resorts);
-            context.ResortPhones.AddRange(resPhones);
-            context.ResortAddresses.AddRange(resAdrs);
+            
+            
 
 
             base.Seed(context);

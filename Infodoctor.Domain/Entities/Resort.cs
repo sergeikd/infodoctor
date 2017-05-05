@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Infodoctor.Domain.Entities
 {
@@ -26,6 +27,7 @@ namespace Infodoctor.Domain.Entities
         public virtual City City { get; set; }
         public string Street { get; set; }
         public virtual ICollection<ResortPhone> Phones { get; set; }
+        [Required] //for prvent error message like here http://stackoverflow.com/questions/28887156/unable-to-determine-the-principal-end-of-an-association-between-the-types
         public virtual Resort Resort { get; set; }
     }
 
