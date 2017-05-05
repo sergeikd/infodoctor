@@ -64,6 +64,9 @@
     <Compile Include="DtoModels\DtoPagedDoctor.cs" />
     <Compile Include="DtoModels\DtoPagedDoctorReview.cs" />
     <Compile Include="DtoModels\DtoFastSearchModel.cs" />
+    <Compile Include="DtoModels\DtoPagedResorts.cs" />
+    <Compile Include="DtoModels\DtoResort.cs" />
+    <Compile Include="DtoModels\DtoResortSearchModel.cs" />
     <Compile Include="DtoModels\DtoReview.cs" />
     <Compile Include="DtoModels\DtoSearchResultModel.cs" />
     <Compile Include="Interfaces\IArticleCommentsService.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Interfaces\IArticleThemesService.cs" />
     <Compile Include="Interfaces\IClinicService.cs" />
     <Compile Include="Interfaces\IMailService.cs" />
+    <Compile Include="Interfaces\IResortService.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\ITestService.cs" />
     <Compile Include="Services\ArticleCommentsService.cs" />
@@ -98,6 +102,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MailService.cs" />
     <Compile Include="Services\NewSearchService.cs" />
+    <Compile Include="Services\ResortService.cs" />
     <Compile Include="Services\SearchService.cs" />
     <Compile Include="Services\TestService.cs" />
   </ItemGroup>

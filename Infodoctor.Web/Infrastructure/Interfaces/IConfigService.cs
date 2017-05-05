@@ -5,6 +5,7 @@
         string PathToArticlesImages { get; }
         string PathToDoctorsImages { get; }
         string PathToClinicsImages { get; }
+        string PathToResortsImages { get; }
         string SmtpServer { get; }
         string SmtpPort { get; }
         string Email { get; }
