@@ -13,6 +13,14 @@
         public int RatePoliteness { get; set; }
     }
 
+    public class ResortReviewBindingModel : ReviewBindingModel
+    {
+        public int ResortId { get; set; }
+        public int RatePrice { get; set; }
+        public int RateQuality { get; set; }
+        public int RatePoliteness { get; set; }
+    }
+
     public class DoctorReviewBindingModel : ReviewBindingModel
     {
         public int DoctorId { get; set; }
