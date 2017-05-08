@@ -379,6 +379,9 @@ namespace Infodoctor.Web
             var city111 = new City() { Name = "Шклов" };
             var city112 = new City() { Name = "Щучин" };
             var city113 = new City() { Name = "Брестская область" };
+            var city114 = new City() { Name = "Витебская область" };
+            var city115 = new City() { Name = "Минская область" };
+
             #endregion
             citiesList = new List<City>{
                 city1, city2, city3, city4, city5, city6, city7, city8, city9, city10,
@@ -392,7 +395,7 @@ namespace Infodoctor.Web
                 city81, city82, city83, city84, city85, city86, city87, city88, city89, city90,
                 city91, city92, city93, city94, city95, city96, city97, city98, city99, city100,
                 city101, city102, city103, city104, city105, city106, city107, city108, city109, city110,
-                city111, city112,city113};
+                city111, city112,city113,city114,city115};
         }
     }
 }

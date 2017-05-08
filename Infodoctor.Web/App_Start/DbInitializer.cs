@@ -508,6 +508,7 @@ namespace Infodoctor.Web
             var resAdrs = new List<ResortAddress>();
             var resPhones = new List<ResortPhone>();
 
+            //санаторий 1
             var nums1 = new List<ResortPhone>()
             {
                 new ResortPhone() { Description = "", Number = "375(1641) 38-2-19" },
@@ -516,7 +517,6 @@ namespace Infodoctor.Web
                 new ResortPhone() { Description = "", Number = "375 (29) 366-86-67" }
             };
             resPhones.AddRange(nums1);
-            context.ResortPhones.AddRange(resPhones);
 
             var adr1 = new ResortAddress()
             {
@@ -527,7 +527,7 @@ namespace Infodoctor.Web
                 Phones = nums1
             };
             resAdrs.Add(adr1);
-            context.ResortAddresses.AddRange(resAdrs);
+
 
             var resortReviewSubList = resortRevs.Take(3).ToList();
 
@@ -536,19 +536,159 @@ namespace Infodoctor.Web
                 Name = "Санаторий \"Буг\"",
                 Email = "bug-marketing@mail.ru",
                 Site = "http://sunbug.by/",
-                Specialisations = @"Медицинская база,Диагностическая база,Лечебные комплексы",
+                Specialisations = @"Медицинская база, Диагностическая база, Лечебные комплексы",
                 Address = adr1,
                 Reviews = resortReviewSubList
             };
             resorts.Add(resort1);
-            
+
+            //санаторий 2
+            var nums2 = new List<ResortPhone>()
+            {
+                new ResortPhone() { Description = "для звонков из РБ", Number = "8 (01641) 68-222" },
+                new ResortPhone() { Description = "для звонков из РБ", Number = "8 (01641) 68-333" },
+                new ResortPhone() { Description = "для звонков из РФ", Number = "8 10 (375 1641) 68-222" },
+                new ResortPhone() { Description = "для звонков из РФ", Number = "8 10 (375 1641) 68-333" }
+            };
+            resPhones.AddRange(nums2);
+
+            var adr2 = new ResortAddress()
+            {
+                Country = "Беларусь",
+                City = citiesList.First(c => string.Equals(c.Name, "Брестская область",
+                    StringComparison.CurrentCultureIgnoreCase)),
+                Street = "Жабинковский район, 1,6 км севернее д. Чижевщина",
+                Phones = nums2
+            };
+            resAdrs.Add(adr2);
+
+            resortReviewSubList = resortRevs.Take(3).ToList();
+
+            var resort2 = new Resort()
+            {
+                Name = "Санаторий \"Надзея\"",
+                Email = "mtv@brest.gas.by, nadzeya@brest.gas.by, san@brest.gas.by",
+                Site = "http://www.nadzeya.com/",
+                Specialisations = @"Водолечение, ЛФК Галотерапия, Электросветолечение, Теплолечение, Ручной массаж, Фиточай, Небулайзерная ингаляционная терапия, Галотерапия, Косметология, УЗИ",
+                Address = adr2,
+                Reviews = resortReviewSubList
+            };
+            resorts.Add(resort2);
+
+            //санаторий 3
+            var nums3 = new List<ResortPhone>()
+            {
+                new ResortPhone() { Description = "международный", Number = "8 (10-375-212) 29 72 39" },
+                new ResortPhone() { Description = "международный", Number = "8 (10-375-212) 29 73 35" },
+                new ResortPhone() { Description = "международный", Number = "8 (10-375-212) 29 73 24" },
+                new ResortPhone() { Description = "по Беларуси", Number = "8 (10-375-212) 29 72 39" },
+                new ResortPhone() { Description = "по Беларуси", Number = "8 (10-375-212) 29 73 35" },
+                new ResortPhone() { Description = "по Беларуси", Number = "8 (10-375-212) 29 73 24" },
+            };
+            resPhones.AddRange(nums3);
+
+            var adr3 = new ResortAddress()
+            {
+                Country = "Беларусь",
+                City = citiesList.First(c => string.Equals(c.Name, "Витебская область",
+                    StringComparison.CurrentCultureIgnoreCase)),
+                Street = "Витебский район, д. Малые ",
+                Phones = nums3
+            };
+            resAdrs.Add(adr3);
+
+            resortReviewSubList = resortRevs.Take(3).ToList();
+
+            var resort3 = new Resort()
+            {
+                Name = "Санаторий \"Лётцы\"",
+                Email = "letzy1@mail.ru",
+                Site = "http://letcy.ru/",
+                Specialisations = @"Диетотерапия, Бальнеолечение, Теплолечение, Аппаратная физиотерапия, Массаж, Климатолечение, Галотерапия, Рефлексотерапия, Лечебная физкультура, Космтология, Спа, УЗД, УЗИ",
+                Address = adr3,
+                Reviews = resortReviewSubList
+            };
+            resorts.Add(resort3);
+
+            //санаторий 4
+            var nums4 = new List<ResortPhone>()
+            {
+                new ResortPhone() { Description = "", Number = "375 2157 33463" },
+                new ResortPhone() { Description = "", Number = "375 29 3442040" },
+                new ResortPhone() { Description = "", Number = "375 2157 33458" }
+            };
+            resPhones.AddRange(nums4);
+
+            var adr4 = new ResortAddress()
+            {
+                Country = "Беларусь",
+                City = citiesList.First(c => string.Equals(c.Name, "Витебская область",
+                    StringComparison.CurrentCultureIgnoreCase)),
+                Street = "д. Будачи, Докшицкий р-н",
+                Phones = nums4
+            };
+            resAdrs.Add(adr4);
+
+            resortReviewSubList = resortRevs.Take(3).ToList();
+
+            var resort4 = new Resort()
+            {
+                Name = "Санаторий \"Боровое\"",
+                Email = "",
+                Site = "http://www.sanatorium-borovoe.com/",
+                Specialisations = @" магнитно-резонансная томография
+                стоматология терапевтическая(за исключением помощи при острой зубной боли и консультации врача - стоматолога)
+                рентгенология стоматологическая
+                мини - сауна «Кедровая бочка»
+                локальная криотерапия лица «Криоджет»
+                ванны грязевые сапропелевые
+                ванны с пантогематогеном
+                косметические услуги
+                бильярд
+                аквамассаж(аквакапсула «Aqua -PT Pro Turbo»);
+                АПК «Андро - Гин«;
+                ароматерапия;
+                бальнеолечение;
+                галотерапия(спелеолечение);
+                гидромассаж рук и ног(аппарат «Aquaroll Pro»);
+                гидротерапия кишечника
+                грязелечение;
+                иглорефлексотерапия;
+                ингаляции;
+                карбокситерапия;
+                криотерапия локальная;
+                ЛФК;
+                массаж аппаратный;
+                массаж ручной;
+                общая магнитотерапия -ОМТ(аппарат «Магнитотурботрон ЭОЛ»);
+                озонотерапия;
+                озокерито - парафинолечение;
+                питьевое лечение минеральными водами(собственные уникальные минеральные источники);
+                психологическая разгрузка;
+                пневмокомпрессионная терапия(аппарат «LYMPHA -MAT DIGITAL GRADIENT»);
+                СПА - терапия(СПА - капсула «NEoQi»);
+                сухие углекислые ванны;
+                сухой флоатинг(аппарат «NUVOLA SPA JET»);
+                ударно - волновая терапия экстракорпоральная(аппарат «EMS Swiss DolorClast»);
+                физиотерапевтическое лечение;
+                фитотерапия;
+                сауна(финская, турецкая, инфракрасная);
+                электросон;
+                Диагностические процедуры:
+
+                ультразвуковая диагностика;
+                функциональная диагностика;
+                фиброгастродуаденоскопия;
+                ректосигмоскопия, колоноскопия; ",
+                Address = adr4,
+                Reviews = resortReviewSubList
+            };
+            resorts.Add(resort4);
 
 
-
+            context.ResortPhones.AddRange(resPhones);
+            context.ResortAddresses.AddRange(resAdrs);
             context.Resorts.AddRange(resorts);
-            
-            
-
 
             base.Seed(context);
         }

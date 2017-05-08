@@ -74,6 +74,7 @@ namespace Infodoctor.Web.Controllers
         [Authorize(Roles = "admin, moder")]
         public void Delete(int id)
         {
+            _resort.Delete(id);
         }
     }
 }
