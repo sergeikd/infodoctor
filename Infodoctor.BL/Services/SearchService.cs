@@ -13,14 +13,16 @@ namespace Infodoctor.BL.Services
         private readonly IDoctorRepository _doctorRepository;
         private readonly IClinicSpecializationRepository _clinicSpecializationRepository;
         private readonly IDoctorSpecializationRepository _doctorSpecializationRepository;
+        private readonly IResortRepository _resortRepository;
 
         private static List<string> VirtualClinicsAndSpecialisationsCache { get; set; }
         private static List<string> VirtualDoctorsCache { get; set; }
+        private static List<string> VirtualResortCache { get; set; }
 
         public SearchService(IClinicRepository clinicRepository,
-            IClinicSpecializationRepository clinicSpecializationRepository, 
-            IDoctorRepository doctorRepository, 
-            IDoctorSpecializationRepository doctorSpecializationRepository)
+            IClinicSpecializationRepository clinicSpecializationRepository,
+            IDoctorRepository doctorRepository,
+            IDoctorSpecializationRepository doctorSpecializationRepository, IResortRepository resortRepository)
         {
             if (clinicRepository == null)
                 throw new ArgumentNullException(nameof(clinicRepository));
@@ -30,8 +32,10 @@ namespace Infodoctor.BL.Services
                 throw new ArgumentNullException(nameof(doctorRepository));
             if (doctorSpecializationRepository == null)
                 throw new ArgumentNullException(nameof(doctorSpecializationRepository));
+            if (resortRepository == null) throw new ArgumentNullException(nameof(resortRepository));
 
             _doctorSpecializationRepository = doctorSpecializationRepository;
+            _resortRepository = resortRepository;
             _doctorRepository = doctorRepository;
             _clinicRepository = clinicRepository;
             _clinicSpecializationRepository = clinicSpecializationRepository;
@@ -43,11 +47,13 @@ namespace Infodoctor.BL.Services
             var clinicSpecializations = _clinicSpecializationRepository.GetAllClinicSpecializations();
             var doctors = _doctorRepository.GetAllDoctors();
             var doctorSpecializations = _doctorSpecializationRepository.GetAllSpecializations();
+            var resorts = _resortRepository.GetAllResorts();
 
             var clinicsList = new List<string>();
             var specsList = new List<string>();
             var doctorsList = new List<string>();
             var doctorsSpecsList = new List<string>();
+            var resortsList = new List<string>();
 
             foreach (var clinic in clinics)
                 clinicsList.Add(clinic.Name);
@@ -61,6 +67,12 @@ namespace Infodoctor.BL.Services
                 doctorsList.Add(doctor.Manipulation);
             }
 
+            foreach (var resort in resorts)
+            {
+                resortsList.Add(resort.Name);
+                resortsList.Add(resort.Specialisations);
+            }
+
             foreach (var ds in doctorSpecializations)
                 doctorsSpecsList.Add(ds.Name);
 
@@ -69,6 +81,8 @@ namespace Infodoctor.BL.Services
 
             VirtualDoctorsCache = doctorsList;
             VirtualDoctorsCache.AddRange(doctorsSpecsList);
+
+            VirtualResortCache = resortsList;
         }
 
         private static bool IsVirtualCachesFull()
@@ -91,6 +105,9 @@ namespace Infodoctor.BL.Services
                         break;
                     case 2:
                         result.AddRange(VirtualDoctorsCache.Where(spec => spec.ToUpper().Contains(searchModel.Text.ToUpper())));
+                        break;
+                    case 3:
+                        result.AddRange(VirtualResortCache.Where(res => res.ToUpper().Contains(searchModel.Text.ToUpper())));
                         break;
                 }
             return result;
