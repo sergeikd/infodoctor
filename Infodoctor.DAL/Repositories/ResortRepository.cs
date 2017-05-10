@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Infodoctor.DAL.Interfaces;
 using Infodoctor.Domain.Entities;
@@ -63,12 +64,25 @@ namespace Infodoctor.DAL.Repositories
 
         public void Delete(Resort res)
         {
-            var adr = res.Address;
-            var phones = res.Address.Phones.ToList();
-            
+            var adr = new ResortAddress();
+            var phones = new List<ResortPhone>();
+            var reviews = new List<ResortReview>();
+
+            if (res.Address != null)
+            {
+                adr = res.Address;
+
+                if (res.Address.Phones.Any())
+                    phones = res.Address.Phones.ToList();
+            }
+
+            if (res.Reviews.Any())
+                reviews = res.Reviews.ToList();
+
             _context.Resorts.Remove(res);
             _context.ResortAddresses.Remove(adr);
             _context.ResortPhones.RemoveRange(phones);
+            _context.ResortReviews.RemoveRange(reviews);
 
             _context.SaveChanges();
         }

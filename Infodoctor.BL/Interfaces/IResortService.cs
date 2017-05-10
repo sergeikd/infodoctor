@@ -11,6 +11,6 @@ namespace Infodoctor.BL.Interfaces
         DtoResort GetResortById(int id, string pathToImage);
         void Add(DtoResort res);
         void Update(DtoResort res);
-        void Delete(int id);
+        void Delete(int id, string pathToImage);
     }
 }

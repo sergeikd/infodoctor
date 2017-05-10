@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
@@ -315,11 +316,15 @@ namespace Infodoctor.BL.Services
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string pathToImage)
         {
             var res = _resort.GetResortById(id);
             if (res == null)
                 throw new ApplicationException("Resort not found");
+
+            var imgPath = pathToImage + res.ImageName;
+            if (File.Exists(imgPath))
+                File.Delete(imgPath);
 
             _resort.Delete(res);
             _search.RefreshCache();
