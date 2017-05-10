@@ -562,7 +562,7 @@ namespace Infodoctor.Web
             };
             resAdrs.Add(adr2);
 
-            resortReviewSubList = resortRevs.Take(3).ToList();
+            resortReviewSubList = resortRevs.Skip(3).Take(3).ToList();
 
             var resort2 = new Resort()
             {
@@ -597,7 +597,7 @@ namespace Infodoctor.Web
             };
             resAdrs.Add(adr3);
 
-            resortReviewSubList = resortRevs.Take(3).ToList();
+            resortReviewSubList = resortRevs.Skip(6).Take(3).ToList();
 
             var resort3 = new Resort()
             {
@@ -629,7 +629,7 @@ namespace Infodoctor.Web
             };
             resAdrs.Add(adr4);
 
-            resortReviewSubList = resortRevs.Take(3).ToList();
+            resortReviewSubList = resortRevs.Skip(9).Take(3).ToList();
 
             var resort4 = new Resort()
             {

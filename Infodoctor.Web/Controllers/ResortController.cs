@@ -30,6 +30,7 @@ namespace Infodoctor.Web.Controllers
         }
 
         // GET api/resort/5
+        [AllowAnonymous]
         public DtoResort Get(int id)
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _config.PathToResortsImages;

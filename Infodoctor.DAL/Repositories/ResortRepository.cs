@@ -63,7 +63,13 @@ namespace Infodoctor.DAL.Repositories
 
         public void Delete(Resort res)
         {
+            var adr = res.Address;
+            var phones = res.Address.Phones.ToList();
+            
             _context.Resorts.Remove(res);
+            _context.ResortAddresses.Remove(adr);
+            _context.ResortPhones.RemoveRange(phones);
+
             _context.SaveChanges();
         }
     }
