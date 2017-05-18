@@ -21,7 +21,7 @@ namespace Infodoctor.DAL.Repositories
 
         public IQueryable<ResortReview> GetResortReviewsByClinicId(int id)
         {
-            return _context.ResortReviews.Where(r => r.Resort.Id == id).OrderBy(r => r.PublishTime);
+            return _context.ResortReviews.Where(r => r.Resort.Id == id).OrderByDescending(r => r.PublishTime);
         }
 
         public ResortReview GetReviewById(int id)
