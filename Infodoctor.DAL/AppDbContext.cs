@@ -5,8 +5,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Infodoctor.DAL
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser>, IAppDbContext
-    {
+    public class AppDbContext : IdentityDbContext<ApplicationUser> 
+        {
         public AppDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

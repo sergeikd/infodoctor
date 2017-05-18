@@ -7,12 +7,11 @@ namespace Infodoctor.DAL.Repositories
 {
     public class ResortReviewRepository : IResortReviewRepository
     {
-        private readonly IAppDbContext _context;
+        private readonly AppDbContext _context;
 
-        public ResortReviewRepository(IAppDbContext context)
+        public ResortReviewRepository(AppDbContext context)
         {
-            if (context == null) throw new ArgumentNullException(nameof(context));
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public IQueryable<ResortReview> GetResortReviews()

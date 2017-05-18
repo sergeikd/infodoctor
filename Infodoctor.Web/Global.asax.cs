@@ -12,7 +12,6 @@ namespace Infodoctor.Web
         protected void Application_Start()
         {
             //Database.SetInitializer<AppDbContext>(new AppDbInitializer());
-            UnityConfig.RegisterComponents();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

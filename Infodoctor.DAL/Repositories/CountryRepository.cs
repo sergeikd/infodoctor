@@ -7,15 +7,11 @@ namespace Infodoctor.DAL.Repositories
 {
     public class CountryRepository : ICountryRepository
     {
-        private readonly IAppDbContext _context;
+        private readonly AppDbContext _context;
 
-        public CountryRepository(IAppDbContext context)
+        public CountryRepository(AppDbContext context)
         {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public IQueryable<Country> GetAllCountries()

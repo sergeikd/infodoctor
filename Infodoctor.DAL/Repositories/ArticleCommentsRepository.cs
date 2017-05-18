@@ -7,12 +7,11 @@ namespace Infodoctor.DAL.Repositories
 {
     public class ArticleCommentsRepository : IArticleCommentsRepository
     {
-        private readonly IAppDbContext _context;
+        private readonly AppDbContext _context;
 
-        public ArticleCommentsRepository(IAppDbContext context)
+        public ArticleCommentsRepository(AppDbContext context)
         {
-            if (context == null) throw new ArgumentNullException(nameof(context));
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public IQueryable<ArticleComment> GetAllArticleComments()

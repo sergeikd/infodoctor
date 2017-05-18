@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using System.Linq;
 using Infodoctor.BL.Interfaces;
 using Infodoctor.DAL.Interfaces;
@@ -13,7 +16,7 @@ namespace Infodoctor.BL.Services
         private readonly ICitiesRepository _citiesRepository;
         private readonly IDoctorRepository _doctorRepository;
         private readonly IClinicSpecializationRepository _clinicSpecializationRepository;
-        Random _rnd = new Random();
+        readonly Random _rnd = new Random();
 
         public TestService (IClinicRepository clinicRepository, IClinicSpecializationRepository clinicSpecializationRepository, ICitiesRepository citiesRepository, IDoctorRepository doctorRepository)
         {
@@ -32,7 +35,7 @@ namespace Infodoctor.BL.Services
             _clinicRepository = clinicRepository;
         }
 
-        public void Add100Clinics()
+        public void Add100Clinics(string pathToImage)
         {
             var clinic = new Clinic();
             var maxClinicId = _clinicRepository.GetAllСlinics().Max(r => r.Id);
@@ -62,6 +65,7 @@ namespace Infodoctor.BL.Services
                 clinic.ClinicSpecializations = clinicSpecializations.GroupBy(x => x.Id).Select(y => y.First()).ToList();
                 clinic.Favorite = i%10 == 0;
                 _clinicRepository.Add(clinic);
+                CreateBitmapImage(clinic.Name, "");
             }
         }
         public void Add100Doctors()
@@ -86,5 +90,103 @@ namespace Infodoctor.BL.Services
             return clinic;
         }
 
+        private Bitmap CreateBitmapImage(string imageText, string path)
+        {
+            var imageWidth = 960;
+            var imageHeight = 720;
+            var bitmap = new Bitmap(1, 1);
+
+            // Создаем объект Font для "рисования" им текста.
+            var font = new Font("Arial", 20, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+
+            // Создаем объект Graphics для вычисления высоты и ширины текста.
+            var graphics = Graphics.FromImage(bitmap);
+
+            // Определение размеров изображения.
+            var textWidth = (int)graphics.MeasureString(imageText, font).Width;
+            var textHeight = (int)graphics.MeasureString(imageText, font).Height;
+
+            // Пересоздаем объект Bitmap с откорректированными размерами под текст и шрифт.
+            bitmap = new Bitmap(bitmap, new Size(imageWidth, imageHeight));
+
+            // Пересоздаем объект Graphics
+            graphics = Graphics.FromImage(bitmap);
+
+            // Задаем цвет фона.
+            graphics.Clear(Color.White);
+            // Задаем параметры анти-алиасинга
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+            // Пишем (рисуем) текст
+            graphics.DrawString(imageText, font, new SolidBrush(Color.FromArgb(0, 0, 0)), imageWidth / 2 - textWidth / 2, imageHeight / 2 - textHeight / 2);
+            graphics.Flush();
+
+            //string filePath = Server.MapPath(Url.Content("~/Content/Images/Image.jpg"));
+            return bitmap;
+        }
+
+        public string Add(Bitmap imageFile, string imageFolderPath, string pathToImage, int maxImageWidth)
+        {
+            if (imageFile == null)
+                throw new ArgumentNullException(nameof(imageFile));
+
+            var imgFileName = Guid.NewGuid().ToString().Replace("-", string.Empty) + ".jpg";
+            var filePath = AppDomain.CurrentDomain.BaseDirectory + imageFolderPath.Replace("~/", string.Empty).Replace("/", @"\") + imgFileName;
+            //var image = Image.FromStream(imageFile.InputStream, true, true);
+
+            //bool result = false;
+
+            //if (maxImageWidth == 0)
+            //    result = ResizeImage(image, imgFileName, imageFolderPath, image.Width);
+            //else
+            //    result = ResizeImage(image, imgFileName, imageFolderPath, maxImageWidth);
+
+
+            var img = new ImageFile() { Name = imgFileName, Path = filePath };
+
+            //if (result)
+            //    _imageRepository.Add(img);
+
+            return pathToImage + imgFileName;
+        }
+
+    }
+
+    internal class CreateImage
+    {
+        private Bitmap CreateBitmapImage(string imageText, string path)
+        {
+            var imageWidth = 960;
+            var imageHeight = 720;
+            var bitmap = new Bitmap(1, 1);
+
+            // Создаем объект Font для "рисования" им текста.
+            var font = new Font("Arial", 20, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+
+            // Создаем объект Graphics для вычисления высоты и ширины текста.
+            var graphics = Graphics.FromImage(bitmap);
+
+            // Определение размеров изображения.
+            var textWidth = (int)graphics.MeasureString(imageText, font).Width;
+            var textHeight = (int)graphics.MeasureString(imageText, font).Height;
+
+            // Пересоздаем объект Bitmap с откорректированными размерами под текст и шрифт.
+            bitmap = new Bitmap(bitmap, new Size(imageWidth, imageHeight));
+
+            // Пересоздаем объект Graphics
+            graphics = Graphics.FromImage(bitmap);
+
+            // Задаем цвет фона.
+            graphics.Clear(Color.White);
+            // Задаем параметры анти-алиасинга
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+            // Пишем (рисуем) текст
+            graphics.DrawString(imageText, font, new SolidBrush(Color.FromArgb(0, 0, 0)), imageWidth/2 - textWidth/2, imageHeight/2 - textHeight/2);
+            graphics.Flush();
+
+            //string filePath = Server.MapPath(Url.Content("~/Content/Images/Image.jpg"));
+            return bitmap;
+        }
     }
 }

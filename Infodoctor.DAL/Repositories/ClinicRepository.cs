@@ -7,15 +7,11 @@ namespace Infodoctor.DAL.Repositories
 {
     public class ClinicRepository : IClinicRepository
     {
-        private readonly IAppDbContext _context;
+        private readonly AppDbContext _context;
 
-        public ClinicRepository(IAppDbContext context)
+        public ClinicRepository(AppDbContext context)
         {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public IQueryable<Clinic> GetAllСlinics()

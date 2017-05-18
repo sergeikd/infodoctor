@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.Interfaces;
+using Infodoctor.Web.Infrastructure.Interfaces;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -9,18 +10,28 @@ namespace Infodoctor.Web.Controllers
     public class TestController : ApiController
     {
         private readonly ITestService _testService;
+        private readonly IConfigService _configService;
 
-        public TestController(ITestService testService)
+        public TestController(ITestService testService, IConfigService configService)
         {
-            if (testService == null) throw new ArgumentNullException(nameof(testService));
+            if (testService == null)
+            {
+                throw new ArgumentNullException(nameof(testService));
+            }
+            if (configService == null)
+            {
+                throw new ArgumentNullException(nameof(configService));
+            }
             _testService = testService;
+            _configService = configService;
         }
 
         [HttpGet]
         [Route("api/test/add100clinics")]
         public IHttpActionResult Add100Clinics()
         {
-            _testService.Add100Clinics();
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            _testService.Add100Clinics(pathToImage);
             return Ok();
         }
         [HttpGet]

@@ -7,13 +7,11 @@ namespace Infodoctor.DAL.Repositories
 {
     public class ImagesRepository : IImagesRepository
     {
-        private readonly IAppDbContext _context;
+        private readonly AppDbContext _context;
 
-        public ImagesRepository(IAppDbContext context)
+        public ImagesRepository(AppDbContext context)
         {
-            if (context == null)
-                throw new ArgumentNullException(nameof(context));
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public IQueryable<ImageFile> GetAllImages()
