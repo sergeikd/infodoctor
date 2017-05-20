@@ -51,12 +51,12 @@ namespace Infodoctor.Web.Controllers
         [AllowAnonymous]
         [Route("api/resort/search/{perPage:int}/{numPage:int}")]
         [HttpPost]
-        public DtoPagedResorts SearchClinic(int perPage, int numPage, [FromBody]DtoResortSearchModel searchModel)
+        public DtoPagedResorts SearchResort(int perPage, int numPage, [FromBody]DtoResortSearchModel searchModel)
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _config.PathToResortsImages;
-            var pagedClinic = _resort.SearchResorts(perPage, numPage, searchModel, pathToImage);
+            var pagedResorts = _resort.SearchResorts(perPage, numPage, searchModel, pathToImage);
 
-            return pagedClinic;
+            return pagedResorts;
         }
 
         // POST api/resort
