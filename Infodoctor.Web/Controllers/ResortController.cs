@@ -1,9 +1,9 @@
-﻿using Infodoctor.BL.DtoModels;
+﻿using System;
+using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
-using Infodoctor.Web.Infrastructure.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using Infodoctor.Web.Infrastructure;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -11,9 +11,9 @@ namespace Infodoctor.Web.Controllers
     public class ResortController : ApiController
     {
         private readonly IResortService _resort;
-        private readonly IConfigService _config;
+        private readonly ConfigService _config;
 
-        public ResortController(IResortService resort, IConfigService config)
+        public ResortController(IResortService resort, ConfigService config)
         {
             if (resort == null) throw new ArgumentNullException(nameof(resort));
             if (config == null) throw new ArgumentNullException(nameof(config));

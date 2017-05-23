@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
-using Infodoctor.Web.Infrastructure.Interfaces;
+using Infodoctor.Web.Infrastructure;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -11,15 +11,15 @@ namespace Infodoctor.Web.Controllers
     public class DoctorController : ApiController
     {
         private readonly IDoctorService _doctorService;
-        private readonly IConfigService _configService;
+        private readonly ConfigService _configService;
 
-        public DoctorController(IDoctorService doctorService, IConfigService configService)
+        public DoctorController(IDoctorService doctorService, ConfigService configService)
         {
-            if (doctorService == null)
-                throw new ArgumentNullException(nameof(doctorService));
             if (configService == null)
                 throw new ArgumentNullException(nameof(configService));
             _configService = configService;
+            if (doctorService == null)
+                throw new ArgumentNullException(nameof(doctorService));
             _doctorService = doctorService;
         }
 

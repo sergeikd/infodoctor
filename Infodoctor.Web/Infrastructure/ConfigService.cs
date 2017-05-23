@@ -3,7 +3,7 @@ using System.Configuration;
 
 namespace Infodoctor.Web.Infrastructure
 {
-    public class ConfigService : IConfigService
+    public class ConfigService// : IConfigService
     {
         public string PathToArticlesImages => ConfigurationManager.AppSettings["PathToArticlesImages"];
         public string PathToClinicsImages => ConfigurationManager.AppSettings["PathToClinicsImages"];

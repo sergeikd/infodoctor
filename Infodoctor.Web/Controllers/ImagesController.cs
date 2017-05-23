@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
-using Infodoctor.Web.Infrastructure.Interfaces;
+using Infodoctor.Web.Infrastructure;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -12,9 +12,9 @@ namespace Infodoctor.Web.Controllers
     public class ImagesController : ApiController
     {
         private readonly IImagesService _imagesService;
-        private readonly IConfigService _configService;
+        private readonly ConfigService _configService;
 
-        public ImagesController(IImagesService imagesService, IConfigService configService)
+        public ImagesController(IImagesService imagesService, ConfigService configService)
         {
             if (imagesService == null)
                 throw new ArgumentNullException(nameof(imagesService));

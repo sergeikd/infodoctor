@@ -6,7 +6,7 @@ using System.Web;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
 using Infodoctor.Domain.Entities;
-using Infodoctor.Web.Infrastructure.Interfaces;
+using Infodoctor.Web.Infrastructure;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -15,9 +15,9 @@ namespace Infodoctor.Web.Controllers
     {
         private readonly IArticlesService _articlesService;
         private readonly IImagesService _imagesService;
-        private readonly IConfigService _configService;
+        private readonly ConfigService _configService;
 
-        public ArticlesController(IArticlesService articlesService, IConfigService configService, IImagesService imagesService)
+        public ArticlesController(IArticlesService articlesService, ConfigService configService, IImagesService imagesService)
         {
             if (articlesService == null)
                 throw new ArgumentNullException(nameof(articlesService));

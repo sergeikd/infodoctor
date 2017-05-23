@@ -16,7 +16,7 @@ namespace Infodoctor.BL.Services
         private readonly ICitiesRepository _citiesRepository;
         private readonly IDoctorRepository _doctorRepository;
         private readonly IClinicSpecializationRepository _clinicSpecializationRepository;
-        readonly Random _rnd = new Random();
+        private readonly Random _rnd = new Random();
 
         public TestService (IClinicRepository clinicRepository, IClinicSpecializationRepository clinicSpecializationRepository, ICitiesRepository citiesRepository, IDoctorRepository doctorRepository)
         {
@@ -123,6 +123,16 @@ namespace Infodoctor.BL.Services
 
             //string filePath = Server.MapPath(Url.Content("~/Content/Images/Image.jpg"));
             return bitmap;
+        }
+
+        private string GetImageFileName()
+        {
+            return Guid.NewGuid().ToString().Replace("-", string.Empty) + ".jpg";
+        }
+
+        private void SaveImageToFile(Bitmap imageFile, string imageFolderPath, string pathToImage)
+        {
+            
         }
 
         public string Add(Bitmap imageFile, string imageFolderPath, string pathToImage, int maxImageWidth)

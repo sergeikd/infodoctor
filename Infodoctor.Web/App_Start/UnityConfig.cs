@@ -54,9 +54,10 @@ namespace Infodoctor.Web.App_Start
             container.RegisterType<ApplicationUserManager>();
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<AppDbContext>(new PerRequestLifetimeManager(), new InjectionConstructor());//for keep the same dbContext instance per request
+            container.RegisterType<ConfigService>(new InjectionConstructor());
 
             //register all your services and reps
-            container.RegisterType<IConfigService, ConfigService>();
+            //container.RegisterType<IConfigService, ConfigService>();
             container.RegisterType<IMailService, MailService>();
             container.RegisterType<ICountryRepository, CountryRepository>();
             container.RegisterType<ICountryService, CountryService>();

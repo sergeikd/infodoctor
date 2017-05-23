@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.Interfaces;
-using Infodoctor.Web.Infrastructure.Interfaces;
+using Infodoctor.Web.Infrastructure;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -10,9 +10,9 @@ namespace Infodoctor.Web.Controllers
     public class TestController : ApiController
     {
         private readonly ITestService _testService;
-        private readonly IConfigService _configService;
+        private readonly ConfigService _configService;
 
-        public TestController(ITestService testService, IConfigService configService)
+        public TestController(ITestService testService, ConfigService configService)
         {
             if (testService == null)
             {
