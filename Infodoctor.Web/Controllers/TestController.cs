@@ -27,11 +27,11 @@ namespace Infodoctor.Web.Controllers
         }
 
         [HttpGet]
-        [Route("api/test/add100clinics")]
+        [Route("api/test/add10clinics")]
         public IHttpActionResult Add100Clinics()
         {
-            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
-            _testService.Add100Clinics(pathToImage);
+            var pathToImage = _configService.PathToClinicsImages;
+            _testService.Add10Clinics(pathToImage, _configService.ImagesSizes);
             return Ok();
         }
         [HttpGet]

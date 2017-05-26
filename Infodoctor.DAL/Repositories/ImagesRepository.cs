@@ -19,9 +19,14 @@ namespace Infodoctor.DAL.Repositories
             return _context.Images;
         }
 
-        public ImageFile GetImageDyId(int id)
+        public ImageFile GetImageById(int id)
         {
             return _context.Images.First(img => img.Id == id);
+        }
+
+        public ImageFile GetImageByName(string name)
+        {
+            return _context.Images.First(img => img.Name == name);
         }
 
         public void Add(ImageFile artimg)

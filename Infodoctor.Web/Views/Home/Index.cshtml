@@ -34,7 +34,7 @@
     
     <input type="button" id="getPageClinicReviewsButton" value="GET page отзывы" />
     <input type="button" id="postClinicReviewButton" value="POST отзыв"/>
-    <input type="button" id="getAdd100Clinics" value="Add100Clinics" />
+    <input type="button" id="getAdd10Clinics" value="Add10Clinics" />
     <br />
     fast search:<input type="text" id="fastSeachTextBox" onkeyup="fastsearch()" />
     <br />
@@ -339,11 +339,11 @@
                 });
             });
 
-            $('#getAdd100Clinics').click(function (e) {
+            $('#getAdd10Clinics').click(function (e) {
                 e.preventDefault();
                 $.ajax({
                     type: 'GET',
-                    url: '/api/test/add100clinics',
+                    url: '/api/test/add10clinics',
                     beforeSend: function (xhr) {
                         var token = localStorage.getItem(tokenKey);
                         xhr.setRequestHeader("Authorization", "Bearer " + token);

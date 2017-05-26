@@ -129,8 +129,11 @@ namespace Infodoctor.Web
             List<ClinicAddress> clinicAddressList;
             List<City> citiesList;
             List<DoctorCategory> categoriesList;
+            List<ImageFile> imagesList;
             //List<ImageFile> imagesList;
-            dbInitializerExtention.PrepareLists(out clinicReviewList, out doctorReviewList, out clinicList, out doctorsList, out phonesList, out clinicAddressList, out citiesList, out categoriesList);
+            dbInitializerExtention.PrepareLists(out clinicReviewList, out doctorReviewList, out clinicList, out doctorsList, out phonesList, out clinicAddressList, 
+                out citiesList, out categoriesList, out imagesList);
+            context.Images.AddRange(imagesList);
             context.ClinicReviews.AddRange(clinicReviewList);
             context.DoctorReviews.AddRange(doctorReviewList);
             context.Сlinics.AddRange(clinicList);

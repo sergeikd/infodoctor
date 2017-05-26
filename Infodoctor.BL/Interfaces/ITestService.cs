@@ -1,11 +1,12 @@
-﻿using Infodoctor.Domain.Entities;
+﻿using System.Drawing;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Interfaces
 {
     public interface ITestService
     {
-        void Add100Clinics(string pathToImage);
-        void Add100Doctors();
+        void Add10Clinics(string pathToImage, Point[] imagesSizes);
+        void Add10Doctors();
         Clinic PrepareClinic();
     }
 }

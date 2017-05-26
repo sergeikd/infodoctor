@@ -11,7 +11,8 @@ namespace Infodoctor.BL.Interfaces
         DtoImage GetImageById(int id);
         string Add(HttpPostedFile imageFile, string imageFolderPath, string pathToImage, int maxImageWidth);
         void Update(int id, HttpPostedFile imageFile, string imageFolderPath, int maxImageWidth);
-        void Delete(int id);
-        bool ResizeImage(Image origImage, string fileName, string folderPath, int width);
+        void Delete(int id, string pathToImage);
+        bool ResizeImage(Image origImage, string fileName, string folderPath, int width, int height);
+        Image GetResizedImage(Image sourceImage, int width, int height);
     }
 }

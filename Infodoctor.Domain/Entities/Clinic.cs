@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infodoctor.Domain.Entities
 {
     public class Clinic
     {
         public int Id { get; set; }
-        public string ImageName { get; set; }
+        
         public string Name { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
@@ -14,6 +15,9 @@ namespace Infodoctor.Domain.Entities
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
         public bool Favorite { get; set; }
+        [ForeignKey("ImageFile")]
+        public virtual ICollection<int> ImageFileIds { get; set; }
+        //public virtual ICollection<ImageFile> ImageName { get; set; }
         public virtual ICollection<ClinicAddress> CityAddresses { get; set; }
         //public virtual ICollection<ClinicProfile> ClinicProfiles { get; set; }
         public virtual ICollection<ClinicSpecialization> ClinicSpecializations { get; set; }

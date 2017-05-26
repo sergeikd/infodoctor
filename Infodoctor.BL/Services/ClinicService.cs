@@ -14,9 +14,10 @@ namespace Infodoctor.BL.Services
         private readonly IClinicRepository _clinicRepository;
         private readonly IClinicReviewRepository _clinicReviewRepository;
         private readonly ISearchService _searchService;
+        private readonly IImagesService _imagesService;
 
         public ClinicService(IClinicRepository clinicRepository, IClinicReviewRepository clinicReviewRepository,
-            ISearchService searchService)
+            ISearchService searchService, IImagesService imagesService)
         {
             if (clinicRepository == null)
                 throw new ArgumentNullException(nameof(clinicRepository));
@@ -24,10 +25,13 @@ namespace Infodoctor.BL.Services
                 throw new ArgumentNullException(nameof(clinicReviewRepository));
             if (searchService == null)
                 throw new ArgumentNullException(nameof(searchService));
+            if (imagesService == null)
+                throw new ArgumentNullException(nameof(imagesService));
 
             _searchService = searchService;
             _clinicReviewRepository = clinicReviewRepository;
             _clinicRepository = clinicRepository;
+            _imagesService = imagesService;
         }
 
         public IEnumerable<DtoClinic> GetAllClinics(string pathToImage)
@@ -37,6 +41,8 @@ namespace Infodoctor.BL.Services
             var dtoClinicList = new List<DtoClinic>();
             foreach (var clinic in clinicList)
             {
+                //var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
+                var imagesList = clinic.ImageFileIds.Select(imageFileId => _imagesService.GetImageById(imageFileId)).Select(imageFile => imageFile.Name).ToList();
                 var dtoClinic = new DtoClinic
                 {
                     Id = clinic.Id,
@@ -49,7 +55,7 @@ namespace Infodoctor.BL.Services
                     RateAverage = clinic.RateAverage,
                     Favorite = clinic.Favorite,
                     ReviewCount = clinic.ClinicReviews.Count,
-                    Image = pathToImage + clinic.ImageName
+                    Images = imagesList
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
                 foreach (var clinicAddress in clinic.CityAddresses)
@@ -88,6 +94,8 @@ namespace Infodoctor.BL.Services
             {
                 throw new ApplicationException("Clinic not found");
             }
+            //var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
+            var imagesList = clinic.ImageFileIds.Select(imageFileId => _imagesService.GetImageById(imageFileId)).Select(imageFile => imageFile.Name).ToList();
             var dtoClinic = new DtoClinic
             {
                 Id = clinic.Id,
@@ -100,7 +108,7 @@ namespace Infodoctor.BL.Services
                 RateAverage = clinic.RateAverage,
                 Favorite = clinic.Favorite,
                 ReviewCount = clinic.ClinicReviews.Count,
-                Image = pathToImage + clinic.ImageName
+                Images = imagesList
             };
             var dtoClinicAddressList = new List<DtoAddress>();
             foreach (var clinicAddress in clinic.CityAddresses)
@@ -147,6 +155,8 @@ namespace Infodoctor.BL.Services
             var dtoClinicList = new List<DtoClinic>();
             foreach (var clinic in pagedList)
             {
+                //var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
+                var imagesList = clinic.ImageFileIds.Select(imageFileId => _imagesService.GetImageById(imageFileId)).Select(imageFile => imageFile.Name).ToList();
                 var dtoClinic = new DtoClinic
                 {
                     Id = clinic.Id,
@@ -159,7 +169,7 @@ namespace Infodoctor.BL.Services
                     RateAverage = clinic.RateAverage,
                     ReviewCount = clinic.ClinicReviews.Count,
                     Favorite = clinic.Favorite,
-                    Image = pathToImage + clinic.ImageName
+                    Images = imagesList
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
                 foreach (var clinicAddress in clinic.CityAddresses)
@@ -340,6 +350,8 @@ namespace Infodoctor.BL.Services
             var dtoClinicList = new List<DtoClinic>();
             foreach (var clinic in pagedList)
             {
+                //var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
+                var imagesList = clinic.ImageFileIds.Select(imageFileId => _imagesService.GetImageById(imageFileId)).Select(imageFile => imageFile.Name).ToList();
                 var dtoClinic = new DtoClinic
                 {
                     Id = clinic.Id,
@@ -351,7 +363,7 @@ namespace Infodoctor.BL.Services
                     RateQuality = clinic.RateQuality,
                     RateAverage = clinic.RateAverage,
                     Favorite = clinic.Favorite,
-                    Image = pathToImage + clinic.ImageName
+                    Images = imagesList
                 };
                 var dtoClinicAddressList = new List<DtoAddress>();
                 foreach (var clinicAddress in clinic.CityAddresses)

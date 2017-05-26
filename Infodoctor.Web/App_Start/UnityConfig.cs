@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
 using System.Web.Http;
 using Infodoctor.BL.Interfaces;
 using Infodoctor.BL.Services;
@@ -13,7 +12,6 @@ using Infodoctor.Web.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Infodoctor.Web.Infrastructure;
-using Infodoctor.Web.Infrastructure.Interfaces;
 
 namespace Infodoctor.Web.App_Start
 {
@@ -54,6 +52,7 @@ namespace Infodoctor.Web.App_Start
             container.RegisterType<ApplicationUserManager>();
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<AppDbContext>(new PerRequestLifetimeManager(), new InjectionConstructor());//for keep the same dbContext instance per request
+            //container.RegisterType<AppDbContext>(new InjectionConstructor());
             container.RegisterType<ConfigService>(new InjectionConstructor());
 
             //register all your services and reps
@@ -91,8 +90,6 @@ namespace Infodoctor.Web.App_Start
             container.RegisterType<IResortReviewRepository, ResortReviewRepository>();
             container.RegisterType<IResortReviewService, ResortReviewService>();
             container.RegisterType<ITestService, TestService>();
-
-            //container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new InjectionConstructor(typeof(AppDbContext)));
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 

@@ -8,8 +8,16 @@ namespace Infodoctor.Web
     public class DbInitializerExtention
     {
         internal void PrepareLists(out List<ClinicReview> clinicReviewList, out List<DoctorReview> doctorReviewList, out List<Clinic> clinicList, out List<Doctor> doctors,
-            out List<ClinicPhone> phonesList, out List<ClinicAddress> clinicAddressList, out List<City> citiesList, out List<DoctorCategory> categoriesList)
+            out List<ClinicPhone> phonesList, out List<ClinicAddress> clinicAddressList, out List<City> citiesList, out List<DoctorCategory> categoriesList, out List<ImageFile> imagesList)
         {
+            imagesList = new List<ImageFile>()
+            {
+                new ImageFile() {Name = "7cf505b425af4f4ab7293b3a74a3aa3d.jpg"},
+                new ImageFile() {Name = "973b8fff8ba24b6c88c24808b97bd13d.jpg"},
+                new ImageFile() {Name = "de0c4e3b3d6f479da03f0f337b65c417.jpg"},
+                new ImageFile() {Name = "df41387ab46b4241964b5d2663e3d843.jpg"},
+                new ImageFile() {Name = "242c4ff4f8454af5bca78b631209902a.jpg"},
+            };
             clinicReviewList = new List<ClinicReview>();
             var rnd = new Random();
             var ticks = DateTime.Now.Ticks - 100000000000000;
@@ -38,7 +46,8 @@ namespace Infodoctor.Web
 
             List<ClinicReview> clinicReviewSubList;
             clinicReviewSubList = clinicReviewList.Take(5).ToList();
-            var clinic1 = new Clinic()
+            
+           var clinic1 = new Clinic()
             {
                 Email = "info@nordin.by",
                 Name = "Медицинский центр Нордин",
@@ -47,11 +56,13 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = true,
-                ImageName = "7cf505b425af4f4ab7293b3a74a3aa3d.jpg"
-            };
+                //ImageName = new List<ImageFile>(){ imagesList[0] }
+                ImageFileIds = new List<int>() { imagesList[0].Id }
+           };
             clinic1.RateAverage = (clinic1.RatePrice + clinic1.RateQuality + clinic1.RatePoliteness) / 3;
 
             clinicReviewSubList = clinicReviewList.Skip(5).Take(5).ToList();
+           
             var clinic2 = new Clinic()
             {
                 Email = string.Empty,
@@ -61,7 +72,8 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = false,
-                ImageName = "973b8fff8ba24b6c88c24808b97bd13d.jpg"
+                //ImageName = new List<ImageFile>() { imagesList[1] }
+                ImageFileIds = new List<int>() { imagesList[0].Id }
             };
             clinic2.RateAverage = (clinic2.RatePrice + clinic2.RateQuality + clinic2.RatePoliteness) / 3;
 
@@ -76,7 +88,8 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = false,
-                ImageName = "de0c4e3b3d6f479da03f0f337b65c417.jpg"
+                //ImageName = new List<ImageFile>() { imagesList[2] }
+                ImageFileIds = new List<int>() { imagesList[0].Id }
             };
             clinic3.RateAverage = (clinic3.RatePrice + clinic3.RateQuality + clinic3.RatePoliteness) / 3;
 
@@ -91,7 +104,8 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = false,
-                ImageName = "df41387ab46b4241964b5d2663e3d843.jpg"
+                //ImageName = new List<ImageFile>() { imagesList[3] }
+                ImageFileIds = new List<int>() { imagesList[0].Id }
             };
             clinic4.RateAverage = (clinic4.RatePrice + clinic4.RateQuality + clinic4.RatePoliteness) / 3;
 
@@ -105,7 +119,8 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = false,
-                ImageName = "242c4ff4f8454af5bca78b631209902a.jpg"
+                //ImageName = new List<ImageFile>() { imagesList[4] }
+                ImageFileIds = new List<int>() { imagesList[0].Id }
             };
             clinic5.RateAverage = (clinic5.RatePrice + clinic5.RateQuality + clinic5.RatePoliteness) / 3;
             clinicList = new List<Clinic> { clinic1, clinic2, clinic3, clinic4, clinic5 };

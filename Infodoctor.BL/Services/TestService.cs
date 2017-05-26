@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Linq;
 using Infodoctor.BL.Interfaces;
@@ -16,34 +17,29 @@ namespace Infodoctor.BL.Services
         private readonly ICitiesRepository _citiesRepository;
         private readonly IDoctorRepository _doctorRepository;
         private readonly IClinicSpecializationRepository _clinicSpecializationRepository;
+        private readonly IImagesRepository _imagesRepository;
+        private readonly IImagesService _imagesService;
         private readonly Random _rnd = new Random();
 
-        public TestService (IClinicRepository clinicRepository, IClinicSpecializationRepository clinicSpecializationRepository, ICitiesRepository citiesRepository, IDoctorRepository doctorRepository)
+        public TestService (IClinicRepository clinicRepository, IClinicSpecializationRepository clinicSpecializationRepository, 
+            ICitiesRepository citiesRepository, IDoctorRepository doctorRepository, IImagesRepository imagesRepository, IImagesService imagesService)
         {
-            if (clinicRepository == null)
-                throw new ArgumentNullException(nameof(citiesRepository));
-            if (clinicSpecializationRepository == null)
-                throw new ArgumentNullException(nameof(clinicSpecializationRepository));
-            if (citiesRepository == null)
-                throw new ArgumentNullException(nameof(clinicRepository));
-            if (doctorRepository == null)
-                throw new ArgumentNullException(nameof(doctorRepository));
-
-            _citiesRepository = citiesRepository;
-            _clinicSpecializationRepository = clinicSpecializationRepository;
-            _doctorRepository = doctorRepository;
-            _clinicRepository = clinicRepository;
+            _citiesRepository = citiesRepository ?? throw new ArgumentNullException(nameof(clinicRepository));
+            _clinicSpecializationRepository = clinicSpecializationRepository ?? throw new ArgumentNullException(nameof(clinicSpecializationRepository));
+            _doctorRepository = doctorRepository ?? throw new ArgumentNullException(nameof(doctorRepository));
+            _clinicRepository = clinicRepository ?? throw new ArgumentNullException(nameof(citiesRepository));
+            _imagesRepository = imagesRepository ?? throw new ArgumentNullException(nameof(imagesRepository));
+            _imagesService = imagesService ?? throw new ArgumentNullException(nameof(imagesService));
         }
 
-        public void Add100Clinics(string pathToImage)
+        public void Add10Clinics(string pathToImageFolder, Point[] imagesSizes)
         {
             var clinic = new Clinic();
             var maxClinicId = _clinicRepository.GetAllСlinics().Max(r => r.Id);
             var clinicSpecializationList = _clinicSpecializationRepository.GetAllClinicSpecializations().ToList();
             var cityList = _citiesRepository.GetAllCities().ToList();
             var doctrorList = _doctorRepository.GetAllDoctors().ToList();
-            
-            for (var i = maxClinicId + 1; i <= maxClinicId + 101; i++)
+            for (var i = maxClinicId + 1; i <= maxClinicId + 11; i++)
             {
                 clinic.Name = "TestClinic" + i;
                 clinic.Email = "testclinic" + i + "@infodoctor.by";
@@ -64,11 +60,25 @@ namespace Infodoctor.BL.Services
                 }
                 clinic.ClinicSpecializations = clinicSpecializations.GroupBy(x => x.Id).Select(y => y.First()).ToList();
                 clinic.Favorite = i%10 == 0;
+
+                var imagesFileNameList = new List<ImageFile>();
+                for (var j = 0; j < 5; j++)
+                {
+                    var image = CreateBitmapImage(clinic.Name + "_" + j);
+                    var imagesList = GetResizedImages(image, imagesSizes);
+                    var imageFileName = GetImageFileName();
+                    var isSuccess = SaveImagesToFiles(imagesList, pathToImageFolder, imageFileName);
+                    if (isSuccess)
+                    {
+                        _imagesRepository.Add(new ImageFile(){Name = imageFileName });
+                        imagesFileNameList.Add(_imagesRepository.GetImageByName(imageFileName));
+                    }
+                }
+                //clinic.ImageName = imagesFileNameList;
                 _clinicRepository.Add(clinic);
-                CreateBitmapImage(clinic.Name, "");
             }
         }
-        public void Add100Doctors()
+        public void Add10Doctors()
         {
             var doctor = new Doctor();
             var maxDoctorId = _clinicRepository.GetAllСlinics().Max(r => r.Id);
@@ -90,14 +100,25 @@ namespace Infodoctor.BL.Services
             return clinic;
         }
 
-        private Bitmap CreateBitmapImage(string imageText, string path)
+        private List<Image> GetResizedImages(Image sourceFile, IEnumerable<Point> imagesSizes)
         {
-            var imageWidth = 960;
-            var imageHeight = 720;
+            var bitmapList = new List<Image>();
+            foreach (var imageSize in imagesSizes)
+            {
+                bitmapList.Add(_imagesService.GetResizedImage(sourceFile, imageSize.X, imageSize.Y));
+            }
+            
+            return bitmapList;
+        }
+
+        private static Bitmap CreateBitmapImage(string imageText)
+        {
+            var imageWidth = 1024;
+            var imageHeight = 768;
             var bitmap = new Bitmap(1, 1);
 
             // Создаем объект Font для "рисования" им текста.
-            var font = new Font("Arial", 20, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            var font = new Font("Arial", 72, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
 
             // Создаем объект Graphics для вычисления высоты и ширины текста.
             var graphics = Graphics.FromImage(bitmap);
@@ -113,7 +134,7 @@ namespace Infodoctor.BL.Services
             graphics = Graphics.FromImage(bitmap);
 
             // Задаем цвет фона.
-            graphics.Clear(Color.White);
+            graphics.Clear(Color.LightCyan);
             // Задаем параметры анти-алиасинга
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
@@ -125,39 +146,32 @@ namespace Infodoctor.BL.Services
             return bitmap;
         }
 
-        private string GetImageFileName()
+        private static string GetImageFileName()
         {
             return Guid.NewGuid().ToString().Replace("-", string.Empty) + ".jpg";
         }
 
-        private void SaveImageToFile(Bitmap imageFile, string imageFolderPath, string pathToImage)
+
+        public bool SaveImagesToFiles(List<Image> images, string pathToImageFolder, string imageFileName)
         {
-            
-        }
-
-        public string Add(Bitmap imageFile, string imageFolderPath, string pathToImage, int maxImageWidth)
-        {
-            if (imageFile == null)
-                throw new ArgumentNullException(nameof(imageFile));
-
-            var imgFileName = Guid.NewGuid().ToString().Replace("-", string.Empty) + ".jpg";
-            var filePath = AppDomain.CurrentDomain.BaseDirectory + imageFolderPath.Replace("~/", string.Empty).Replace("/", @"\") + imgFileName;
-            //var image = Image.FromStream(imageFile.InputStream, true, true);
-
-            //bool result = false;
-
-            //if (maxImageWidth == 0)
-            //    result = ResizeImage(image, imgFileName, imageFolderPath, image.Width);
-            //else
-            //    result = ResizeImage(image, imgFileName, imageFolderPath, maxImageWidth);
-
-
-            var img = new ImageFile() { Name = imgFileName, Path = filePath };
-
-            //if (result)
-            //    _imageRepository.Add(img);
-
-            return pathToImage + imgFileName;
+            if (!images.Any())
+                throw new ArgumentNullException(nameof(images));
+            var splittedFileName = imageFileName.Split('.');
+            var fileNameForLarge = splittedFileName[0] + "_large." + splittedFileName[1];
+            var fileNameForMedium = splittedFileName[0] + "_medum." + splittedFileName[1];
+            var fileNameForSmall = splittedFileName[0] + "_small." + splittedFileName[1];
+            var filePath = AppDomain.CurrentDomain.BaseDirectory + pathToImageFolder.Substring(1).Replace("/", @"\");
+            try
+            {
+                images[0].Save(filePath + fileNameForLarge, ImageFormat.Jpeg);
+                images[1].Save(filePath + fileNameForMedium, ImageFormat.Jpeg);
+                images[2].Save(filePath + fileNameForSmall, ImageFormat.Jpeg);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
     }
