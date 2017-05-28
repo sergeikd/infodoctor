@@ -34,32 +34,44 @@ namespace Infodoctor.BL.Services
 
         public void Add10Clinics(string pathToImageFolder, Point[] imagesSizes)
         {
-            var clinic = new Clinic();
+            var clinicList = new List<Clinic>();
             var maxClinicId = _clinicRepository.GetAllСlinics().Max(r => r.Id);
             var clinicSpecializationList = _clinicSpecializationRepository.GetAllClinicSpecializations().ToList();
             var cityList = _citiesRepository.GetAllCities().ToList();
             var doctrorList = _doctorRepository.GetAllDoctors().ToList();
             for (var i = maxClinicId + 1; i <= maxClinicId + 11; i++)
             {
-                clinic.Name = "TestClinic" + i;
-                clinic.Email = "testclinic" + i + "@infodoctor.by";
-                clinic.Site = "TestClinic" + i + ".by";
-                clinic.Doctors = new List<Doctor>() {doctrorList[i%doctrorList.Count]};
-                clinic.CityAddresses = new List<ClinicAddress>()
+                var clinic = new Clinic
                 {
-                    new ClinicAddress(){
-                        City = cityList[i % 5],
-                        Country = "TestCountry" + i,
-                        Street = "TestStreet" + i,
-                        Phones = new List<ClinicPhone>() { new ClinicPhone() {Description = "ClinicPhone" + i, Number = i + " 00 00"}
-                }}};
+                    Name = "TestClinic" + i,
+                    Email = "testclinic" + i + "@infodoctor.by",
+                    Site = "TestClinic" + i + ".by",
+                    Doctors = new List<Doctor>() {doctrorList[i % doctrorList.Count]},
+                    CityAddresses = new List<ClinicAddress>()
+                    {
+                        new ClinicAddress()
+                        {
+                            City = cityList[i % 5],
+                            Country = "TestCountry" + i,
+                            Street = "TestStreet" + i,
+                            Phones = new List<ClinicPhone>()
+                            {
+                                new ClinicPhone() {Description = "ClinicPhone" + i, Number = i + " 00 00"}
+                            }
+                        }
+                    }
+                };
                 var clinicSpecializations = new List<ClinicSpecialization>();
                 for (var j = 0; j < _rnd.Next(10); j++)
                 {
                     clinicSpecializations.Add(clinicSpecializationList[_rnd.Next(clinicSpecializationList.Count/5)]);
                 }
                 clinic.ClinicSpecializations = clinicSpecializations.GroupBy(x => x.Id).Select(y => y.First()).ToList();
-                clinic.Favorite = i%10 == 0;
+                clinic.Favorite = i%5 == 0;
+                clinic.RatePoliteness = _rnd.Next(3) + 3;
+                clinic.RatePrice = _rnd.Next(3) + 3;
+                clinic.RateQuality = _rnd.Next(3) + 3;
+                clinic.RateAverage = (clinic.RatePoliteness + clinic.RatePrice + clinic.RateQuality) / 3;
 
                 var imagesFileNameList = new List<ImageFile>();
                 for (var j = 0; j < 5; j++)
@@ -67,17 +79,17 @@ namespace Infodoctor.BL.Services
                     var image = CreateBitmapImage(clinic.Name + "_" + j);
                     var imagesList = GetResizedImages(image, imagesSizes);
                     var imageFileName = GetImageFileName();
-                    var isSuccess = SaveImagesToFiles(imagesList, pathToImageFolder, imageFileName);
+                    var isSuccess = SaveImagesToFiles(imagesList, pathToImageFolder, imageFileName); //TODO uncomment this after tests
                     if (isSuccess)
                     {
-                        _imagesRepository.Add(new ImageFile(){Name = imageFileName });
-                        imagesFileNameList.Add(_imagesRepository.GetImageByName(imageFileName));
+                        imagesFileNameList.Add(new ImageFile() { Name = imageFileName });
                     }
                 }
-                //clinic.ImageName = imagesFileNameList;
-                _clinicRepository.Add(clinic);
+                clinic.ImageName = imagesFileNameList;
             }
+            _clinicRepository.AddMany(clinicList);
         }
+
         public void Add10Doctors()
         {
             var doctor = new Doctor();
@@ -174,10 +186,6 @@ namespace Infodoctor.BL.Services
             }
         }
 
-    }
-
-    internal class CreateImage
-    {
         private Bitmap CreateBitmapImage(string imageText, string path)
         {
             var imageWidth = 960;
@@ -206,11 +214,12 @@ namespace Infodoctor.BL.Services
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
             // Пишем (рисуем) текст
-            graphics.DrawString(imageText, font, new SolidBrush(Color.FromArgb(0, 0, 0)), imageWidth/2 - textWidth/2, imageHeight/2 - textHeight/2);
+            graphics.DrawString(imageText, font, new SolidBrush(Color.FromArgb(0, 0, 0)), imageWidth / 2 - textWidth / 2, imageHeight / 2 - textHeight / 2);
             graphics.Flush();
 
             //string filePath = Server.MapPath(Url.Content("~/Content/Images/Image.jpg"));
             return bitmap;
         }
+
     }
 }

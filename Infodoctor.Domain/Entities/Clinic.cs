@@ -15,11 +15,8 @@ namespace Infodoctor.Domain.Entities
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
         public bool Favorite { get; set; }
-        [ForeignKey("ImageFile")]
-        public virtual ICollection<int> ImageFileIds { get; set; }
-        //public virtual ICollection<ImageFile> ImageName { get; set; }
+        public virtual ICollection<ImageFile> ImageName { get; set; }
         public virtual ICollection<ClinicAddress> CityAddresses { get; set; }
-        //public virtual ICollection<ClinicProfile> ClinicProfiles { get; set; }
         public virtual ICollection<ClinicSpecialization> ClinicSpecializations { get; set; }
         public virtual ICollection<Doctor> Doctors { get; set; }
         public virtual ICollection<ClinicReview> ClinicReviews { get; set; }

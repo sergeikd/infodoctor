@@ -1,5 +1,6 @@
 ﻿using Infodoctor.DAL.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
@@ -51,10 +52,16 @@ namespace Infodoctor.DAL.Repositories
 
         public void Add(Clinic clinic)
         {
+
             _context.Сlinics.Add(clinic);
             _context.SaveChanges();
         }
 
+        public void AddMany(IEnumerable<Clinic> clinics)
+        {
+            _context.Сlinics.AddRange(clinics);
+            _context.SaveChanges();
+        }
         public void Update(Clinic clinic)
         {
             var edited = _context.Сlinics.First(s => s.Id == clinic.Id);

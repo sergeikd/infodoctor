@@ -35,6 +35,7 @@ namespace Infodoctor.DAL.Repositories
             _context.SaveChanges();
         }
 
+
         public void Update(ImageFile artimg)
         {
             var edited = _context.Images.First(img => img.Id == artimg.Id);

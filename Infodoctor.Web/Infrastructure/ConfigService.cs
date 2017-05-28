@@ -10,12 +10,15 @@ namespace Infodoctor.Web.Infrastructure
         public string PathToClinicsImages => ConfigurationManager.AppSettings["PathToClinicsImages"];
         public string PathToResortsImages => ConfigurationManager.AppSettings["PathToResortsImages"];
         public string PathToDoctorsImages => ConfigurationManager.AppSettings["PathToDoctorsImages"];
+        #region first attempt to organize images sizes config
         //public int ImageWidthLarge => int.Parse(ConfigurationManager.AppSettings["ImageWidthLarge"]);
         //public int ImageHeightLarge => int.Parse(ConfigurationManager.AppSettings["ImageHeightLarge"]);
         //public int ImageWidthMedium => int.Parse(ConfigurationManager.AppSettings["ImageWidthMedium"]);
         //public int ImageHeightMedium => int.Parse(ConfigurationManager.AppSettings["ImageHeightMedium"]);
         //public int ImageWidthSmall => int.Parse(ConfigurationManager.AppSettings["ImageWidthSmall"]);
         //public int ImageHeightSmall => int.Parse(ConfigurationManager.AppSettings["ImageHeightSmall"]);
+        #endregion
+        //we use Point class just for store required images sizes
         public Point[] ImagesSizes = {
             new Point { X = int.Parse(ConfigurationManager.AppSettings["ImageWidthLarge"]), Y = int.Parse(ConfigurationManager.AppSettings["ImageHeightLarge"]) },
             new Point { X = int.Parse(ConfigurationManager.AppSettings["ImageWidthMedium"]), Y = int.Parse(ConfigurationManager.AppSettings["ImageHeightMedium"])},

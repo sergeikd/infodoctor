@@ -56,8 +56,7 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = true,
-                //ImageName = new List<ImageFile>(){ imagesList[0] }
-                ImageFileIds = new List<int>() { imagesList[0].Id }
+                ImageName = new List<ImageFile>(){ imagesList[0] }
            };
             clinic1.RateAverage = (clinic1.RatePrice + clinic1.RateQuality + clinic1.RatePoliteness) / 3;
 
@@ -72,8 +71,7 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = false,
-                //ImageName = new List<ImageFile>() { imagesList[1] }
-                ImageFileIds = new List<int>() { imagesList[0].Id }
+                ImageName = new List<ImageFile>() { imagesList[1] }
             };
             clinic2.RateAverage = (clinic2.RatePrice + clinic2.RateQuality + clinic2.RatePoliteness) / 3;
 
@@ -88,8 +86,7 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = false,
-                //ImageName = new List<ImageFile>() { imagesList[2] }
-                ImageFileIds = new List<int>() { imagesList[0].Id }
+                ImageName = new List<ImageFile>() { imagesList[2] }
             };
             clinic3.RateAverage = (clinic3.RatePrice + clinic3.RateQuality + clinic3.RatePoliteness) / 3;
 
@@ -104,8 +101,7 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = false,
-                //ImageName = new List<ImageFile>() { imagesList[3] }
-                ImageFileIds = new List<int>() { imagesList[0].Id }
+                ImageName = new List<ImageFile>() { imagesList[3] }
             };
             clinic4.RateAverage = (clinic4.RatePrice + clinic4.RateQuality + clinic4.RatePoliteness) / 3;
 
@@ -119,8 +115,8 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = false,
-                //ImageName = new List<ImageFile>() { imagesList[4] }
-                ImageFileIds = new List<int>() { imagesList[0].Id }
+                ImageName = new List<ImageFile>() { imagesList[4] }
+
             };
             clinic5.RateAverage = (clinic5.RatePrice + clinic5.RateQuality + clinic5.RatePoliteness) / 3;
             clinicList = new List<Clinic> { clinic1, clinic2, clinic3, clinic4, clinic5 };

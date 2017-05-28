@@ -132,16 +132,8 @@ namespace Infodoctor.BL.Services
                 cropRect = new Rectangle(0, (int) ((sourceImage.Height - heightNew)/2), sourceImage.Width, heightNew);
                 sourceImage = CropImage(sourceImage, cropRect);
             }
-            //var croppedImage = new Bitmap(cropRect.Width, cropRect.Height);
-            //if (requiredAspectRatio != imageAspectRatio)
-            //{
-            //    using (var g = Graphics.FromImage(croppedImage))
-            //    {
-            //        g.DrawImage(sourceImage, new Rectangle(0, 0, croppedImage.Width, croppedImage.Height), cropRect, GraphicsUnit.Pixel);
-            //    }
-            //    sourceImage = croppedImage;
-            //}
-            sourceImage.Save("c:\\testCrop.jpg", ImageFormat.Jpeg);//TODO delete it after test
+
+            //sourceImage.Save("c:\\testCrop.jpg", ImageFormat.Jpeg);//TODO delete it after test
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
 
@@ -162,7 +154,7 @@ namespace Infodoctor.BL.Services
                         wrapMode);
                 }
             }
-            destImage.Save("c:\\testResize.jpg", ImageFormat.Jpeg);//TODO delete it after test
+            //destImage.Save("c:\\testResize.jpg", ImageFormat.Jpeg);//TODO delete it after test
             return destImage;
         }
 
@@ -190,7 +182,7 @@ namespace Infodoctor.BL.Services
             {
                 graphics.CompositingMode = CompositingMode.SourceCopy;
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.InterpolationMode = InterpolationMode.High;
                 graphics.SmoothingMode = SmoothingMode.HighQuality;
                 graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 

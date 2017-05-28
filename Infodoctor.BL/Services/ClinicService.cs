@@ -41,8 +41,7 @@ namespace Infodoctor.BL.Services
             var dtoClinicList = new List<DtoClinic>();
             foreach (var clinic in clinicList)
             {
-                //var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
-                var imagesList = clinic.ImageFileIds.Select(imageFileId => _imagesService.GetImageById(imageFileId)).Select(imageFile => imageFile.Name).ToList();
+                var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
                 var dtoClinic = new DtoClinic
                 {
                     Id = clinic.Id,
@@ -94,8 +93,7 @@ namespace Infodoctor.BL.Services
             {
                 throw new ApplicationException("Clinic not found");
             }
-            //var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
-            var imagesList = clinic.ImageFileIds.Select(imageFileId => _imagesService.GetImageById(imageFileId)).Select(imageFile => imageFile.Name).ToList();
+            var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
             var dtoClinic = new DtoClinic
             {
                 Id = clinic.Id,
@@ -155,8 +153,7 @@ namespace Infodoctor.BL.Services
             var dtoClinicList = new List<DtoClinic>();
             foreach (var clinic in pagedList)
             {
-                //var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
-                var imagesList = clinic.ImageFileIds.Select(imageFileId => _imagesService.GetImageById(imageFileId)).Select(imageFile => imageFile.Name).ToList();
+                var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
                 var dtoClinic = new DtoClinic
                 {
                     Id = clinic.Id,
@@ -350,8 +347,7 @@ namespace Infodoctor.BL.Services
             var dtoClinicList = new List<DtoClinic>();
             foreach (var clinic in pagedList)
             {
-                //var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
-                var imagesList = clinic.ImageFileIds.Select(imageFileId => _imagesService.GetImageById(imageFileId)).Select(imageFile => imageFile.Name).ToList();
+                var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
                 var dtoClinic = new DtoClinic
                 {
                     Id = clinic.Id,
