@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
 using Infodoctor.DAL.Interfaces;
-using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Services
 {
@@ -19,63 +17,93 @@ namespace Infodoctor.BL.Services
             _citiesRepository = citiesRepository;
         }
 
-        public IEnumerable<DtoCity> GetAllCities()
+        public IEnumerable<DtoCity> GetAllCities(string lang)
         {
             var cities = _citiesRepository.GetAllCities();
             var dtoCities = new List<DtoCity>();
 
             foreach (var city in cities)
             {
-                var newDtoCity = new DtoCity() { Id = city.Id, Name = city.Name };
-                dtoCities.Add(newDtoCity);
+                var dtoLocalizedCities = new List<LocalizedDtoCity>();
+                foreach (var cityLocalisedCity in city.LocalisedCities)
+                {
+                    dtoLocalizedCities.Add(new LocalizedDtoCity()
+                    {
+                        Id = cityLocalisedCity.Id,
+                        Name = cityLocalisedCity.Name,
+                        LangCode = cityLocalisedCity.Language.Code
+                    });
+                }
+
+                dtoCities.Add(new DtoCity() { Id = city.Id, LocalizedDtoCity = dtoLocalizedCities });
             }
 
             return dtoCities;
         }
 
-        public IEnumerable<DtoCity> GetCitiesWithClinics()
+        public IEnumerable<DtoCity> GetCitiesWithClinics(string lang)
         {
             var cities = _citiesRepository.GetAllCitiesWithClinics();
-            var filtredCities = new List<DtoCity>();
+            var dtoCities = new List<DtoCity>();
 
             foreach (var city in cities)
             {
-                filtredCities.Add(new DtoCity() { Id = city.Id, Name = city.Name });
+                var dtoLocalizedCities = new List<LocalizedDtoCity>();
+                foreach (var cityLocalisedCity in city.LocalisedCities)
+                {
+                    dtoLocalizedCities.Add(new LocalizedDtoCity()
+                    {
+                        Id = cityLocalisedCity.Id,
+                        Name = cityLocalisedCity.Name,
+                        LangCode = cityLocalisedCity.Language.Code
+                    });
+                }
+
+                dtoCities.Add(new DtoCity() { Id = city.Id, LocalizedDtoCity = dtoLocalizedCities });
             }
 
-            return filtredCities;
+            return dtoCities;
         }
 
-        public DtoCity GetCityById(int id)
+        public DtoCity GetCityById(int id, string lang)
         {
             var city = _citiesRepository.GetCityById(id);
-            var dtoCity = new DtoCity() { Id = city.Id, Name = city.Name };
+            var dtoLocalizedCities = new List<LocalizedDtoCity>();
+            foreach (var cityLocalisedCity in city.LocalisedCities)
+            {
+                dtoLocalizedCities.Add(new LocalizedDtoCity()
+                {
+                    Id = cityLocalisedCity.Id,
+                    Name = cityLocalisedCity.Name,
+                    LangCode = cityLocalisedCity.Language.Code
+                });
+            }
+
+            var dtoCity = new DtoCity() { Id = city.Id, LocalizedDtoCity = dtoLocalizedCities };
             return dtoCity;
         }
 
-        public void Add(string name)
+        public void Add(string name, string lang)
         {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException(nameof(name));
-            _citiesRepository.Add(new City { Name = name });
-
-            //var city = new City { Name = name };
-            //if (IsNewElement(city))
-            //    _citiesRepository.Add(city);
+            //if (string.IsNullOrEmpty(name))
+            //    throw new ArgumentNullException(nameof(name));
+            //_citiesRepository.Add(new City {  });
         }
 
-        public void Update(int id, string name)
+        public void Update(int id, string name, string lang)
         {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException(nameof(name));
-            var updated = _citiesRepository.GetCityById(id);
-            if (updated != null)
-            {
-                updated.Name = name;
-                _citiesRepository.Update(updated);
-                //if (IsNewElement(updated))
-                //    _citiesRepository.Update(updated);
-            }
+            //if (string.IsNullOrEmpty(name))
+            //    throw new ArgumentNullException(nameof(name));
+            //var updated = _citiesRepository.GetCityById(id);
+            //if (updated != null)
+            //{
+            //    for (var i = 0; i < updated.LocalisedCities.Count; i++)
+
+            //        if (updated.LocalisedCities.ToArray()[i].Language.Code.ToLower() == lang.ToLower())
+            //            updated.LocalisedCities.ToArray()[i].Name = name;
+
+            //    _citiesRepository.Update(updated);
+            //}
         }
 
         public void Delete(int id)
@@ -83,15 +111,6 @@ namespace Infodoctor.BL.Services
             var city = _citiesRepository.GetCityById(id);
             if (city != null)
                 _citiesRepository.Delete(city);
-        }
-
-        private bool IsNewElement(City city)
-        {
-            var cities = _citiesRepository.GetAllCities().ToList();
-            foreach (var element in cities)
-                if (element.Name.ToUpper() == city.Name.ToUpper() && element.Id != city.Id)
-                    return false;
-            return true;
         }
     }
 }

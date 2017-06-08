@@ -24,40 +24,40 @@ namespace Infodoctor.Web.Controllers
 
         // GET: api/Clinic
         [AllowAnonymous]
-        public IEnumerable<DtoClinic> Get()
+        public IEnumerable<DtoClinic> Get(string lang = "ru")
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
-            return _clinicService.GetAllClinics(pathToImage);
+            return _clinicService.GetAllClinics(pathToImage, lang);
         }
 
         // GET: api/Clinic/page/perPage/numPage
         [AllowAnonymous]
         [Route("api/Clinic/page/{perPage:int}/{numPage:int}")]
         [HttpGet]
-        public DtoPagedClinic GetPage(int perPage, int numPage)
+        public DtoPagedClinic GetPage(int perPage, int numPage, string lang = "ru")
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
-            return _clinicService.GetPagedClinics(perPage, numPage, pathToImage);
+            return _clinicService.GetPagedClinics(perPage, numPage, pathToImage, lang);
         }
 
         // api/clinic/search/perPage/numPage
         [AllowAnonymous]
         [Route("api/clinic/search/{perPage:int}/{numPage:int}")]
         [HttpPost]
-        public DtoPagedClinic SearchClinic(int perPage, int numPage, [FromBody]DtoClinicSearchModel searchModel)
+        public DtoPagedClinic SearchClinic(int perPage, int numPage, [FromBody]DtoClinicSearchModel searchModel, string lang = "ru")
         {
             var  pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
-            var pagedClinic = _clinicService.SearchClinics(perPage, numPage, searchModel, pathToImage);
+            var pagedClinic = _clinicService.SearchClinics(perPage, numPage, searchModel, pathToImage,lang);
 
             return pagedClinic;
         }
 
         // GET: api/Clinic/5 
         [AllowAnonymous]
-        public DtoClinic Get(int id)
+        public DtoClinic Get(int id, string lang = "ru")
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
-            return _clinicService.GetClinicById(id, pathToImage);
+            return _clinicService.GetClinicById(id, pathToImage,lang);
         }
 
         // POST: api/Clinic

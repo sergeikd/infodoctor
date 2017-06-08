@@ -5,8 +5,15 @@ namespace Infodoctor.Domain.Entities
     public class ClinicSpecialization
     {
         public int Id { get; set; }
+        public virtual ICollection<LocalizedClinicSpecialization> LocalizedClinicSpecializations { get; set; }
+        public virtual ICollection<DoctorSpecialization> DoctorSpecializations { get; set; }
+        public virtual ICollection<Clinic> Clinics { get; set; }
+    }
+
+    public class LocalizedClinicSpecialization
+    {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<DoctorSpecialization> DoctorSpecializations { get; set; }
-        public ICollection<Clinic> Clinics { get; set; }
+        public virtual Language Language { get; set; }
     }
 }

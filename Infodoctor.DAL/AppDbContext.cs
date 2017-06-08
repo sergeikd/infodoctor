@@ -14,10 +14,15 @@ namespace Infodoctor.DAL
         public DbSet<Language> Languages { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Clinic> Сlinics { get; set; }
-        public DbSet<ClinicPhone> ClinicPhones { get; set; }
+        public DbSet<LocalizedClinic> LocalizedClinic { get; set; }
         public DbSet<ClinicAddress> CityAddresses { get; set; }
+        public DbSet<ClinicAddress> LocalizedClinicAddress { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<LocalisedCity> LocalisedCity { get; set; }
+        public DbSet<ClinicPhone> ClinicPhones { get; set; }
+        public DbSet<LocalizedClinicPhone> LocalizedClinicPhone { get; set; }
         public DbSet<ClinicSpecialization> ClinicSpecializations { get; set; }
+        public DbSet<LocalizedClinicSpecialization> LocalizedClinicSpecialization { get; set; }
         public DbSet<OwnerShip> OwnerShips { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<ArticleComment> ArticleComments { get; set; }
