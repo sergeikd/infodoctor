@@ -70,6 +70,7 @@
     <Compile Include="Interfaces\IArticleThemesRepository.cs" />
     <Compile Include="Interfaces\IClinicSpecializationRepository.cs" />
     <Compile Include="Interfaces\ICountryRepository.cs" />
+    <Compile Include="Interfaces\ILanguageRepository.cs" />
     <Compile Include="Interfaces\IOwnerShipsRepository.cs" />
     <Compile Include="Interfaces\IClinicRepository.cs" />
     <Compile Include="Interfaces\IResortRepository.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Repositories\ArticleThemesRepository.cs" />
     <Compile Include="Repositories\ClinicSpecializationRepository.cs" />
     <Compile Include="Repositories\CountryRepository.cs" />
+    <Compile Include="Repositories\LanguageRepository.cs" />
     <Compile Include="Repositories\OwnerShipsRepository.cs" />
     <Compile Include="Repositories\ClinicRepository.cs" />
     <Compile Include="Repositories\ResortRepository.cs" />

@@ -262,6 +262,7 @@
     <Compile Include="Controllers\DoctorSpecializationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
+    <Compile Include="Controllers\LanguagesController.cs" />
     <Compile Include="Controllers\ResortController.cs" />
     <Compile Include="Controllers\ResortReviewController.cs" />
     <Compile Include="Controllers\SearchController.cs" />

@@ -1,16 +1,17 @@
 ﻿using System.Data.Entity;
-using Infodoctor.DAL.Interfaces;
 using Infodoctor.Domain.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Infodoctor.DAL
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser> 
-        {
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
+    {
         public AppDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        public DbSet<Language> Languages { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Clinic> Сlinics { get; set; }
         public DbSet<ClinicPhone> ClinicPhones { get; set; }

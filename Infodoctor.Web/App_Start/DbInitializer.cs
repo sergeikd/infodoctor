@@ -15,6 +15,15 @@ namespace Infodoctor.Web
     {
         protected override void Seed(AppDbContext context)
         {
+            var langs = new List<Language>()
+            {
+                new Language(){Name = "Russian", Code = "ru"},
+                new Language(){Name = "English", Code = "en"},
+                new Language(){Name = "Deutsch", Code = "de"}
+            };
+
+            context.Languages.AddRange(langs);
+
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
@@ -131,7 +140,7 @@ namespace Infodoctor.Web
             List<DoctorCategory> categoriesList;
             List<ImageFile> imagesList;
             //List<ImageFile> imagesList;
-            dbInitializerExtention.PrepareLists(out clinicReviewList, out doctorReviewList, out clinicList, out doctorsList, out phonesList, out clinicAddressList, 
+            dbInitializerExtention.PrepareLists(out clinicReviewList, out doctorReviewList, out clinicList, out doctorsList, out phonesList, out clinicAddressList,
                 out citiesList, out categoriesList, out imagesList);
             context.Images.AddRange(imagesList);
             context.ClinicReviews.AddRange(clinicReviewList);

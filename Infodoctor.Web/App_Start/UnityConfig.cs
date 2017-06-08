@@ -58,6 +58,8 @@ namespace Infodoctor.Web.App_Start
             //register all your services and reps
             //container.RegisterType<IConfigService, ConfigService>();
             container.RegisterType<IMailService, MailService>();
+            container.RegisterType<ILanguageRepository, LanguageRepository>();
+            container.RegisterType<ILanguageService, LanguageService>();
             container.RegisterType<ICountryRepository, CountryRepository>();
             container.RegisterType<ICountryService, CountryService>();
             container.RegisterType<IClinicSpecializationRepository, ClinicSpecializationRepository>();

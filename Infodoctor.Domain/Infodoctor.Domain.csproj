@@ -84,6 +84,7 @@
     <Compile Include="Entities\ClinicProfile.cs" />
     <Compile Include="Entities\ClinicSpecialization.cs" />
     <Compile Include="Entities\Country.cs" />
+    <Compile Include="Entities\Language.cs" />
     <Compile Include="Entities\OwnerShip.cs" />
     <Compile Include="Entities\Resort.cs" />
     <Compile Include="Entities\Review.cs" />

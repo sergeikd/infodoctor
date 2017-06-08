@@ -11,7 +11,7 @@ namespace Infodoctor.Web
     {
         protected void Application_Start()
         {
-            Database.SetInitializer<AppDbContext>(new AppDbInitializer());
+            //Database.SetInitializer<AppDbContext>(new AppDbInitializer());
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
