@@ -43,46 +43,47 @@ namespace Infodoctor.BL.Services
 
         public void RefreshCache()
         {
-            var clinics = _clinicRepository.GetAllСlinics();
-            var clinicSpecializations = _clinicSpecializationRepository.GetAllClinicSpecializations();
-            var doctors = _doctorRepository.GetAllDoctors();
-            var doctorSpecializations = _doctorSpecializationRepository.GetAllSpecializations();
-            var resorts = _resortRepository.GetAllResorts();
+            // Todo : update search
+        //    var clinics = _clinicRepository.GetAllСlinics();
+        //    var clinicSpecializations = _clinicSpecializationRepository.GetAllClinicSpecializations();
+        //    var doctors = _doctorRepository.GetAllDoctors();
+        //    var doctorSpecializations = _doctorSpecializationRepository.GetAllSpecializations();
+        //    var resorts = _resortRepository.GetAllResorts();
 
-            var clinicsList = new List<string>();
-            var specsList = new List<string>();
-            var doctorsList = new List<string>();
-            var doctorsSpecsList = new List<string>();
-            var resortsList = new List<string>();
+        //    var clinicsList = new List<string>();
+        //    var specsList = new List<string>();
+        //    var doctorsList = new List<string>();
+        //    var doctorsSpecsList = new List<string>();
+        //    var resortsList = new List<string>();
 
-            foreach (var clinic in clinics)
-                clinicsList.Add(clinic.Name);
+        //    foreach (var clinic in clinics)
+        //        clinicsList.Add(clinic.Name);
 
-            foreach (var cs in clinicSpecializations)
-                specsList.Add(cs.Name);
+        //    foreach (var cs in clinicSpecializations)
+        //        specsList.Add(cs.Name);
 
-            foreach (var doctor in doctors)
-            {
-                doctorsList.Add(doctor.Name);
-                doctorsList.Add(doctor.Manipulation);
-            }
+        //    foreach (var doctor in doctors)
+        //    {
+        //        doctorsList.Add(doctor.Name);
+        //        doctorsList.Add(doctor.Manipulation);
+        //    }
 
-            foreach (var resort in resorts)
-            {
-                resortsList.Add(resort.Name);
-                resortsList.Add(resort.Specialisations);
-            }
+        //    foreach (var resort in resorts)
+        //    {
+        //        resortsList.Add(resort.Name);
+        //        resortsList.Add(resort.Specialisations);
+        //    }
 
-            foreach (var ds in doctorSpecializations)
-                doctorsSpecsList.Add(ds.Name);
+        //    foreach (var ds in doctorSpecializations)
+        //        doctorsSpecsList.Add(ds.Name);
 
-            VirtualClinicsAndSpecialisationsCache = clinicsList;
-            VirtualClinicsAndSpecialisationsCache.AddRange(specsList);
+        //    VirtualClinicsAndSpecialisationsCache = clinicsList;
+        //    VirtualClinicsAndSpecialisationsCache.AddRange(specsList);
 
-            VirtualDoctorsCache = doctorsList;
-            VirtualDoctorsCache.AddRange(doctorsSpecsList);
+        //    VirtualDoctorsCache = doctorsList;
+        //    VirtualDoctorsCache.AddRange(doctorsSpecsList);
 
-            VirtualResortCache = resortsList;
+        //    VirtualResortCache = resortsList;
         }
 
         private static bool IsVirtualCachesFull()

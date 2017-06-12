@@ -30,7 +30,7 @@ namespace Infodoctor.BL.DtoModels
     public class DtoAddress
     {
         public int Id { get; set; }
-        public List<DtoPhone> ClinicPhones { get; set; }
+        public List<DtoPhone> Phones { get; set; }
         public List<LocalizedDtoAddress> LocalizedDtoAddresses { get; set; }
     }
 

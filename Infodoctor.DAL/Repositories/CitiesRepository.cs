@@ -31,11 +31,8 @@ namespace Infodoctor.DAL.Repositories
 
         public void Add(City city)
         {
-            if (!_context.Cities.Any(x => x.Name == city.Name))
-            {
                 _context.Cities.Add(city);
                 _context.SaveChanges();
-            }
         }
 
         public void Update(City city)

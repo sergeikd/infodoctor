@@ -140,7 +140,7 @@ namespace Infodoctor.Web
             context.Сlinics.AddRange(clinicList);
             context.Doctors.AddRange(doctorsList);
             context.ClinicPhones.AddRange(phonesList);
-            context.CityAddresses.AddRange(clinicAddressList);
+            context.ClinicAddresses.AddRange(clinicAddressList);
             context.Cities.AddRange(citiesList);
             context.DoctorCategories.AddRange(categoriesList);
             context.Languages.AddRange(langs);
@@ -157,7 +157,8 @@ namespace Infodoctor.Web
             var doc004 = doctorsList[3];
             var doc005 = doctorsList[4];
 
-            #region Список специализаций врачей
+            #region Новый список специализаций врачей
+            /*
             var dp059 = new DoctorSpecialization()
             {
                 LocalizedDoctorSpecializations = new List<LocalizedDoctorSpecialization>()
@@ -889,7 +890,79 @@ namespace Infodoctor.Web
                     }
                 }
             };
+             */
             #endregion
+
+            #region Старый список специализаций врачей
+            var dp059 = new DoctorSpecialization() { Name = "Аллерголог", Doctors = new List<Doctor> { doc002 } };
+            var dp148 = new DoctorSpecialization() { Name = "Аллерголог детский", Doctors = new List<Doctor> { doc003 } };
+            var dp273 = new DoctorSpecialization() { Name = "Ангиохирург" };
+            var dp340 = new DoctorSpecialization() { Name = "Андролог" };
+            var dp411 = new DoctorSpecialization() { Name = "Анестезиолог" };
+            var dp595 = new DoctorSpecialization() { Name = "Гастроэнтеролог" };
+            var dp629 = new DoctorSpecialization() { Name = "Гастроэнтеролог детский" };
+            var dp720 = new DoctorSpecialization() { Name = "Гинеколог" };
+            var dp848 = new DoctorSpecialization() { Name = "Гинеколог детский" };
+            var dp928 = new DoctorSpecialization() { Name = "Гинеколог-эндокринолог" };
+            var dp1010 = new DoctorSpecialization() { Name = "Дерматолог" };
+            var dp1125 = new DoctorSpecialization() { Name = "Иглорефлексотерапевт" };
+            var dp1246 = new DoctorSpecialization() { Name = "Иммунолог" };
+            var dp1367 = new DoctorSpecialization() { Name = "Кардиолог" };
+            var dp1460 = new DoctorSpecialization() { Name = "Кардиолог детский" };
+            var dp1567 = new DoctorSpecialization() { Name = "Кардио-ревматолог детский" };
+            var dp168 = new DoctorSpecialization() { Name = "Косметолог" };
+            var dp1768 = new DoctorSpecialization() { Name = "Логопед" };
+            var dp188 = new DoctorSpecialization() { Name = "Маммолог" };
+            var dp1911 = new DoctorSpecialization() { Name = "Массажист", Doctors = new List<Doctor> { doc001 } };
+            var dp2087 = new DoctorSpecialization() { Name = "Нарколог" };
+            var dp2144 = new DoctorSpecialization() { Name = "Невролог" };
+            var dp2257 = new DoctorSpecialization() { Name = "Невролог детский" };
+            var dp2393 = new DoctorSpecialization() { Name = "Нейроофтальмология" };
+            var dp2472 = new DoctorSpecialization() { Name = "Нефролог" };
+            var dp2595 = new DoctorSpecialization() { Name = "Нефролог детский" };
+            var dp2654 = new DoctorSpecialization() { Name = "Онколог", Doctors = new List<Doctor> { doc004 } };
+            var dp2758 = new DoctorSpecialization() { Name = "Онколог детский" };
+            var dp2833 = new DoctorSpecialization() { Name = "Ортопед" };
+            var dp2998 = new DoctorSpecialization() { Name = "Оториноларинголог (ЛОР)" };
+            var dp3027 = new DoctorSpecialization() { Name = "Оториноларинголог (ЛОР) детский" };
+            var dp3164 = new DoctorSpecialization() { Name = "Офтальмолог" };
+            var dp320 = new DoctorSpecialization() { Name = "Офтальмолог детский" };
+            var dp3318 = new DoctorSpecialization() { Name = "Офтальмолог-эндокринолог" };
+            var dp3462 = new DoctorSpecialization() { Name = "Педиатр", Doctors = new List<Doctor> { doc005 } };
+            var dp3519 = new DoctorSpecialization() { Name = "Проктолог" };
+            var dp3656 = new DoctorSpecialization() { Name = "Психиатр" };
+            var dp3767 = new DoctorSpecialization() { Name = "Психолог" };
+            var dp386 = new DoctorSpecialization() { Name = "Психотерапевт" };
+            var dp3922 = new DoctorSpecialization() { Name = "Пульмонолог" };
+            var dp4019 = new DoctorSpecialization() { Name = "Реабилитолог" };
+            var dp4180 = new DoctorSpecialization() { Name = "Реаниматолог" };
+            var dp4251 = new DoctorSpecialization() { Name = "Ревматолог" };
+            var dp4351 = new DoctorSpecialization() { Name = "Рентгенолог" };
+            var dp4463 = new DoctorSpecialization() { Name = "Репродуктолог" };
+            var dp4557 = new DoctorSpecialization() { Name = "Рефлексотерапевт" };
+            var dp4698 = new DoctorSpecialization() { Name = "Сексолог" };
+            var dp4751 = new DoctorSpecialization() { Name = "Стоматолог" };
+            var dp4813 = new DoctorSpecialization() { Name = "Стоматолог детский" };
+            var dp4935 = new DoctorSpecialization() { Name = "Стоматолог-ортодонт" };
+            var dp5029 = new DoctorSpecialization() { Name = "Стоматолог-ортопед" };
+            var dp514 = new DoctorSpecialization() { Name = "Стоматолог-терапевт" };
+            var dp5288 = new DoctorSpecialization() { Name = "Стоматолог-хирург" };
+            var dp5385 = new DoctorSpecialization() { Name = "Терапевт" };
+            var dp5489 = new DoctorSpecialization() { Name = "Травматолог-ортопед" };
+            var dp5515 = new DoctorSpecialization() { Name = "Травматолог-ортопед детский" };
+            var dp5691 = new DoctorSpecialization() { Name = "Трихолог" };
+            var dp5779 = new DoctorSpecialization() { Name = "Уролог" };
+            var dp5867 = new DoctorSpecialization() { Name = "Уролог детский" };
+            var dp5915 = new DoctorSpecialization() { Name = "Физиотерапевт" };
+            var dp6041 = new DoctorSpecialization() { Name = "Флеболог" };
+            var dp6171 = new DoctorSpecialization() { Name = "Хирург" };
+            var dp6287 = new DoctorSpecialization() { Name = "Хирург детский" };
+            var dp6349 = new DoctorSpecialization() { Name = "Хирург пластический" };
+            var dp641 = new DoctorSpecialization() { Name = "Эндокринолог" };
+            var dp6546 = new DoctorSpecialization() { Name = "Эндокринолог детский" };
+            #endregion
+
+
             var doctorSpecialization = new List<DoctorSpecialization>()
             {
                 dp059, dp148, dp273, dp340, dp411, dp595, dp629, dp720, dp848, dp928, dp1010, dp1125, dp1246, dp1367, dp1460, dp1567, dp168, dp1768, dp188, dp1911, dp2087,
@@ -1835,7 +1908,7 @@ namespace Infodoctor.Web
             //{
             //    var clinic = new Clinic()
             //    {
-            //        CityAddresses = new List<Address>() { new Address() { City = citiesList[i % 5] } },
+            //        ClinicAddresses = new List<Address>() { new Address() { City = citiesList[i % 5] } },
             //        Name = "Test" + i,
             //        ClinicSpecializations = new List<ClinicSpecialization>() { new ClinicSpecialization() { Name = specializationList[i % 3].Name } }
             //    };
@@ -1845,7 +1918,7 @@ namespace Infodoctor.Web
             //{
             //    var clinic = new Clinic()
             //    {
-            //        CityAddresses = new List<Address>() { new Address () {City = citiesList[i%5]} },
+            //        ClinicAddresses = new List<Address>() { new Address () {City = citiesList[i%5]} },
             //        Name = "Test" + i,
             //        ClinicSpecializations = new List<ClinicSpecialization>(){ new ClinicSpecialization() { Name = specializationList[i%3].Name } },
             //        RatePoliteness = rnd.Next(5) + 1,

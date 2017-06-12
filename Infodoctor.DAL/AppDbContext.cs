@@ -15,8 +15,8 @@ namespace Infodoctor.DAL
         public DbSet<Country> Countries { get; set; }
         public DbSet<Clinic> Сlinics { get; set; }
         public DbSet<LocalizedClinic> LocalizedClinic { get; set; }
-        public DbSet<ClinicAddress> CityAddresses { get; set; }
-        public DbSet<ClinicAddress> LocalizedClinicAddress { get; set; }
+        public DbSet<ClinicAddress> ClinicAddresses { get; set; }
+        public DbSet<LocalizedClinicAddress> LocalizedClinicAddress { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<LocalisedCity> LocalisedCity { get; set; }
         public DbSet<ClinicPhone> ClinicPhones { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
 using Infodoctor.DAL.Interfaces;
@@ -19,7 +20,7 @@ namespace Infodoctor.BL.Services
 
         public IEnumerable<DtoCity> GetAllCities(string lang)
         {
-            var cities = _citiesRepository.GetAllCities();
+            var cities = _citiesRepository.GetAllCities().ToList();
             var dtoCities = new List<DtoCity>();
 
             foreach (var city in cities)

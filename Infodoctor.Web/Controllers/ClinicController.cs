@@ -11,7 +11,7 @@ namespace Infodoctor.Web.Controllers
     public class ClinicController : ApiController
     {
         private readonly IClinicService _clinicService;
-        private readonly ConfigService _configService;    
+        private readonly ConfigService _configService;
         public ClinicController(IClinicService clinicService, ConfigService configService)
         {
             if (clinicService == null)
@@ -24,40 +24,56 @@ namespace Infodoctor.Web.Controllers
 
         // GET: api/Clinic
         [AllowAnonymous]
-        public IEnumerable<DtoClinic> Get(string lang = "ru")
+        [HttpGet]
+        [Route("api/{lang}/Clinic")]
+        public IEnumerable<DtoClinic> Get(string lang)
         {
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
+
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
             return _clinicService.GetAllClinics(pathToImage, lang);
         }
 
+        // GET: api/Clinic/5 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("api/{lang}/Clinic/{id:int}")]
+        public DtoClinic Get(string lang, int id)
+        {
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
+
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            return _clinicService.GetClinicById(id, pathToImage, lang);
+        }
+
         // GET: api/Clinic/page/perPage/numPage
         [AllowAnonymous]
-        [Route("api/Clinic/page/{perPage:int}/{numPage:int}")]
+        [Route("api/{lang}/Clinic/page/{perPage:int}/{numPage:int}")]
         [HttpGet]
-        public DtoPagedClinic GetPage(int perPage, int numPage, string lang = "ru")
+        public DtoPagedClinic GetPage(string lang, int perPage, int numPage)
         {
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
+
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
             return _clinicService.GetPagedClinics(perPage, numPage, pathToImage, lang);
         }
 
         // api/clinic/search/perPage/numPage
         [AllowAnonymous]
-        [Route("api/clinic/search/{perPage:int}/{numPage:int}")]
+        [Route("api/{lang}/clinic/search/{perPage:int}/{numPage:int}")]
         [HttpPost]
-        public DtoPagedClinic SearchClinic(int perPage, int numPage, [FromBody]DtoClinicSearchModel searchModel, string lang = "ru")
+        public DtoPagedClinic SearchClinic(int perPage, int numPage, [FromBody]DtoClinicSearchModel searchModel, string lang)
         {
-            var  pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
-            var pagedClinic = _clinicService.SearchClinics(perPage, numPage, searchModel, pathToImage,lang);
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
+
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            var pagedClinic = _clinicService.SearchClinics(perPage, numPage, searchModel, pathToImage, lang);
 
             return pagedClinic;
-        }
-
-        // GET: api/Clinic/5 
-        [AllowAnonymous]
-        public DtoClinic Get(int id, string lang = "ru")
-        {
-            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
-            return _clinicService.GetClinicById(id, pathToImage,lang);
         }
 
         // POST: api/Clinic

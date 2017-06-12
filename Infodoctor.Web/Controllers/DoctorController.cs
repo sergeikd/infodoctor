@@ -27,7 +27,7 @@ namespace Infodoctor.Web.Controllers
         public IEnumerable<DtoDoctor> Get()
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
-            var doctors = _doctorService.GetAllDoctors(pathToImage);
+            var doctors = _doctorService.GetAllDoctors(pathToImage, "ru");
             return doctors;
         }
 
@@ -36,7 +36,7 @@ namespace Infodoctor.Web.Controllers
         public DtoDoctor Get(int id)
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
-            return _doctorService.GetDoctorById(id, pathToImage);
+            return _doctorService.GetDoctorById(id, pathToImage, "ru");
         }
 
         // GET: api/doctor/page/perPage/numPage 
@@ -46,7 +46,7 @@ namespace Infodoctor.Web.Controllers
         public DtoPagedDoctor GetPage(int perPage, int numPage)
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
-            return _doctorService.GetPagedDoctors(perPage, numPage, pathToImage);
+            return _doctorService.GetPagedDoctors(perPage, numPage, pathToImage, "ru");
         }
 
         // api/clinic/doctor/perPage/numPage
@@ -56,7 +56,7 @@ namespace Infodoctor.Web.Controllers
         public DtoPagedDoctor SearchClinic(int perPage, int numPage, [FromBody]DtoDoctorSearchModel searchModel)
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
-            var pagedDoctors = _doctorService.SearchDoctors(perPage, numPage, searchModel, pathToImage);
+            var pagedDoctors = _doctorService.SearchDoctors(perPage, numPage, searchModel, pathToImage, "ru");
 
             return pagedDoctors;
         }

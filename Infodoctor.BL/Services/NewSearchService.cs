@@ -10,6 +10,8 @@ namespace Infodoctor.BL.Services
 {
     public class NewSearchService
     {
+        
+
         private readonly IClinicRepository _clinicRepository;
         private readonly IClinicSpecializationRepository _clinicSpecializationRepository;
 
@@ -29,8 +31,10 @@ namespace Infodoctor.BL.Services
 
         public void ClinicSearch(string query)
         {
-            var list1 = _clinicRepository.GetAllСlinics().Where(x => x.Name.Contains(query) || x.ClinicSpecializations.Any( y => y.Name.Contains(query))).Select(x => new { x.Id, x.Name}).ToList();
-            var list2 = _clinicSpecializationRepository.GetAllClinicSpecializations().Where(x => x.Name.Contains(query)).Select(x => new { x.Id, x.Name }).ToList();
+            //var list1 = _clinicRepository.GetAllСlinics().Where(x => x.Name.Contains(query) || x.ClinicSpecializations.Any( y => y.Name.Contains(query))).Select(x => new { x.Id, x.Name}).ToList();
+            //var list2 = _clinicSpecializationRepository.GetAllClinicSpecializations().Where(x => x.Name.Contains(query)).Select(x => new { x.Id, x.Name }).ToList();
+
+            throw new NotImplementedException();
         } 
     }
 }

@@ -92,7 +92,7 @@ namespace Infodoctor.BL.Services
                     {
                         Id = clinicAddress.Id,
                         LocalizedDtoAddresses = localizedDtoClinicAddressList,
-                        ClinicPhones = dtoClinicPhoneList
+                        Phones = dtoClinicPhoneList
                     });
                 }
 
@@ -121,11 +121,26 @@ namespace Infodoctor.BL.Services
 
                 }
 
+                LocalizedDtoClinic dtoLocanizedClinic = null;
+                foreach (var localizedClinic in clinic.LocalizedClinics)
+                {
+                    if (localizedClinic.Language.Code.ToLower() == lang.ToLower())
+                        dtoLocanizedClinic = new LocalizedDtoClinic()
+                        {
+                            Id = localizedClinic.Id,
+                            Name = localizedClinic.Name,
+                            LangCode = localizedClinic.Language.Code
+                        };
+                }
+
+                //todo: add doctors
+
                 var dtoClinic = new DtoClinic
                 {
                     Id = clinic.Id,
                     Email = clinic.Email,
                     Site = clinic.Site,
+                    LocalizedDtoClinics = new List<LocalizedDtoClinic>() { dtoLocanizedClinic },
                     RatePoliteness = clinic.RatePoliteness,
                     RatePrice = clinic.RatePrice,
                     RateQuality = clinic.RateQuality,
@@ -140,57 +155,10 @@ namespace Infodoctor.BL.Services
                 dtoClinicList.Add(dtoClinic);
             }
 
-            /*
-            foreach (var clinic in clinicList)
-            {
-                var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();
-                var dtoClinic = new DtoClinic
-                {
-                    Id = clinic.Id,
-                    Name = clinic.Name,
-                    Email = clinic.Email,
-                    Site = clinic.Site,
-                    RatePoliteness = clinic.RatePoliteness,
-                    RatePrice = clinic.RatePrice,
-                    RateQuality = clinic.RateQuality,
-                    RateAverage = clinic.RateAverage,
-                    Favorite = clinic.Favorite,
-                    ReviewCount = clinic.ClinicReviews.Count,
-                    Images = imagesList
-                };
-                var dtoClinicAddressList = new List<DtoAddress>();
-                foreach (var clinicAddress in clinic.CityAddresses)
-                {
-                    var dtoClinicAddress = new DtoAddress
-                    {
-                        Country = clinicAddress.Country,
-                        City = clinicAddress.City.Name,
-                        Street = clinicAddress.Street,
-                        ClinicPhones = new List<DtoPhone>()
-                    };
-                    foreach (var clinicPhone in clinicAddress.Phones)
-                    {
-                        var dtoClinicPhone = new DtoPhone { Desc = clinicPhone.Description, Phone = clinicPhone.Number};
-                        dtoClinicAddress.ClinicPhones.Add(dtoClinicPhone);
-                    }
-                    dtoClinicAddressList.Add(dtoClinicAddress);
-                }
-                dtoClinic.ClinicAddress = dtoClinicAddressList;
-
-                var dtoSpecializationList =
-                    clinic.ClinicSpecializations.Select(
-                        specialization =>
-                            new DtoClinicSpecialization {Id = specialization.Id, Name = specialization.Name}).ToList();
-                dtoClinic.ClinicSpecialization = dtoSpecializationList;
-
-                dtoClinicList.Add(dtoClinic);
-            }
-            */
-
             return dtoClinicList;
         }
 
-        public DtoClinic GetClinicById(int id, string lang, string pathToImage)
+        public DtoClinic GetClinicById(int id, string pathToImage, string lang)
         {
             var clinic = _clinicRepository.GetClinicById(id);
             if (clinic == null)
@@ -203,7 +171,7 @@ namespace Infodoctor.BL.Services
             var dtoClinicAddressList = new List<DtoAddress>();
             foreach (var clinicAddress in clinic.CityAddresses)
             {
-                var dtoClinicPhoneList = new List<DtoPhone>();
+                var dtoPhoneList = new List<DtoPhone>();
                 foreach (var clinicAddressPhone in clinicAddress.Phones)
                 {
                     var localizedDtoClinicPhoneList = new List<LocalizedDtoPhone>();
@@ -222,7 +190,7 @@ namespace Infodoctor.BL.Services
                         }
 
                     }
-                    dtoClinicPhoneList.Add(new DtoPhone()
+                    dtoPhoneList.Add(new DtoPhone()
                     {
                         Id = clinicAddressPhone.Id,
                         LocalizedDtoPhones = localizedDtoClinicPhoneList
@@ -248,7 +216,7 @@ namespace Infodoctor.BL.Services
                 {
                     Id = clinicAddress.Id,
                     LocalizedDtoAddresses = localizedDtoClinicAddressList,
-                    ClinicPhones = dtoClinicPhoneList
+                    Phones = dtoPhoneList
                 });
             }
 
@@ -277,11 +245,26 @@ namespace Infodoctor.BL.Services
 
             }
 
+            LocalizedDtoClinic dtoLocanizedClinic = null;
+            foreach (var localizedClinic in clinic.LocalizedClinics)
+            {
+                if (localizedClinic.Language.Code.ToLower() == lang.ToLower())
+                    dtoLocanizedClinic = new LocalizedDtoClinic()
+                    {
+                        Id = localizedClinic.Id,
+                        Name = localizedClinic.Name,
+                        LangCode = localizedClinic.Language.Code
+                    };
+            }
+
+            //todo: add doctors
+
             var dtoClinic = new DtoClinic
             {
                 Id = clinic.Id,
                 Email = clinic.Email,
                 Site = clinic.Site,
+                LocalizedDtoClinics = new List<LocalizedDtoClinic>() { dtoLocanizedClinic },
                 RatePoliteness = clinic.RatePoliteness,
                 RatePrice = clinic.RatePrice,
                 RateQuality = clinic.RateQuality,
@@ -361,7 +344,7 @@ namespace Infodoctor.BL.Services
                     {
                         Id = clinicAddress.Id,
                         LocalizedDtoAddresses = localizedDtoClinicAddressList,
-                        ClinicPhones = dtoClinicPhoneList
+                        Phones = dtoClinicPhoneList
                     });
                 }
 
@@ -390,11 +373,26 @@ namespace Infodoctor.BL.Services
 
                 }
 
+                LocalizedDtoClinic dtoLocanizedClinic = null;
+                foreach (var localizedClinic in clinic.LocalizedClinics)
+                {
+                    if (localizedClinic.Language.Code.ToLower() == lang.ToLower())
+                        dtoLocanizedClinic = new LocalizedDtoClinic()
+                        {
+                            Id = localizedClinic.Id,
+                            Name = localizedClinic.Name,
+                            LangCode = localizedClinic.Language.Code
+                        };
+                }
+
+                //todo: add doctors
+
                 var dtoClinic = new DtoClinic
                 {
                     Id = clinic.Id,
                     Email = clinic.Email,
                     Site = clinic.Site,
+                    LocalizedDtoClinics = new List<LocalizedDtoClinic>() { dtoLocanizedClinic },
                     RatePoliteness = clinic.RatePoliteness,
                     RatePrice = clinic.RatePrice,
                     RateQuality = clinic.RateQuality,
@@ -435,7 +433,7 @@ namespace Infodoctor.BL.Services
             {
                 throw new ApplicationException("Incorrect request parameter");
             }
-            IQueryable<Clinic> clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending);
+            IQueryable<Clinic> clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang);
             /*
              * IQueryable<Clinic> clinics = null;
             switch (searchModel.CityId) //check whether CityId included in search request
@@ -506,7 +504,7 @@ namespace Infodoctor.BL.Services
                                         case true:
                                             {
                                                 clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                                                    Where(x => x.CityAddresses.Any(y => y.City.Id == searchModel.CityId) &&
+                                                    Where(x => x.ClinicAddresses.Any(y => y.City.Id == searchModel.CityId) &&
                                                                !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any());
                                                 break;
                                             }
@@ -514,10 +512,10 @@ namespace Infodoctor.BL.Services
                                             {
                                                 clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
                                                     Where(x => (x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                               x.CityAddresses.Any(y => y.City.Id == searchModel.CityId) &&
+                                                               x.ClinicAddresses.Any(y => y.City.Id == searchModel.CityId) &&
                                                                !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any()) ||
                                                                (x.ClinicSpecializations.Any(z => z.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                               x.CityAddresses.Any(y => y.City.Id == searchModel.CityId) &&
+                                                               x.ClinicAddresses.Any(y => y.City.Id == searchModel.CityId) &&
                                                                !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any())));
                                                 break;
                                             }
@@ -531,16 +529,16 @@ namespace Infodoctor.BL.Services
                                         case true:
                                             {
                                                 clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                                                    Where(x => x.CityAddresses.Any(y => y.City.Id == searchModel.CityId));
+                                                    Where(x => x.ClinicAddresses.Any(y => y.City.Id == searchModel.CityId));
                                                 break;
                                             }
                                         default:
                                             {
                                                 clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
                                                     Where(x => (x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                               x.CityAddresses.Any(y => y.City.Id == searchModel.CityId)) ||
+                                                               x.ClinicAddresses.Any(y => y.City.Id == searchModel.CityId)) ||
                                                                (x.ClinicSpecializations.Any(z => z.Name.ToLower().Contains(searchModel.SearchWord.ToLower())) &&
-                                                               x.CityAddresses.Any(y => y.City.Id == searchModel.CityId)));
+                                                               x.ClinicAddresses.Any(y => y.City.Id == searchModel.CityId)));
                                                 break;
                                             }
                                     }
@@ -610,7 +608,7 @@ namespace Infodoctor.BL.Services
                     {
                         Id = clinicAddress.Id,
                         LocalizedDtoAddresses = localizedDtoClinicAddressList,
-                        ClinicPhones = dtoClinicPhoneList
+                        Phones = dtoClinicPhoneList
                     });
                 }
 
@@ -680,6 +678,8 @@ namespace Infodoctor.BL.Services
 
         public void Update(int id, string name)
         {
+
+            throw new NotImplementedException();
             //if (string.IsNullOrEmpty(name))
             //    throw new ArgumentNullException(nameof(name));
 

@@ -1,8 +1,6 @@
 ﻿using Infodoctor.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
 using Infodoctor.Domain.Entities;
 
@@ -22,15 +20,14 @@ namespace Infodoctor.DAL.Repositories
             return _context.Сlinics.OrderBy(n => n.Id);
         }
 
-        public IQueryable<Clinic> GetSortedСlinics(string sortBy, bool descending)
+        public IQueryable<Clinic> GetSortedСlinics(string sortBy, bool descending, string lang)
         {
             switch (sortBy)
             {
-
                 default:
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.Name) : _context.Сlinics.OrderBy(c => c.Name);
+                    return descending ? _context.Сlinics.OrderByDescending(c => c.LocalizedClinics.First(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Сlinics.OrderBy(c => c.LocalizedClinics.First(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);             //TODO: check it
                 case "alphabet":
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.Name) : _context.Сlinics.OrderBy(c => c.Name);
+                    return descending ? _context.Сlinics.OrderByDescending(c => c.LocalizedClinics.First(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Сlinics.OrderBy(c => c.LocalizedClinics.First(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);             //TODO: check it
                 case "rate":
                     return descending ? _context.Сlinics.OrderByDescending(c => c.RateAverage) : _context.Сlinics.OrderBy(c => c.RateAverage);
                 case "price":

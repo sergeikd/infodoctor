@@ -38,6 +38,7 @@ namespace Infodoctor.Domain.Entities
 
     public class LocalizedClinicAddress
     {
+        public int Id { get; set; }
         public string Country { get; set; }
         public virtual City City { get; set; }
         public string Street { get; set; }

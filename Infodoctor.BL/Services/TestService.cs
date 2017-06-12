@@ -34,60 +34,60 @@ namespace Infodoctor.BL.Services
 
         public void Add10Clinics(string pathToImageFolder, Point[] imagesSizes)
         {
-            var clinicList = new List<Clinic>();
-            var maxClinicId = _clinicRepository.GetAllСlinics().Max(r => r.Id);
-            var clinicSpecializationList = _clinicSpecializationRepository.GetAllClinicSpecializations().ToList();
-            var cityList = _citiesRepository.GetAllCities().ToList();
-            var doctrorList = _doctorRepository.GetAllDoctors().ToList();
-            for (var i = maxClinicId + 1; i <= maxClinicId + 11; i++)
-            {
-                var clinic = new Clinic
-                {
-                    Name = "TestClinic" + i,
-                    Email = "testclinic" + i + "@infodoctor.by",
-                    Site = "TestClinic" + i + ".by",
-                    Doctors = new List<Doctor>() {doctrorList[i % doctrorList.Count]},
-                    CityAddresses = new List<ClinicAddress>()
-                    {
-                        new ClinicAddress()
-                        {
-                            City = cityList[i % 5],
-                            Country = "TestCountry" + i,
-                            Street = "TestStreet" + i,
-                            Phones = new List<ClinicPhone>()
-                            {
-                                new ClinicPhone() {Description = "ClinicPhone" + i, Number = i + " 00 00"}
-                            }
-                        }
-                    }
-                };
-                var clinicSpecializations = new List<ClinicSpecialization>();
-                for (var j = 0; j < _rnd.Next(10); j++)
-                {
-                    clinicSpecializations.Add(clinicSpecializationList[_rnd.Next(clinicSpecializationList.Count/5)]);
-                }
-                clinic.ClinicSpecializations = clinicSpecializations.GroupBy(x => x.Id).Select(y => y.First()).ToList();
-                clinic.Favorite = i%5 == 0;
-                clinic.RatePoliteness = _rnd.Next(3) + 3;
-                clinic.RatePrice = _rnd.Next(3) + 3;
-                clinic.RateQuality = _rnd.Next(3) + 3;
-                clinic.RateAverage = (clinic.RatePoliteness + clinic.RatePrice + clinic.RateQuality) / 3;
+            //var clinicList = new List<Clinic>();
+            //var maxClinicId = _clinicRepository.GetAllСlinics().Max(r => r.Id);
+            //var clinicSpecializationList = _clinicSpecializationRepository.GetAllClinicSpecializations().ToList();
+            //var cityList = _citiesRepository.GetAllCities().ToList();
+            //var doctrorList = _doctorRepository.GetAllDoctors().ToList();
+            //for (var i = maxClinicId + 1; i <= maxClinicId + 11; i++)
+            //{
+            //    var clinic = new Clinic
+            //    {
+            //        Name = "TestClinic" + i,
+            //        Email = "testclinic" + i + "@infodoctor.by",
+            //        Site = "TestClinic" + i + ".by",
+            //        Doctors = new List<Doctor>() {doctrorList[i % doctrorList.Count]},
+            //        ClinicAddresses = new List<ClinicAddress>()
+            //        {
+            //            new ClinicAddress()
+            //            {
+            //                City = cityList[i % 5],
+            //                Country = "TestCountry" + i,
+            //                Street = "TestStreet" + i,
+            //                Phones = new List<ClinicPhone>()
+            //                {
+            //                    new ClinicPhone() {Description = "ClinicPhone" + i, Number = i + " 00 00"}
+            //                }
+            //            }
+            //        }
+            //    };
+            //    var clinicSpecializations = new List<ClinicSpecialization>();
+            //    for (var j = 0; j < _rnd.Next(10); j++)
+            //    {
+            //        clinicSpecializations.Add(clinicSpecializationList[_rnd.Next(clinicSpecializationList.Count/5)]);
+            //    }
+            //    clinic.ClinicSpecializations = clinicSpecializations.GroupBy(x => x.Id).Select(y => y.First()).ToList();
+            //    clinic.Favorite = i%5 == 0;
+            //    clinic.RatePoliteness = _rnd.Next(3) + 3;
+            //    clinic.RatePrice = _rnd.Next(3) + 3;
+            //    clinic.RateQuality = _rnd.Next(3) + 3;
+            //    clinic.RateAverage = (clinic.RatePoliteness + clinic.RatePrice + clinic.RateQuality) / 3;
 
-                var imagesFileNameList = new List<ImageFile>();
-                for (var j = 0; j < 5; j++)
-                {
-                    var image = CreateBitmapImage(clinic.Name + "_" + j);
-                    var imagesList = GetResizedImages(image, imagesSizes);
-                    var imageFileName = GetImageFileName();
-                    var isSuccess = SaveImagesToFiles(imagesList, pathToImageFolder, imageFileName); //TODO uncomment this after tests
-                    if (isSuccess)
-                    {
-                        imagesFileNameList.Add(new ImageFile() { Name = imageFileName });
-                    }
-                }
-                clinic.ImageName = imagesFileNameList;
-            }
-            _clinicRepository.AddMany(clinicList);
+            //    var imagesFileNameList = new List<ImageFile>();
+            //    for (var j = 0; j < 5; j++)
+            //    {
+            //        var image = CreateBitmapImage(clinic.Name + "_" + j);
+            //        var imagesList = GetResizedImages(image, imagesSizes);
+            //        var imageFileName = GetImageFileName();
+            //        var isSuccess = SaveImagesToFiles(imagesList, pathToImageFolder, imageFileName); //TODO uncomment this after tests
+            //        if (isSuccess)
+            //        {
+            //            imagesFileNameList.Add(new ImageFile() { Name = imageFileName });
+            //        }
+            //    }
+            //    clinic.ImageName = imagesFileNameList;
+            //}
+            //_clinicRepository.AddMany(clinicList);
         }
 
         public void Add10Doctors()
@@ -98,18 +98,19 @@ namespace Infodoctor.BL.Services
 
         public Clinic PrepareClinic()
         {
-            var clinic = new Clinic();
-            var clinicSpecializationList = _clinicSpecializationRepository.GetAllClinicSpecializations().ToList();
-            var cityList = _citiesRepository.GetAllCities().ToList();
-            var doctrorList = _doctorRepository.GetAllDoctors().ToList();
-            clinic.Name = "";
-            clinic.Email = "";
-            clinic.Site = "";
-            clinic.Doctors = new List<Doctor>();
-            clinic.CityAddresses = new List<ClinicAddress>();
-            clinic.ClinicSpecializations = new List<ClinicSpecialization>();
-            clinic.Favorite = false;
-            return clinic;
+            //var clinic = new Clinic();
+            //var clinicSpecializationList = _clinicSpecializationRepository.GetAllClinicSpecializations().ToList();
+            //var cityList = _citiesRepository.GetAllCities().ToList();
+            //var doctrorList = _doctorRepository.GetAllDoctors().ToList();
+            //clinic.Name = "";
+            //clinic.Email = "";
+            //clinic.Site = "";
+            //clinic.Doctors = new List<Doctor>();
+            //clinic.ClinicAddresses = new List<ClinicAddress>();
+            //clinic.ClinicSpecializations = new List<ClinicSpecialization>();
+            //clinic.Favorite = false;
+            //return clinic;
+            return null;
         }
 
         private List<Image> GetResizedImages(Image sourceFile, IEnumerable<Point> imagesSizes)

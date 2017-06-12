@@ -7,7 +7,7 @@ namespace Infodoctor.DAL.Interfaces
     public interface IClinicRepository
     {
         IQueryable<Clinic> GetAllСlinics();
-        IQueryable<Clinic> GetSortedСlinics(string sortBy, bool descending);
+        IQueryable<Clinic> GetSortedСlinics(string sortBy, bool descending, string lang);
         Clinic GetClinicById(int id);
         void Add(Clinic clinic);
         void AddMany(IEnumerable<Clinic> clinics);

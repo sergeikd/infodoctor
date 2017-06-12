@@ -25,51 +25,52 @@ namespace Infodoctor.BL.Services
 
         public IEnumerable<DtoResort> GetAllResorts(string pathToImage)
         {
-            var resorts = _resort.GetAllResorts().ToList();
+            //var resorts = _resort.GetAllResorts().ToList();
 
-            var dtoResortList = new List<DtoResort>();
+            //var dtoResortList = new List<DtoResort>();
 
-            foreach (var resort in resorts)
-            {
-                var dtoResortAddress = new DtoAddress()
-                {
-                    Country = resort.Address.Country,
-                    City = resort.Address.City.Name,
-                    Street = resort.Address.Street,
-                    ClinicPhones = new List<DtoPhone>()
-                };
+            //foreach (var resort in resorts)
+            //{
+            //    var dtoResortAddress = new DtoAddress()
+            //    {
+            //        Country = resort.Address.Country,
+            //        City = resort.Address.City.Name,
+            //        Street = resort.Address.Street,
+            //        Phones = new List<DtoPhone>()
+            //    };
 
-                foreach (var phone in resort.Address.Phones)
-                {
-                    var dtoClinicPhone = new DtoPhone()
-                    {
-                        Desc = phone.Description,
-                        Phone = phone.Number
-                    };
-                    dtoResortAddress.ClinicPhones.Add(dtoClinicPhone);
-                }
+            //    foreach (var phone in resort.Address.Phones)
+            //    {
+            //        var dtoClinicPhone = new DtoPhone()
+            //        {
+            //            Desc = phone.Description,
+            //            Phone = phone.Number
+            //        };
+            //        dtoResortAddress.Phones.Add(dtoClinicPhone);
+            //    }
 
-                var dtoResort = new DtoResort()
-                {
-                    Id = resort.Id,
-                    Name = resort.Name,
-                    Email = resort.Email,
-                    Site = resort.Site,
-                    Specialisations = resort.Specialisations,
-                    Address = dtoResortAddress,
-                    RateAverage = resort.RateAverage,
-                    RatePoliteness = resort.RatePoliteness,
-                    RatePrice = resort.RatePrice,
-                    RateQuality = resort.RateQuality,
-                    ReviewCount = resort.Reviews.Count,
-                    Favorite = resort.Favorite,
-                    Image = pathToImage + resort.ImageName
-                };
+            //    var dtoResort = new DtoResort()
+            //    {
+            //        Id = resort.Id,
+            //        Name = resort.Name,
+            //        Email = resort.Email,
+            //        Site = resort.Site,
+            //        Specialisations = resort.Specialisations,
+            //        Address = dtoResortAddress,
+            //        RateAverage = resort.RateAverage,
+            //        RatePoliteness = resort.RatePoliteness,
+            //        RatePrice = resort.RatePrice,
+            //        RateQuality = resort.RateQuality,
+            //        ReviewCount = resort.Reviews.Count,
+            //        Favorite = resort.Favorite,
+            //        Image = pathToImage + resort.ImageName
+            //    };
 
-                dtoResortList.Add(dtoResort);
-            }
+            //    dtoResortList.Add(dtoResort);
+            //}
 
-            return dtoResortList;
+            //return dtoResortList;
+            return null;
         }
 
         public DtoPagedResorts GetPagedResorts(int perPage, int numPage, string pathToImage)
@@ -79,64 +80,65 @@ namespace Infodoctor.BL.Services
                 throw new ApplicationException("Incorrect request parameter");
             }
 
-            var resorts = _resort.GetAllResorts();
-            var pagedList = new PagedList<Resort>(resorts, perPage, numPage);
-            if (!pagedList.Any())
-            {
-                return null;
-            }
+            //var resorts = _resort.GetAllResorts();
+            //var pagedList = new PagedList<Resort>(resorts, perPage, numPage);
+            //if (!pagedList.Any())
+            //{
+            //    return null;
+            //}
 
-            var dtoResortList = new List<DtoResort>();
+            //var dtoResortList = new List<DtoResort>();
 
-            foreach (var resort in pagedList)
-            {
-                var dtoResortAddress = new DtoAddress()
-                {
-                    Country = resort.Address.Country,
-                    City = resort.Address.City.Name,
-                    Street = resort.Address.Street,
-                    ClinicPhones = new List<DtoPhone>()
-                };
+            //foreach (var resort in pagedList)
+            //{
+            //    var dtoResortAddress = new DtoAddress()
+            //    {
+            //        Country = resort.Address.Country,
+            //        City = resort.Address.City.Name,
+            //        Street = resort.Address.Street,
+            //        Phones = new List<DtoPhone>()
+            //    };
 
-                foreach (var phone in resort.Address.Phones)
-                {
-                    var dtoClinicPhone = new DtoPhone()
-                    {
-                        Desc = phone.Description,
-                        Phone = phone.Number
-                    };
-                    dtoResortAddress.ClinicPhones.Add(dtoClinicPhone);
-                }
+            //    foreach (var phone in resort.Address.Phones)
+            //    {
+            //        var dtoClinicPhone = new DtoPhone()
+            //        {
+            //            Desc = phone.Description,
+            //            Phone = phone.Number
+            //        };
+            //        dtoResortAddress.Phones.Add(dtoClinicPhone);
+            //    }
 
-                var dtoResort = new DtoResort()
-                {
-                    Id = resort.Id,
-                    Name = resort.Name,
-                    Email = resort.Email,
-                    Site = resort.Site,
-                    Specialisations = resort.Specialisations,
-                    Address = dtoResortAddress,
-                    RateAverage = resort.RateAverage,
-                    RatePoliteness = resort.RatePoliteness,
-                    RatePrice = resort.RatePrice,
-                    RateQuality = resort.RateQuality,
-                    ReviewCount = resort.Reviews.Count,
-                    Favorite = resort.Favorite,
-                    Image = pathToImage + resort.ImageName
-                };
+            //    var dtoResort = new DtoResort()
+            //    {
+            //        Id = resort.Id,
+            //        Name = resort.Name,
+            //        Email = resort.Email,
+            //        Site = resort.Site,
+            //        Specialisations = resort.Specialisations,
+            //        Address = dtoResortAddress,
+            //        RateAverage = resort.RateAverage,
+            //        RatePoliteness = resort.RatePoliteness,
+            //        RatePrice = resort.RatePrice,
+            //        RateQuality = resort.RateQuality,
+            //        ReviewCount = resort.Reviews.Count,
+            //        Favorite = resort.Favorite,
+            //        Image = pathToImage + resort.ImageName
+            //    };
 
-                dtoResortList.Add(dtoResort);
-            }
+            //    dtoResortList.Add(dtoResort);
+            //}
 
-            var pagedDtoResorts = new DtoPagedResorts()
-            {
-                Resorts = dtoResortList,
-                Page = pagedList.Page,
-                PageSize = pagedList.PageSize,
-                TotalCount = pagedList.TotalCount
-            };
+            //var pagedDtoResorts = new DtoPagedResorts()
+            //{
+            //    Resorts = dtoResortList,
+            //    Page = pagedList.Page,
+            //    PageSize = pagedList.PageSize,
+            //    TotalCount = pagedList.TotalCount
+            //};
 
-            return pagedDtoResorts;
+            //return pagedDtoResorts;
+            return null;
         }
 
         public DtoPagedResorts SearchResorts(int perPage, int numPage, DtoResortSearchModel searchModel, string pathToImage)
@@ -210,100 +212,102 @@ namespace Infodoctor.BL.Services
 
             var dtoResortList = new List<DtoResort>();
 
-            foreach (var resort in pagedList)
-            {
-                var dtoResortAddress = new DtoAddress()
-                {
-                    Country = resort.Address.Country,
-                    City = resort.Address.City.Name,
-                    Street = resort.Address.Street,
-                    ClinicPhones = new List<DtoPhone>()
-                };
+            //foreach (var resort in pagedList)
+            //{
+            //    var dtoResortAddress = new DtoAddress()
+            //    {
+            //        Country = resort.Address.Country,
+            //        City = resort.Address.City.Name,
+            //        Street = resort.Address.Street,
+            //        Phones = new List<DtoPhone>()
+            //    };
 
-                foreach (var phone in resort.Address.Phones)
-                {
-                    var dtoClinicPhone = new DtoPhone()
-                    {
-                        Desc = phone.Description,
-                        Phone = phone.Number
-                    };
-                    dtoResortAddress.ClinicPhones.Add(dtoClinicPhone);
-                }
+            //    foreach (var phone in resort.Address.Phones)
+            //    {
+            //        var dtoClinicPhone = new DtoPhone()
+            //        {
+            //            Desc = phone.Description,
+            //            Phone = phone.Number
+            //        };
+            //        dtoResortAddress.Phones.Add(dtoClinicPhone);
+            //    }
 
-                var dtoResort = new DtoResort()
-                {
-                    Id = resort.Id,
-                    Name = resort.Name,
-                    Email = resort.Email,
-                    Site = resort.Site,
-                    Specialisations = resort.Specialisations,
-                    Address = dtoResortAddress,
-                    RateAverage = resort.RateAverage,
-                    RatePoliteness = resort.RatePoliteness,
-                    RatePrice = resort.RatePrice,
-                    RateQuality = resort.RateQuality,
-                    ReviewCount = resort.Reviews.Count,
-                    Favorite = resort.Favorite,
-                    Image = pathToImage + resort.ImageName
-                };
+            //    var dtoResort = new DtoResort()
+            //    {
+            //        Id = resort.Id,
+            //        Name = resort.Name,
+            //        Email = resort.Email,
+            //        Site = resort.Site,
+            //        Specialisations = resort.Specialisations,
+            //        Address = dtoResortAddress,
+            //        RateAverage = resort.RateAverage,
+            //        RatePoliteness = resort.RatePoliteness,
+            //        RatePrice = resort.RatePrice,
+            //        RateQuality = resort.RateQuality,
+            //        ReviewCount = resort.Reviews.Count,
+            //        Favorite = resort.Favorite,
+            //        Image = pathToImage + resort.ImageName
+            //    };
 
-                dtoResortList.Add(dtoResort);
-            }
+            //    dtoResortList.Add(dtoResort);
+            //}
 
-            var pagedDtoResorts = new DtoPagedResorts()
-            {
-                Resorts = dtoResortList,
-                Page = pagedList.Page,
-                PageSize = pagedList.PageSize,
-                TotalCount = pagedList.TotalCount
-            };
+            //var pagedDtoResorts = new DtoPagedResorts()
+            //{
+            //    Resorts = dtoResortList,
+            //    Page = pagedList.Page,
+            //    PageSize = pagedList.PageSize,
+            //    TotalCount = pagedList.TotalCount
+            //};
 
-            return pagedDtoResorts;
+            //return pagedDtoResorts;
+            return null;
         }
 
         public DtoResort GetResortById(int id, string pathToImage)
         {
-            var resort = _resort.GetResortById(id);
-            if (resort == null)
-                throw new ApplicationException("Resort not found");
+        //    var resort = _resort.GetResortById(id);
+        //    if (resort == null)
+        //        throw new ApplicationException("Resort not found");
 
-            var dtoResortAddress = new DtoAddress()
-            {
-                Country = resort.Address.Country,
-                City = resort.Address.City.Name,
-                Street = resort.Address.Street,
-                ClinicPhones = new List<DtoPhone>()
-            };
+        //    var dtoResortAddress = new DtoAddress()
+        //    {
+        //        Country = resort.Address.Country,
+        //        City = resort.Address.City.Name,
+        //        Street = resort.Address.Street,
+        //        Phones = new List<DtoPhone>()
+        //    };
 
-            foreach (var phone in resort.Address.Phones)
-            {
-                var dtoClinicPhone = new DtoPhone()
-                {
-                    Desc = phone.Description,
-                    Phone = phone.Number
-                };
-                dtoResortAddress.ClinicPhones.Add(dtoClinicPhone);
-            }
+        //    foreach (var phone in resort.Address.Phones)
+        //    {
+        //        var dtoClinicPhone = new DtoPhone()
+        //        {
+        //            Desc = phone.Description,
+        //            Phone = phone.Number
+        //        };
+        //        dtoResortAddress.Phones.Add(dtoClinicPhone);
+        //    }
 
-            var dtoResort = new DtoResort()
-            {
-                Id = resort.Id,
-                Name = resort.Name,
-                Email = resort.Email,
-                Site = resort.Site,
-                Specialisations = resort.Specialisations,
-                Address = dtoResortAddress,
-                RateAverage = resort.RateAverage,
-                RatePoliteness = resort.RatePoliteness,
-                RatePrice = resort.RatePrice,
-                RateQuality = resort.RateQuality,
-                ReviewCount = resort.Reviews.Count,
-                Favorite = resort.Favorite,
-                Image = pathToImage + resort.ImageName
-            };
+        //    var dtoResort = new DtoResort()
+        //    {
+        //        Id = resort.Id,
+        //        Name = resort.Name,
+        //        Email = resort.Email,
+        //        Site = resort.Site,
+        //        Specialisations = resort.Specialisations,
+        //        Address = dtoResortAddress,
+        //        RateAverage = resort.RateAverage,
+        //        RatePoliteness = resort.RatePoliteness,
+        //        RatePrice = resort.RatePrice,
+        //        RateQuality = resort.RateQuality,
+        //        ReviewCount = resort.Reviews.Count,
+        //        Favorite = resort.Favorite,
+        //        Image = pathToImage + resort.ImageName
+        //    };
 
 
-            return dtoResort;
+        //    return dtoResort;
+            return null;
         }
 
         public void Add(DtoResort res)
