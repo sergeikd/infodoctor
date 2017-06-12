@@ -67,7 +67,7 @@ namespace Infodoctor.BL.Services
 
                 if (doctor.Address != null)
                 {
-                    var dtoPhoneList = new List<DtoPhoneMultilang>();
+                    var dtoPhoneList = new List<DtoPhoneMultiLang>();
                     foreach (var clinicAddressPhone in doctor.Address.Phones)
                     {
                         var localizedDtoClinicPhoneList = new List<LocalizedDtoPhone>();
@@ -86,7 +86,7 @@ namespace Infodoctor.BL.Services
                             }
 
                         }
-                        dtoPhoneList.Add(new DtoPhoneMultilang()
+                        dtoPhoneList.Add(new DtoPhoneMultiLang()
                         {
                             Id = clinicAddressPhone.Id,
                             LocalizedDtoPhones = localizedDtoClinicPhoneList
@@ -108,7 +108,7 @@ namespace Infodoctor.BL.Services
                         }
                     }
 
-                    var dtoAddress = new DtoAddressMultilang()
+                    var dtoAddress = new DtoAddressMultiLang()
                     {
                         Id = doctor.Address.Id,
                         LocalizedDtoAddresses = new List<LocalizedDtoAddress>() { localizedDtoAddress },
@@ -169,7 +169,7 @@ namespace Infodoctor.BL.Services
 
                 if (doctor.Address != null)
                 {
-                    var dtoPhoneList = new List<DtoPhoneMultilang>();
+                    var dtoPhoneList = new List<DtoPhoneMultiLang>();
                     foreach (var clinicAddressPhone in doctor.Address.Phones)
                     {
                         var localizedDtoClinicPhoneList = new List<LocalizedDtoPhone>();
@@ -188,7 +188,7 @@ namespace Infodoctor.BL.Services
                             }
 
                         }
-                        dtoPhoneList.Add(new DtoPhoneMultilang()
+                        dtoPhoneList.Add(new DtoPhoneMultiLang()
                         {
                             Id = clinicAddressPhone.Id,
                             LocalizedDtoPhones = localizedDtoClinicPhoneList
@@ -210,7 +210,7 @@ namespace Infodoctor.BL.Services
                         }
                     }
 
-                    var dtoAddress = new DtoAddressMultilang()
+                    var dtoAddress = new DtoAddressMultiLang()
                     {
                         Id = doctor.Address.Id,
                         LocalizedDtoAddresses = new List<LocalizedDtoAddress>() { localizedDtoAddress },
@@ -388,7 +388,7 @@ namespace Infodoctor.BL.Services
 
                 if (doctor.Address != null)
                 {
-                    var dtoPhoneList = new List<DtoPhoneMultilang>();
+                    var dtoPhoneList = new List<DtoPhoneMultiLang>();
                     foreach (var clinicAddressPhone in doctor.Address.Phones)
                     {
                         var localizedDtoClinicPhoneList = new List<LocalizedDtoPhone>();
@@ -407,7 +407,7 @@ namespace Infodoctor.BL.Services
                             }
 
                         }
-                        dtoPhoneList.Add(new DtoPhoneMultilang()
+                        dtoPhoneList.Add(new DtoPhoneMultiLang()
                         {
                             Id = clinicAddressPhone.Id,
                             LocalizedDtoPhones = localizedDtoClinicPhoneList
@@ -429,7 +429,7 @@ namespace Infodoctor.BL.Services
                         }
                     }
 
-                    var dtoAddress = new DtoAddressMultilang()
+                    var dtoAddress = new DtoAddressMultiLang()
                     {
                         Id = doctor.Address.Id,
                         LocalizedDtoAddresses = new List<LocalizedDtoAddress>() { localizedDtoAddress },
@@ -487,7 +487,7 @@ namespace Infodoctor.BL.Services
 
             if (doctor.Address != null)
             {
-                var dtoPhoneList = new List<DtoPhoneMultilang>();
+                var dtoPhoneList = new List<DtoPhoneMultiLang>();
                 foreach (var clinicAddressPhone in doctor.Address.Phones)
                 {
                     var localizedDtoClinicPhoneList = new List<LocalizedDtoPhone>();
@@ -506,7 +506,7 @@ namespace Infodoctor.BL.Services
                         }
 
                     }
-                    dtoPhoneList.Add(new DtoPhoneMultilang()
+                    dtoPhoneList.Add(new DtoPhoneMultiLang()
                     {
                         Id = clinicAddressPhone.Id,
                         LocalizedDtoPhones = localizedDtoClinicPhoneList
@@ -528,7 +528,7 @@ namespace Infodoctor.BL.Services
                     }
                 }
 
-                var dtoAddress = new DtoAddressMultilang()
+                var dtoAddress = new DtoAddressMultiLang()
                 {
                     Id = doctor.Address.Id,
                     LocalizedDtoAddresses = new List<LocalizedDtoAddress>() { localizedDtoAddress },
