@@ -14,10 +14,26 @@ namespace Infodoctor.Domain.Entities
         public bool Favorite { get; set; }
         public virtual ICollection<LocalizedClinic> LocalizedClinics { get; set; }
         public virtual ICollection<ImageFile> ImageName { get; set; }
-        public virtual ICollection<ClinicAddress> CityAddresses { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<ClinicSpecialization> ClinicSpecializations { get; set; }
         public virtual ICollection<Doctor> Doctors { get; set; }
         public virtual ICollection<ClinicReview> ClinicReviews { get; set; }
+    }
+
+    public class Address
+    {
+        public int Id { get; set; }
+        public virtual ICollection<LocalizedAddress> LocalizedAddresses { get; set; }
+        public virtual ICollection<Phone> Phones { get; set; }
+        public virtual Clinic Clinic { get; set; }
+        public virtual ICollection<Doctor> Doctors { get; set; }
+    }
+
+    public class Phone
+    {
+        public int Id { get; set; }
+        public virtual ICollection<LocalizedPhone> LocalizedPhones { get; set; }
+        public virtual Address Address { get; set; }
     }
 
     public class LocalizedClinic
@@ -27,16 +43,7 @@ namespace Infodoctor.Domain.Entities
         public virtual Language Language { get; set; }
     }
 
-    public class ClinicAddress
-    {
-        public int Id { get; set; }
-        public virtual ICollection<LocalizedClinicAddress> LocalizedAddresses { get; set; }
-        public virtual ICollection<ClinicPhone> Phones { get; set; }
-        public virtual Clinic Clinic { get; set; }
-        public virtual ICollection<Doctor> Doctors { get; set; }
-    }
-
-    public class LocalizedClinicAddress
+    public class LocalizedAddress
     {
         public int Id { get; set; }
         public string Country { get; set; }
@@ -45,15 +52,7 @@ namespace Infodoctor.Domain.Entities
         public virtual Language Language { get; set; }
     }
 
-    public class ClinicPhone
-    {
-        public int Id { get; set; }
-        public virtual ICollection<LocalizedClinicPhone> LocalizedPhones { get; set; }
-        public virtual ClinicAddress Address { get; set; }
-        public virtual Language Language { get; set; }
-    }
-
-    public class LocalizedClinicPhone
+    public class LocalizedPhone
     {
         public int Id { get; set; }
         public string Description { get; set; }

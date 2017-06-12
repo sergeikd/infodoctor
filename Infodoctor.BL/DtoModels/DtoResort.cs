@@ -14,6 +14,6 @@
         public double RateAverage { get; set; }
         public int ReviewCount { get; set; }
         public bool Favorite { get; set; }
-        public DtoAddress Address { get; set; }
+        public DtoAddressMultilang AddressMultilang { get; set; }
     }
 }

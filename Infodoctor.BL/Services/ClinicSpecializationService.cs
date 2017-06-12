@@ -28,10 +28,10 @@ namespace Infodoctor.BL.Services
         }
 
         /// <param name="lang">2-character language code</param>
-        public IEnumerable<DtoClinicSpecialization> GetAllSpecializations(string lang)
+        public IEnumerable<DtoClinicSpecializationMultilang> GetAllSpecializations(string lang)
         {
             var clinicSpecializationList = _clinicSpecializationRepository.GetAllClinicSpecializations();
-            var dtoClinicSpecializationsList = new List<DtoClinicSpecialization>();
+            var dtoClinicSpecializationsList = new List<DtoClinicSpecializationMultilang>();
             foreach (var clinicSpecialization in clinicSpecializationList)
             {
                 LocalizedDtoClinicSpecialization localizedDtoCs = null;
@@ -47,7 +47,7 @@ namespace Infodoctor.BL.Services
                         };
                 }
 
-                dtoClinicSpecializationsList.Add(new DtoClinicSpecialization()
+                dtoClinicSpecializationsList.Add(new DtoClinicSpecializationMultilang()
                 {
                     Id = clinicSpecialization.Id,
                     LocalizedDtoClinicSpecializations = new List<LocalizedDtoClinicSpecialization>() { localizedDtoCs }
@@ -59,7 +59,7 @@ namespace Infodoctor.BL.Services
 
         /// <param name="id">Specialization id</param>
         /// <param name="lang">2-character language code</param>
-        public DtoClinicSpecialization GetSpecializationById(int id, string lang)
+        public DtoClinicSpecializationMultilang GetSpecializationById(int id, string lang)
         {
             var clinicSpecialization = _clinicSpecializationRepository.GetClinicSpecializationById(id);
             LocalizedDtoClinicSpecialization localizedDtoCs = null;
@@ -75,7 +75,7 @@ namespace Infodoctor.BL.Services
                     };
             }
 
-            var dtoClinicSpecializations = new DtoClinicSpecialization()
+            var dtoClinicSpecializations = new DtoClinicSpecializationMultilang()
             {
                 Id = clinicSpecialization.Id,
                 LocalizedDtoClinicSpecializations = new List<LocalizedDtoClinicSpecialization>() { localizedDtoCs }
@@ -84,14 +84,14 @@ namespace Infodoctor.BL.Services
             return dtoClinicSpecializations;
         }
 
-        /// <param name="specialization">Specialization dto model</param>
-        public void Add(DtoClinicSpecialization specialization)
+        /// <param name="multilangSpecialization">Specialization dto model</param>
+        public void Add(DtoClinicSpecializationMultilang multilangSpecialization)
         {
-            if (specialization == null || !specialization.LocalizedDtoClinicSpecializations.Any())
-                throw new ArgumentNullException(nameof(specialization));
+            if (multilangSpecialization == null || !multilangSpecialization.LocalizedDtoClinicSpecializations.Any())
+                throw new ArgumentNullException(nameof(multilangSpecialization));
 
             var localizations = new List<LocalizedClinicSpecialization>();
-            foreach (var localizedDtoCs in specialization.LocalizedDtoClinicSpecializations)
+            foreach (var localizedDtoCs in multilangSpecialization.LocalizedDtoClinicSpecializations)
             {
                 localizations.Add(new LocalizedClinicSpecialization()
                 {
@@ -109,19 +109,19 @@ namespace Infodoctor.BL.Services
             _searchService.RefreshCache();
         }
 
-        /// <param name="specialization">Specialization dto model</param>
-        public void Update(DtoClinicSpecialization specialization)
+        /// <param name="multilangSpecialization">Specialization dto model</param>
+        public void Update(DtoClinicSpecializationMultilang multilangSpecialization)
         {
-            if (specialization == null || !specialization.LocalizedDtoClinicSpecializations.Any())
-                throw new ArgumentNullException(nameof(specialization));
+            if (multilangSpecialization == null || !multilangSpecialization.LocalizedDtoClinicSpecializations.Any())
+                throw new ArgumentNullException(nameof(multilangSpecialization));
 
-            var cp = _clinicSpecializationRepository.GetClinicSpecializationById(specialization.Id);
+            var cp = _clinicSpecializationRepository.GetClinicSpecializationById(multilangSpecialization.Id);
 
             if (cp == null)
                 throw new ArgumentNullException(nameof(cp));
 
             var localizations = new List<LocalizedClinicSpecialization>();
-            foreach (var localizedDtoCs in specialization.LocalizedDtoClinicSpecializations)
+            foreach (var localizedDtoCs in multilangSpecialization.LocalizedDtoClinicSpecializations)
             {
                 localizations.Add(new LocalizedClinicSpecialization()
                 {

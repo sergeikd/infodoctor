@@ -5,11 +5,11 @@ namespace Infodoctor.Domain.Entities
     public class City
     {
         public int Id { get; set; }
-        public virtual ICollection<LocalisedCity> LocalisedCities { get; set; }
-        public virtual ICollection<ClinicAddress> Adresses { get; set; }
+        public virtual ICollection<LocalizedCity> LocalizedCities { get; set; }
+        public virtual ICollection<Address> Adresses { get; set; }
     }
 
-    public class LocalisedCity
+    public class LocalizedCity
     {
         public int Id { get; set; }
         public string Name { get; set; }

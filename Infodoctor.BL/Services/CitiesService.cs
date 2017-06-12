@@ -26,7 +26,7 @@ namespace Infodoctor.BL.Services
             foreach (var city in cities)
             {
                 var dtoLocalizedCities = new List<LocalizedDtoCity>();
-                foreach (var cityLocalisedCity in city.LocalisedCities)
+                foreach (var cityLocalisedCity in city.LocalizedCities)
                 {
                     dtoLocalizedCities.Add(new LocalizedDtoCity()
                     {
@@ -50,7 +50,7 @@ namespace Infodoctor.BL.Services
             foreach (var city in cities)
             {
                 var dtoLocalizedCities = new List<LocalizedDtoCity>();
-                foreach (var cityLocalisedCity in city.LocalisedCities)
+                foreach (var cityLocalisedCity in city.LocalizedCities)
                 {
                     dtoLocalizedCities.Add(new LocalizedDtoCity()
                     {
@@ -70,7 +70,7 @@ namespace Infodoctor.BL.Services
         {
             var city = _citiesRepository.GetCityById(id);
             var dtoLocalizedCities = new List<LocalizedDtoCity>();
-            foreach (var cityLocalisedCity in city.LocalisedCities)
+            foreach (var cityLocalisedCity in city.LocalizedCities)
             {
                 dtoLocalizedCities.Add(new LocalizedDtoCity()
                 {
@@ -98,10 +98,10 @@ namespace Infodoctor.BL.Services
             //var updated = _citiesRepository.GetCityById(id);
             //if (updated != null)
             //{
-            //    for (var i = 0; i < updated.LocalisedCities.Count; i++)
+            //    for (var i = 0; i < updated.LocalizedCities.Count; i++)
 
-            //        if (updated.LocalisedCities.ToArray()[i].Language.Code.ToLower() == lang.ToLower())
-            //            updated.LocalisedCities.ToArray()[i].Name = name;
+            //        if (updated.LocalizedCities.ToArray()[i].Language.Code.ToLower() == lang.ToLower())
+            //            updated.LocalizedCities.ToArray()[i].Name = name;
 
             //    _citiesRepository.Update(updated);
             //}

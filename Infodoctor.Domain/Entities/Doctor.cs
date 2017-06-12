@@ -17,7 +17,7 @@ namespace Infodoctor.Domain.Entities
         public bool Favorite { get; set; }
         public virtual DoctorSpecialization Specialization { get; set; }
         public virtual DoctorCategory Category { get; set; }
-        public virtual ClinicAddress Address { get; set; }
+        public virtual Address Address { get; set; }
         public virtual ICollection<Clinic> Clinics { get; set; }
         public virtual ICollection<DoctorReview> DoctorReviews { get; set; }
     }

@@ -26,7 +26,7 @@ namespace Infodoctor.Web.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("api/{lang}/clinicspecialization")]
-        public IEnumerable<DtoClinicSpecialization> Get(string lang)
+        public IEnumerable<DtoClinicSpecializationMultilang> Get(string lang)
         {
             if (string.IsNullOrEmpty(lang))
                 lang = _configService.DefaultLangCode;
@@ -38,7 +38,7 @@ namespace Infodoctor.Web.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("api/{lang}/clinicspecialization/{id:int}")]
-        public DtoClinicSpecialization Get(int id, string lang)
+        public DtoClinicSpecializationMultilang Get(int id, string lang)
         {
             if (string.IsNullOrEmpty(lang))
                 lang = _configService.DefaultLangCode;
@@ -49,7 +49,7 @@ namespace Infodoctor.Web.Controllers
         // POST api/clinicspecialization
         [Authorize(Roles = "admin, moder")]
         [HttpPost]
-        public void Post([FromBody]DtoClinicSpecialization model)
+        public void Post([FromBody]DtoClinicSpecializationMultilang model)
         {
             _clinicSpecializationService.Add(model);
         }
@@ -57,7 +57,7 @@ namespace Infodoctor.Web.Controllers
         // PUT api/clinicspecialization/5
         [Authorize(Roles = "admin, moder")]
         [HttpPut]
-        public void Put([FromBody]DtoClinicSpecialization model)
+        public void Put([FromBody]DtoClinicSpecializationMultilang model)
         {
             _clinicSpecializationService.Update(model);
         }

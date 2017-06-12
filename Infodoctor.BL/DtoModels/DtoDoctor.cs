@@ -11,7 +11,7 @@ namespace Infodoctor.BL.DtoModels
         public string Email { get; set; }
         public int Experience { get; set; }
         public string Manipulation { get; set; }
-        public DtoAddress Address { get; set; }
+        public DtoAddressMultilang AddressMultilang { get; set; }
         public DtoDoctorSpecialization Specialization { get; set; }
         public string Category { get; set; }
         public List<int> ClinicsIds { get; set; } //сделано как List<int> для облегчения добавления клиники к доктору на фронте

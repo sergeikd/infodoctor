@@ -47,16 +47,16 @@ namespace Infodoctor.BL.Services
             //        Email = "testclinic" + i + "@infodoctor.by",
             //        Site = "TestClinic" + i + ".by",
             //        Doctors = new List<Doctor>() {doctrorList[i % doctrorList.Count]},
-            //        ClinicAddresses = new List<ClinicAddress>()
+            //        ClinicAddresses = new List<Address>()
             //        {
-            //            new ClinicAddress()
+            //            new Address()
             //            {
             //                City = cityList[i % 5],
             //                Country = "TestCountry" + i,
             //                Street = "TestStreet" + i,
-            //                Phones = new List<ClinicPhone>()
+            //                Phones = new List<Phone>()
             //                {
-            //                    new ClinicPhone() {Description = "ClinicPhone" + i, Number = i + " 00 00"}
+            //                    new Phone() {Description = "Phone" + i, Number = i + " 00 00"}
             //                }
             //            }
             //        }
@@ -106,7 +106,7 @@ namespace Infodoctor.BL.Services
             //clinic.Email = "";
             //clinic.Site = "";
             //clinic.Doctors = new List<Doctor>();
-            //clinic.ClinicAddresses = new List<ClinicAddress>();
+            //clinic.ClinicAddresses = new List<Address>();
             //clinic.ClinicSpecializations = new List<ClinicSpecialization>();
             //clinic.Favorite = false;
             //return clinic;

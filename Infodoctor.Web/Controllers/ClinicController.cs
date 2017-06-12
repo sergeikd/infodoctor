@@ -4,6 +4,7 @@ using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
 using Infodoctor.Web.Infrastructure;
+using Infodoctor.Web.Models;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -26,26 +27,30 @@ namespace Infodoctor.Web.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("api/{lang}/Clinic")]
-        public IEnumerable<DtoClinic> Get(string lang)
+        public IEnumerable<DtoClinicSingleLang> Get(string lang)
         {
             if (string.IsNullOrEmpty(lang))
                 lang = _configService.DefaultLangCode;
 
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
-            return _clinicService.GetAllClinics(pathToImage, lang);
+            var clinics = _clinicService.GetAllClinics(pathToImage, lang);
+
+            return clinics;
         }
 
         // GET: api/Clinic/5 
         [AllowAnonymous]
         [HttpGet]
         [Route("api/{lang}/Clinic/{id:int}")]
-        public DtoClinic Get(string lang, int id)
+        public DtoClinicSingleLang Get(string lang, int id)
         {
             if (string.IsNullOrEmpty(lang))
                 lang = _configService.DefaultLangCode;
 
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
-            return _clinicService.GetClinicById(id, pathToImage, lang);
+            var clinic = _clinicService.GetClinicById(id, pathToImage, lang);
+
+            return clinic;
         }
 
         // GET: api/Clinic/page/perPage/numPage

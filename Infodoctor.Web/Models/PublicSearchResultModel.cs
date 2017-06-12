@@ -6,7 +6,7 @@ namespace Infodoctor.Web.Models
     public class PublicSearchResultModel
     {
         //public PublicSearchModel SearchRequest { get; set; }
-        public List<DtoClinic> Clinics { get; set; }
-        public List<DtoClinicSpecialization> ClinicSpecializations { get; set; }
+        public List<DtoClinicMultilang> Clinics { get; set; }
+        public List<DtoClinicSpecializationMultilang> ClinicSpecializations { get; set; }
     }
 }

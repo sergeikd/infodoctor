@@ -31,17 +31,17 @@ namespace Infodoctor.BL.Services
 
             //foreach (var resort in resorts)
             //{
-            //    var dtoResortAddress = new DtoAddress()
+            //    var dtoResortAddress = new DtoAddressMultilang()
             //    {
-            //        Country = resort.Address.Country,
-            //        City = resort.Address.City.Name,
-            //        Street = resort.Address.Street,
-            //        Phones = new List<DtoPhone>()
+            //        Country = resort.AddressMultilang.Country,
+            //        City = resort.AddressMultilang.City.Name,
+            //        Street = resort.AddressMultilang.Street,
+            //        Phones = new List<DtoPhoneMultilang>()
             //    };
 
-            //    foreach (var phone in resort.Address.Phones)
+            //    foreach (var phone in resort.AddressMultilang.Phones)
             //    {
-            //        var dtoClinicPhone = new DtoPhone()
+            //        var dtoClinicPhone = new DtoPhoneMultilang()
             //        {
             //            Desc = phone.Description,
             //            Phone = phone.Number
@@ -56,7 +56,7 @@ namespace Infodoctor.BL.Services
             //        Email = resort.Email,
             //        Site = resort.Site,
             //        Specialisations = resort.Specialisations,
-            //        Address = dtoResortAddress,
+            //        AddressMultilang = dtoResortAddress,
             //        RateAverage = resort.RateAverage,
             //        RatePoliteness = resort.RatePoliteness,
             //        RatePrice = resort.RatePrice,
@@ -91,17 +91,17 @@ namespace Infodoctor.BL.Services
 
             //foreach (var resort in pagedList)
             //{
-            //    var dtoResortAddress = new DtoAddress()
+            //    var dtoResortAddress = new DtoAddressMultilang()
             //    {
-            //        Country = resort.Address.Country,
-            //        City = resort.Address.City.Name,
-            //        Street = resort.Address.Street,
-            //        Phones = new List<DtoPhone>()
+            //        Country = resort.AddressMultilang.Country,
+            //        City = resort.AddressMultilang.City.Name,
+            //        Street = resort.AddressMultilang.Street,
+            //        Phones = new List<DtoPhoneMultilang>()
             //    };
 
-            //    foreach (var phone in resort.Address.Phones)
+            //    foreach (var phone in resort.AddressMultilang.Phones)
             //    {
-            //        var dtoClinicPhone = new DtoPhone()
+            //        var dtoClinicPhone = new DtoPhoneMultilang()
             //        {
             //            Desc = phone.Description,
             //            Phone = phone.Number
@@ -116,7 +116,7 @@ namespace Infodoctor.BL.Services
             //        Email = resort.Email,
             //        Site = resort.Site,
             //        Specialisations = resort.Specialisations,
-            //        Address = dtoResortAddress,
+            //        AddressMultilang = dtoResortAddress,
             //        RateAverage = resort.RateAverage,
             //        RatePoliteness = resort.RatePoliteness,
             //        RatePrice = resort.RatePrice,
@@ -214,17 +214,17 @@ namespace Infodoctor.BL.Services
 
             //foreach (var resort in pagedList)
             //{
-            //    var dtoResortAddress = new DtoAddress()
+            //    var dtoResortAddress = new DtoAddressMultilang()
             //    {
-            //        Country = resort.Address.Country,
-            //        City = resort.Address.City.Name,
-            //        Street = resort.Address.Street,
-            //        Phones = new List<DtoPhone>()
+            //        Country = resort.AddressMultilang.Country,
+            //        City = resort.AddressMultilang.City.Name,
+            //        Street = resort.AddressMultilang.Street,
+            //        Phones = new List<DtoPhoneMultilang>()
             //    };
 
-            //    foreach (var phone in resort.Address.Phones)
+            //    foreach (var phone in resort.AddressMultilang.Phones)
             //    {
-            //        var dtoClinicPhone = new DtoPhone()
+            //        var dtoClinicPhone = new DtoPhoneMultilang()
             //        {
             //            Desc = phone.Description,
             //            Phone = phone.Number
@@ -239,7 +239,7 @@ namespace Infodoctor.BL.Services
             //        Email = resort.Email,
             //        Site = resort.Site,
             //        Specialisations = resort.Specialisations,
-            //        Address = dtoResortAddress,
+            //        AddressMultilang = dtoResortAddress,
             //        RateAverage = resort.RateAverage,
             //        RatePoliteness = resort.RatePoliteness,
             //        RatePrice = resort.RatePrice,
@@ -270,17 +270,17 @@ namespace Infodoctor.BL.Services
         //    if (resort == null)
         //        throw new ApplicationException("Resort not found");
 
-        //    var dtoResortAddress = new DtoAddress()
+        //    var dtoResortAddress = new DtoAddressMultilang()
         //    {
-        //        Country = resort.Address.Country,
-        //        City = resort.Address.City.Name,
-        //        Street = resort.Address.Street,
-        //        Phones = new List<DtoPhone>()
+        //        Country = resort.AddressMultilang.Country,
+        //        City = resort.AddressMultilang.City.Name,
+        //        Street = resort.AddressMultilang.Street,
+        //        Phones = new List<DtoPhoneMultilang>()
         //    };
 
-        //    foreach (var phone in resort.Address.Phones)
+        //    foreach (var phone in resort.AddressMultilang.Phones)
         //    {
-        //        var dtoClinicPhone = new DtoPhone()
+        //        var dtoClinicPhone = new DtoPhoneMultilang()
         //        {
         //            Desc = phone.Description,
         //            Phone = phone.Number
@@ -295,7 +295,7 @@ namespace Infodoctor.BL.Services
         //        Email = resort.Email,
         //        Site = resort.Site,
         //        Specialisations = resort.Specialisations,
-        //        Address = dtoResortAddress,
+        //        AddressMultilang = dtoResortAddress,
         //        RateAverage = resort.RateAverage,
         //        RatePoliteness = resort.RatePoliteness,
         //        RatePrice = resort.RatePrice,

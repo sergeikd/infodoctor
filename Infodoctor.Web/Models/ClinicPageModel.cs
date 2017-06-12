@@ -10,6 +10,6 @@ namespace Infodoctor.Web.Models
         public int Page { get; set; }
         public int PageSize { get; set; }
         public int TotalPages => (int)Math.Ceiling((decimal)TotalCount / PageSize);  // total pages
-        public List<DtoClinic> Clinics { get; set; } 
+        public List<DtoClinicMultilang> Clinics { get; set; } 
     }
 }

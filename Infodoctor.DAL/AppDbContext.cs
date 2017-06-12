@@ -15,12 +15,12 @@ namespace Infodoctor.DAL
         public DbSet<Country> Countries { get; set; }
         public DbSet<Clinic> Сlinics { get; set; }
         public DbSet<LocalizedClinic> LocalizedClinic { get; set; }
-        public DbSet<ClinicAddress> ClinicAddresses { get; set; }
-        public DbSet<LocalizedClinicAddress> LocalizedClinicAddress { get; set; }
+        public DbSet<Address> ClinicAddresses { get; set; }
+        public DbSet<LocalizedAddress> LocalizedClinicAddress { get; set; }
         public DbSet<City> Cities { get; set; }
-        public DbSet<LocalisedCity> LocalisedCity { get; set; }
-        public DbSet<ClinicPhone> ClinicPhones { get; set; }
-        public DbSet<LocalizedClinicPhone> LocalizedClinicPhone { get; set; }
+        public DbSet<LocalizedCity> LocalisedCity { get; set; }
+        public DbSet<Phone> ClinicPhones { get; set; }
+        public DbSet<LocalizedPhone> LocalizedClinicPhone { get; set; }
         public DbSet<ClinicSpecialization> ClinicSpecializations { get; set; }
         public DbSet<LocalizedClinicSpecialization> LocalizedClinicSpecialization { get; set; }
         public DbSet<OwnerShip> OwnerShips { get; set; }

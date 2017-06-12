@@ -125,8 +125,8 @@ namespace Infodoctor.Web
             List<DoctorReview> doctorReviewList;
             List<Clinic> clinicList;
             List<Doctor> doctorsList;
-            List<ClinicPhone> phonesList;
-            List<ClinicAddress> clinicAddressList;
+            List<Phone> phonesList;
+            List<Address> clinicAddressList;
             List<City> citiesList;
             List<DoctorCategory> categoriesList;
             List<ImageFile> imagesList;
