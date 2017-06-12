@@ -25,9 +25,9 @@ namespace Infodoctor.DAL.Repositories
             switch (sortBy)
             {
                 default:
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.LocalizedClinics.First(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Сlinics.OrderBy(c => c.LocalizedClinics.First(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);             //TODO: check it
+                    return descending ? _context.Сlinics.OrderByDescending(c => c.LocalizedClinics.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Сlinics.OrderBy(c => c.LocalizedClinics.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);             //TODO: check it
                 case "alphabet":
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.LocalizedClinics.First(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Сlinics.OrderBy(c => c.LocalizedClinics.First(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);             //TODO: check it
+                    return descending ? _context.Сlinics.OrderByDescending(c => c.LocalizedClinics.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Сlinics.OrderBy(c => c.LocalizedClinics.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);             //TODO: check it
                 case "rate":
                     return descending ? _context.Сlinics.OrderByDescending(c => c.RateAverage) : _context.Сlinics.OrderBy(c => c.RateAverage);
                 case "price":
@@ -38,7 +38,7 @@ namespace Infodoctor.DAL.Repositories
         {
             try
             {
-                var result = _context.Сlinics.First(s => s.Id == id);
+                var result = _context.Сlinics.FirstOrDefault(s => s.Id == id);
                 return result;
             }
             catch (Exception)
@@ -61,7 +61,7 @@ namespace Infodoctor.DAL.Repositories
         }
         public void Update(Clinic clinic)
         {
-            var edited = _context.Сlinics.First(s => s.Id == clinic.Id);
+            var edited = _context.Сlinics.FirstOrDefault(s => s.Id == clinic.Id);
             edited = clinic;
         }
 

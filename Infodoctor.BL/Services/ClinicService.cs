@@ -361,9 +361,8 @@ namespace Infodoctor.BL.Services
             {
                 throw new ApplicationException("Incorrect request parameter");
             }
-            IQueryable<Clinic> clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang);
-            /*
-             * IQueryable<Clinic> clinics = null;
+            //IQueryable<Clinic> clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang);
+            IQueryable<Clinic> clinics = null;
             switch (searchModel.CityId) //check whether CityId included in search request
             {
                 case 0:
@@ -371,13 +370,14 @@ namespace Infodoctor.BL.Services
                         switch (searchModel.SpecializationIds.Any())
                         //check whether ClinicSpecialization included in search request
                         {
-                            case true:
+                            //case true:
+                            case false:
                                 {
                                     switch (searchModel.SearchWord == "") //check whether SearchWord included in search request
                                     {
                                         case true:
                                             {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
+                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
                                                     Where(
                                                         x =>
                                                             !searchModel.SpecializationIds.Except(
@@ -386,11 +386,13 @@ namespace Infodoctor.BL.Services
                                             }
                                         default:
                                             {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                                                    Where(x => (x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                                !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any()) ||
-                                                                (x.ClinicSpecializations.Any(z => z.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                                !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any())));
+                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
+                                                    Where(x => x.LocalizedClinics.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                                               !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any() ||
+                                                                x.ClinicSpecializations.Any(
+                                                                    z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                                                                                 !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any())
+                                                                                                 );
                                                 break;
                                             }
                                     }
@@ -403,14 +405,14 @@ namespace Infodoctor.BL.Services
                                     {
                                         case true:
                                             {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending);
+                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang);
                                                 break;
                                             }
                                         default:
                                             {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                                                    Where(x => x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
-                                                            x.ClinicSpecializations.Any(z => z.Name.ToLower().Contains(searchModel.SearchWord.ToLower())));
+                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
+                                                    Where(x => x.LocalizedClinics.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
+                                                            x.ClinicSpecializations.Any(z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower())));
                                                 break;
                                             }
                                     }
@@ -431,19 +433,19 @@ namespace Infodoctor.BL.Services
                                     {
                                         case true:
                                             {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                                                    Where(x => x.ClinicAddresses.Any(y => y.City.Id == searchModel.CityId) &&
+                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
+                                                    Where(x => x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId) &&
                                                                !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any());
                                                 break;
                                             }
                                         default:
                                             {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                                                    Where(x => (x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                               x.ClinicAddresses.Any(y => y.City.Id == searchModel.CityId) &&
+                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
+                                                    Where(x => (x.LocalizedClinics.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                                               x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId) &&
                                                                !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any()) ||
-                                                               (x.ClinicSpecializations.Any(z => z.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                               x.ClinicAddresses.Any(y => y.City.Id == searchModel.CityId) &&
+                                                               (x.ClinicSpecializations.Any(z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                                               x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId) &&
                                                                !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any())));
                                                 break;
                                             }
@@ -456,17 +458,17 @@ namespace Infodoctor.BL.Services
                                     {
                                         case true:
                                             {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                                                    Where(x => x.ClinicAddresses.Any(y => y.City.Id == searchModel.CityId));
+                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending,lang).
+                                                    Where(x => x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId));
                                                 break;
                                             }
                                         default:
                                             {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending).
-                                                    Where(x => (x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                               x.ClinicAddresses.Any(y => y.City.Id == searchModel.CityId)) ||
-                                                               (x.ClinicSpecializations.Any(z => z.Name.ToLower().Contains(searchModel.SearchWord.ToLower())) &&
-                                                               x.ClinicAddresses.Any(y => y.City.Id == searchModel.CityId)));
+                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending,lang).
+                                                    Where(x => (x.LocalizedClinics.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                                               x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId)) ||
+                                                               (x.ClinicSpecializations.Any(z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower())) &&
+                                                               x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId)));
                                                 break;
                                             }
                                     }
@@ -476,8 +478,8 @@ namespace Infodoctor.BL.Services
                         break;
                     }
             }
-            */
-            //var aaa = clinics.ToList();
+
+            var aaa = clinics.ToList();
             var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
             if (!pagedList.Any())
             {
