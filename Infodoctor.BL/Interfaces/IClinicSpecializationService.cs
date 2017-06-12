@@ -5,10 +5,10 @@ namespace Infodoctor.BL.Interfaces
 {
     public interface IClinicSpecializationService
     {
-        IEnumerable<DtoClinicSpecialization> GetAllSpecializations();
-        DtoClinicSpecialization GetSpecializationById(int id);
-        void Add(string name);
-        void Update(int id,string name);
+        IEnumerable<DtoClinicSpecialization> GetAllSpecializations(string lang);
+        DtoClinicSpecialization GetSpecializationById(int id, string lang);
+        void Add(DtoClinicSpecialization specialization);
+        void Update(DtoClinicSpecialization specialization);
         void Delete(int id);
     }
 }
