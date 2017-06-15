@@ -3,8 +3,7 @@
     public class Language
     {
         public int Id { get; set; }
-        public string Name { get; set; } //английское название языка
-        public string Code { get; set; } //2-х символьный код языка по стандарту ISO 639-1
+        public string Name { get; set; }
+        public string Code { get; set; }
     }
-
 }

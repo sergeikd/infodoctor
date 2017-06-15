@@ -5,10 +5,10 @@ namespace Infodoctor.BL.Interfaces
 {
     public interface ICountryService
     {
-        IEnumerable<DtoCountry> GetAllCountries();
-        DtoCountry GetCountryById(int id);
-        void Add(DtoCountry country);
-        void Update(DtoCountry country);
+        IEnumerable<DtoCountrySingleLang> GetAllCountries(string lang);
+        DtoCountrySingleLang GetCountryById(int id, string lang);
+        void Add(DtoCountryMultiLang country);
+        void Update(DtoCountryMultiLang country);
         void Delete(int id);
     }
 }

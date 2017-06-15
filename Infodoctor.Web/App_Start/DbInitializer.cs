@@ -15,6 +15,31 @@ namespace Infodoctor.Web
     {
         protected override void Seed(AppDbContext context)
         {
+            var dbInitializerExtention = new DbInitializerExtention();
+            List<ClinicReview> clinicReviewList;
+            List<DoctorReview> doctorReviewList;
+            List<Clinic> clinicList;
+            List<Doctor> doctorsList;
+            List<Phone> phonesList;
+            List<Address> clinicAddressList;
+            List<City> citiesList;
+            List<DoctorCategory> categoriesList;
+            List<ImageFile> imagesList;
+            List<Language> langs;
+            //List<ImageFile> imagesList;
+            dbInitializerExtention.PrepareLists(out langs, out clinicReviewList, out doctorReviewList, out clinicList, out doctorsList, out phonesList, out clinicAddressList,
+                out citiesList, out categoriesList, out imagesList);
+            context.Images.AddRange(imagesList);
+            context.ClinicReviews.AddRange(clinicReviewList);
+            context.DoctorReviews.AddRange(doctorReviewList);
+            context.Сlinics.AddRange(clinicList);
+            context.Doctors.AddRange(doctorsList);
+            context.ClinicPhones.AddRange(phonesList);
+            context.ClinicAddresses.AddRange(clinicAddressList);
+            context.Cities.AddRange(citiesList);
+            context.DoctorCategories.AddRange(categoriesList);
+            context.Languages.AddRange(langs);
+
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
@@ -115,35 +140,10 @@ namespace Infodoctor.Web
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    countriesList.Add(new Country() { Name = line });
+                    countriesList.Add(new Country() { LocalizedCountries = new List<LocalizedCountry>() { new LocalizedCountry() { Name = line, Language = langs.First(l => l.Code == "ru") } } });
                 }
             }
             context.Countries.AddRange(countriesList);
-
-            var dbInitializerExtention = new DbInitializerExtention();
-            List<ClinicReview> clinicReviewList;
-            List<DoctorReview> doctorReviewList;
-            List<Clinic> clinicList;
-            List<Doctor> doctorsList;
-            List<Phone> phonesList;
-            List<Address> clinicAddressList;
-            List<City> citiesList;
-            List<DoctorCategory> categoriesList;
-            List<ImageFile> imagesList;
-            List<Language> langs;
-            //List<ImageFile> imagesList;
-            dbInitializerExtention.PrepareLists(out langs, out clinicReviewList, out doctorReviewList, out clinicList, out doctorsList, out phonesList, out clinicAddressList,
-                out citiesList, out categoriesList, out imagesList);
-            context.Images.AddRange(imagesList);
-            context.ClinicReviews.AddRange(clinicReviewList);
-            context.DoctorReviews.AddRange(doctorReviewList);
-            context.Сlinics.AddRange(clinicList);
-            context.Doctors.AddRange(doctorsList);
-            context.ClinicPhones.AddRange(phonesList);
-            context.ClinicAddresses.AddRange(clinicAddressList);
-            context.Cities.AddRange(citiesList);
-            context.DoctorCategories.AddRange(categoriesList);
-            context.Languages.AddRange(langs);
 
             var clinic1 = clinicList[0];
             var clinic2 = clinicList[1];
