@@ -301,7 +301,7 @@ namespace Infodoctor.Web
             var clinic1 = new Clinic()
             {
                 Email = "info@nordin.by",
-                LocalizedClinics = new List<LocalizedClinic>()
+                Localized = new List<LocalizedClinic>()
                 {
                     new LocalizedClinic()
                     {
@@ -328,7 +328,7 @@ namespace Infodoctor.Web
             var clinic2 = new Clinic()
             {
                 Email = string.Empty,
-                LocalizedClinics = new List<LocalizedClinic>()
+                Localized = new List<LocalizedClinic>()
                 {
                     new LocalizedClinic()
                     {
@@ -355,7 +355,7 @@ namespace Infodoctor.Web
             {
                 Email = "kravira@kravira.by",
                 Site = "https://kravira.by/",
-                LocalizedClinics = new List<LocalizedClinic>()
+                Localized = new List<LocalizedClinic>()
                 {
                     new LocalizedClinic()
                     {
@@ -382,7 +382,7 @@ namespace Infodoctor.Web
             {
                 Email = "medic4@tut.by",
                 Site = "http://www.4gp.by/",
-                LocalizedClinics = new List<LocalizedClinic>()
+                Localized = new List<LocalizedClinic>()
                 {
                     new LocalizedClinic()
                     {
@@ -408,7 +408,7 @@ namespace Infodoctor.Web
             var clinic5 = new Clinic()
             {
                 Email = string.Empty,
-                LocalizedClinics = new List<LocalizedClinic>()
+                Localized = new List<LocalizedClinic>()
                 {
                     new LocalizedClinic()
                     {
@@ -462,10 +462,9 @@ namespace Infodoctor.Web
             doctorReviewSubList = doctorReviewList.Take(5).ToList();
             var doc001 = new Doctor()
             {
-                Name = "Степанов Степан Степанович",
+                Localized = new List<LocalizedDoctor>() { new LocalizedDoctor() { Name = "Степанов Степан Степанович", Manipulation = "Может что-то хорошо.", Language = langs.First(l => l.Code == "ru") } },
                 Email = "infosuperstepa1999@gmail.com",
                 Experience = 14,
-                Manipulation = "Может что-то хорошо.",
                 RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
                 RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
                 RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
@@ -479,10 +478,9 @@ namespace Infodoctor.Web
             doctorReviewSubList = doctorReviewList.Skip(5).Take(5).ToList();
             var doc002 = new Doctor()
             {
-                Name = "Степанов Иван Степанович",
+                Localized = new List<LocalizedDoctor>() { new LocalizedDoctor() { Name = "Степанов Иван Степанович", Manipulation = "Может что-то отлично.", Language = langs.First(l => l.Code == "ru") } },
                 Email = "giperivan2@gmail.com",
                 Experience = 20,
-                Manipulation = "Может что-то отлично.",
                 RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
                 RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
                 RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
@@ -496,10 +494,9 @@ namespace Infodoctor.Web
             doctorReviewSubList = doctorReviewList.Skip(10).Take(5).ToList();
             var doc003 = new Doctor()
             {
-                Name = "Степанов Степан Иванович",
+                Localized = new List<LocalizedDoctor>() { new LocalizedDoctor() { Name = "Степанов Степан Иванович", Manipulation = "Может что-то нормально.", Language = langs.First(l => l.Code == "ru") } },
                 Email = "darmaed19@gmail.com",
                 Experience = 2,
-                Manipulation = "Может что-то нормально.",
                 RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
                 RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
                 RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
@@ -513,10 +510,9 @@ namespace Infodoctor.Web
             doctorReviewSubList = doctorReviewList.Skip(15).Take(5).ToList();
             var doc004 = new Doctor()
             {
-                Name = "Иванов Степан Степанович",
+                Localized = new List<LocalizedDoctor>() { new LocalizedDoctor() { Name = "Иванов Степан Степанович", Manipulation = "Может что-то хорошо.", Language = langs.First(l => l.Code == "ru") } },
                 Email = "tainiidoctor2@gmail.com",
                 Experience = 14,
-                Manipulation = "Может что-то хорошо.",
                 RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
                 RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
                 RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
@@ -530,10 +526,9 @@ namespace Infodoctor.Web
             doctorReviewSubList = doctorReviewList.Skip(20).Take(5).ToList();
             var doc005 = new Doctor()
             {
-                Name = "Степанов Сергей Степанович",
+                Localized = new List<LocalizedDoctor>() { new LocalizedDoctor() { Name = "Степанов Сергей Степанович", Manipulation = "Может что-то отлично.", Language = langs.First(l => l.Code == "ru") } },
                 Email = "123456789@gmail.com",
                 Experience = 29,
-                Manipulation = "Может что-то отлично.",
                 RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
                 RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
                 RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),

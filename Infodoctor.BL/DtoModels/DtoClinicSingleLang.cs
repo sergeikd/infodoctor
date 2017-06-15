@@ -11,7 +11,7 @@ namespace Infodoctor.BL.DtoModels
         public string Site { get; set; }
         public List<DtoAddressSingleLang> Addresses { get; set; }
         public List<DtoClinicSpecializationSingleLangModels> Specializations { get; set; }
-        public List<DtoDoctor> Doctors { get; set; }
+        public List<DtoDoctorMultiLang> Doctors { get; set; }
         public List<string> Images { get; set; }
         public double RatePrice { get; set; }
         public double RateQuality { get; set; }

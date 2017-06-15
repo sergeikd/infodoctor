@@ -33,13 +33,13 @@ namespace Infodoctor.BL.Services
             //{
             //    var dtoResortAddress = new DtoAddressMultilang()
             //    {
-            //        Country = resort.AddressMultilang.Country,
-            //        City = resort.AddressMultilang.City.Name,
-            //        Street = resort.AddressMultilang.Street,
+            //        Country = resort.Address.Country,
+            //        City = resort.Address.City.Name,
+            //        Street = resort.Address.Street,
             //        Phones = new List<DtoPhoneMultilang>()
             //    };
 
-            //    foreach (var phone in resort.AddressMultilang.Phones)
+            //    foreach (var phone in resort.Address.Phones)
             //    {
             //        var dtoClinicPhone = new DtoPhoneMultilang()
             //        {
@@ -56,7 +56,7 @@ namespace Infodoctor.BL.Services
             //        Email = resort.Email,
             //        Site = resort.Site,
             //        Specialisations = resort.Specialisations,
-            //        AddressMultilang = dtoResortAddress,
+            //        Address = dtoResortAddress,
             //        RateAverage = resort.RateAverage,
             //        RatePoliteness = resort.RatePoliteness,
             //        RatePrice = resort.RatePrice,
@@ -93,13 +93,13 @@ namespace Infodoctor.BL.Services
             //{
             //    var dtoResortAddress = new DtoAddressMultilang()
             //    {
-            //        Country = resort.AddressMultilang.Country,
-            //        City = resort.AddressMultilang.City.Name,
-            //        Street = resort.AddressMultilang.Street,
+            //        Country = resort.Address.Country,
+            //        City = resort.Address.City.Name,
+            //        Street = resort.Address.Street,
             //        Phones = new List<DtoPhoneMultilang>()
             //    };
 
-            //    foreach (var phone in resort.AddressMultilang.Phones)
+            //    foreach (var phone in resort.Address.Phones)
             //    {
             //        var dtoClinicPhone = new DtoPhoneMultilang()
             //        {
@@ -116,7 +116,7 @@ namespace Infodoctor.BL.Services
             //        Email = resort.Email,
             //        Site = resort.Site,
             //        Specialisations = resort.Specialisations,
-            //        AddressMultilang = dtoResortAddress,
+            //        Address = dtoResortAddress,
             //        RateAverage = resort.RateAverage,
             //        RatePoliteness = resort.RatePoliteness,
             //        RatePrice = resort.RatePrice,
@@ -216,13 +216,13 @@ namespace Infodoctor.BL.Services
             //{
             //    var dtoResortAddress = new DtoAddressMultilang()
             //    {
-            //        Country = resort.AddressMultilang.Country,
-            //        City = resort.AddressMultilang.City.Name,
-            //        Street = resort.AddressMultilang.Street,
+            //        Country = resort.Address.Country,
+            //        City = resort.Address.City.Name,
+            //        Street = resort.Address.Street,
             //        Phones = new List<DtoPhoneMultilang>()
             //    };
 
-            //    foreach (var phone in resort.AddressMultilang.Phones)
+            //    foreach (var phone in resort.Address.Phones)
             //    {
             //        var dtoClinicPhone = new DtoPhoneMultilang()
             //        {
@@ -239,7 +239,7 @@ namespace Infodoctor.BL.Services
             //        Email = resort.Email,
             //        Site = resort.Site,
             //        Specialisations = resort.Specialisations,
-            //        AddressMultilang = dtoResortAddress,
+            //        Address = dtoResortAddress,
             //        RateAverage = resort.RateAverage,
             //        RatePoliteness = resort.RatePoliteness,
             //        RatePrice = resort.RatePrice,
@@ -272,13 +272,13 @@ namespace Infodoctor.BL.Services
 
         //    var dtoResortAddress = new DtoAddressMultilang()
         //    {
-        //        Country = resort.AddressMultilang.Country,
-        //        City = resort.AddressMultilang.City.Name,
-        //        Street = resort.AddressMultilang.Street,
+        //        Country = resort.Address.Country,
+        //        City = resort.Address.City.Name,
+        //        Street = resort.Address.Street,
         //        Phones = new List<DtoPhoneMultilang>()
         //    };
 
-        //    foreach (var phone in resort.AddressMultilang.Phones)
+        //    foreach (var phone in resort.Address.Phones)
         //    {
         //        var dtoClinicPhone = new DtoPhoneMultilang()
         //        {
@@ -295,7 +295,7 @@ namespace Infodoctor.BL.Services
         //        Email = resort.Email,
         //        Site = resort.Site,
         //        Specialisations = resort.Specialisations,
-        //        AddressMultilang = dtoResortAddress,
+        //        Address = dtoResortAddress,
         //        RateAverage = resort.RateAverage,
         //        RatePoliteness = resort.RatePoliteness,
         //        RatePrice = resort.RatePrice,

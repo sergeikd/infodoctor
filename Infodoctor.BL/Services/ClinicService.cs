@@ -103,7 +103,7 @@ namespace Infodoctor.BL.Services
                 }
 
                 var localizedClinic = new LocalizedClinic();
-                foreach (var localClinic in clinic.LocalizedClinics)
+                foreach (var localClinic in clinic.Localized)
                 {
                     if (localClinic.Language.Code.ToLower() == lang.ToLower())
                         localizedClinic = localClinic;
@@ -203,7 +203,7 @@ namespace Infodoctor.BL.Services
             }
 
             var localizedClinic = new LocalizedClinic();
-            foreach (var localClinic in clinic.LocalizedClinics)
+            foreach (var localClinic in clinic.Localized)
             {
                 if (localClinic.Language.Code.ToLower() == lang.ToLower())
                     localizedClinic = localClinic;
@@ -308,7 +308,7 @@ namespace Infodoctor.BL.Services
                 }
 
                 var localizedClinic = new LocalizedClinic();
-                foreach (var localClinic in clinic.LocalizedClinics)
+                foreach (var localClinic in clinic.Localized)
                 {
                     if (localClinic.Language.Code.ToLower() == lang.ToLower())
                         localizedClinic = localClinic;
@@ -387,7 +387,7 @@ namespace Infodoctor.BL.Services
                                         default:
                                             {
                                                 clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
-                                                    Where(x => x.LocalizedClinics.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                                    Where(x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
                                                                !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any() ||
                                                                 x.ClinicSpecializations.Any(
                                                                     z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
@@ -411,7 +411,7 @@ namespace Infodoctor.BL.Services
                                         default:
                                             {
                                                 clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
-                                                    Where(x => x.LocalizedClinics.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
+                                                    Where(x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
                                                             x.ClinicSpecializations.Any(z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower())));
                                                 break;
                                             }
@@ -441,7 +441,7 @@ namespace Infodoctor.BL.Services
                                         default:
                                             {
                                                 clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
-                                                    Where(x => (x.LocalizedClinics.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                                    Where(x => (x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
                                                                x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId) &&
                                                                !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any()) ||
                                                                (x.ClinicSpecializations.Any(z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
@@ -465,7 +465,7 @@ namespace Infodoctor.BL.Services
                                         default:
                                             {
                                                 clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending,lang).
-                                                    Where(x => (x.LocalizedClinics.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                                    Where(x => (x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
                                                                x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId)) ||
                                                                (x.ClinicSpecializations.Any(z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower())) &&
                                                                x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId)));
@@ -550,7 +550,7 @@ namespace Infodoctor.BL.Services
                 }
 
                 var localizedClinic = new LocalizedClinic();
-                foreach (var localClinic in clinic.LocalizedClinics)
+                foreach (var localClinic in clinic.Localized)
                 {
                     if (localClinic.Language.Code.ToLower() == lang.ToLower())
                         localizedClinic = localClinic;

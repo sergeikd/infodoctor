@@ -25,9 +25,9 @@ namespace Infodoctor.DAL.Repositories
             switch (sortBy)
             {
                 default:
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.LocalizedClinics.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Сlinics.OrderBy(c => c.LocalizedClinics.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);             //TODO: check it
+                    return descending ? _context.Сlinics.OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Сlinics.OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);             //TODO: check it
                 case "alphabet":
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.LocalizedClinics.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Сlinics.OrderBy(c => c.LocalizedClinics.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);             //TODO: check it
+                    return descending ? _context.Сlinics.OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Сlinics.OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);             //TODO: check it
                 case "rate":
                     return descending ? _context.Сlinics.OrderByDescending(c => c.RateAverage) : _context.Сlinics.OrderBy(c => c.RateAverage);
                 case "price":

@@ -16,12 +16,13 @@ namespace Infodoctor.BL.Services
         private readonly IDoctorCategoryRepository _doctorCategoryRepository;
         private readonly IClinicRepository _clinicRepository;
         private readonly ISearchService _searchService;
+        private readonly ILanguageRepository _languageRepository;
 
         public DoctorService(IDoctorRepository doctorRepository,
             IDoctorSpecializationRepository doctorSpecializationRepository,
             IDoctorCategoryRepository doctorCategoryRepository,
             IClinicRepository clinicRepository,
-            ISearchService searchService)
+            ISearchService searchService, ILanguageRepository languageRepository)
         {
             if (doctorRepository == null)
                 throw new ArgumentNullException(nameof(doctorRepository));
@@ -33,28 +34,46 @@ namespace Infodoctor.BL.Services
                 throw new ArgumentNullException(nameof(clinicRepository));
             if (searchService == null)
                 throw new ArgumentNullException(nameof(searchService));
+            if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
 
             _searchService = searchService;
+            _languageRepository = languageRepository;
             _clinicRepository = clinicRepository;
             _doctorRepository = doctorRepository;
             _doctorSpecializationRepository = doctorSpecializationRepository;
             _doctorCategoryRepository = doctorCategoryRepository;
         }
 
-        public IEnumerable<DtoDoctor> GetAllDoctors(string pathToImage, string lang)
+        public IEnumerable<DtoDoctorSingleLang> GetAllDoctors(string pathToImage, string lang)
         {
             var doctors = _doctorRepository.GetAllDoctors().ToList();
-            var result = new List<DtoDoctor>();
+            var result = new List<DtoDoctorSingleLang>();
 
             foreach (var doctor in doctors)
             {
-                var dtoDoctor = new DtoDoctor()
+                var local = new DtoDoctorLocalized();
+
+                if (doctor.Localized != null)
+                    foreach (var localizedDoctor in doctor.Localized)
+                        if (string.Equals(localizedDoctor.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            local = new DtoDoctorLocalized()
+                            {
+                                Id = localizedDoctor.Id,
+                                Name = localizedDoctor.Name,
+                                Manipulation = localizedDoctor.Manipulation,
+                                LangCode = localizedDoctor.Language.Code
+                            };
+                        }
+
+                var dtoDoctor = new DtoDoctorSingleLang()
                 {
                     Id = doctor.Id,
-                    Name = doctor.Name,
+                    LangCode = local.LangCode,
+                    Name = local.Name,
+                    Manipulation = local.Manipulation,
                     Email = doctor.Email,
                     Experience = doctor.Experience,
-                    Manipulation = doctor.Manipulation,
                     Specialization = new DtoDoctorSpecialization() { Id = doctor.Specialization.Id, Name = doctor.Specialization.Name },
                     Category = doctor.Category.Name,
                     RatePoliteness = doctor.RatePoliteness,
@@ -73,7 +92,8 @@ namespace Infodoctor.BL.Services
                         var localizedDtoClinicPhoneList = new List<LocalizedDtoPhone>();
                         foreach (var localizedClinicPhone in clinicAddressPhone.LocalizedPhones)
                         {
-                            if (localizedClinicPhone.Language.Code.ToLower() == lang.ToLower())
+                            if (string.Equals(localizedClinicPhone.Language.Code.ToLower(), lang.ToLower(),
+                                StringComparison.Ordinal))
                             {
                                 localizedDtoClinicPhoneList.Add(new LocalizedDtoPhone()
                                 {
@@ -115,7 +135,7 @@ namespace Infodoctor.BL.Services
                         Phones = dtoPhoneList
                     };
 
-                    dtoDoctor.AddressMultilang = dtoAddress;
+                    dtoDoctor.Address = dtoAddress;
                 }
 
                 if (doctor.Clinics != null)
@@ -146,17 +166,33 @@ namespace Infodoctor.BL.Services
                 throw new ApplicationException("Page not found");
             }
 
-            var dtoDoctors = new List<DtoDoctor>();
+            var dtoDoctors = new List<DtoDoctorSingleLang>();
 
             foreach (var doctor in pagedList)
             {
-                var dtoDoctor = new DtoDoctor()
+                var local = new DtoDoctorLocalized();
+
+                if (doctor.Localized != null)
+                    foreach (var localizedDoctor in doctor.Localized)
+                        if (string.Equals(localizedDoctor.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            local = new DtoDoctorLocalized()
+                            {
+                                Id = localizedDoctor.Id,
+                                Name = localizedDoctor.Name,
+                                Manipulation = localizedDoctor.Manipulation,
+                                LangCode = localizedDoctor.Language.Code
+                            };
+                        }
+
+                var dtoDoctor = new DtoDoctorSingleLang()
                 {
                     Id = doctor.Id,
-                    Name = doctor.Name,
+                    LangCode = local.LangCode,
+                    Name = local.Name,
+                    Manipulation = local.Manipulation,
                     Email = doctor.Email,
                     Experience = doctor.Experience,
-                    Manipulation = doctor.Manipulation,
                     Specialization = new DtoDoctorSpecialization() { Id = doctor.Specialization.Id, Name = doctor.Specialization.Name },
                     Category = doctor.Category.Name,
                     RatePoliteness = doctor.RatePoliteness,
@@ -217,7 +253,7 @@ namespace Infodoctor.BL.Services
                         Phones = dtoPhoneList
                     };
 
-                    dtoDoctor.AddressMultilang = dtoAddress;
+                    dtoDoctor.Address = dtoAddress;
                 }
 
                 if (doctor.Clinics != null)
@@ -272,14 +308,14 @@ namespace Infodoctor.BL.Services
                                     {
                                         case true:
                                             {
-                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending).
+                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending,lang).
                                                     Where(x => (x.Specialization.Id == searchModel.SpecializationId));
                                                 break;
                                             }
                                         default:
                                             {
-                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending).
-                                                    Where(x => (x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
+                                                    Where(x => (x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
                                                                 (x.Specialization.Id == searchModel.SpecializationId)));
                                                 break;
                                             }
@@ -293,13 +329,13 @@ namespace Infodoctor.BL.Services
                                     {
                                         case true:
                                             {
-                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending);
+                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang);
                                                 break;
                                             }
                                         default:
                                             {
-                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending).
-                                                    Where(x => x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()));
+                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
+                                                    Where(x => x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()));
                                                 break;
                                             }
                                     }
@@ -319,15 +355,15 @@ namespace Infodoctor.BL.Services
                                     {
                                         case true:
                                             {
-                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending).
+                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
                                                                Where(x => (x.Address.Id == searchModel.CityId) &&
                                                                (x.Specialization.Id == searchModel.SpecializationId));
                                                 break;
                                             }
                                         default:
                                             {
-                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending).
-                                                    Where(x => x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
+                                                    Where(x => x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
                                                                (x.Address.Id == searchModel.CityId) &&
                                                                (x.Specialization.Id == searchModel.SpecializationId));
                                                 break;
@@ -341,14 +377,14 @@ namespace Infodoctor.BL.Services
                                     {
                                         case true:
                                             {
-                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending).
+                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
                                                     Where(x => x.Address.Id == searchModel.CityId);
                                                 break;
                                             }
                                         default:
                                             {
-                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending).
-                                                    Where(x => x.Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
+                                                    Where(x => x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
                                                                x.Address.Id == searchModel.CityId);
                                                 break;
                                             }
@@ -365,17 +401,33 @@ namespace Infodoctor.BL.Services
             {
                 return null;
             }
-            var dtoDoctors = new List<DtoDoctor>();
+            var dtoDoctors = new List<DtoDoctorSingleLang>();
 
             foreach (var doctor in pagedList)
             {
-                var dtoDoctor = new DtoDoctor()
+                var local = new DtoDoctorLocalized();
+
+                if (doctor.Localized != null)
+                    foreach (var localizedDoctor in doctor.Localized)
+                        if (string.Equals(localizedDoctor.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            local = new DtoDoctorLocalized()
+                            {
+                                Id = localizedDoctor.Id,
+                                Name = localizedDoctor.Name,
+                                Manipulation = localizedDoctor.Manipulation,
+                                LangCode = localizedDoctor.Language.Code
+                            };
+                        }
+
+                var dtoDoctor = new DtoDoctorSingleLang()
                 {
                     Id = doctor.Id,
-                    Name = doctor.Name,
+                    LangCode = local.LangCode,
+                    Name = local.Name,
+                    Manipulation = local.Manipulation,
                     Email = doctor.Email,
                     Experience = doctor.Experience,
-                    Manipulation = doctor.Manipulation,
                     Specialization = new DtoDoctorSpecialization() { Id = doctor.Specialization.Id, Name = doctor.Specialization.Name },
                     Category = doctor.Category.Name,
                     RatePoliteness = doctor.RatePoliteness,
@@ -436,7 +488,7 @@ namespace Infodoctor.BL.Services
                         Phones = dtoPhoneList
                     };
 
-                    dtoDoctor.AddressMultilang = dtoAddress;
+                    dtoDoctor.Address = dtoAddress;
                 }
 
                 if (doctor.Clinics != null)
@@ -461,20 +513,36 @@ namespace Infodoctor.BL.Services
             return pagedDtoDoclorList;
         }
 
-        public DtoDoctor GetDoctorById(int id, string pathToImage, string lang)
+        public DtoDoctorSingleLang GetDoctorById(int id, string pathToImage, string lang)
         {
             var doctor = _doctorRepository.GetDoctorById(id);
 
             if (doctor == null)
                 throw new ApplicationException("Doctor not found");
 
-            var dtoDoctor = new DtoDoctor()
+            var local = new DtoDoctorLocalized();
+
+            if (doctor.Localized != null)
+                foreach (var localizedDoctor in doctor.Localized)
+                    if (string.Equals(localizedDoctor.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        local = new DtoDoctorLocalized()
+                        {
+                            Id = localizedDoctor.Id,
+                            Name = localizedDoctor.Name,
+                            Manipulation = localizedDoctor.Manipulation,
+                            LangCode = localizedDoctor.Language.Code
+                        };
+                    }
+
+            var dtoDoctor = new DtoDoctorSingleLang()
             {
                 Id = doctor.Id,
-                Name = doctor.Name,
+                LangCode = local.LangCode,
+                Name = local.Name,
+                Manipulation = local.Manipulation,
                 Email = doctor.Email,
                 Experience = doctor.Experience,
-                Manipulation = doctor.Manipulation,
                 Specialization = new DtoDoctorSpecialization() { Id = doctor.Specialization.Id, Name = doctor.Specialization.Name },
                 Category = doctor.Category.Name,
                 RatePoliteness = doctor.RatePoliteness,
@@ -535,7 +603,7 @@ namespace Infodoctor.BL.Services
                     Phones = dtoPhoneList
                 };
 
-                dtoDoctor.AddressMultilang = dtoAddress;
+                dtoDoctor.Address = dtoAddress;
             }
 
             if (doctor.Clinics != null)
@@ -549,23 +617,30 @@ namespace Infodoctor.BL.Services
             return dtoDoctor;
         }
 
-        public void Add(DtoDoctor newDoctor)
+        public void Add(DtoDoctorMultiLang newDoctorMultiLang)
         {
-            if (newDoctor == null)
-                throw new ArgumentNullException(nameof(newDoctor));
+            if (newDoctorMultiLang == null)
+                throw new ArgumentNullException(nameof(newDoctorMultiLang));
+
+            var locals = new List<LocalizedDoctor>();
+
+            if (newDoctorMultiLang.Localized != null)
+                foreach (var doctorLocalized in newDoctorMultiLang.Localized)
+                {
+                    locals.Add(new LocalizedDoctor() { Name = doctorLocalized.Name, Manipulation = doctorLocalized.Manipulation, Language = _languageRepository.GetLanguageByCode(doctorLocalized.LangCode) });
+                }
 
             var doctor = new Doctor()
             {
-                Name = newDoctor.Name,
-                Email = newDoctor.Email,
-                Experience = newDoctor.Experience,
-                Manipulation = newDoctor.Manipulation,
-                ImageName = newDoctor.Image
+                Localized = locals,
+                Email = newDoctorMultiLang.Email,
+                Experience = newDoctorMultiLang.Experience,
+                ImageName = newDoctorMultiLang.Image
             };
 
             var clinicsList = new List<Clinic>();
 
-            foreach (var clinicId in newDoctor.ClinicsIds)
+            foreach (var clinicId in newDoctorMultiLang.ClinicsIds)
             {
                 var clinic = _clinicRepository.GetClinicById(clinicId);
                 if (clinic != null)
@@ -578,48 +653,55 @@ namespace Infodoctor.BL.Services
                 _doctorSpecializationRepository.GetAllSpecializations().ToList();
             var doctorCategoryList = _doctorCategoryRepository.GetAllCategories().ToList();
 
-            doctor.Specialization = doctorSpesList.First(ds => String.Equals(ds.Name, newDoctor.Specialization.Name, StringComparison.CurrentCultureIgnoreCase));
-            doctor.Category = doctorCategoryList.First(dc => String.Equals(dc.Name, newDoctor.Category, StringComparison.CurrentCultureIgnoreCase));
+            doctor.Specialization = doctorSpesList.First(ds => String.Equals(ds.Name, newDoctorMultiLang.Specialization.Name, StringComparison.CurrentCultureIgnoreCase));
+            doctor.Category = doctorCategoryList.First(dc => String.Equals(dc.Name, newDoctorMultiLang.Category, StringComparison.CurrentCultureIgnoreCase));
 
 
             _doctorRepository.Add(doctor);
             _searchService.RefreshCache();
         }
 
-        public void Update(int id, DtoDoctor newDoctor)
+        public void Update(int id, DtoDoctorMultiLang newDoctorMultiLang)
         {
-            if (newDoctor == null)
-                throw new ArgumentNullException(nameof(newDoctor));
+            if (newDoctorMultiLang == null)
+                throw new ArgumentNullException(nameof(newDoctorMultiLang));
+
+            var locals = new List<LocalizedDoctor>();
+
+            if (newDoctorMultiLang.Localized != null)
+                foreach (var doctorLocalized in newDoctorMultiLang.Localized)
+                {
+                    locals.Add(new LocalizedDoctor() { Name = doctorLocalized.Name, Manipulation = doctorLocalized.Manipulation, Language = _languageRepository.GetLanguageByCode(doctorLocalized.LangCode) });
+                }
 
             var doctor = _doctorRepository.GetDoctorById(id);
 
-            if (doctor != null)
+            if (doctor == null)
+                throw new ApplicationException($"Doctor with id={id} not found");
+
+            doctor.Localized = locals;
+            doctor.Email = newDoctorMultiLang.Email;
+            doctor.Experience = newDoctorMultiLang.Experience;
+            doctor.ImageName = newDoctorMultiLang.Image;
+
+            var doctorSpesList =
+                _doctorSpecializationRepository.GetAllSpecializations().ToList();
+            var doctorCategotyList = _doctorCategoryRepository.GetAllCategories().ToList();
+            var clinicsList = new List<Clinic>();
+
+            foreach (var clinicId in newDoctorMultiLang.ClinicsIds)
             {
-                doctor.Name = newDoctor.Name;
-                doctor.Email = newDoctor.Email;
-                doctor.Experience = newDoctor.Experience;
-                doctor.Manipulation = newDoctor.Manipulation;
-                doctor.ImageName = newDoctor.Image;
-
-                var doctorSpesList =
-                    _doctorSpecializationRepository.GetAllSpecializations().ToList();
-                var doctorCategotyList = _doctorCategoryRepository.GetAllCategories().ToList();
-                var clinicsList = new List<Clinic>();
-
-                foreach (var clinicId in newDoctor.ClinicsIds)
-                {
-                    var clinic = _clinicRepository.GetClinicById(clinicId);
-                    if (clinic != null)
-                        clinicsList.Add(clinic);
-                }
-
-                doctor.Clinics = clinicsList;
-                doctor.Specialization = doctorSpesList.First(ds => string.Equals(ds.Name, newDoctor.Specialization.Name, StringComparison.CurrentCultureIgnoreCase));
-                doctor.Category = doctorCategotyList.First(dc => string.Equals(dc.Name, newDoctor.Category, StringComparison.CurrentCultureIgnoreCase));
-
-                _doctorRepository.Update(doctor);
-                _searchService.RefreshCache();
+                var clinic = _clinicRepository.GetClinicById(clinicId);
+                if (clinic != null)
+                    clinicsList.Add(clinic);
             }
+
+            doctor.Clinics = clinicsList;
+            doctor.Specialization = doctorSpesList.First(ds => string.Equals(ds.Name, newDoctorMultiLang.Specialization.Name, StringComparison.CurrentCultureIgnoreCase));
+            doctor.Category = doctorCategotyList.First(dc => string.Equals(dc.Name, newDoctorMultiLang.Category, StringComparison.CurrentCultureIgnoreCase));
+
+            _doctorRepository.Update(doctor);
+            _searchService.RefreshCache();
         }
 
         public void Delete(int id)

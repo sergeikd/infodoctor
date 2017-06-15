@@ -6,10 +6,8 @@ namespace Infodoctor.Domain.Entities
     {
         public int Id { get; set; }
         public string ImageName { get; set; }
-        public string Name { get; set; }
         public string Email { get; set; }
         public int Experience { get; set; }
-        public string Manipulation { get; set; }
         public double RateProfessionalism { get; set; }
         public double RateWaitingTime { get; set; }
         public double RatePoliteness { get; set; }
@@ -20,5 +18,14 @@ namespace Infodoctor.Domain.Entities
         public virtual Address Address { get; set; }
         public virtual ICollection<Clinic> Clinics { get; set; }
         public virtual ICollection<DoctorReview> DoctorReviews { get; set; }
+        public virtual ICollection<LocalizedDoctor> Localized { get; set; }
+    }
+
+    public class LocalizedDoctor
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Manipulation { get; set; }
+        public virtual Language Language { get; set; }
     }
 }

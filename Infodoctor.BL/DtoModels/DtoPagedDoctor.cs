@@ -5,7 +5,7 @@ namespace Infodoctor.BL.DtoModels
 {
     public class DtoPagedDoctor
     {
-        public List<DtoDoctor> Doctors { get; set; }
+        public List<DtoDoctorSingleLang> Doctors { get; set; }
         public int TotalCount { get; set; }
         public int Page { get; set; }
         public int PageSize { get; set; }
