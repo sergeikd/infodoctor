@@ -894,76 +894,76 @@ namespace Infodoctor.Web
             #endregion
 
             #region Старый список специализаций врачей
-            var dp059 = new DoctorSpecializationMultiLang() { Name = "Аллерголог", Doctors = new List<Doctor> { doc002 } };
-            var dp148 = new DoctorSpecializationMultiLang() { Name = "Аллерголог детский", Doctors = new List<Doctor> { doc003 } };
-            var dp273 = new DoctorSpecializationMultiLang() { Name = "Ангиохирург" };
-            var dp340 = new DoctorSpecializationMultiLang() { Name = "Андролог" };
-            var dp411 = new DoctorSpecializationMultiLang() { Name = "Анестезиолог" };
-            var dp595 = new DoctorSpecializationMultiLang() { Name = "Гастроэнтеролог" };
-            var dp629 = new DoctorSpecializationMultiLang() { Name = "Гастроэнтеролог детский" };
-            var dp720 = new DoctorSpecializationMultiLang() { Name = "Гинеколог" };
-            var dp848 = new DoctorSpecializationMultiLang() { Name = "Гинеколог детский" };
-            var dp928 = new DoctorSpecializationMultiLang() { Name = "Гинеколог-эндокринолог" };
-            var dp1010 = new DoctorSpecializationMultiLang() { Name = "Дерматолог" };
-            var dp1125 = new DoctorSpecializationMultiLang() { Name = "Иглорефлексотерапевт" };
-            var dp1246 = new DoctorSpecializationMultiLang() { Name = "Иммунолог" };
-            var dp1367 = new DoctorSpecializationMultiLang() { Name = "Кардиолог" };
-            var dp1460 = new DoctorSpecializationMultiLang() { Name = "Кардиолог детский" };
-            var dp1567 = new DoctorSpecializationMultiLang() { Name = "Кардио-ревматолог детский" };
-            var dp168 = new DoctorSpecializationMultiLang() { Name = "Косметолог" };
-            var dp1768 = new DoctorSpecializationMultiLang() { Name = "Логопед" };
-            var dp188 = new DoctorSpecializationMultiLang() { Name = "Маммолог" };
-            var dp1911 = new DoctorSpecializationMultiLang() { Name = "Массажист", Doctors = new List<Doctor> { doc001 } };
-            var dp2087 = new DoctorSpecializationMultiLang() { Name = "Нарколог" };
-            var dp2144 = new DoctorSpecializationMultiLang() { Name = "Невролог" };
-            var dp2257 = new DoctorSpecializationMultiLang() { Name = "Невролог детский" };
-            var dp2393 = new DoctorSpecializationMultiLang() { Name = "Нейроофтальмология" };
-            var dp2472 = new DoctorSpecializationMultiLang() { Name = "Нефролог" };
-            var dp2595 = new DoctorSpecializationMultiLang() { Name = "Нефролог детский" };
-            var dp2654 = new DoctorSpecializationMultiLang() { Name = "Онколог", Doctors = new List<Doctor> { doc004 } };
-            var dp2758 = new DoctorSpecializationMultiLang() { Name = "Онколог детский" };
-            var dp2833 = new DoctorSpecializationMultiLang() { Name = "Ортопед" };
-            var dp2998 = new DoctorSpecializationMultiLang() { Name = "Оториноларинголог (ЛОР)" };
-            var dp3027 = new DoctorSpecializationMultiLang() { Name = "Оториноларинголог (ЛОР) детский" };
-            var dp3164 = new DoctorSpecializationMultiLang() { Name = "Офтальмолог" };
-            var dp320 = new DoctorSpecializationMultiLang() { Name = "Офтальмолог детский" };
-            var dp3318 = new DoctorSpecializationMultiLang() { Name = "Офтальмолог-эндокринолог" };
-            var dp3462 = new DoctorSpecializationMultiLang() { Name = "Педиатр", Doctors = new List<Doctor> { doc005 } };
-            var dp3519 = new DoctorSpecializationMultiLang() { Name = "Проктолог" };
-            var dp3656 = new DoctorSpecializationMultiLang() { Name = "Психиатр" };
-            var dp3767 = new DoctorSpecializationMultiLang() { Name = "Психолог" };
-            var dp386 = new DoctorSpecializationMultiLang() { Name = "Психотерапевт" };
-            var dp3922 = new DoctorSpecializationMultiLang() { Name = "Пульмонолог" };
-            var dp4019 = new DoctorSpecializationMultiLang() { Name = "Реабилитолог" };
-            var dp4180 = new DoctorSpecializationMultiLang() { Name = "Реаниматолог" };
-            var dp4251 = new DoctorSpecializationMultiLang() { Name = "Ревматолог" };
-            var dp4351 = new DoctorSpecializationMultiLang() { Name = "Рентгенолог" };
-            var dp4463 = new DoctorSpecializationMultiLang() { Name = "Репродуктолог" };
-            var dp4557 = new DoctorSpecializationMultiLang() { Name = "Рефлексотерапевт" };
-            var dp4698 = new DoctorSpecializationMultiLang() { Name = "Сексолог" };
-            var dp4751 = new DoctorSpecializationMultiLang() { Name = "Стоматолог" };
-            var dp4813 = new DoctorSpecializationMultiLang() { Name = "Стоматолог детский" };
-            var dp4935 = new DoctorSpecializationMultiLang() { Name = "Стоматолог-ортодонт" };
-            var dp5029 = new DoctorSpecializationMultiLang() { Name = "Стоматолог-ортопед" };
-            var dp514 = new DoctorSpecializationMultiLang() { Name = "Стоматолог-терапевт" };
-            var dp5288 = new DoctorSpecializationMultiLang() { Name = "Стоматолог-хирург" };
-            var dp5385 = new DoctorSpecializationMultiLang() { Name = "Терапевт" };
-            var dp5489 = new DoctorSpecializationMultiLang() { Name = "Травматолог-ортопед" };
-            var dp5515 = new DoctorSpecializationMultiLang() { Name = "Травматолог-ортопед детский" };
-            var dp5691 = new DoctorSpecializationMultiLang() { Name = "Трихолог" };
-            var dp5779 = new DoctorSpecializationMultiLang() { Name = "Уролог" };
-            var dp5867 = new DoctorSpecializationMultiLang() { Name = "Уролог детский" };
-            var dp5915 = new DoctorSpecializationMultiLang() { Name = "Физиотерапевт" };
-            var dp6041 = new DoctorSpecializationMultiLang() { Name = "Флеболог" };
-            var dp6171 = new DoctorSpecializationMultiLang() { Name = "Хирург" };
-            var dp6287 = new DoctorSpecializationMultiLang() { Name = "Хирург детский" };
-            var dp6349 = new DoctorSpecializationMultiLang() { Name = "Хирург пластический" };
-            var dp641 = new DoctorSpecializationMultiLang() { Name = "Эндокринолог" };
-            var dp6546 = new DoctorSpecializationMultiLang() { Name = "Эндокринолог детский" };
+            var dp059 = new DoctorSpecialization() { Name = "Аллерголог", Doctors = new List<Doctor> { doc002 } };
+            var dp148 = new DoctorSpecialization() { Name = "Аллерголог детский", Doctors = new List<Doctor> { doc003 } };
+            var dp273 = new DoctorSpecialization() { Name = "Ангиохирург" };
+            var dp340 = new DoctorSpecialization() { Name = "Андролог" };
+            var dp411 = new DoctorSpecialization() { Name = "Анестезиолог" };
+            var dp595 = new DoctorSpecialization() { Name = "Гастроэнтеролог" };
+            var dp629 = new DoctorSpecialization() { Name = "Гастроэнтеролог детский" };
+            var dp720 = new DoctorSpecialization() { Name = "Гинеколог" };
+            var dp848 = new DoctorSpecialization() { Name = "Гинеколог детский" };
+            var dp928 = new DoctorSpecialization() { Name = "Гинеколог-эндокринолог" };
+            var dp1010 = new DoctorSpecialization() { Name = "Дерматолог" };
+            var dp1125 = new DoctorSpecialization() { Name = "Иглорефлексотерапевт" };
+            var dp1246 = new DoctorSpecialization() { Name = "Иммунолог" };
+            var dp1367 = new DoctorSpecialization() { Name = "Кардиолог" };
+            var dp1460 = new DoctorSpecialization() { Name = "Кардиолог детский" };
+            var dp1567 = new DoctorSpecialization() { Name = "Кардио-ревматолог детский" };
+            var dp168 = new DoctorSpecialization() { Name = "Косметолог" };
+            var dp1768 = new DoctorSpecialization() { Name = "Логопед" };
+            var dp188 = new DoctorSpecialization() { Name = "Маммолог" };
+            var dp1911 = new DoctorSpecialization() { Name = "Массажист", Doctors = new List<Doctor> { doc001 } };
+            var dp2087 = new DoctorSpecialization() { Name = "Нарколог" };
+            var dp2144 = new DoctorSpecialization() { Name = "Невролог" };
+            var dp2257 = new DoctorSpecialization() { Name = "Невролог детский" };
+            var dp2393 = new DoctorSpecialization() { Name = "Нейроофтальмология" };
+            var dp2472 = new DoctorSpecialization() { Name = "Нефролог" };
+            var dp2595 = new DoctorSpecialization() { Name = "Нефролог детский" };
+            var dp2654 = new DoctorSpecialization() { Name = "Онколог", Doctors = new List<Doctor> { doc004 } };
+            var dp2758 = new DoctorSpecialization() { Name = "Онколог детский" };
+            var dp2833 = new DoctorSpecialization() { Name = "Ортопед" };
+            var dp2998 = new DoctorSpecialization() { Name = "Оториноларинголог (ЛОР)" };
+            var dp3027 = new DoctorSpecialization() { Name = "Оториноларинголог (ЛОР) детский" };
+            var dp3164 = new DoctorSpecialization() { Name = "Офтальмолог" };
+            var dp320 = new DoctorSpecialization() { Name = "Офтальмолог детский" };
+            var dp3318 = new DoctorSpecialization() { Name = "Офтальмолог-эндокринолог" };
+            var dp3462 = new DoctorSpecialization() { Name = "Педиатр", Doctors = new List<Doctor> { doc005 } };
+            var dp3519 = new DoctorSpecialization() { Name = "Проктолог" };
+            var dp3656 = new DoctorSpecialization() { Name = "Психиатр" };
+            var dp3767 = new DoctorSpecialization() { Name = "Психолог" };
+            var dp386 = new DoctorSpecialization() { Name = "Психотерапевт" };
+            var dp3922 = new DoctorSpecialization() { Name = "Пульмонолог" };
+            var dp4019 = new DoctorSpecialization() { Name = "Реабилитолог" };
+            var dp4180 = new DoctorSpecialization() { Name = "Реаниматолог" };
+            var dp4251 = new DoctorSpecialization() { Name = "Ревматолог" };
+            var dp4351 = new DoctorSpecialization() { Name = "Рентгенолог" };
+            var dp4463 = new DoctorSpecialization() { Name = "Репродуктолог" };
+            var dp4557 = new DoctorSpecialization() { Name = "Рефлексотерапевт" };
+            var dp4698 = new DoctorSpecialization() { Name = "Сексолог" };
+            var dp4751 = new DoctorSpecialization() { Name = "Стоматолог" };
+            var dp4813 = new DoctorSpecialization() { Name = "Стоматолог детский" };
+            var dp4935 = new DoctorSpecialization() { Name = "Стоматолог-ортодонт" };
+            var dp5029 = new DoctorSpecialization() { Name = "Стоматолог-ортопед" };
+            var dp514 = new DoctorSpecialization() { Name = "Стоматолог-терапевт" };
+            var dp5288 = new DoctorSpecialization() { Name = "Стоматолог-хирург" };
+            var dp5385 = new DoctorSpecialization() { Name = "Терапевт" };
+            var dp5489 = new DoctorSpecialization() { Name = "Травматолог-ортопед" };
+            var dp5515 = new DoctorSpecialization() { Name = "Травматолог-ортопед детский" };
+            var dp5691 = new DoctorSpecialization() { Name = "Трихолог" };
+            var dp5779 = new DoctorSpecialization() { Name = "Уролог" };
+            var dp5867 = new DoctorSpecialization() { Name = "Уролог детский" };
+            var dp5915 = new DoctorSpecialization() { Name = "Физиотерапевт" };
+            var dp6041 = new DoctorSpecialization() { Name = "Флеболог" };
+            var dp6171 = new DoctorSpecialization() { Name = "Хирург" };
+            var dp6287 = new DoctorSpecialization() { Name = "Хирург детский" };
+            var dp6349 = new DoctorSpecialization() { Name = "Хирург пластический" };
+            var dp641 = new DoctorSpecialization() { Name = "Эндокринолог" };
+            var dp6546 = new DoctorSpecialization() { Name = "Эндокринолог детский" };
             #endregion
 
 
-            var doctorSpecialization = new List<DoctorSpecializationMultiLang>()
+            var doctorSpecialization = new List<DoctorSpecialization>()
             {
                 dp059, dp148, dp273, dp340, dp411, dp595, dp629, dp720, dp848, dp928, dp1010, dp1125, dp1246, dp1367, dp1460, dp1567, dp168, dp1768, dp188, dp1911, dp2087,
                 dp2144, dp2257, dp2393, dp2472, dp2595, dp2654, dp2758, dp2833, dp2998, dp3027, dp3164, dp320, dp3318, dp3462, dp3519, dp3656, dp3767, dp386, dp3922, dp4019,
@@ -985,7 +985,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp059 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp059 }
             };
             var cp20 = new ClinicSpecialization()
             {
@@ -997,7 +997,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp148 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp148 }
             };
             var cp30 = new ClinicSpecialization()
             {
@@ -1009,7 +1009,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp273 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp273 }
             };
             var cp40 = new ClinicSpecialization()
             {
@@ -1021,7 +1021,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp340 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp340 }
             };
             var cp50 = new ClinicSpecialization()
             {
@@ -1033,7 +1033,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp411 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp411 }
             };
             var cp60 = new ClinicSpecialization()
             {
@@ -1046,7 +1046,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp595 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp595 }
             };
             var cp70 = new ClinicSpecialization()
             {
@@ -1058,7 +1058,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp629 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp629 }
             };
             var cp80 = new ClinicSpecialization()
             {
@@ -1071,7 +1071,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic3, clinic4 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp720 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp720 }
             };
             var cp81 = new ClinicSpecialization()
             {
@@ -1084,7 +1084,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp848 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp848 }
             };
             var cp90 = new ClinicSpecialization()
             {
@@ -1096,7 +1096,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp928 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp928 }
             };
             var cp100 = new ClinicSpecialization()
             {
@@ -1109,7 +1109,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp1010, dp5691 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp1010, dp5691 }
             };
             var cp110 = new ClinicSpecialization()
             {
@@ -1165,7 +1165,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp1125 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp1125 }
             };
             var cp160 = new ClinicSpecialization()
             {
@@ -1177,7 +1177,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp1246 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp1246 }
             };
             var cp170 = new ClinicSpecialization()
             {
@@ -1189,7 +1189,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp1567 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp1567 }
             };
             var cp180 = new ClinicSpecialization()
             {
@@ -1202,7 +1202,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic4 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp1367 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp1367 }
             };
             var cp190 = new ClinicSpecialization()
             {
@@ -1214,7 +1214,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp1460 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp1460 }
             };
             var cp200 = new ClinicSpecialization()
             {
@@ -1227,7 +1227,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp168 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp168 }
             };
             var cp210 = new ClinicSpecialization()
             {
@@ -1240,7 +1240,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp1768 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp1768 }
             };
             var cp220 = new ClinicSpecialization()
             {
@@ -1253,7 +1253,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic3 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp188 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp188 }
             };
             var cp230 = new ClinicSpecialization()
             {
@@ -1266,7 +1266,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic3 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp1911 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp1911 }
             };
             var cp239 = new ClinicSpecialization()
             {
@@ -1279,7 +1279,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp2087 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp2087 }
             };
             var cp240 = new ClinicSpecialization()
             {
@@ -1292,7 +1292,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp2144 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp2144 }
             };
             var cp250 = new ClinicSpecialization()
             {
@@ -1304,7 +1304,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp2257 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp2257 }
             };
             var cp260 = new ClinicSpecialization()
             {
@@ -1317,7 +1317,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic5 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp2472 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp2472 }
             };
             var cp270 = new ClinicSpecialization()
             {
@@ -1330,7 +1330,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic5 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp2595 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp2595 }
             };
             var cp280 = new ClinicSpecialization()
             {
@@ -1342,7 +1342,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp2393 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp2393 }
             };
             var cp290 = new ClinicSpecialization()
             {
@@ -1355,7 +1355,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp2654 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp2654 }
             };
             var cp300 = new ClinicSpecialization()
             {
@@ -1367,7 +1367,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp2758 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp2758 }
             };
             var cp301 = new ClinicSpecialization()
             {
@@ -1380,7 +1380,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp2833 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp2833 }
             };
             var cp310 = new ClinicSpecialization()
             {
@@ -1393,7 +1393,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp2998 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp2998 }
             };
             var cp320 = new ClinicSpecialization()
             {
@@ -1405,7 +1405,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp3027 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp3027 }
             };
             var cp330 = new ClinicSpecialization()
             {
@@ -1418,7 +1418,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp3164 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp3164 }
             };
             var cp340 = new ClinicSpecialization()
             {
@@ -1430,7 +1430,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp320 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp320 }
             };
             var cp350 = new ClinicSpecialization()
             {
@@ -1442,7 +1442,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp3318 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp3318 }
             };
             var cp360 = new ClinicSpecialization()
             {
@@ -1455,7 +1455,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic4 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp3462 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp3462 }
             };
             var cp370 = new ClinicSpecialization()
             {
@@ -1468,7 +1468,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp3519 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp3519 }
             };
             var cp380 = new ClinicSpecialization()
             {
@@ -1481,7 +1481,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp3656, dp3767, dp386 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp3656, dp3767, dp386 }
             };
             var cp390 = new ClinicSpecialization()
             {
@@ -1493,7 +1493,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp3922 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp3922 }
             };
             var cp400 = new ClinicSpecialization()
             {
@@ -1505,7 +1505,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp4019 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp4019 }
             };
             var cp410 = new ClinicSpecialization()
             {
@@ -1517,7 +1517,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp4180 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp4180 }
             };
             var cp420 = new ClinicSpecialization()
             {
@@ -1529,7 +1529,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp4251 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp4251 }
             };
             var cp430 = new ClinicSpecialization()
             {
@@ -1541,7 +1541,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp4351 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp4351 }
             };
             var cp440 = new ClinicSpecialization()
             {
@@ -1553,7 +1553,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp4463 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp4463 }
             };
             var cp450 = new ClinicSpecialization()
             {
@@ -1565,7 +1565,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp4557 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp4557 }
             };
             var cp460 = new ClinicSpecialization()
             {
@@ -1577,7 +1577,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp4698 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp4698 }
             };
             var cp461 = new ClinicSpecialization()
             {
@@ -1590,7 +1590,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic2, clinic3, clinic4 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp4751 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp4751 }
             };
             var cp470 = new ClinicSpecialization()
             {
@@ -1603,7 +1603,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic2 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp4813 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp4813 }
             };
             var cp480 = new ClinicSpecialization()
             {
@@ -1616,7 +1616,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic2 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp4935 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp4935 }
             };
             var cp490 = new ClinicSpecialization()
             {
@@ -1629,7 +1629,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic2 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp5029 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp5029 }
             };
             var cp500 = new ClinicSpecialization()
             {
@@ -1642,7 +1642,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic2 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp514 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp514 }
             };
             var cp510 = new ClinicSpecialization()
             {
@@ -1654,7 +1654,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp5288 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp5288 }
             };
             var cp520 = new ClinicSpecialization()
             {
@@ -1667,7 +1667,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic3, clinic4 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp5385 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp5385 }
             };
             var cp530 = new ClinicSpecialization()
             {
@@ -1679,7 +1679,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp5489 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp5489 }
             };
             var cp540 = new ClinicSpecialization()
             {
@@ -1691,7 +1691,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp5515 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp5515 }
             };
             var cp550 = new ClinicSpecialization()
             {
@@ -1704,7 +1704,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic3, clinic4, clinic5 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp5779 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp5779 }
             };
             var cp560 = new ClinicSpecialization()
             {
@@ -1717,7 +1717,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic5 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp5867 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp5867 }
             };
             var cp561 = new ClinicSpecialization()
             {
@@ -1730,7 +1730,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic5 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp5915 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp5915 }
             };
             var cp570 = new ClinicSpecialization()
             {
@@ -1742,7 +1742,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp6041 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp6041 }
             };
             var cp580 = new ClinicSpecialization()
             {
@@ -1755,7 +1755,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic3, clinic4 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp6171 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp6171 }
             };
             var cp590 = new ClinicSpecialization()
             {
@@ -1767,7 +1767,7 @@ namespace Infodoctor.Web
                         Language = langs.First(l=>l.Code=="ru")
                     }
                 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp6287 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp6287 }
             };
             var cp600 = new ClinicSpecialization()
             {
@@ -1780,7 +1780,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic3 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp6349 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp6349 }
             };
             var cp610 = new ClinicSpecialization()
             {
@@ -1793,7 +1793,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic1, clinic3, clinic5 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp641 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp641 }
             };
             var cp620 = new ClinicSpecialization()
             {
@@ -1806,7 +1806,7 @@ namespace Infodoctor.Web
                     }
                 },
                 Clinics = new List<Clinic>() { clinic5 },
-                DoctorSpecializations = new List<DoctorSpecializationMultiLang>() { dp6546 }
+                DoctorSpecializations = new List<DoctorSpecialization>() { dp6546 }
             };
             var specializationList = new List<ClinicSpecialization>
             {

@@ -13,7 +13,7 @@ namespace Infodoctor.Domain.Entities
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
         public bool Favorite { get; set; }
-        public virtual DoctorSpecializationMultiLang SpecializationMultiLang { get; set; }
+        public virtual DoctorSpecialization Specialization { get; set; }
         public virtual DoctorCategory Category { get; set; }
         public virtual Address Address { get; set; }
         public virtual ICollection<Clinic> Clinics { get; set; }

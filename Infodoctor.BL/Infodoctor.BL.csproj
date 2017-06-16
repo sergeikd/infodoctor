@@ -50,7 +50,7 @@
     <Compile Include="DtoModels\DtoCity.cs" />
     <Compile Include="DtoModels\DtoClinicMultilang.cs" />
     <Compile Include="DtoModels\DtoClinicSearchModel.cs" />
-    <Compile Include="DtoModels\DtoClinicSpecializationMultilang.cs" />
+    <Compile Include="DtoModels\DtoClinicSpecialization.cs" />
     <Compile Include="DtoModels\DtoDoctor.cs" />
     <Compile Include="DtoModels\DtoDoctorCategory.cs" />
     <Compile Include="DtoModels\DtoDoctorSearchModel.cs" />

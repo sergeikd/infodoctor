@@ -57,7 +57,7 @@ namespace Infodoctor.BL.Services
             return dtoClinicSpecializationsList;
         }
 
-        /// <param name="id">SpecializationMultiLang id</param>
+        /// <param name="id">Specialization id</param>
         /// <param name="lang">2-character language code</param>
         public DtoClinicSpecializationMultilang GetSpecializationById(int id, string lang)
         {
@@ -84,7 +84,7 @@ namespace Infodoctor.BL.Services
             return dtoClinicSpecializations;
         }
 
-        /// <param name="multilangSpecialization">SpecializationMultiLang dto model</param>
+        /// <param name="multilangSpecialization">Specialization dto model</param>
         public void Add(DtoClinicSpecializationMultilang multilangSpecialization)
         {
             if (multilangSpecialization == null || !multilangSpecialization.LocalizedDtoClinicSpecializations.Any())
@@ -109,7 +109,7 @@ namespace Infodoctor.BL.Services
             _searchService.RefreshCache();
         }
 
-        /// <param name="multilangSpecialization">SpecializationMultiLang dto model</param>
+        /// <param name="multilangSpecialization">Specialization dto model</param>
         public void Update(DtoClinicSpecializationMultilang multilangSpecialization)
         {
             if (multilangSpecialization == null || !multilangSpecialization.LocalizedDtoClinicSpecializations.Any())

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
+using Infodoctor.Web.Infrastructure;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -10,40 +11,53 @@ namespace Infodoctor.Web.Controllers
     public class DoctorSpecializationController : ApiController
     {
         private readonly IDoctorSpecializationService _doctorSpecializationService;
+        private readonly ConfigService _configService;
 
-        public DoctorSpecializationController(IDoctorSpecializationService doctorSpecializationService)
+        public DoctorSpecializationController(IDoctorSpecializationService doctorSpecializationService, ConfigService configService)
         {
             if (doctorSpecializationService == null)
                 throw new ArgumentNullException(nameof(doctorSpecializationService));
+            if (configService == null) throw new ArgumentNullException(nameof(configService));
             _doctorSpecializationService = doctorSpecializationService;
+            _configService = configService;
         }
 
         // GET api/doctorspecialization
+        [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<DtoDoctorSpecialization> Get()
+        [Route("api/{lang}/clinicspecialization")]
+        public IEnumerable<DtoDoctorSpecializationSilngleLang> Get(string lang)
         {
-            return _doctorSpecializationService.GetAllSpecializations();
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
+            return _doctorSpecializationService.GetAllSpecializations(lang);
         }
 
-        [AllowAnonymous]
         // GET api/doctorspecialization/5
-        public DtoDoctorSpecialization Get(int id)
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("api/{lang}/clinicspecialization/{id:int}")]
+        public DtoDoctorSpecializationSilngleLang Get(int id, string lang)
         {
-            return _doctorSpecializationService.GetSpecializationById(id);
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
+            return _doctorSpecializationService.GetSpecializationById(id, lang);
         }
 
         [Authorize(Roles = "admin, moder")]
         // POST api/doctorspecialization
         public void Post([FromBody]string value)
         {
-            _doctorSpecializationService.Add(value);
+            throw new NotImplementedException();
+            //_doctorSpecializationService.Add(value);
         }
 
         [Authorize(Roles = "admin, moder")]
         // PUT api/doctorspecialization/5
         public void Put(int id, [FromBody]string value)
         {
-            _doctorSpecializationService.Update(id, value);
+            throw new NotImplementedException();
+            //_doctorSpecializationService.Update(id, value);
         }
 
 

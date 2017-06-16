@@ -76,14 +76,11 @@
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Article.cs" />
-    <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\Doctor.cs" />
     <Compile Include="Entities\DoctorCategory.cs" />
     <Compile Include="Entities\DoctorSpecialization.cs" />
     <Compile Include="Entities\ImageFile.cs" />
-    <Compile Include="Entities\ArticleTheme.cs" />
     <Compile Include="Entities\ClinicSpecialization.cs" />
-    <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Language.cs" />
     <Compile Include="Entities\OwnerShip.cs" />
     <Compile Include="Entities\Resort.cs" />
