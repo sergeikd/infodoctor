@@ -29,7 +29,7 @@ namespace Infodoctor.DAL
         public DbSet<ImageFile> Images { get; set; }
         public DbSet<ClinicReview> ClinicReviews { get; set; }
         public DbSet<DoctorReview> DoctorReviews { get; set; }
-        public DbSet<DoctorSpecialization> DoctorSpecializations { get; set; }
+        public DbSet<DoctorSpecializationMultiLang> DoctorSpecializations { get; set; }
         public DbSet<DoctorCategory> DoctorCategories { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Resort> Resorts { get; set; }

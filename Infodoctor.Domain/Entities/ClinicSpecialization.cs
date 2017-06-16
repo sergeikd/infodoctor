@@ -6,7 +6,7 @@ namespace Infodoctor.Domain.Entities
     {
         public int Id { get; set; }
         public virtual ICollection<LocalizedClinicSpecialization> LocalizedClinicSpecializations { get; set; }
-        public virtual ICollection<DoctorSpecialization> DoctorSpecializations { get; set; }
+        public virtual ICollection<DoctorSpecializationMultiLang> DoctorSpecializations { get; set; }
         public virtual ICollection<Clinic> Clinics { get; set; }
     }
 

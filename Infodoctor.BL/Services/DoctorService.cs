@@ -74,7 +74,7 @@ namespace Infodoctor.BL.Services
                     Manipulation = local.Manipulation,
                     Email = doctor.Email,
                     Experience = doctor.Experience,
-                    Specialization = new DtoDoctorSpecialization() { Id = doctor.Specialization.Id, Name = doctor.Specialization.Name },
+                    Specialization = new DtoDoctorSpecialization() { Id = doctor.SpecializationMultiLang.Id, Name = doctor.SpecializationMultiLang.Name },
                     Category = doctor.Category.Name,
                     RatePoliteness = doctor.RatePoliteness,
                     RateProfessionalism = doctor.RateProfessionalism,
@@ -196,7 +196,7 @@ namespace Infodoctor.BL.Services
                     Manipulation = local.Manipulation,
                     Email = doctor.Email,
                     Experience = doctor.Experience,
-                    Specialization = new DtoDoctorSpecialization() { Id = doctor.Specialization.Id, Name = doctor.Specialization.Name },
+                    Specialization = new DtoDoctorSpecialization() { Id = doctor.SpecializationMultiLang.Id, Name = doctor.SpecializationMultiLang.Name },
                     Category = doctor.Category.Name,
                     RatePoliteness = doctor.RatePoliteness,
                     RateProfessionalism = doctor.RateProfessionalism,
@@ -307,7 +307,7 @@ namespace Infodoctor.BL.Services
             {
                 case 0:
                     {
-                        switch (searchModel.SpecializationId != 0) //check whether DoctorSpecialization included in search request
+                        switch (searchModel.SpecializationId != 0) //check whether DoctorSpecializationMultiLang included in search request
                         {
                             case true:
                                 {
@@ -316,14 +316,14 @@ namespace Infodoctor.BL.Services
                                         case true:
                                             {
                                                 doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
-                                                    Where(x => (x.Specialization.Id == searchModel.SpecializationId));
+                                                    Where(x => (x.SpecializationMultiLang.Id == searchModel.SpecializationId));
                                                 break;
                                             }
                                         default:
                                             {
                                                 doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
                                                     Where(x => (x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                                (x.Specialization.Id == searchModel.SpecializationId)));
+                                                                (x.SpecializationMultiLang.Id == searchModel.SpecializationId)));
                                                 break;
                                             }
                                     }
@@ -354,7 +354,7 @@ namespace Infodoctor.BL.Services
                     }
                 default:
                     {
-                        switch (searchModel.SpecializationId == 0) //check whether DoctorSpecialization included in search request
+                        switch (searchModel.SpecializationId == 0) //check whether DoctorSpecializationMultiLang included in search request
                         {
                             case true:
                                 {
@@ -364,7 +364,7 @@ namespace Infodoctor.BL.Services
                                             {
                                                 doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
                                                                Where(x => (x.Address.Id == searchModel.CityId) &&
-                                                               (x.Specialization.Id == searchModel.SpecializationId));
+                                                               (x.SpecializationMultiLang.Id == searchModel.SpecializationId));
                                                 break;
                                             }
                                         default:
@@ -372,7 +372,7 @@ namespace Infodoctor.BL.Services
                                                 doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
                                                     Where(x => x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
                                                                (x.Address.Id == searchModel.CityId) &&
-                                                               (x.Specialization.Id == searchModel.SpecializationId));
+                                                               (x.SpecializationMultiLang.Id == searchModel.SpecializationId));
                                                 break;
                                             }
                                     }
@@ -435,7 +435,7 @@ namespace Infodoctor.BL.Services
                     Manipulation = local.Manipulation,
                     Email = doctor.Email,
                     Experience = doctor.Experience,
-                    Specialization = new DtoDoctorSpecialization() { Id = doctor.Specialization.Id, Name = doctor.Specialization.Name },
+                    Specialization = new DtoDoctorSpecialization() { Id = doctor.SpecializationMultiLang.Id, Name = doctor.SpecializationMultiLang.Name },
                     Category = doctor.Category.Name,
                     RatePoliteness = doctor.RatePoliteness,
                     RateProfessionalism = doctor.RateProfessionalism,
@@ -554,7 +554,7 @@ namespace Infodoctor.BL.Services
                 Manipulation = local.Manipulation,
                 Email = doctor.Email,
                 Experience = doctor.Experience,
-                Specialization = new DtoDoctorSpecialization() { Id = doctor.Specialization.Id, Name = doctor.Specialization.Name },
+                Specialization = new DtoDoctorSpecialization() { Id = doctor.SpecializationMultiLang.Id, Name = doctor.SpecializationMultiLang.Name },
                 Category = doctor.Category.Name,
                 RatePoliteness = doctor.RatePoliteness,
                 RateProfessionalism = doctor.RateProfessionalism,
@@ -668,7 +668,7 @@ namespace Infodoctor.BL.Services
                 _doctorSpecializationRepository.GetAllSpecializations().ToList();
             var doctorCategoryList = _doctorCategoryRepository.GetAllCategories().ToList();
 
-            doctor.Specialization = doctorSpesList.First(ds => String.Equals(ds.Name, newDoctorMultiLang.Specialization.Name, StringComparison.CurrentCultureIgnoreCase));
+            doctor.SpecializationMultiLang = doctorSpesList.First(ds => String.Equals(ds.Name, newDoctorMultiLang.Specialization.Name, StringComparison.CurrentCultureIgnoreCase));
             doctor.Category = doctorCategoryList.First(dc => String.Equals(dc.Name, newDoctorMultiLang.Category, StringComparison.CurrentCultureIgnoreCase));
 
 
@@ -712,7 +712,7 @@ namespace Infodoctor.BL.Services
             }
 
             doctor.Clinics = clinicsList;
-            doctor.Specialization = doctorSpesList.First(ds => string.Equals(ds.Name, newDoctorMultiLang.Specialization.Name, StringComparison.CurrentCultureIgnoreCase));
+            doctor.SpecializationMultiLang = doctorSpesList.First(ds => string.Equals(ds.Name, newDoctorMultiLang.Specialization.Name, StringComparison.CurrentCultureIgnoreCase));
             doctor.Category = doctorCategotyList.First(dc => string.Equals(dc.Name, newDoctorMultiLang.Category, StringComparison.CurrentCultureIgnoreCase));
 
             _doctorRepository.Update(doctor);

@@ -14,32 +14,32 @@ namespace Infodoctor.DAL.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public IQueryable<DoctorSpecialization> GetAllSpecializations()
+        public IQueryable<DoctorSpecializationMultiLang> GetAllSpecializations()
         {
             return _context.DoctorSpecializations;
         }
 
-        public DoctorSpecialization GetSpecializationById(int id)
+        public DoctorSpecializationMultiLang GetSpecializationById(int id)
         {
             return _context.DoctorSpecializations.First(ds => ds.Id == id);
         }
 
-        public void Add(DoctorSpecialization specialization)
+        public void Add(DoctorSpecializationMultiLang specializationMultiLang)
         {
-            _context.DoctorSpecializations.Add(specialization);
+            _context.DoctorSpecializations.Add(specializationMultiLang);
             _context.SaveChanges();
         }
 
-        public void Update(DoctorSpecialization specialization)
+        public void Update(DoctorSpecializationMultiLang specializationMultiLang)
         {
-            var updated = _context.DoctorSpecializations.First(ds => ds.Id == specialization.Id);
-            updated = specialization;
+            var updated = _context.DoctorSpecializations.First(ds => ds.Id == specializationMultiLang.Id);
+            updated = specializationMultiLang;
             _context.SaveChanges();
         }
 
-        public void Delete(DoctorSpecialization specialization)
+        public void Delete(DoctorSpecializationMultiLang specializationMultiLang)
         {
-            _context.DoctorSpecializations.Remove(specialization);
+            _context.DoctorSpecializations.Remove(specializationMultiLang);
             _context.SaveChanges();
         }
     }

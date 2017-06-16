@@ -12,4 +12,10 @@ namespace Infodoctor.Domain.Entities
         public string Author { get; set; }
         public virtual ICollection<ArticleComment> Comments { get; set; }
     }
+
+    public class ArticleTheme
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
 }

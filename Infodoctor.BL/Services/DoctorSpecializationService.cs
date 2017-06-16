@@ -64,7 +64,7 @@ namespace Infodoctor.BL.Services
                 throw new ArgumentNullException(nameof(name));
 
             _doctorSpecializationRepository.Add(
-                new DoctorSpecialization() { Name = name });
+                new DoctorSpecializationMultiLang() { Name = name });
             _searchService.RefreshCache();
         }
 
