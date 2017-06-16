@@ -86,30 +86,31 @@ namespace Infodoctor.BL.Services
 
                 if (doctor.Address != null)
                 {
-                    var dtoPhoneList = new List<DtoPhoneMultiLang>();
+                    var dtoPhoneList = new List<DtoPhoneSingleLang>();
                     foreach (var clinicAddressPhone in doctor.Address.Phones)
                     {
-                        var localizedDtoClinicPhoneList = new List<LocalizedDtoPhone>();
+                        var localizedDtoPhone = new LocalizedDtoPhone();
                         foreach (var localizedClinicPhone in clinicAddressPhone.LocalizedPhones)
                         {
                             if (string.Equals(localizedClinicPhone.Language.Code.ToLower(), lang.ToLower(),
                                 StringComparison.Ordinal))
                             {
-                                localizedDtoClinicPhoneList.Add(new LocalizedDtoPhone()
+                                localizedDtoPhone = new LocalizedDtoPhone()
                                 {
                                     Id = localizedClinicPhone.Id,
                                     Desc = localizedClinicPhone.Description,
-                                    Phone = localizedClinicPhone.Number,
+                                    Number = localizedClinicPhone.Number,
                                     LangCode = localizedClinicPhone.Language.Code
-                                });
+                                };
 
                             }
 
                         }
-                        dtoPhoneList.Add(new DtoPhoneMultiLang()
+                        dtoPhoneList.Add(new DtoPhoneSingleLang()
                         {
                             Id = clinicAddressPhone.Id,
-                            LocalizedDtoPhones = localizedDtoClinicPhoneList
+                            Desc = localizedDtoPhone.Desc,
+                            Number = localizedDtoPhone.Number
                         });
                     }
 
@@ -128,10 +129,12 @@ namespace Infodoctor.BL.Services
                         }
                     }
 
-                    var dtoAddress = new DtoAddressMultiLang()
+                    var dtoAddress = new DtoAddressSingleLang()
                     {
                         Id = doctor.Address.Id,
-                        LocalizedDtoAddresses = new List<LocalizedDtoAddress>() { localizedDtoAddress },
+                        Country = localizedDtoAddress.Country,
+                        City = localizedDtoAddress.City,
+                        Street = localizedDtoAddress.Street,
                         Phones = dtoPhoneList
                     };
 
@@ -205,29 +208,31 @@ namespace Infodoctor.BL.Services
 
                 if (doctor.Address != null)
                 {
-                    var dtoPhoneList = new List<DtoPhoneMultiLang>();
+                    var dtoPhoneList = new List<DtoPhoneSingleLang>();
                     foreach (var clinicAddressPhone in doctor.Address.Phones)
                     {
-                        var localizedDtoClinicPhoneList = new List<LocalizedDtoPhone>();
+                        var localizedDtoPhone = new LocalizedDtoPhone();
                         foreach (var localizedClinicPhone in clinicAddressPhone.LocalizedPhones)
                         {
-                            if (localizedClinicPhone.Language.Code.ToLower() == lang.ToLower())
+                            if (string.Equals(localizedClinicPhone.Language.Code.ToLower(), lang.ToLower(),
+                                StringComparison.Ordinal))
                             {
-                                localizedDtoClinicPhoneList.Add(new LocalizedDtoPhone()
+                                localizedDtoPhone = new LocalizedDtoPhone()
                                 {
                                     Id = localizedClinicPhone.Id,
                                     Desc = localizedClinicPhone.Description,
-                                    Phone = localizedClinicPhone.Number,
+                                    Number = localizedClinicPhone.Number,
                                     LangCode = localizedClinicPhone.Language.Code
-                                });
+                                };
 
                             }
 
                         }
-                        dtoPhoneList.Add(new DtoPhoneMultiLang()
+                        dtoPhoneList.Add(new DtoPhoneSingleLang()
                         {
                             Id = clinicAddressPhone.Id,
-                            LocalizedDtoPhones = localizedDtoClinicPhoneList
+                            Desc = localizedDtoPhone.Desc,
+                            Number = localizedDtoPhone.Number
                         });
                     }
 
@@ -246,10 +251,12 @@ namespace Infodoctor.BL.Services
                         }
                     }
 
-                    var dtoAddress = new DtoAddressMultiLang()
+                    var dtoAddress = new DtoAddressSingleLang()
                     {
                         Id = doctor.Address.Id,
-                        LocalizedDtoAddresses = new List<LocalizedDtoAddress>() { localizedDtoAddress },
+                        Country = localizedDtoAddress.Country,
+                        City = localizedDtoAddress.City,
+                        Street = localizedDtoAddress.Street,
                         Phones = dtoPhoneList
                     };
 
@@ -308,7 +315,7 @@ namespace Infodoctor.BL.Services
                                     {
                                         case true:
                                             {
-                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending,lang).
+                                                doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
                                                     Where(x => (x.Specialization.Id == searchModel.SpecializationId));
                                                 break;
                                             }
@@ -440,29 +447,31 @@ namespace Infodoctor.BL.Services
 
                 if (doctor.Address != null)
                 {
-                    var dtoPhoneList = new List<DtoPhoneMultiLang>();
+                    var dtoPhoneList = new List<DtoPhoneSingleLang>();
                     foreach (var clinicAddressPhone in doctor.Address.Phones)
                     {
-                        var localizedDtoClinicPhoneList = new List<LocalizedDtoPhone>();
+                        var localizedDtoPhone = new LocalizedDtoPhone();
                         foreach (var localizedClinicPhone in clinicAddressPhone.LocalizedPhones)
                         {
-                            if (localizedClinicPhone.Language.Code.ToLower() == lang.ToLower())
+                            if (string.Equals(localizedClinicPhone.Language.Code.ToLower(), lang.ToLower(),
+                                StringComparison.Ordinal))
                             {
-                                localizedDtoClinicPhoneList.Add(new LocalizedDtoPhone()
+                                localizedDtoPhone = new LocalizedDtoPhone()
                                 {
                                     Id = localizedClinicPhone.Id,
                                     Desc = localizedClinicPhone.Description,
-                                    Phone = localizedClinicPhone.Number,
+                                    Number = localizedClinicPhone.Number,
                                     LangCode = localizedClinicPhone.Language.Code
-                                });
+                                };
 
                             }
 
                         }
-                        dtoPhoneList.Add(new DtoPhoneMultiLang()
+                        dtoPhoneList.Add(new DtoPhoneSingleLang()
                         {
                             Id = clinicAddressPhone.Id,
-                            LocalizedDtoPhones = localizedDtoClinicPhoneList
+                            Desc = localizedDtoPhone.Desc,
+                            Number = localizedDtoPhone.Number
                         });
                     }
 
@@ -481,10 +490,12 @@ namespace Infodoctor.BL.Services
                         }
                     }
 
-                    var dtoAddress = new DtoAddressMultiLang()
+                    var dtoAddress = new DtoAddressSingleLang()
                     {
                         Id = doctor.Address.Id,
-                        LocalizedDtoAddresses = new List<LocalizedDtoAddress>() { localizedDtoAddress },
+                        Country = localizedDtoAddress.Country,
+                        City = localizedDtoAddress.City,
+                        Street = localizedDtoAddress.Street,
                         Phones = dtoPhoneList
                     };
 
@@ -555,29 +566,31 @@ namespace Infodoctor.BL.Services
 
             if (doctor.Address != null)
             {
-                var dtoPhoneList = new List<DtoPhoneMultiLang>();
+                var dtoPhoneList = new List<DtoPhoneSingleLang>();
                 foreach (var clinicAddressPhone in doctor.Address.Phones)
                 {
-                    var localizedDtoClinicPhoneList = new List<LocalizedDtoPhone>();
+                    var localizedDtoPhone = new LocalizedDtoPhone();
                     foreach (var localizedClinicPhone in clinicAddressPhone.LocalizedPhones)
                     {
-                        if (localizedClinicPhone.Language.Code.ToLower() == lang.ToLower())
+                        if (string.Equals(localizedClinicPhone.Language.Code.ToLower(), lang.ToLower(),
+                            StringComparison.Ordinal))
                         {
-                            localizedDtoClinicPhoneList.Add(new LocalizedDtoPhone()
+                            localizedDtoPhone = new LocalizedDtoPhone()
                             {
                                 Id = localizedClinicPhone.Id,
                                 Desc = localizedClinicPhone.Description,
-                                Phone = localizedClinicPhone.Number,
+                                Number = localizedClinicPhone.Number,
                                 LangCode = localizedClinicPhone.Language.Code
-                            });
+                            };
 
                         }
 
                     }
-                    dtoPhoneList.Add(new DtoPhoneMultiLang()
+                    dtoPhoneList.Add(new DtoPhoneSingleLang()
                     {
                         Id = clinicAddressPhone.Id,
-                        LocalizedDtoPhones = localizedDtoClinicPhoneList
+                        Desc = localizedDtoPhone.Desc,
+                        Number = localizedDtoPhone.Number
                     });
                 }
 
@@ -596,10 +609,12 @@ namespace Infodoctor.BL.Services
                     }
                 }
 
-                var dtoAddress = new DtoAddressMultiLang()
+                var dtoAddress = new DtoAddressSingleLang()
                 {
                     Id = doctor.Address.Id,
-                    LocalizedDtoAddresses = new List<LocalizedDtoAddress>() { localizedDtoAddress },
+                    Country = localizedDtoAddress.Country,
+                    City = localizedDtoAddress.City,
+                    Street = localizedDtoAddress.Street,
                     Phones = dtoPhoneList
                 };
 

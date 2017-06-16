@@ -909,13 +909,13 @@ namespace Infodoctor.Web
                 Phones = new List<Phone>() { phone17, phone18 }
             };
 
-            //var ca1 = new Address() { Country = "Беларусь", Street = "ул.Сурганова 47Б", Clinic = clinic1, Doctors = new List<Doctor> { doc001, doc002, doc003 }, Phones = new List<Phone>() { phone1, phone2 } };
-            //var ca2 = new Address() { Country = "Беларусь", Street = "пр-т. Независимости 58", Clinic = clinic2, Doctors = new List<Doctor> { doc004, doc002, doc005 }, Phones = new List<Phone>() { phone3 } };
-            //var ca3 = new Address() { Country = "Беларусь", Street = "пр-т. Победителей 75,", Clinic = clinic3, Phones = new List<Phone>() { phone4, phone5 } };
-            //var ca4 = new Address() { Country = "Беларусь", Street = "ул.Скрипникова 11Б,", Clinic = clinic3, Phones = new List<Phone>() { phone6, phone7 } };
-            //var ca5 = new Address() { Country = "Беларусь", Street = "ул.Захарова 50Д", Clinic = clinic3, Phones = new List<Phone>() { phone8, phone9 } };
-            //var ca6 = new Address() { Country = "Беларусь", Street = "ул.Победителей 93", Clinic = clinic4, Phones = new List<Phone>() { phone10, phone11, phone12, phone13, phone14, phone15, phone16 } };
-            //var ca7 = new Address() { Country = "Беларусь", Street = "ул. Нарочанская 17", Clinic = clinic5, Phones = new List<Phone>() { phone17, phone18 } };
+            //var ca1 = new Address() { Country = "Беларусь", Street = "ул.Сурганова 47Б", Clinic = clinic1, Doctors = new List<Doctor> { doc001, doc002, doc003 }, Phones = new List<Number>() { phone1, phone2 } };
+            //var ca2 = new Address() { Country = "Беларусь", Street = "пр-т. Независимости 58", Clinic = clinic2, Doctors = new List<Doctor> { doc004, doc002, doc005 }, Phones = new List<Number>() { phone3 } };
+            //var ca3 = new Address() { Country = "Беларусь", Street = "пр-т. Победителей 75,", Clinic = clinic3, Phones = new List<Number>() { phone4, phone5 } };
+            //var ca4 = new Address() { Country = "Беларусь", Street = "ул.Скрипникова 11Б,", Clinic = clinic3, Phones = new List<Number>() { phone6, phone7 } };
+            //var ca5 = new Address() { Country = "Беларусь", Street = "ул.Захарова 50Д", Clinic = clinic3, Phones = new List<Number>() { phone8, phone9 } };
+            //var ca6 = new Address() { Country = "Беларусь", Street = "ул.Победителей 93", Clinic = clinic4, Phones = new List<Number>() { phone10, phone11, phone12, phone13, phone14, phone15, phone16 } };
+            //var ca7 = new Address() { Country = "Беларусь", Street = "ул. Нарочанская 17", Clinic = clinic5, Phones = new List<Number>() { phone17, phone18 } };
 
             clinicAddressList = new List<Address> { ca1, ca2, ca3, ca4, ca5, ca6, ca7 };
 

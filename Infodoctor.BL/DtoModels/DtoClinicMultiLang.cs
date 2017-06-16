@@ -53,7 +53,7 @@ namespace Infodoctor.BL.DtoModels
     {
         public int Id { get; set; }
         public string Desc { get; set; }
-        public string Phone { get; set; }
+        public string Number { get; set; }
         public string LangCode { get; set; }
     }
 }

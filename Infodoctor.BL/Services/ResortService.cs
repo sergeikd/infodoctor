@@ -44,7 +44,7 @@ namespace Infodoctor.BL.Services
             //        var dtoClinicPhone = new DtoPhoneMultilang()
             //        {
             //            Desc = phone.Description,
-            //            Phone = phone.Number
+            //            Number = phone.Number
             //        };
             //        dtoResortAddress.Phones.Add(dtoClinicPhone);
             //    }
@@ -104,7 +104,7 @@ namespace Infodoctor.BL.Services
             //        var dtoClinicPhone = new DtoPhoneMultilang()
             //        {
             //            Desc = phone.Description,
-            //            Phone = phone.Number
+            //            Number = phone.Number
             //        };
             //        dtoResortAddress.Phones.Add(dtoClinicPhone);
             //    }
@@ -227,7 +227,7 @@ namespace Infodoctor.BL.Services
             //        var dtoClinicPhone = new DtoPhoneMultilang()
             //        {
             //            Desc = phone.Description,
-            //            Phone = phone.Number
+            //            Number = phone.Number
             //        };
             //        dtoResortAddress.Phones.Add(dtoClinicPhone);
             //    }
@@ -283,7 +283,7 @@ namespace Infodoctor.BL.Services
         //        var dtoClinicPhone = new DtoPhoneMultilang()
         //        {
         //            Desc = phone.Description,
-        //            Phone = phone.Number
+        //            Number = phone.Number
         //        };
         //        dtoResortAddress.Phones.Add(dtoClinicPhone);
         //    }

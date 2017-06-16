@@ -54,9 +54,9 @@ namespace Infodoctor.BL.Services
             //                City = cityList[i % 5],
             //                Country = "TestCountry" + i,
             //                Street = "TestStreet" + i,
-            //                Phones = new List<Phone>()
+            //                Phones = new List<Number>()
             //                {
-            //                    new Phone() {Description = "Phone" + i, Number = i + " 00 00"}
+            //                    new Number() {Description = "Number" + i, Number = i + " 00 00"}
             //                }
             //            }
             //        }
