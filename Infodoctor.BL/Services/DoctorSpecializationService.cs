@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
 using Infodoctor.DAL.Interfaces;
@@ -32,7 +33,7 @@ namespace Infodoctor.BL.Services
 
         public IEnumerable<DtoDoctorSpecializationSilngleLang> GetAllSpecializations(string lang)
         {
-            var doctorSecializationList = _doctorSpecializationRepository.GetAllSpecializations();
+            var doctorSecializationList = _doctorSpecializationRepository.GetAllSpecializations().ToList();
             var dtoDoctorsSpecs = new List<DtoDoctorSpecializationSilngleLang>();
 
             foreach (var specialization in doctorSecializationList)
@@ -43,13 +44,16 @@ namespace Infodoctor.BL.Services
                         if (string.Equals(localizedSpecialization.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase))
                             local = localizedSpecialization;
 
-                var dtoSpecialized = new DtoDoctorSpecializationSilngleLang()
+                if (local.Language != null)
                 {
-                    Id = specialization.Id,
-                    Name = local.Name,
-                    LangCode = local.Language.Code
-                };
-                dtoDoctorsSpecs.Add(dtoSpecialized);
+                    var dtoSpecialized = new DtoDoctorSpecializationSilngleLang()
+                    {
+                        Id = specialization.Id,
+                        Name = local.Name,
+                        LangCode = local.Language.Code
+                    };
+                    dtoDoctorsSpecs.Add(dtoSpecialized);
+                }
             }
 
             return dtoDoctorsSpecs;

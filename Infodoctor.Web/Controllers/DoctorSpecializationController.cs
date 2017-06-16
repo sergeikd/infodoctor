@@ -25,7 +25,7 @@ namespace Infodoctor.Web.Controllers
         // GET api/doctorspecialization
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/{lang}/clinicspecialization")]
+        [Route("api/{lang}/doctorspecialization")]
         public IEnumerable<DtoDoctorSpecializationSilngleLang> Get(string lang)
         {
             if (string.IsNullOrEmpty(lang))
@@ -36,7 +36,7 @@ namespace Infodoctor.Web.Controllers
         // GET api/doctorspecialization/5
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/{lang}/clinicspecialization/{id:int}")]
+        [Route("api/{lang}/doctorspecialization/{id:int}")]
         public DtoDoctorSpecializationSilngleLang Get(int id, string lang)
         {
             if (string.IsNullOrEmpty(lang))
