@@ -12,15 +12,15 @@ namespace Infodoctor.BL.Services
     public class ArticlesService : IArticlesService
     {
         private readonly IArticlesRepository _articlesRepository;
-        private readonly ILanguageRepository _languageRepository;
+        private readonly ILanguageRepository _LangRepository;
 
-        public ArticlesService(IArticlesRepository articlesRepository, ILanguageRepository languageRepository)
+        public ArticlesService(IArticlesRepository articlesRepository, ILanguageRepository LangRepository)
         {
             if (articlesRepository == null)
                 throw new ArgumentNullException(nameof(articlesRepository));
-            if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
+            if (LangRepository == null) throw new ArgumentNullException(nameof(LangRepository));
             _articlesRepository = articlesRepository;
-            _languageRepository = languageRepository;
+            _LangRepository = LangRepository;
         }
 
         public IEnumerable<DtoArticle> GetAllArticles()
@@ -54,7 +54,7 @@ namespace Infodoctor.BL.Services
                     Content = art.Content,
                     PublishDate = art.PublishDate,
                     Author = art.Author,
-                    Language = art.Language.Code.ToLower(),
+                    Lang = art.Language.Code.ToLower(),
                     Comments = dtoComments
                 };
                 dtoArts.Add(dtoArt);
@@ -91,7 +91,7 @@ namespace Infodoctor.BL.Services
                 Content = art.Content,
                 PublishDate = art.PublishDate,
                 Author = art.Author,
-                Language = art.Language.Code.ToLower(),
+                Lang = art.Language.Code.ToLower(),
                 Comments = dtoComments
             };
             return dtoArt;
@@ -138,7 +138,7 @@ namespace Infodoctor.BL.Services
                     Content = art.Content,
                     PublishDate = art.PublishDate,
                     Author = art.Author,
-                    Language = art.Language.Code.ToLower(),
+                    Lang = art.Language.Code.ToLower(),
                     Comments = dtoComments
                 };
                 dtoArts.Add(dtoArt);
@@ -159,7 +159,7 @@ namespace Infodoctor.BL.Services
             if (art == null)
                 throw new ArgumentNullException(nameof(art));
 
-            var lang = _languageRepository.GetLanguageByCode(art.Language);
+            var lang = _LangRepository.GetLanguageByCode(art.Lang);
 
             var newArt = new Article()
             {
@@ -180,7 +180,7 @@ namespace Infodoctor.BL.Services
             var updated = _articlesRepository.GetArticleById(id);
             if (updated != null)
             {
-                var lang = _languageRepository.GetLanguageByCode(newArt.Language);
+                var lang = _LangRepository.GetLanguageByCode(newArt.Lang);
 
                 updated.Language = lang;
                 updated.Title = newArt.Title;
