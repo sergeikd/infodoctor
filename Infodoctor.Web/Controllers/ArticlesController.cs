@@ -32,14 +32,14 @@ namespace Infodoctor.Web.Controllers
         }
         // GET api/articles
         [AllowAnonymous]
-        public IEnumerable<Article> Get()
+        public IEnumerable<DtoArticle> Get()
         {
             return _articlesService.GetAllArticles();
         }
 
         // GET api/articles/5
         [AllowAnonymous]
-        public Article Get(int id)
+        public DtoArticle Get(int id)
         {
             return _articlesService.GetArticleById(id);
         }
@@ -73,14 +73,14 @@ namespace Infodoctor.Web.Controllers
         [Authorize(Roles = "admin, moder")]
         public void Post(PublicArticleModel article)
         {
-            string userName = string.Empty;
+            var userName = string.Empty;
             if (HttpContext.Current != null && HttpContext.Current.User != null
                     && HttpContext.Current.User.Identity.Name != null)
             {
                 userName = HttpContext.Current.User.Identity.Name;
             }
 
-            var newArt = new Article()
+            var newArt = new DtoArticle()
             {
                 Title = article.Title,
                 Content = article.Content,
@@ -95,14 +95,14 @@ namespace Infodoctor.Web.Controllers
         [Authorize(Roles = "admin, moder")]
         public void Put(int id, PublicArticleModel article)
         {
-            string userName = string.Empty;
+            var userName = string.Empty;
             if (HttpContext.Current != null && HttpContext.Current.User != null
                     && HttpContext.Current.User.Identity.Name != null)
             {
                 userName = HttpContext.Current.User.Identity.Name;
             }
 
-            var newArt = new Article()
+            var newArt = new DtoArticle()
             {
                 Title = article.Title,
                 Content = article.Content,

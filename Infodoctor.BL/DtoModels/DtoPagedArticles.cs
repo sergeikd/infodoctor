@@ -6,7 +6,7 @@ namespace Infodoctor.BL.DtoModels
 {
     public class DtoPagedArticles
     {
-        public List<Article> Articles { get; set; }
+        public List<DtoArticle> Articles { get; set; }
         public int TotalCount { get; set; }
         public int Page { get; set; }
         public int PageSize { get; set; }
