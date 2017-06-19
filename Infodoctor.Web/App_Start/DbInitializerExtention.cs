@@ -545,16 +545,36 @@ namespace Infodoctor.Web
 
             #region Категории врачей
 
-            var cat001 = new DoctorCategory() { Name = "Без категории", Doctors = new List<Doctor> { doc003 } };
-            var cat002 = new DoctorCategory() { Name = "Первая категория", Doctors = new List<Doctor> { doc002 } };
-            var cat003 = new DoctorCategory() { Name = "Вторая категории", Doctors = new List<Doctor> { doc001 } };
-            var cat004 = new DoctorCategory() { Name = "Высшая категории", Doctors = new List<Doctor> { doc005 } };
+            var cat001 = new DoctorCategory()
+            {
+                Localized = new List<LocalizedDoctorCategory>() { new LocalizedDoctorCategory() { Name = "Без категории", Language = langs.First(l => l.Code == "ru") } },
+                Doctors = new List<Doctor> { doc003 }
+            };
+            var cat002 = new DoctorCategory()
+            {
+                Localized = new List<LocalizedDoctorCategory>() { new LocalizedDoctorCategory() { Name = "Первая категория", Language = langs.First(l => l.Code == "ru") } },
+                Doctors = new List<Doctor> { doc002 }
+            };
+            var cat003 = new DoctorCategory()
+            {
+                Localized = new List<LocalizedDoctorCategory>() { new LocalizedDoctorCategory() { Name = "Вторая категории", Language = langs.First(l => l.Code == "ru") } },
+                Doctors = new List<Doctor> { doc001 }
+            };
+            var cat004 = new DoctorCategory()
+            {
+                Localized = new List<LocalizedDoctorCategory>() { new LocalizedDoctorCategory() { Name = "Высшая категории", Language = langs.First(l => l.Code == "ru") } },
+                Doctors = new List<Doctor> { doc005 }
+            };
             var cat005 = new DoctorCategory()
             {
-                Name = "Кандидат в доктора медицинских наук",
+                Localized = new List<LocalizedDoctorCategory>() { new LocalizedDoctorCategory() { Name = "Кандидат в доктора медицинских наук", Language = langs.First(l => l.Code == "ru") } },
                 Doctors = new List<Doctor> { doc004 }
             };
-            var cat006 = new DoctorCategory() { Name = "Доктор медицинских наук" };
+            var cat006 = new DoctorCategory()
+            {
+                Localized = new List<LocalizedDoctorCategory>() { new LocalizedDoctorCategory() { Name = "Доктор медицинских наук", Language = langs.First(l => l.Code == "ru") } }
+
+            };
 
             #endregion
 

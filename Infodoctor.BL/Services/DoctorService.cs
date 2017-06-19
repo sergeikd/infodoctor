@@ -77,6 +77,17 @@ namespace Infodoctor.BL.Services
                                 LangCode = localizedSpecialization.Language.Code
                             };
 
+                var category = new DtoDoctorCategorySingleLang();
+                if (doctor.Category.Localized != null)
+                    foreach (var dc in doctor.Category.Localized)
+                        if (string.Equals(dc.Language.Code, lang, StringComparison.InvariantCultureIgnoreCase))
+                            category = new DtoDoctorCategorySingleLang()
+                            {
+                                Id = dc.Id,
+                                Name = dc.Name,
+                                LangCode = dc.Language.Code
+                            };
+
                 var dtoDoctor = new DtoDoctorSingleLang()
                 {
                     Id = doctor.Id,
@@ -86,7 +97,7 @@ namespace Infodoctor.BL.Services
                     Email = doctor.Email,
                     Experience = doctor.Experience,
                     Specialization = specialization,
-                    Category = doctor.Category.Name,
+                    Category = category,
                     RatePoliteness = doctor.RatePoliteness,
                     RateProfessionalism = doctor.RateProfessionalism,
                     RateWaitingTime = doctor.RateWaitingTime,
@@ -210,6 +221,17 @@ namespace Infodoctor.BL.Services
                                 LangCode = localizedSpecialization.Language.Code
                             };
 
+                var category = new DtoDoctorCategorySingleLang();
+                if (doctor.Category.Localized != null)
+                    foreach (var dc in doctor.Category.Localized)
+                        if (string.Equals(dc.Language.Code, lang, StringComparison.InvariantCultureIgnoreCase))
+                            category = new DtoDoctorCategorySingleLang()
+                            {
+                                Id = dc.Id,
+                                Name = dc.Name,
+                                LangCode = dc.Language.Code
+                            };
+
                 var dtoDoctor = new DtoDoctorSingleLang()
                 {
                     Id = doctor.Id,
@@ -219,7 +241,7 @@ namespace Infodoctor.BL.Services
                     Email = doctor.Email,
                     Experience = doctor.Experience,
                     Specialization = specialization,
-                    Category = doctor.Category.Name,
+                    Category = category,
                     RatePoliteness = doctor.RatePoliteness,
                     RateProfessionalism = doctor.RateProfessionalism,
                     RateWaitingTime = doctor.RateWaitingTime,
@@ -460,6 +482,17 @@ namespace Infodoctor.BL.Services
                                 LangCode = localizedSpecialization.Language.Code
                             };
 
+                var category = new DtoDoctorCategorySingleLang();
+                if (doctor.Category.Localized != null)
+                    foreach (var dc in doctor.Category.Localized)
+                        if (string.Equals(dc.Language.Code, lang, StringComparison.InvariantCultureIgnoreCase))
+                            category = new DtoDoctorCategorySingleLang()
+                            {
+                                Id = dc.Id,
+                                Name = dc.Name,
+                                LangCode = dc.Language.Code
+                            };
+
                 var dtoDoctor = new DtoDoctorSingleLang()
                 {
                     Id = doctor.Id,
@@ -469,7 +502,7 @@ namespace Infodoctor.BL.Services
                     Email = doctor.Email,
                     Experience = doctor.Experience,
                     Specialization = specialization,
-                    Category = doctor.Category.Name,
+                    Category = category,
                     RatePoliteness = doctor.RatePoliteness,
                     RateProfessionalism = doctor.RateProfessionalism,
                     RateWaitingTime = doctor.RateWaitingTime,
@@ -590,6 +623,17 @@ namespace Infodoctor.BL.Services
                             LangCode = localizedSpecialization.Language.Code
                         };
 
+            var category = new DtoDoctorCategorySingleLang();
+            if (doctor.Category.Localized != null)
+                foreach (var dc in doctor.Category.Localized)
+                    if (string.Equals(dc.Language.Code, lang, StringComparison.InvariantCultureIgnoreCase))
+                        category = new DtoDoctorCategorySingleLang()
+                        {
+                            Id = dc.Id,
+                            Name = dc.Name,
+                            LangCode = dc.Language.Code
+                        };
+
             var dtoDoctor = new DtoDoctorSingleLang()
             {
                 Id = doctor.Id,
@@ -599,7 +643,7 @@ namespace Infodoctor.BL.Services
                 Email = doctor.Email,
                 Experience = doctor.Experience,
                 Specialization = specialization,
-                Category = doctor.Category.Name,
+                Category = category,
                 RatePoliteness = doctor.RatePoliteness,
                 RateProfessionalism = doctor.RateProfessionalism,
                 RateWaitingTime = doctor.RateWaitingTime,
@@ -724,8 +768,21 @@ namespace Infodoctor.BL.Services
                 });
             }
 
+            var category = new DoctorCategory();
+            if (newDoctorMultiLang.Category.Localized.Any())
+            {
+                var local = newDoctorMultiLang.Category.Localized[0];
+                category = doctorCategoryList.First(dc =>
+                {
+                    var localizedDC = dc.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, local.LangCode,
+                        StringComparison.CurrentCultureIgnoreCase));
+                    return localizedDC != null && string.Equals(localizedDC.Name, local.Name,
+                               StringComparison.CurrentCultureIgnoreCase);
+                });
+            }
+
             doctor.Specialization = specialization;
-            doctor.Category = doctorCategoryList.First(dc => string.Equals(dc.Name, newDoctorMultiLang.Category, StringComparison.CurrentCultureIgnoreCase));
+            doctor.Category = category;
 
 
             _doctorRepository.Add(doctor);
@@ -757,7 +814,7 @@ namespace Infodoctor.BL.Services
 
             var doctorSpesList =
                 _doctorSpecializationRepository.GetAllSpecializations().ToList();
-            var doctorCategotyList = _doctorCategoryRepository.GetAllCategories().ToList();
+            var doctorCategoryList = _doctorCategoryRepository.GetAllCategories().ToList();
             var clinicsList = new List<Clinic>();
 
             foreach (var clinicId in newDoctorMultiLang.ClinicsIds)
@@ -779,9 +836,22 @@ namespace Infodoctor.BL.Services
                 });
             }
 
+            var category = new DoctorCategory();
+            if (newDoctorMultiLang.Category.Localized.Any())
+            {
+                var local = newDoctorMultiLang.Category.Localized[0];
+                category = doctorCategoryList.First(dc =>
+                {
+                    var localizedDC = dc.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, local.LangCode,
+                        StringComparison.CurrentCultureIgnoreCase));
+                    return localizedDC != null && string.Equals(localizedDC.Name, local.Name,
+                               StringComparison.CurrentCultureIgnoreCase);
+                });
+            }
+
             doctor.Clinics = clinicsList;
             doctor.Specialization = specialization;
-            doctor.Category = doctorCategotyList.First(dc => string.Equals(dc.Name, newDoctorMultiLang.Category, StringComparison.CurrentCultureIgnoreCase));
+            doctor.Category = category;
 
             _doctorRepository.Update(doctor);
             _searchService.RefreshCache();
