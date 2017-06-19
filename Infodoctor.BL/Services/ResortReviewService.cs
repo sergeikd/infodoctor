@@ -44,7 +44,7 @@ namespace Infodoctor.BL.Services
                         RateQuality = review.RateQuality,
                         RatePoliteness = review.RatePoliteness,
                         ResortId = review.Resort.Id,
-                        Lang = review.Language.Code
+                        LangCode = review.Language.Code
                     }
                 );
             }
@@ -71,7 +71,7 @@ namespace Infodoctor.BL.Services
                         RateQuality = review.RateQuality,
                         RatePoliteness = review.RatePoliteness,
                         ResortId = review.Resort.Id,
-                        Lang = review.Language.Code
+                        LangCode = review.Language.Code
                     }
                 );
             }
@@ -110,7 +110,7 @@ namespace Infodoctor.BL.Services
                         RateQuality = review.RateQuality,
                         RatePoliteness = review.RatePoliteness,
                         ResortId = review.Resort.Id,
-                        Lang = review.Language.Code
+                        LangCode = review.Language.Code
                     }
                 );
             }
@@ -139,7 +139,7 @@ namespace Infodoctor.BL.Services
                 RateQuality = review.RateQuality,
                 RatePoliteness = review.RatePoliteness,
                 ResortId = review.Resort.Id,
-                Lang = review.Language.Code
+                LangCode = review.Language.Code
             };
 
             return dtoReview;
@@ -163,7 +163,7 @@ namespace Infodoctor.BL.Services
                 review.RatePrice < 1 || review.RateQuality < 1 || review.Text == string.Empty)
                 throw new ApplicationException("Incorrect data, pussible some required fields are null or empty");
 
-            var lang = _languageRepository.GetLanguageByCode(review.Lang);
+            var lang = _languageRepository.GetLanguageByCode(review.LangCode);
 
             var newReview = new ResortReview()
             {

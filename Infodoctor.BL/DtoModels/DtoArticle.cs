@@ -11,6 +11,6 @@ namespace Infodoctor.BL.DtoModels
         public DateTime PublishDate { get; set; }
         public string Author { get; set; }
         public List<DtoArticleComment> Comments { get; set; }
-        public string Lang { get; set; }
+        public string LangCode { get; set; }
     }
 }

@@ -27,17 +27,18 @@ namespace Infodoctor.BL.Services
             var dtoCountries = new List<DtoCountrySingleLang>();
             foreach (var country in counties)
             {
-                var name = string.Empty;
+                var local = new LocalizedCountry();
                 if (country.LocalizedCountries != null)
                     foreach (var localizedCountry in country.LocalizedCountries)
                         if (string.Equals(localizedCountry.Language.Code.ToLower(), lang.ToLower(),
                             StringComparison.Ordinal))
-                            name = localizedCountry.Name;
+                            local = localizedCountry;
 
                 dtoCountries.Add(new DtoCountrySingleLang()
                 {
                     Id = country.Id,
-                    Name = name
+                    Name = local.Name,
+                    LangCode = local.Language.Code.ToLower()
                 });
             }
 
@@ -57,17 +58,18 @@ namespace Infodoctor.BL.Services
                 throw new ApplicationException("Country not found");
             }
 
-            var name = string.Empty;
-
+            var local = new LocalizedCountry();
             if (country.LocalizedCountries != null)
                 foreach (var localizedCountry in country.LocalizedCountries)
-                    if (string.Equals(localizedCountry.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase))
-                        name = localizedCountry.Name;
+                    if (string.Equals(localizedCountry.Language.Code.ToLower(), lang.ToLower(),
+                        StringComparison.Ordinal))
+                        local = localizedCountry;
 
             var dtoCounty = new DtoCountrySingleLang()
             {
                 Id = country.Id,
-                Name = name
+                Name = local.Name,
+                LangCode = local.Language.Code.ToLower()
             };
 
             return dtoCounty;

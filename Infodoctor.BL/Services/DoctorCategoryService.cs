@@ -35,7 +35,7 @@ namespace Infodoctor.BL.Services
                 {
                     Id = dc.Id,
                     Name = local?.Name,
-                    LangCode = local?.Language.Code,
+                    LangCode = local?.Language.Code.ToLower(),
                     Doctors = new List<int>()
                 };
 
@@ -61,7 +61,7 @@ namespace Infodoctor.BL.Services
             {
                 Id = dc.Id,
                 Name = local?.Name,
-                LangCode = local?.Language.Code,
+                LangCode = local?.Language.Code.ToLower(),
                 Doctors = new List<int>()
             };
 

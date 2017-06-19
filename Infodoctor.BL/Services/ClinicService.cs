@@ -113,7 +113,7 @@ namespace Infodoctor.BL.Services
 
                 dtoClinicList.Add(new DtoClinicSingleLang()
                 {
-                    LangCode = localizedClinic.Language.Code,
+                    LangCode = localizedClinic.Language.Code.ToLower(),
                     Id = clinic.Id,
                     Name = localizedClinic.Name,
                     Email = clinic.Email,
@@ -213,7 +213,7 @@ namespace Infodoctor.BL.Services
 
             var dtoClinic = new DtoClinicSingleLang()
             {
-                LangCode = localizedClinic.Language.Code,
+                LangCode = localizedClinic.Language.Code.ToLower(),
                 Id = clinic.Id,
                 Name = localizedClinic.Name,
                 Email = clinic.Email,
@@ -318,7 +318,7 @@ namespace Infodoctor.BL.Services
 
                 dtoClinicList.Add(new DtoClinicSingleLang()
                 {
-                    LangCode = localizedClinic.Language.Code,
+                    LangCode = localizedClinic.Language.Code.ToLower(),
                     Id = clinic.Id,
                     Name = localizedClinic.Name,
                     Email = clinic.Email,
@@ -479,7 +479,6 @@ namespace Infodoctor.BL.Services
                     }
             }
 
-            var aaa = clinics.ToList();
             var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
             if (!pagedList.Any())
             {
@@ -560,7 +559,7 @@ namespace Infodoctor.BL.Services
 
                 dtoClinicList.Add(new DtoClinicSingleLang()
                 {
-                    LangCode = localizedClinic.Language.Code,
+                    LangCode = localizedClinic.Language.Code.ToLower(),
                     Id = clinic.Id,
                     Name = localizedClinic.Name,
                     Email = clinic.Email,

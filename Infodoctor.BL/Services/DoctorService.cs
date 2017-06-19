@@ -62,7 +62,7 @@ namespace Infodoctor.BL.Services
                                 Id = localizedDoctor.Id,
                                 Name = localizedDoctor.Name,
                                 Manipulation = localizedDoctor.Manipulation,
-                                LangCode = localizedDoctor.Language.Code
+                                LangCode = localizedDoctor.Language.Code.ToLower()
                             };
                         }
 
@@ -74,7 +74,7 @@ namespace Infodoctor.BL.Services
                             {
                                 Id = localizedSpecialization.Id,
                                 Name = localizedSpecialization.Name,
-                                LangCode = localizedSpecialization.Language.Code
+                                LangCode = localizedSpecialization.Language.Code.ToLower()
                             };
 
                 var category = new DtoDoctorCategorySingleLang();
@@ -91,7 +91,7 @@ namespace Infodoctor.BL.Services
                 var dtoDoctor = new DtoDoctorSingleLang()
                 {
                     Id = doctor.Id,
-                    LangCode = local.LangCode,
+                    LangCode = local.LangCode.ToLower(),
                     Name = local.Name,
                     Manipulation = local.Manipulation,
                     Email = doctor.Email,
@@ -146,7 +146,7 @@ namespace Infodoctor.BL.Services
                                 Country = clinicAddressLocalizedAddress.Country,
                                 City = clinicAddressLocalizedAddress.City.LocalizedCities.First(c => c.Language.Code.ToLower() == lang.ToLower()).Name,
                                 Street = clinicAddressLocalizedAddress.Street,
-                                LangCode = clinicAddressLocalizedAddress.Language.Code
+                                LangCode = clinicAddressLocalizedAddress.Language.Code.ToLower()
                             };
                         }
                     }
@@ -206,7 +206,7 @@ namespace Infodoctor.BL.Services
                                 Id = localizedDoctor.Id,
                                 Name = localizedDoctor.Name,
                                 Manipulation = localizedDoctor.Manipulation,
-                                LangCode = localizedDoctor.Language.Code
+                                LangCode = localizedDoctor.Language.Code.ToLower()
                             };
                         }
 
@@ -218,7 +218,7 @@ namespace Infodoctor.BL.Services
                             {
                                 Id = localizedSpecialization.Id,
                                 Name = localizedSpecialization.Name,
-                                LangCode = localizedSpecialization.Language.Code
+                                LangCode = localizedSpecialization.Language.Code.ToLower()
                             };
 
                 var category = new DtoDoctorCategorySingleLang();
@@ -229,13 +229,13 @@ namespace Infodoctor.BL.Services
                             {
                                 Id = dc.Id,
                                 Name = dc.Name,
-                                LangCode = dc.Language.Code
+                                LangCode = dc.Language.Code.ToLower()
                             };
 
                 var dtoDoctor = new DtoDoctorSingleLang()
                 {
                     Id = doctor.Id,
-                    LangCode = local.LangCode,
+                    LangCode = local.LangCode.ToLower(),
                     Name = local.Name,
                     Manipulation = local.Manipulation,
                     Email = doctor.Email,
@@ -266,7 +266,7 @@ namespace Infodoctor.BL.Services
                                     Id = localizedClinicPhone.Id,
                                     Desc = localizedClinicPhone.Description,
                                     Number = localizedClinicPhone.Number,
-                                    LangCode = localizedClinicPhone.Language.Code
+                                    LangCode = localizedClinicPhone.Language.Code.ToLower()
                                 };
 
                             }
@@ -290,7 +290,7 @@ namespace Infodoctor.BL.Services
                                 Country = clinicAddressLocalizedAddress.Country,
                                 City = clinicAddressLocalizedAddress.City.LocalizedCities.First(c => c.Language.Code.ToLower() == lang.ToLower()).Name,
                                 Street = clinicAddressLocalizedAddress.Street,
-                                LangCode = clinicAddressLocalizedAddress.Language.Code
+                                LangCode = clinicAddressLocalizedAddress.Language.Code.ToLower()
                             };
                         }
                     }
@@ -467,7 +467,7 @@ namespace Infodoctor.BL.Services
                                 Id = localizedDoctor.Id,
                                 Name = localizedDoctor.Name,
                                 Manipulation = localizedDoctor.Manipulation,
-                                LangCode = localizedDoctor.Language.Code
+                                LangCode = localizedDoctor.Language.Code.ToLower()
                             };
                         }
 
@@ -479,7 +479,7 @@ namespace Infodoctor.BL.Services
                             {
                                 Id = localizedSpecialization.Id,
                                 Name = localizedSpecialization.Name,
-                                LangCode = localizedSpecialization.Language.Code
+                                LangCode = localizedSpecialization.Language.Code.ToLower()
                             };
 
                 var category = new DtoDoctorCategorySingleLang();
@@ -490,13 +490,13 @@ namespace Infodoctor.BL.Services
                             {
                                 Id = dc.Id,
                                 Name = dc.Name,
-                                LangCode = dc.Language.Code
+                                LangCode = dc.Language.Code.ToLower()
                             };
 
                 var dtoDoctor = new DtoDoctorSingleLang()
                 {
                     Id = doctor.Id,
-                    LangCode = local.LangCode,
+                    LangCode = local.LangCode.ToLower(),
                     Name = local.Name,
                     Manipulation = local.Manipulation,
                     Email = doctor.Email,
@@ -527,7 +527,7 @@ namespace Infodoctor.BL.Services
                                     Id = localizedClinicPhone.Id,
                                     Desc = localizedClinicPhone.Description,
                                     Number = localizedClinicPhone.Number,
-                                    LangCode = localizedClinicPhone.Language.Code
+                                    LangCode = localizedClinicPhone.Language.Code.ToLower()
                                 };
 
                             }
@@ -551,7 +551,7 @@ namespace Infodoctor.BL.Services
                                 Country = clinicAddressLocalizedAddress.Country,
                                 City = clinicAddressLocalizedAddress.City.LocalizedCities.First(c => c.Language.Code.ToLower() == lang.ToLower()).Name,
                                 Street = clinicAddressLocalizedAddress.Street,
-                                LangCode = clinicAddressLocalizedAddress.Language.Code
+                                LangCode = clinicAddressLocalizedAddress.Language.Code.ToLower()
                             };
                         }
                     }
@@ -608,7 +608,7 @@ namespace Infodoctor.BL.Services
                             Id = localizedDoctor.Id,
                             Name = localizedDoctor.Name,
                             Manipulation = localizedDoctor.Manipulation,
-                            LangCode = localizedDoctor.Language.Code
+                            LangCode = localizedDoctor.Language.Code.ToLower()
                         };
                     }
 
@@ -620,7 +620,7 @@ namespace Infodoctor.BL.Services
                         {
                             Id = localizedSpecialization.Id,
                             Name = localizedSpecialization.Name,
-                            LangCode = localizedSpecialization.Language.Code
+                            LangCode = localizedSpecialization.Language.Code.ToLower()
                         };
 
             var category = new DtoDoctorCategorySingleLang();
@@ -631,13 +631,13 @@ namespace Infodoctor.BL.Services
                         {
                             Id = dc.Id,
                             Name = dc.Name,
-                            LangCode = dc.Language.Code
+                            LangCode = dc.Language.Code.ToLower()
                         };
 
             var dtoDoctor = new DtoDoctorSingleLang()
             {
                 Id = doctor.Id,
-                LangCode = local.LangCode,
+                LangCode = local.LangCode.ToLower(),
                 Name = local.Name,
                 Manipulation = local.Manipulation,
                 Email = doctor.Email,
@@ -668,7 +668,7 @@ namespace Infodoctor.BL.Services
                                 Id = localizedClinicPhone.Id,
                                 Desc = localizedClinicPhone.Description,
                                 Number = localizedClinicPhone.Number,
-                                LangCode = localizedClinicPhone.Language.Code
+                                LangCode = localizedClinicPhone.Language.Code.ToLower()
                             };
 
                         }
@@ -692,7 +692,7 @@ namespace Infodoctor.BL.Services
                             Country = clinicAddressLocalizedAddress.Country,
                             City = clinicAddressLocalizedAddress.City.LocalizedCities.First(c => c.Language.Code.ToLower() == lang.ToLower()).Name,
                             Street = clinicAddressLocalizedAddress.Street,
-                            LangCode = clinicAddressLocalizedAddress.Language.Code
+                            LangCode = clinicAddressLocalizedAddress.Language.Code.ToLower()
                         };
                     }
                 }

@@ -43,7 +43,7 @@ namespace Infodoctor.BL.Services
                         {
                             Id = clinicSpecializationLocalizedClinicSpecialization.Id,
                             Name = clinicSpecializationLocalizedClinicSpecialization.Name,
-                            LangCode = clinicSpecializationLocalizedClinicSpecialization.Language.Code
+                            LangCode = clinicSpecializationLocalizedClinicSpecialization.Language.Code.ToLower()
                         };
                 }
 
@@ -71,7 +71,7 @@ namespace Infodoctor.BL.Services
                     {
                         Id = clinicSpecializationLocalizedClinicSpecialization.Id,
                         Name = clinicSpecializationLocalizedClinicSpecialization.Name,
-                        LangCode = clinicSpecializationLocalizedClinicSpecialization.Language.Code
+                        LangCode = clinicSpecializationLocalizedClinicSpecialization.Language.Code.ToLower()
                     };
             }
 

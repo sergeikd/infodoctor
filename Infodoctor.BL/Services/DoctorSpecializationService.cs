@@ -50,7 +50,7 @@ namespace Infodoctor.BL.Services
                     {
                         Id = specialization.Id,
                         Name = local.Name,
-                        LangCode = local.Language.Code
+                        LangCode = local.Language.Code.ToLower()
                     };
                     dtoDoctorsSpecs.Add(dtoSpecialized);
                 }
@@ -73,7 +73,7 @@ namespace Infodoctor.BL.Services
             {
                 Id = specialization.Id,
                 Name = local.Name,
-                LangCode = local.Language.Code
+                LangCode = local.Language.Code.ToLower()
             };
 
             return dtoSpecialized;

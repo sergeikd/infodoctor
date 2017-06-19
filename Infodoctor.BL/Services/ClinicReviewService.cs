@@ -44,7 +44,7 @@ namespace Infodoctor.BL.Services
                     RatePrice = clinicReview.RatePrice,
                     RateQuality = clinicReview.RateQuality,
                     ClinicId = clinicReview.Clinic.Id,
-                    Lang = clinicReview.Language.Code
+                    LangCode = clinicReview.Language.Code.ToLower()
                 });
             }
             return dtoClinicReviewsList;
@@ -67,7 +67,7 @@ namespace Infodoctor.BL.Services
                     RatePrice = clinicReview.RatePrice,
                     RateQuality = clinicReview.RateQuality,
                     ClinicId = clinicReview.Clinic.Id,
-                    Lang = clinicReview.Language.Code
+                    LangCode = clinicReview.Language.Code.ToLower()
                 });
             }
             return dtoClinicReviewsList;
@@ -99,7 +99,7 @@ namespace Infodoctor.BL.Services
                     RatePrice = clinicReview.RatePrice,
                     RateQuality = clinicReview.RateQuality,
                     ClinicId = clinicReview.Clinic.Id,
-                    Lang = clinicReview.Language.Code
+                    LangCode = clinicReview.Language.Code.ToLower()
                 });
             }
             var result = new DtoPagedClinicReview
@@ -134,7 +134,7 @@ namespace Infodoctor.BL.Services
                 RatePrice = clinicReview.RatePrice,
                 RateQuality = clinicReview.RateQuality,
                 ClinicId = clinicReview.Clinic.Id,
-                Lang = clinicReview.Language.Code
+                LangCode = clinicReview.Language.Code.ToLower()
             };
 
             return dtoClinicReview;
@@ -160,7 +160,7 @@ namespace Infodoctor.BL.Services
                 clinicReview.RatePrice < 1 || clinicReview.RateQuality < 1  || clinicReview.Text == string.Empty)
                 throw new ApplicationException("Incorrect data, pussible some required fields are null or empty");
 
-            var lang = _languageRepository.GetLanguageByCode(clinicReview.Lang);
+            var lang = _languageRepository.GetLanguageByCode(clinicReview.LangCode);
 
             var newClinicReview = new ClinicReview()
             {

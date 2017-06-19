@@ -130,10 +130,10 @@ namespace Infodoctor.BL.Services
                 switch (type)
                 {
                     case 1:
-                        result.AddRange(VirtualClinicsAndSpecialisationsCache.FirstOrDefault(l => l.Lang.ToLower() == searchModel.Lang.ToLower()).Words.Where(word => word.ToLower().Contains(searchModel.Text.ToLower())));
+                        result.AddRange(VirtualClinicsAndSpecialisationsCache.FirstOrDefault(l => l.Lang.ToLower() == searchModel.LangCode.ToLower()).Words.Where(word => word.ToLower().Contains(searchModel.Text.ToLower())));
                         break;
                     case 2:
-                        result.AddRange(VirtualDoctorsCache.FirstOrDefault(l => l.Lang.ToLower() == searchModel.Lang.ToLower()).Words.Where(word => word.ToLower().Contains(searchModel.Text.ToLower())));
+                        result.AddRange(VirtualDoctorsCache.FirstOrDefault(l => l.Lang.ToLower() == searchModel.LangCode.ToLower()).Words.Where(word => word.ToLower().Contains(searchModel.Text.ToLower())));
                         break;
                         //case 3:
                         //    result.AddRange(VirtualResortCache.Where(res => res.ToUpper().Contains(searchModel.Text.ToUpper())));

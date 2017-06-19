@@ -40,7 +40,7 @@ namespace Infodoctor.BL.Services
                             UserName = comment.UserName,
                             UserId = comment.UserId,
                             Text = comment.Text,
-                            Lang = comment.Language.Code.ToLower(),
+                            LangCode = comment.Language.Code.ToLower(),
                             PublishTime = comment.PublishTime,
                             ArticleId = comment.Article.Id
                         };
@@ -54,7 +54,7 @@ namespace Infodoctor.BL.Services
                     Content = art.Content,
                     PublishDate = art.PublishDate,
                     Author = art.Author,
-                    Lang = art.Language.Code.ToLower(),
+                    LangCode = art.Language.Code.ToLower(),
                     Comments = dtoComments
                 };
                 dtoArts.Add(dtoArt);
@@ -77,7 +77,7 @@ namespace Infodoctor.BL.Services
                         UserName = comment.UserName,
                         UserId = comment.UserId,
                         Text = comment.Text,
-                        Lang = comment.Language.Code.ToLower(),
+                        LangCode = comment.Language.Code.ToLower(),
                         PublishTime = comment.PublishTime,
                         ArticleId = comment.Article.Id
                     };
@@ -91,7 +91,7 @@ namespace Infodoctor.BL.Services
                 Content = art.Content,
                 PublishDate = art.PublishDate,
                 Author = art.Author,
-                Lang = art.Language.Code.ToLower(),
+                LangCode = art.Language.Code.ToLower(),
                 Comments = dtoComments
             };
             return dtoArt;
@@ -124,7 +124,7 @@ namespace Infodoctor.BL.Services
                             UserName = comment.UserName,
                             UserId = comment.UserId,
                             Text = comment.Text,
-                            Lang = comment.Language.Code.ToLower(),
+                            LangCode = comment.Language.Code.ToLower(),
                             PublishTime = comment.PublishTime,
                             ArticleId = comment.Article.Id
                         };
@@ -138,7 +138,7 @@ namespace Infodoctor.BL.Services
                     Content = art.Content,
                     PublishDate = art.PublishDate,
                     Author = art.Author,
-                    Lang = art.Language.Code.ToLower(),
+                    LangCode = art.Language.Code.ToLower(),
                     Comments = dtoComments
                 };
                 dtoArts.Add(dtoArt);
@@ -159,7 +159,7 @@ namespace Infodoctor.BL.Services
             if (art == null)
                 throw new ArgumentNullException(nameof(art));
 
-            var lang = _LangRepository.GetLanguageByCode(art.Lang);
+            var lang = _LangRepository.GetLanguageByCode(art.LangCode);
 
             var newArt = new Article()
             {
@@ -180,7 +180,7 @@ namespace Infodoctor.BL.Services
             var updated = _articlesRepository.GetArticleById(id);
             if (updated != null)
             {
-                var lang = _LangRepository.GetLanguageByCode(newArt.Lang);
+                var lang = _LangRepository.GetLanguageByCode(newArt.LangCode);
 
                 updated.Language = lang;
                 updated.Title = newArt.Title;

@@ -45,7 +45,7 @@ namespace Infodoctor.BL.Services
                     RateWaitingTime = doctorReview.RateWaitingTime,
                     RateProfessionalism = doctorReview.RateProfessionalism,
                     DoctorId = doctorReview.Doctor.Id,
-                    Lang = doctorReview.Language.Code
+                    LangCode = doctorReview.Language.Code
                 });
             }
             return dtoDoctorReviewsList;
@@ -68,7 +68,7 @@ namespace Infodoctor.BL.Services
                     RateWaitingTime = doctorReview.RateWaitingTime,
                     RateProfessionalism = doctorReview.RateProfessionalism,
                     DoctorId = doctorReview.Doctor.Id,
-                    Lang = doctorReview.Language.Code
+                    LangCode = doctorReview.Language.Code
                 });
             }
             return dtoDoctorReviewsList;
@@ -98,7 +98,7 @@ namespace Infodoctor.BL.Services
                     RateWaitingTime = doctorReview.RateWaitingTime,
                     RateProfessionalism = doctorReview.RateProfessionalism,
                     DoctorId = doctorReview.Doctor.Id,
-                    Lang = doctorReview.Language.Code
+                    LangCode = doctorReview.Language.Code
                 });
             }
             var result = new DtoPagedDoctorReview()
@@ -133,7 +133,7 @@ namespace Infodoctor.BL.Services
                 RateWaitingTime = doctorReview.RateWaitingTime,
                 RateProfessionalism = doctorReview.RateProfessionalism,
                 DoctorId = doctorReview.Doctor.Id,
-                Lang = doctorReview.Language.Code
+                LangCode = doctorReview.Language.Code
             };
             return dtoDoctorReview;
         }
@@ -158,7 +158,7 @@ namespace Infodoctor.BL.Services
                 doctorReview.RateProfessionalism < 0 || doctorReview.RateWaitingTime < 0 || doctorReview.Text == string.Empty)
                 throw new ApplicationException("Incorrect data, some required fields are null or empty");
 
-            var lang = _languageRepository.GetLanguageByCode(doctorReview.Lang);
+            var lang = _languageRepository.GetLanguageByCode(doctorReview.LangCode);
 
             var newDoctorReview = new DoctorReview()
             {
@@ -211,7 +211,7 @@ namespace Infodoctor.BL.Services
                 throw new ApplicationException("Doctor not found");
             }
 
-            var lang = _languageRepository.GetLanguageByCode(doctorReview.Lang);
+            var lang = _languageRepository.GetLanguageByCode(doctorReview.LangCode);
 
             updatedDoctorReview.Id = doctorReview.Id;
             updatedDoctorReview.Text = doctorReview.Text;

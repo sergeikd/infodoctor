@@ -32,7 +32,7 @@ namespace Infodoctor.BL.Services
                     {
                         Id = cityLocalisedCity.Id,
                         Name = cityLocalisedCity.Name,
-                        LangCode = cityLocalisedCity.Language.Code
+                        LangCode = cityLocalisedCity.Language.Code.ToLower()
                     });
                 }
 
@@ -56,7 +56,7 @@ namespace Infodoctor.BL.Services
                     {
                         Id = cityLocalisedCity.Id,
                         Name = cityLocalisedCity.Name,
-                        LangCode = cityLocalisedCity.Language.Code
+                        LangCode = cityLocalisedCity.Language.Code.ToLower()
                     });
                 }
 
@@ -76,7 +76,7 @@ namespace Infodoctor.BL.Services
                 {
                     Id = cityLocalisedCity.Id,
                     Name = cityLocalisedCity.Name,
-                    LangCode = cityLocalisedCity.Language.Code
+                    LangCode = cityLocalisedCity.Language.Code.ToLower()
                 });
             }
 
@@ -86,6 +86,7 @@ namespace Infodoctor.BL.Services
 
         public void Add(string name, string lang)
         {
+            throw new NotImplementedException();
             //if (string.IsNullOrEmpty(name))
             //    throw new ArgumentNullException(nameof(name));
             //_citiesRepository.Add(new City {  });
@@ -93,6 +94,7 @@ namespace Infodoctor.BL.Services
 
         public void Update(int id, string name, string lang)
         {
+            throw new NotImplementedException();
             //if (string.IsNullOrEmpty(name))
             //    throw new ArgumentNullException(nameof(name));
             //var updated = _citiesRepository.GetCityById(id);
