@@ -1955,7 +1955,8 @@ namespace Infodoctor.Web
                 Text = "Спасибо. Очень информативно.",
                 UserId = userName.Id,
                 UserName = "admin",
-                Article = art1
+                Article = art1,
+                Language = langs.First(l => l.Code == "ru")
             };
             var comment2 = new ArticleComment()
             {
@@ -1964,7 +1965,8 @@ namespace Infodoctor.Web
                 Text = "Спасибо. Очень информативно.",
                 UserId = userName.Id,
                 UserName = "admin",
-                Article = art1
+                Article = art1,
+                Language = langs.First(l => l.Code == "ru")
             };
             var comment3 = new ArticleComment()
             {
@@ -1973,7 +1975,8 @@ namespace Infodoctor.Web
                 Text = "Спасибо. Очень информативно.",
                 UserId = userName.Id,
                 UserName = "admin",
-                Article = art2
+                Article = art2,
+                Language = langs.First(l => l.Code == "ru")
             };
             var comment4 = new ArticleComment()
             {
@@ -1982,7 +1985,8 @@ namespace Infodoctor.Web
                 Text = "Спасибо. Очень информативно.",
                 UserId = userName.Id,
                 UserName = "admin",
-                Article = art2
+                Article = art2,
+                Language = langs.First(l => l.Code == "ru")
             };
             var comments = new List<ArticleComment>() { comment1, comment2, comment3, comment4 };
 
@@ -2010,7 +2014,8 @@ namespace Infodoctor.Web
                     RatePoliteness = rnd.Next(3) + 3,
                     RatePrice = rnd.Next(3) + 3,
                     RateQuality = rnd.Next(3) + 3,
-                    IsApproved = true
+                    IsApproved = true,
+                    Language = langs.First(l=>l.Code=="ru")
                 });
             }
 

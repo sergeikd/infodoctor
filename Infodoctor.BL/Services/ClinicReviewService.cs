@@ -13,15 +13,18 @@ namespace Infodoctor.BL.Services
     {
         private readonly IClinicReviewRepository _clinicReviewRepository;
         private readonly IClinicRepository _clinicRepository;
+        private readonly ILanguageRepository _languageRepository;
 
-       public ClinicReviewService(IClinicReviewRepository clinicReviewRepository, IClinicRepository clinicRepository)
+       public ClinicReviewService(IClinicReviewRepository clinicReviewRepository, IClinicRepository clinicRepository, ILanguageRepository languageRepository)
         {
             if (clinicReviewRepository == null)
                 throw new ArgumentNullException(nameof(clinicReviewRepository));
             if (clinicRepository == null)
                 throw new ArgumentNullException(nameof(clinicRepository));
+            if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
             _clinicReviewRepository = clinicReviewRepository;
             _clinicRepository = clinicRepository;
+            _languageRepository = languageRepository;
         }
 
         public IEnumerable<DtoClinicReview> GetClinicReviews()
@@ -40,7 +43,8 @@ namespace Infodoctor.BL.Services
                     RatePoliteness = clinicReview.RatePoliteness,
                     RatePrice = clinicReview.RatePrice,
                     RateQuality = clinicReview.RateQuality,
-                    ClinicId = clinicReview.Clinic.Id
+                    ClinicId = clinicReview.Clinic.Id,
+                    Lang = clinicReview.Language.Code
                 });
             }
             return dtoClinicReviewsList;
@@ -62,11 +66,13 @@ namespace Infodoctor.BL.Services
                     RatePoliteness = clinicReview.RatePoliteness,
                     RatePrice = clinicReview.RatePrice,
                     RateQuality = clinicReview.RateQuality,
-                    ClinicId = clinicReview.Clinic.Id
+                    ClinicId = clinicReview.Clinic.Id,
+                    Lang = clinicReview.Language.Code
                 });
             }
             return dtoClinicReviewsList;
         }
+
         public DtoPagedClinicReview GetPagedReviewsByClinicId(int id, int perPage, int numPage)
         {
             if (id < 1 || perPage < 1 || numPage < 1)
@@ -92,7 +98,8 @@ namespace Infodoctor.BL.Services
                     RatePoliteness = clinicReview.RatePoliteness,
                     RatePrice = clinicReview.RatePrice,
                     RateQuality = clinicReview.RateQuality,
-                    ClinicId = clinicReview.Clinic.Id
+                    ClinicId = clinicReview.Clinic.Id,
+                    Lang = clinicReview.Language.Code
                 });
             }
             var result = new DtoPagedClinicReview
@@ -104,6 +111,7 @@ namespace Infodoctor.BL.Services
             };
             return result;
         }
+
         public DtoClinicReview GetClinicReviewById(int id)
         {
             ClinicReview clinicReview;
@@ -125,18 +133,20 @@ namespace Infodoctor.BL.Services
                 RatePoliteness = clinicReview.RatePoliteness,
                 RatePrice = clinicReview.RatePrice,
                 RateQuality = clinicReview.RateQuality,
-                ClinicId = clinicReview.Clinic.Id
+                ClinicId = clinicReview.Clinic.Id,
+                Lang = clinicReview.Language.Code
             };
 
             return dtoClinicReview;
         }
+
         public void Add(DtoClinicReview clinicReview)
         {
-            if(clinicReview.UserId == null || clinicReview.UserName == null)
-            {
+            if (clinicReview.UserId == null || clinicReview.UserName == null)
                 throw new UnauthorizedAccessException("Incorrect user's credentials");
-            }
+
             Clinic clinic;
+
             try
             {
                 clinic = _clinicRepository.GetClinicById(clinicReview.ClinicId);
@@ -145,9 +155,13 @@ namespace Infodoctor.BL.Services
             {
                 throw new ApplicationException("Clinic not found");
             }
+
             if (clinicReview.Text == "" || clinicReview.ClinicId == 0 || clinicReview.RatePoliteness < 1 ||
                 clinicReview.RatePrice < 1 || clinicReview.RateQuality < 1  || clinicReview.Text == string.Empty)
                 throw new ApplicationException("Incorrect data, pussible some required fields are null or empty");
+
+            var lang = _languageRepository.GetLanguageByCode(clinicReview.Lang);
+
             var newClinicReview = new ClinicReview()
             {
                 Text = clinicReview.Text,
@@ -158,7 +172,8 @@ namespace Infodoctor.BL.Services
                 RatePrice = clinicReview.RatePrice,
                 RateQuality = clinicReview.RateQuality,
                 Clinic = clinic,
-                IsApproved = true //TODO: change to false when moderator control will be done
+                IsApproved = true, //TODO: change to false when moderator control will be done
+                Language = lang
             };
             _clinicReviewRepository.Add(newClinicReview);
         }

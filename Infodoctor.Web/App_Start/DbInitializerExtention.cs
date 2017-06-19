@@ -12,6 +12,13 @@ namespace Infodoctor.Web
             out List<Phone> phonesList, out List<Address> clinicAddressList, out List<City> citiesList,
             out List<DoctorCategory> categoriesList, out List<ImageFile> imagesList)
         {
+            langs = new List<Language>()
+            {
+                new Language() {Name = "Russian", Code = "ru"},
+                new Language() {Name = "English", Code = "en"},
+                new Language() {Name = "Deutsch", Code = "de"}
+            };
+
             imagesList = new List<ImageFile>()
             {
                 new ImageFile() {Name = "7cf505b425af4f4ab7293b3a74a3aa3d.jpg"},
@@ -41,16 +48,10 @@ namespace Infodoctor.Web
                     RatePoliteness = rnd.Next(3) + 3,
                     RatePrice = rnd.Next(3) + 3,
                     RateQuality = rnd.Next(3) + 3,
-                    IsApproved = true
+                    IsApproved = true,
+                    Language = langs.First(l => l.Code == "ru")
                 });
             }
-
-            langs = new List<Language>()
-            {
-                new Language() {Name = "Russian", Code = "ru"},
-                new Language() {Name = "English", Code = "en"},
-                new Language() {Name = "Deutsch", Code = "de"}
-            };
 
             #region Очень длинный список городов РБ
 
@@ -451,7 +452,8 @@ namespace Infodoctor.Web
                     RatePoliteness = rnd.Next(3) + 3,
                     RateProfessionalism = rnd.Next(3) + 3,
                     RateWaitingTime = rnd.Next(3) + 3,
-                    IsApproved = true
+                    IsApproved = true,
+                    Language = langs.First(l => l.Code == "ru")
                 });
             }
 
