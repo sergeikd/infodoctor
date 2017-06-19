@@ -13,14 +13,17 @@ namespace Infodoctor.BL.Services
     {
         private readonly IArticleCommentsRepository _commentsRepository;
         private readonly IArticlesRepository _articlesRepository;
+        private readonly ILanguageRepository _languageRepository;
 
-        public ArticleCommentsService(IArticleCommentsRepository commentsRepository, IArticlesRepository articlesRepository)
+        public ArticleCommentsService(IArticleCommentsRepository commentsRepository, IArticlesRepository articlesRepository, ILanguageRepository languageRepository)
         {
             if (commentsRepository == null) throw new ArgumentNullException(nameof(commentsRepository));
             if (articlesRepository == null) throw new ArgumentNullException(nameof(articlesRepository));
+            if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
 
             _commentsRepository = commentsRepository;
             _articlesRepository = articlesRepository;
+            _languageRepository = languageRepository;
         }
 
         public IEnumerable<DtoArticleComment> GetComments()
@@ -37,7 +40,8 @@ namespace Infodoctor.BL.Services
                     UserName = comment.UserName,
                     UserId = comment.UserId,
                     PublishTime = comment.PublishTime,
-                    ArticleId = comment.Article.Id
+                    ArticleId = comment.Article.Id,
+                    LangCode = comment.Language.Code.ToLower()
                 });
             }
 
@@ -58,7 +62,8 @@ namespace Infodoctor.BL.Services
                     UserName = comment.UserName,
                     UserId = comment.UserId,
                     PublishTime = comment.PublishTime,
-                    ArticleId = comment.Article.Id
+                    ArticleId = comment.Article.Id,
+                    LangCode = comment.Language.Code.ToLower()
                 });
             }
 
@@ -88,7 +93,8 @@ namespace Infodoctor.BL.Services
                     UserName = comment.UserName,
                     UserId = comment.UserId,
                     PublishTime = comment.PublishTime,
-                    ArticleId = comment.Article.Id
+                    ArticleId = comment.Article.Id,
+                    LangCode = comment.Language.Code.ToLower()
                 });
             }
 
@@ -105,11 +111,11 @@ namespace Infodoctor.BL.Services
 
         public DtoArticleComment GetCommentById(int id)
         {
-            ArticleComment articleComment;
+            ArticleComment comment;
 
             try
             {
-                articleComment = _commentsRepository.GetCommentById(id);
+                comment = _commentsRepository.GetCommentById(id);
             }
             catch
             {
@@ -118,12 +124,13 @@ namespace Infodoctor.BL.Services
 
             var dtoComment = new DtoArticleComment()
             {
-                Id = articleComment.Id,
-                Text = articleComment.Text,
-                UserName = articleComment.UserName,
-                UserId = articleComment.UserId,
-                PublishTime = articleComment.PublishTime,
-                ArticleId = articleComment.Article.Id
+                Id = comment.Id,
+                Text = comment.Text,
+                UserName = comment.UserName,
+                UserId = comment.UserId,
+                PublishTime = comment.PublishTime,
+                ArticleId = comment.Article.Id,
+                LangCode = comment.Language.Code.ToLower()
             };
 
             return dtoComment;
@@ -155,7 +162,8 @@ namespace Infodoctor.BL.Services
                 UserId = comment.UserId,
                 PublishTime = comment.PublishTime,
                 Article = article,
-                IsApproved = true //TODO: change to false when moderator control will be done
+                IsApproved = true, //TODO: change to false when moderator control will be done
+                Language = _languageRepository.GetLanguageByCode(comment.LangCode)
             };
 
             _commentsRepository.Add(newComment);
