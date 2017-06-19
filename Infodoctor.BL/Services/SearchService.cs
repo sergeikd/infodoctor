@@ -14,15 +14,18 @@ namespace Infodoctor.BL.Services
         private readonly IClinicSpecializationRepository _clinicSpecializationRepository;
         private readonly IDoctorSpecializationRepository _doctorSpecializationRepository;
         private readonly IResortRepository _resortRepository;
+        private readonly ILanguageRepository _languageRepository;
 
-        private static List<string> VirtualClinicsAndSpecialisationsCache { get; set; }
-        private static List<string> VirtualDoctorsCache { get; set; }
-        private static List<string> VirtualResortCache { get; set; }
+        private static List<CacheModel> VirtualClinicsAndSpecialisationsCache { get; set; }
+        private static List<CacheModel> VirtualDoctorsCache { get; set; }
+        private static List<CacheModel> VirtualResortCache { get; set; }
 
         public SearchService(IClinicRepository clinicRepository,
             IClinicSpecializationRepository clinicSpecializationRepository,
             IDoctorRepository doctorRepository,
-            IDoctorSpecializationRepository doctorSpecializationRepository, IResortRepository resortRepository)
+            IDoctorSpecializationRepository doctorSpecializationRepository,
+            IResortRepository resortRepository,
+            ILanguageRepository languageRepository)
         {
             if (clinicRepository == null)
                 throw new ArgumentNullException(nameof(clinicRepository));
@@ -33,9 +36,11 @@ namespace Infodoctor.BL.Services
             if (doctorSpecializationRepository == null)
                 throw new ArgumentNullException(nameof(doctorSpecializationRepository));
             if (resortRepository == null) throw new ArgumentNullException(nameof(resortRepository));
+            if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
 
             _doctorSpecializationRepository = doctorSpecializationRepository;
             _resortRepository = resortRepository;
+            _languageRepository = languageRepository;
             _doctorRepository = doctorRepository;
             _clinicRepository = clinicRepository;
             _clinicSpecializationRepository = clinicSpecializationRepository;
@@ -43,54 +48,77 @@ namespace Infodoctor.BL.Services
 
         public void RefreshCache()
         {
-            // Todo : update search
-        //    var clinics = _clinicRepository.GetAllСlinics();
-        //    var clinicSpecializations = _clinicSpecializationRepository.GetAllClinicSpecializations();
-        //    var doctors = _doctorRepository.GetAllDoctors();
-        //    var doctorSpecializations = _doctorSpecializationRepository.GetAllSpecializations();
-        //    var resorts = _resortRepository.GetAllResorts();
+            var langs = _languageRepository.GetLanguages().ToList();
+            var clinics = _clinicRepository.GetAllСlinics().ToList();
+            var doctors = _doctorRepository.GetAllDoctors().ToList();
 
-        //    var clinicsList = new List<string>();
-        //    var specsList = new List<string>();
-        //    var doctorsList = new List<string>();
-        //    var doctorsSpecsList = new List<string>();
-        //    var resortsList = new List<string>();
+            var clinicsAndSpecsCaches = new List<CacheModel>();
+            var doctorsCaches = new List<CacheModel>();
 
-        //    foreach (var clinic in clinics)
-        //        clinicsList.Add(clinic.Name);
+            foreach (var lang in langs)
+            {
+                var clinicCache = new CacheModel() { Lang = lang.Code, Words = new List<string>() };
+                var doctorsCache = new CacheModel() { Lang = lang.Code, Words = new List<string>() };
 
-        //    foreach (var cs in clinicSpecializations)
-        //        specsList.Add(cs.Name);
+                foreach (var clinic in clinics)
+                {
+                    var local = clinic.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang.Code,
+                         StringComparison.CurrentCultureIgnoreCase));
+                    if (local != null)
+                        clinicCache.Words.Add(local.Name);
+                }
 
-        //    foreach (var doctor in doctors)
-        //    {
-        //        doctorsList.Add(doctor.Name);
-        //        doctorsList.Add(doctor.Manipulation);
-        //    }
+                foreach (var clinic in clinics)
+                {
+                    foreach (var cs in clinic.ClinicSpecializations)
+                    {
+                        var local =
+                            cs.LocalizedClinicSpecializations.FirstOrDefault(
+                                l => string.Equals(l.Language.Code, lang.Code, StringComparison.CurrentCultureIgnoreCase));
+                        if (local == null)
+                            continue;
 
-        //    foreach (var resort in resorts)
-        //    {
-        //        resortsList.Add(resort.Name);
-        //        resortsList.Add(resort.Specialisations);
-        //    }
+                        clinicCache.Words.Add(local.Name);
+                    }
+                }
 
-        //    foreach (var ds in doctorSpecializations)
-        //        doctorsSpecsList.Add(ds.Name);
+                foreach (var doctor in doctors)
+                {
+                    var local = doctor.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang.Code,
+                        StringComparison.CurrentCultureIgnoreCase));
 
-        //    VirtualClinicsAndSpecialisationsCache = clinicsList;
-        //    VirtualClinicsAndSpecialisationsCache.AddRange(specsList);
+                    if (local == null)
+                        continue;
 
-        //    VirtualDoctorsCache = doctorsList;
-        //    VirtualDoctorsCache.AddRange(doctorsSpecsList);
+                    doctorsCache.Words.Add(local.Name);
+                    doctorsCache.Words.Add(local.Manipulation);
+                }
 
-        //    VirtualResortCache = resortsList;
+                foreach (var doctor in doctors)
+                {
+                    var local = doctor.Specialization.LocalizedDoctorSpecializations.FirstOrDefault(l => string.Equals(
+                        l.Language.Code, lang.Code, StringComparison.CurrentCultureIgnoreCase));
+
+                    if (local == null)
+                        continue;
+
+                    doctorsCache.Words.Add(local.Name);
+                }
+
+                clinicsAndSpecsCaches.Add(clinicCache);
+                doctorsCaches.Add(doctorsCache);
+            }
+
+            VirtualClinicsAndSpecialisationsCache = clinicsAndSpecsCaches;
+            VirtualDoctorsCache = doctorsCaches;
         }
 
         private static bool IsVirtualCachesFull()
         {
-            var flag = VirtualClinicsAndSpecialisationsCache != null || VirtualDoctorsCache != null;
+            var flag = VirtualClinicsAndSpecialisationsCache != null && VirtualDoctorsCache != null;
             return flag;
         }
+
 
         public List<string> FastSearch(DtoFastSearchModel searchModel)
         {
@@ -102,16 +130,23 @@ namespace Infodoctor.BL.Services
                 switch (type)
                 {
                     case 1:
-                        result.AddRange(VirtualClinicsAndSpecialisationsCache.Where(clinic => clinic.ToUpper().Contains(searchModel.Text.ToUpper())));
+                        result.AddRange(VirtualClinicsAndSpecialisationsCache.FirstOrDefault(l => l.Lang.ToLower() == searchModel.Lang.ToLower()).Words.Where(word => word.ToLower().Contains(searchModel.Text.ToLower())));
                         break;
                     case 2:
-                        result.AddRange(VirtualDoctorsCache.Where(spec => spec.ToUpper().Contains(searchModel.Text.ToUpper())));
+                        result.AddRange(VirtualDoctorsCache.FirstOrDefault(l => l.Lang.ToLower() == searchModel.Lang.ToLower()).Words.Where(word => word.ToLower().Contains(searchModel.Text.ToLower())));
                         break;
-                    case 3:
-                        result.AddRange(VirtualResortCache.Where(res => res.ToUpper().Contains(searchModel.Text.ToUpper())));
-                        break;
+                        //case 3:
+                        //    result.AddRange(VirtualResortCache.Where(res => res.ToUpper().Contains(searchModel.Text.ToUpper())));
+                        //    break;
                 }
             return result;
+
         }
+    }
+
+    internal class CacheModel
+    {
+        public string Lang { get; set; }
+        public List<string> Words { get; set; }
     }
 }

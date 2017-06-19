@@ -37,6 +37,7 @@ namespace Infodoctor.Web.Controllers
             var result =
                 _searchService.FastSearch(new DtoFastSearchModel()
                 {
+                    Lang = searchModel.Lang,
                     TypeId = searchModel.TypeId,
                     Text = searchModel.Text
                 });
