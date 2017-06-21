@@ -324,106 +324,51 @@ namespace Infodoctor.BL.Services
                 throw new ApplicationException("Incorrect request parameter");
                 ;
             }
-            IQueryable<Doctor> doctors = _doctorRepository.GetAllDoctors();
-            //switch (searchModel.CityId) //check whether CityId included in search request
-            //{
-            //    case 0:
-            //        {
-            //            switch (searchModel.SpecializationId != 0) //check whether DoctorSpecialization included in search request
-            //            {
-            //                case true:
-            //                    {
-            //                        switch (searchModel.SearchWord == "") //check whether SearchWord included in search request
-            //                        {
-            //                            case true:
-            //                                {
-            //                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
-            //                                        Where(x => (x.Specialization.Id == searchModel.SpecializationId));
-            //                                    break;
-            //                                }
-            //                            default:
-            //                                {
-            //                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
-            //                                        Where(x => (x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-            //                                                    (x.Specialization.Id == searchModel.SpecializationId)));
-            //                                    break;
-            //                                }
-            //                        }
-
-            //                        break;
-            //                    }
-            //                default:
-            //                    {
-            //                        switch (searchModel.SearchWord == "")
-            //                        {
-            //                            case true:
-            //                                {
-            //                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang);
-            //                                    break;
-            //                                }
-            //                            default:
-            //                                {
-            //                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
-            //                                        Where(x => x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()));
-            //                                    break;
-            //                                }
-            //                        }
-
-            //                        break;
-            //                    }
-            //            }
-            //            break;
-            //        }
-            //    default:
-            //        {
-            //            switch (searchModel.SpecializationId == 0) //check whether DoctorSpecialization included in search request
-            //            {
-            //                case true:
-            //                    {
-            //                        switch (searchModel.SearchWord == "")
-            //                        {
-            //                            case true:
-            //                                {
-            //                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
-            //                                                   Where(x => (x.Address.Id == searchModel.CityId) &&
-            //                                                   (x.Specialization.Id == searchModel.SpecializationId));
-            //                                    break;
-            //                                }
-            //                            default:
-            //                                {
-            //                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
-            //                                        Where(x => x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-            //                                                   (x.Address.Id == searchModel.CityId) &&
-            //                                                   (x.Specialization.Id == searchModel.SpecializationId));
-            //                                    break;
-            //                                }
-            //                        }
-            //                        break;
-            //                    }
-            //                default:
-            //                    {
-            //                        switch (searchModel.SearchWord == "")
-            //                        {
-            //                            case true:
-            //                                {
-            //                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
-            //                                        Where(x => x.Address.Id == searchModel.CityId);
-            //                                    break;
-            //                                }
-            //                            default:
-            //                                {
-            //                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
-            //                                        Where(x => x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-            //                                                   x.Address.Id == searchModel.CityId);
-            //                                    break;
-            //                                }
-            //                        }
-            //                        break;
-            //                    }
-            //            }
-            //            break;
-            //        }
-            //}
+            IQueryable<Doctor> doctors;
+            switch (searchModel.CityId) //check whether CityId included in search request
+            {
+                case 0:
+                    {
+                        switch (searchModel.SearchWord == "")
+                        {
+                            case true:
+                                {
+                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang);
+                                    break;
+                                }
+                            default:
+                                {
+                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
+                                        Where(
+                                            x => x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower())
+                                        );
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        switch (searchModel.SearchWord == "")
+                        {
+                            case true:
+                                {
+                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).Where(x => x.Address.Id == searchModel.CityId);
+                                    break;
+                                }
+                            default:
+                                {
+                                    doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
+                                        Where(
+                                            x => x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                            x.Address.Id == searchModel.CityId
+                                        );
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+            }
 
             var pagedList = new PagedList<Doctor>(doctors, perPage, numPage);
             if (!pagedList.Any())
@@ -686,7 +631,7 @@ namespace Infodoctor.BL.Services
             if (newDoctorMultiLang.Localized != null)
                 foreach (var doctorLocalized in newDoctorMultiLang.Localized)
                 {
-                    locals.Add(new LocalizedDoctor() { Name = doctorLocalized.Name, Manipulation = doctorLocalized.Manipulation, Language = _languageRepository.GetLanguageByCode(doctorLocalized.LangCode), Specialization = doctorLocalized.Specialization});
+                    locals.Add(new LocalizedDoctor() { Name = doctorLocalized.Name, Manipulation = doctorLocalized.Manipulation, Language = _languageRepository.GetLanguageByCode(doctorLocalized.LangCode), Specialization = doctorLocalized.Specialization });
                 }
 
             var doctor = new Doctor()
@@ -742,7 +687,7 @@ namespace Infodoctor.BL.Services
             if (newDoctorMultiLang.Localized != null)
                 foreach (var doctorLocalized in newDoctorMultiLang.Localized)
                 {
-                    locals.Add(new LocalizedDoctor() { Name = doctorLocalized.Name, Manipulation = doctorLocalized.Manipulation, Language = _languageRepository.GetLanguageByCode(doctorLocalized.LangCode),Specialization = doctorLocalized.Specialization});
+                    locals.Add(new LocalizedDoctor() { Name = doctorLocalized.Name, Manipulation = doctorLocalized.Manipulation, Language = _languageRepository.GetLanguageByCode(doctorLocalized.LangCode), Specialization = doctorLocalized.Specialization });
                 }
 
             var doctor = _doctorRepository.GetDoctorById(id);
