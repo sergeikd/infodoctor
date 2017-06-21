@@ -296,8 +296,7 @@ namespace Infodoctor.Web
             };
 
 
-            List<ClinicReview> clinicReviewSubList;
-            clinicReviewSubList = clinicReviewList.Take(5).ToList();
+            var clinicReviewSubList = clinicReviewList.Take(5).ToList();
 
             var clinic1 = new Clinic()
             {
@@ -307,6 +306,7 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "Медицинский центр Нордин",
+                        Specializations = "Аллергология|Вакцинопрофилактика|Гастроэнтерология|Гидроколонотерапия|Гинекология|Детская гинекология|Детская урология|Дерматология|Косметический кабинет|Логопедия|Кардиология|Неврология|Онкология|Ортопедия|Оториноларингология|Офтальмология|Педиатрия|Проктология|Психотерапия|Терапия|Урология|Физиотерапия|Эндокринология",
                         Language = langs.First(l => l.Code == "ru")
                     },
                     new LocalizedClinic()
@@ -334,6 +334,7 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "Стоматологический центр Дентко",
+                        Specializations = "Стоматология",
                         Language = langs.First(l => l.Code == "ru")
                     },
                     new LocalizedClinic()
@@ -361,6 +362,7 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "Медицинский центр Кравира",
+                        Specializations = "Лабораторная диагностика|Гинекология|Дерматология|Косметология|Массаж|Лечебная физкультура|Неврология|Онкология|Маммология|Оториноларингология|Пластическая эстетическая хирургия|Проктология|Психотерапия|Стоматология|Терапия|Ультразвуковая диагностика (УЗИ)|Урология|Флебология|Функциональная диагностика|Хирургия, в т.ч. лазерная|Эндокринология",
                         Language = langs.First(l => l.Code == "ru")
                     },
                     new LocalizedClinic()
@@ -388,6 +390,7 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "4-я городская поликлиника г.Минска",
+                        Specializations = "Клинико-диагностическая лаборатория|Отделение женской консультации|Отделение медицинской реабилитации|Отделение профилактики|Отделение ультразвуковой диагностики|Педиатрическое отделение|Кардиологическое отделение|Урологическое отделение|Рентгеновское отделение|Стоматологическое отделение|Терапевтическое отделение|Хирургическое отделение|Узкие специалисты",
                         Language = langs.First(l => l.Code == "ru")
                     },
                     new LocalizedClinic()
@@ -414,6 +417,7 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "2-я городская детская клиническая больница г. Минска",
+                        Specializations = "Урологическое отделение|Отделение детской нефрологии и заместительной почечной терапии|Отделение детской эндокринологии|Отделение реанимации |Отделение гемодиализа |Отделение функциональной диагностики |Отделение перитонеального диализа|Отделение гипербарической оксигенации|Физиотерапевтическое отделение|Изотопной лаборатория",
                         Language = langs.First(l => l.Code == "ru")
                     },
                     new LocalizedClinic()
@@ -446,7 +450,6 @@ namespace Infodoctor.Web
                            "Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing " +
                            "software like Aldus PageMaker including versions of Lorem Ipsum.",
                     PublishTime = new DateTime(ticks + i * 1000000000000),
-                    //DoctorId = i % 5 + 1,
                     UserId = "7d374085-71e4-4819-8d09-91cfc8239463",
                     UserName = "user0",
                     RatePoliteness = rnd.Next(3) + 3,
@@ -464,7 +467,16 @@ namespace Infodoctor.Web
             doctorReviewSubList = doctorReviewList.Take(5).ToList();
             var doc001 = new Doctor()
             {
-                Localized = new List<LocalizedDoctor>() { new LocalizedDoctor() { Name = "Степанов Степан Степанович", Manipulation = "Может что-то хорошо.", Language = langs.First(l => l.Code == "ru") } },
+                Localized = new List<LocalizedDoctor>()
+                {
+                    new LocalizedDoctor()
+                    {
+                        Name = "Степанов Степан Степанович",
+                        Manipulation = "Может что-то хорошо.",
+                        Specialization = "Массажист",
+                        Language = langs.First(l => l.Code == "ru")
+                    }
+                },
                 Email = "infosuperstepa1999@gmail.com",
                 Experience = 14,
                 RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
@@ -480,7 +492,16 @@ namespace Infodoctor.Web
             doctorReviewSubList = doctorReviewList.Skip(5).Take(5).ToList();
             var doc002 = new Doctor()
             {
-                Localized = new List<LocalizedDoctor>() { new LocalizedDoctor() { Name = "Степанов Иван Степанович", Manipulation = "Может что-то отлично.", Language = langs.First(l => l.Code == "ru") } },
+                Localized = new List<LocalizedDoctor>()
+                {
+                    new LocalizedDoctor()
+                    {
+                        Name = "Степанов Иван Степанович",
+                        Manipulation = "Может что-то отлично.",
+                        Specialization = "Аллерголог",
+                        Language = langs.First(l => l.Code == "ru")
+                    }
+                },
                 Email = "giperivan2@gmail.com",
                 Experience = 20,
                 RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
@@ -496,7 +517,16 @@ namespace Infodoctor.Web
             doctorReviewSubList = doctorReviewList.Skip(10).Take(5).ToList();
             var doc003 = new Doctor()
             {
-                Localized = new List<LocalizedDoctor>() { new LocalizedDoctor() { Name = "Степанов Степан Иванович", Manipulation = "Может что-то нормально.", Language = langs.First(l => l.Code == "ru") } },
+                Localized = new List<LocalizedDoctor>()
+                {
+                    new LocalizedDoctor()
+                    {
+                        Name = "Степанов Степан Иванович",
+                        Manipulation = "Может что-то нормально.",
+                        Specialization = "Аллерголог детский",
+                        Language = langs.First(l => l.Code == "ru")
+                    }
+                },
                 Email = "darmaed19@gmail.com",
                 Experience = 2,
                 RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
@@ -512,7 +542,16 @@ namespace Infodoctor.Web
             doctorReviewSubList = doctorReviewList.Skip(15).Take(5).ToList();
             var doc004 = new Doctor()
             {
-                Localized = new List<LocalizedDoctor>() { new LocalizedDoctor() { Name = "Иванов Степан Степанович", Manipulation = "Может что-то хорошо.", Language = langs.First(l => l.Code == "ru") } },
+                Localized = new List<LocalizedDoctor>()
+                {
+                    new LocalizedDoctor()
+                    {
+                        Name = "Иванов Степан Степанович",
+                        Manipulation = "Может что-то хорошо.",
+                        Specialization = "Онколог",
+                        Language = langs.First(l => l.Code == "ru")
+                    }
+                },
                 Email = "tainiidoctor2@gmail.com",
                 Experience = 14,
                 RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
@@ -528,7 +567,16 @@ namespace Infodoctor.Web
             doctorReviewSubList = doctorReviewList.Skip(20).Take(5).ToList();
             var doc005 = new Doctor()
             {
-                Localized = new List<LocalizedDoctor>() { new LocalizedDoctor() { Name = "Степанов Сергей Степанович", Manipulation = "Может что-то отлично.", Language = langs.First(l => l.Code == "ru") } },
+                Localized = new List<LocalizedDoctor>()
+                {
+                    new LocalizedDoctor()
+                    {
+                        Name = "Степанов Сергей Степанович",
+                        Manipulation = "Может что-то отлично.",
+                        Specialization = "Педиатр",
+                        Language = langs.First(l => l.Code == "ru")
+                    }
+                },
                 Email = "123456789@gmail.com",
                 Experience = 29,
                 RateProfessionalism = doctorReviewSubList.Select(x => x.RateProfessionalism).Average(),
