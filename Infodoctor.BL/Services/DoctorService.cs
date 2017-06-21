@@ -61,6 +61,7 @@ namespace Infodoctor.BL.Services
                             {
                                 Id = localizedDoctor.Id,
                                 Name = localizedDoctor.Name,
+                                Specialization = localizedDoctor.Specialization,
                                 Manipulation = localizedDoctor.Manipulation,
                                 LangCode = localizedDoctor.Language.Code.ToLower()
                             };
@@ -194,6 +195,7 @@ namespace Infodoctor.BL.Services
                             {
                                 Id = localizedDoctor.Id,
                                 Name = localizedDoctor.Name,
+                                Specialization = localizedDoctor.Specialization,
                                 Manipulation = localizedDoctor.Manipulation,
                                 LangCode = localizedDoctor.Language.Code.ToLower()
                             };
@@ -314,7 +316,9 @@ namespace Infodoctor.BL.Services
             {
                 throw new ApplicationException("Incorrect request parameter");
             }
+
             bool descending;
+
             try
             {
                 descending = Convert.ToBoolean(searchModel.Descending);
@@ -322,9 +326,10 @@ namespace Infodoctor.BL.Services
             catch (Exception)
             {
                 throw new ApplicationException("Incorrect request parameter");
-                ;
             }
+
             IQueryable<Doctor> doctors;
+
             switch (searchModel.CityId) //check whether CityId included in search request
             {
                 case 0:
@@ -340,7 +345,8 @@ namespace Infodoctor.BL.Services
                                 {
                                     doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
                                         Where(
-                                            x => x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower())
+                                            x => x.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
+                                            x.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Specialization.ToLower().Contains(searchModel.SearchWord.ToLower())
                                         );
                                     break;
                                 }
@@ -360,7 +366,8 @@ namespace Infodoctor.BL.Services
                                 {
                                     doctors = _doctorRepository.GetSortedDoctors(searchModel.SortBy, descending, lang).
                                         Where(
-                                            x => x.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                            x => x.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
+                                            x.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Specialization.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
                                             x.Address.Id == searchModel.CityId
                                         );
                                     break;
@@ -371,10 +378,10 @@ namespace Infodoctor.BL.Services
             }
 
             var pagedList = new PagedList<Doctor>(doctors, perPage, numPage);
+
             if (!pagedList.Any())
-            {
                 return null;
-            }
+
             var dtoDoctors = new List<DtoDoctorSingleLang>();
 
             foreach (var doctor in pagedList)
@@ -389,6 +396,7 @@ namespace Infodoctor.BL.Services
                             {
                                 Id = localizedDoctor.Id,
                                 Name = localizedDoctor.Name,
+                                Specialization = localizedDoctor.Specialization,
                                 Manipulation = localizedDoctor.Manipulation,
                                 LangCode = localizedDoctor.Language.Code.ToLower()
                             };
@@ -519,6 +527,7 @@ namespace Infodoctor.BL.Services
                         {
                             Id = localizedDoctor.Id,
                             Name = localizedDoctor.Name,
+                            Specialization = localizedDoctor.Specialization,
                             Manipulation = localizedDoctor.Manipulation,
                             LangCode = localizedDoctor.Language.Code.ToLower()
                         };

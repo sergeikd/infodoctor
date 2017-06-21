@@ -306,7 +306,8 @@ namespace Infodoctor.BL.Services
                                 {
                                     clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
                                         Where(
-                                            x => x.Localized.FirstOrDefault(ls => string.Equals(ls.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower())
+                                            x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
+                                            x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Specializations.ToLower().Contains(searchModel.SearchWord.ToLower())
                                         );
                                     break;
                                 }
@@ -321,7 +322,7 @@ namespace Infodoctor.BL.Services
                                 {
                                     clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
                                         Where(
-                                            x => x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => string.Equals(ls.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).City.Id == searchModel.CityId)
+                                            x => x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId)
                                         );
                                     break;
                                 }
@@ -329,8 +330,9 @@ namespace Infodoctor.BL.Services
                                 {
                                     clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
                                         Where(
-                                            x => x.Localized.FirstOrDefault(ls => string.Equals(ls.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                            x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => string.Equals(ls.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).City.Id == searchModel.CityId)
+                                            x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
+                                            x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Specializations.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+                                            x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId)
                                     );
                                     break;
                                 }
@@ -339,12 +341,17 @@ namespace Infodoctor.BL.Services
                     }
             }
 
+            var test = clinics.ToList();
+
             var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
+
             if (!pagedList.Any())
             {
                 return null;
             }
+
             var dtoClinicList = new List<DtoClinicSingleLang>();
+
             foreach (var clinic in pagedList)
             {
                 var imagesList = clinic.ImageName.Select(image => pathToImage + image.Name).ToList();

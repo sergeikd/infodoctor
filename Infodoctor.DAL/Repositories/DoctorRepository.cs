@@ -19,15 +19,16 @@ namespace Infodoctor.DAL.Repositories
         {
             return _context.Doctors.OrderBy(n => n.Id);
         }
+
         public IQueryable<Doctor> GetSortedDoctors(string sortBy, bool descending, string lang)
         {
             switch (sortBy)
             {
                 default:
-                    return descending ? _context.Doctors.OrderByDescending(d => d.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name) : _context.Doctors.OrderBy(d => d.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name);
+                    return descending ? _context.Doctors.OrderByDescending(d => d.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Doctors.OrderBy(d => d.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
                 case "alphabet":
                     {
-                        return descending ? _context.Doctors.OrderByDescending(d => d.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name) : _context.Doctors.OrderBy(d => d.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase)).Name);
+                        return descending ? _context.Doctors.OrderByDescending(d => d.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Doctors.OrderBy(d => d.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
                     }
                 case "rate":
                     return descending ? _context.Doctors.OrderByDescending(d => d.RateAverage) : _context.Doctors.OrderBy(d => d.RateAverage);
@@ -35,6 +36,7 @@ namespace Infodoctor.DAL.Repositories
                     return descending ? _context.Doctors.OrderByDescending(d => d.RateProfessionalism) : _context.Doctors.OrderBy(d => d.RateProfessionalism);
             }
         }
+
         public Doctor GetDoctorById(int id)
         {
             return _context.Doctors.First(d => d.Id == id);
