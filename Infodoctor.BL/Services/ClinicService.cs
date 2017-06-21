@@ -12,26 +12,17 @@ namespace Infodoctor.BL.Services
     public class ClinicService : IClinicService
     {
         private readonly IClinicRepository _clinicRepository;
-        private readonly IClinicReviewRepository _clinicReviewRepository;
         private readonly ISearchService _searchService;
-        private readonly IImagesService _imagesService;
 
-        public ClinicService(IClinicRepository clinicRepository, IClinicReviewRepository clinicReviewRepository,
-            ISearchService searchService, IImagesService imagesService)
+        public ClinicService(IClinicRepository clinicRepository, ISearchService searchService)
         {
             if (clinicRepository == null)
                 throw new ArgumentNullException(nameof(clinicRepository));
-            if (clinicReviewRepository == null)
-                throw new ArgumentNullException(nameof(clinicReviewRepository));
             if (searchService == null)
                 throw new ArgumentNullException(nameof(searchService));
-            if (imagesService == null)
-                throw new ArgumentNullException(nameof(imagesService));
 
             _searchService = searchService;
-            _clinicReviewRepository = clinicReviewRepository;
             _clinicRepository = clinicRepository;
-            _imagesService = imagesService;
         }
 
         public IEnumerable<DtoClinicSingleLang> GetAllClinics(string pathToImage, string lang)
@@ -48,11 +39,9 @@ namespace Infodoctor.BL.Services
                 {
                     var localizedAddress = new LocalizedAddress();
                     foreach (var clinicAddressLocalizedAddress in clinicAddress.LocalizedAddresses.ToList())
-                    {
                         if (string.Equals(clinicAddressLocalizedAddress.Language.Code.ToLower(), lang.ToLower(),
                             StringComparison.Ordinal))
                             localizedAddress = clinicAddressLocalizedAddress;
-                    }
 
                     var localizedCity = new LocalizedCity();
                     if (localizedAddress.City?.LocalizedCities != null)
@@ -63,17 +52,15 @@ namespace Infodoctor.BL.Services
                                 localizedCity = cityLocalizedCity;
                         }
 
-                    var phones = new List<DtoPhoneSingleLang>();
-                    foreach (var clinicPhone in clinicAddress.Phones)
-                        foreach (var localizedPhone in clinicPhone.LocalizedPhones)
-                            if (string.Equals(localizedPhone.Language.Code.ToLower(), lang.ToLower(),
-                                StringComparison.Ordinal))
-                                phones.Add(new DtoPhoneSingleLang()
-                                {
-                                    Id = localizedPhone.Id,
-                                    Desc = localizedPhone.Description,
-                                    Number = localizedPhone.Number
-                                });
+                    var phones = (from clinicPhone in clinicAddress.Phones
+                                  from localizedPhone in clinicPhone.LocalizedPhones
+                                  where string.Equals(localizedPhone.Language.Code.ToLower(), lang.ToLower(), StringComparison.Ordinal)
+                                  select new DtoPhoneSingleLang()
+                                  {
+                                      Id = localizedPhone.Id,
+                                      Desc = localizedPhone.Description,
+                                      Number = localizedPhone.Number
+                                  }).ToList();
 
                     dtoAddreses.Add(new DtoAddressSingleLang()
                     {
@@ -82,23 +69,6 @@ namespace Infodoctor.BL.Services
                         City = localizedCity.Name,
                         Street = localizedAddress.Street,
                         Phones = phones
-                    });
-                }
-
-                var dtoSpecializations = new List<DtoClinicSpecializationSingleLangModels>();
-                foreach (var clinicSpecialization in clinic.ClinicSpecializations)
-                {
-                    var localizedCs = new LocalizedClinicSpecialization(); ;
-                    foreach (var localizedSpecialization in clinicSpecialization.LocalizedClinicSpecializations)
-                    {
-                        if (localizedSpecialization.Language.Code.ToLower() == lang.ToLower())
-                            localizedCs = localizedSpecialization;
-                    }
-
-                    dtoSpecializations.Add(new DtoClinicSpecializationSingleLangModels()
-                    {
-                        Id = clinicSpecialization.Id,
-                        Name = localizedCs.Name
                     });
                 }
 
@@ -126,7 +96,7 @@ namespace Infodoctor.BL.Services
                     Favorite = clinic.Favorite,
                     Images = imagesList,
                     Addresses = dtoAddreses,
-                    Specializations = dtoSpecializations
+                    Specializations = localizedClinic.Specializations
                 });
             }
 
@@ -148,11 +118,9 @@ namespace Infodoctor.BL.Services
             {
                 var localizedAddress = new LocalizedAddress();
                 foreach (var clinicAddressLocalizedAddress in clinicAddress.LocalizedAddresses.ToList())
-                {
                     if (string.Equals(clinicAddressLocalizedAddress.Language.Code.ToLower(), lang.ToLower(),
                         StringComparison.Ordinal))
                         localizedAddress = clinicAddressLocalizedAddress;
-                }
 
                 var localizedCity = new LocalizedCity();
                 if (localizedAddress.City != null)
@@ -163,17 +131,15 @@ namespace Infodoctor.BL.Services
                             localizedCity = cityLocalizedCity;
                     }
 
-                var phones = new List<DtoPhoneSingleLang>();
-                foreach (var clinicPhone in clinicAddress.Phones)
-                    foreach (var localizedPhone in clinicPhone.LocalizedPhones)
-                        if (string.Equals(localizedPhone.Language.Code.ToLower(), lang.ToLower(),
-                            StringComparison.Ordinal))
-                            phones.Add(new DtoPhoneSingleLang()
-                            {
-                                Id = localizedPhone.Id,
-                                Desc = localizedPhone.Description,
-                                Number = localizedPhone.Number
-                            });
+                var phones = (from clinicPhone in clinicAddress.Phones
+                              from localizedPhone in clinicPhone.LocalizedPhones
+                              where string.Equals(localizedPhone.Language.Code.ToLower(), lang.ToLower(), StringComparison.Ordinal)
+                              select new DtoPhoneSingleLang()
+                              {
+                                  Id = localizedPhone.Id,
+                                  Desc = localizedPhone.Description,
+                                  Number = localizedPhone.Number
+                              }).ToList();
 
                 dtoAddreses.Add(new DtoAddressSingleLang()
                 {
@@ -182,23 +148,6 @@ namespace Infodoctor.BL.Services
                     City = localizedCity.Name,
                     Street = localizedAddress.Street,
                     Phones = phones
-                });
-            }
-
-            var dtoSpecializations = new List<DtoClinicSpecializationSingleLangModels>();
-            foreach (var clinicSpecialization in clinic.ClinicSpecializations)
-            {
-                var localizedCs = new LocalizedClinicSpecialization(); ;
-                foreach (var localizedSpecialization in clinicSpecialization.LocalizedClinicSpecializations)
-                {
-                    if (localizedSpecialization.Language.Code.ToLower() == lang.ToLower())
-                        localizedCs = localizedSpecialization;
-                }
-
-                dtoSpecializations.Add(new DtoClinicSpecializationSingleLangModels()
-                {
-                    Id = clinicSpecialization.Id,
-                    Name = localizedCs.Name
                 });
             }
 
@@ -226,7 +175,7 @@ namespace Infodoctor.BL.Services
                 Favorite = clinic.Favorite,
                 Images = imagesList,
                 Addresses = dtoAddreses,
-                Specializations = dtoSpecializations
+                Specializations = localizedClinic.Specializations
             };
 
             return dtoClinic;
@@ -254,11 +203,9 @@ namespace Infodoctor.BL.Services
                 {
                     var localizedAddress = new LocalizedAddress();
                     foreach (var clinicAddressLocalizedAddress in clinicAddress.LocalizedAddresses.ToList())
-                    {
                         if (string.Equals(clinicAddressLocalizedAddress.Language.Code.ToLower(), lang.ToLower(),
                             StringComparison.Ordinal))
                             localizedAddress = clinicAddressLocalizedAddress;
-                    }
 
                     var localizedCity = new LocalizedCity();
                     foreach (var cityLocalizedCity in localizedAddress.City.LocalizedCities)
@@ -268,17 +215,15 @@ namespace Infodoctor.BL.Services
                             localizedCity = cityLocalizedCity;
                     }
 
-                    var phones = new List<DtoPhoneSingleLang>();
-                    foreach (var clinicPhone in clinicAddress.Phones)
-                        foreach (var localizedPhone in clinicPhone.LocalizedPhones)
-                            if (string.Equals(localizedPhone.Language.Code.ToLower(), lang.ToLower(),
-                                StringComparison.Ordinal))
-                                phones.Add(new DtoPhoneSingleLang()
-                                {
-                                    Id = localizedPhone.Id,
-                                    Desc = localizedPhone.Description,
-                                    Number = localizedPhone.Number
-                                });
+                    var phones = (from clinicPhone in clinicAddress.Phones
+                                  from localizedPhone in clinicPhone.LocalizedPhones
+                                  where string.Equals(localizedPhone.Language.Code.ToLower(), lang.ToLower(), StringComparison.Ordinal)
+                                  select new DtoPhoneSingleLang()
+                                  {
+                                      Id = localizedPhone.Id,
+                                      Desc = localizedPhone.Description,
+                                      Number = localizedPhone.Number
+                                  }).ToList();
 
                     dtoAddreses.Add(new DtoAddressSingleLang()
                     {
@@ -287,23 +232,6 @@ namespace Infodoctor.BL.Services
                         City = localizedCity.Name,
                         Street = localizedAddress.Street,
                         Phones = phones
-                    });
-                }
-
-                var dtoSpecializations = new List<DtoClinicSpecializationSingleLangModels>();
-                foreach (var clinicSpecialization in clinic.ClinicSpecializations)
-                {
-                    var localizedCs = new LocalizedClinicSpecialization(); ;
-                    foreach (var localizedSpecialization in clinicSpecialization.LocalizedClinicSpecializations)
-                    {
-                        if (localizedSpecialization.Language.Code.ToLower() == lang.ToLower())
-                            localizedCs = localizedSpecialization;
-                    }
-
-                    dtoSpecializations.Add(new DtoClinicSpecializationSingleLangModels()
-                    {
-                        Id = clinicSpecialization.Id,
-                        Name = localizedCs.Name
                     });
                 }
 
@@ -331,7 +259,7 @@ namespace Infodoctor.BL.Services
                     Favorite = clinic.Favorite,
                     Images = imagesList,
                     Addresses = dtoAddreses,
-                    Specializations = dtoSpecializations
+                    Specializations = localizedClinic.Specializations
                 });
             }
 
@@ -363,121 +291,121 @@ namespace Infodoctor.BL.Services
             }
             //IQueryable<Clinic> clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang);
             IQueryable<Clinic> clinics = null;
-            switch (searchModel.CityId) //check whether CityId included in search request
-            {
-                case 0:
-                    {
-                        switch (searchModel.SpecializationIds.Any())
-                        //check whether ClinicSpecialization included in search request
-                        {
-                            //case true:
-                            case false:
-                                {
-                                    switch (searchModel.SearchWord == "") //check whether SearchWord included in search request
-                                    {
-                                        case true:
-                                            {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
-                                                    Where(
-                                                        x =>
-                                                            !searchModel.SpecializationIds.Except(
-                                                                x.ClinicSpecializations.Select(y => y.Id)).Any());
-                                                break;
-                                            }
-                                        default:
-                                            {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
-                                                    Where(x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                               !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any() ||
-                                                                x.ClinicSpecializations.Any(
-                                                                    z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                                                                 !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any())
-                                                                                                 );
-                                                break;
-                                            }
-                                    }
+            //switch (searchModel.CityId) //check whether CityId included in search request
+            //{
+            //    case 0:
+            //        {
+            //            switch (searchModel.SpecializationIds.Any())
+            //            //check whether ClinicSpecialization included in search request
+            //            {
+            //                //case true:
+            //                case false:
+            //                    {
+            //                        switch (searchModel.SearchWord == "") //check whether SearchWord included in search request
+            //                        {
+            //                            case true:
+            //                                {
+            //                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
+            //                                        Where(
+            //                                            x =>
+            //                                                !searchModel.SpecializationIds.Except(
+            //                                                    x.ClinicSpecializations.Select(y => y.Id)).Any());
+            //                                    break;
+            //                                }
+            //                            default:
+            //                                {
+            //                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
+            //                                        Where(x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+            //                                                   !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any() ||
+            //                                                    x.ClinicSpecializations.Any(
+            //                                                        z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+            //                                                                                     !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any())
+            //                                                                                     );
+            //                                    break;
+            //                                }
+            //                        }
 
-                                    break;
-                                }
-                            default:
-                                {
-                                    switch (searchModel.SearchWord == "")
-                                    {
-                                        case true:
-                                            {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang);
-                                                break;
-                                            }
-                                        default:
-                                            {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
-                                                    Where(x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
-                                                            x.ClinicSpecializations.Any(z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower())));
-                                                break;
-                                            }
-                                    }
+            //                        break;
+            //                    }
+            //                default:
+            //                    {
+            //                        switch (searchModel.SearchWord == "")
+            //                        {
+            //                            case true:
+            //                                {
+            //                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang);
+            //                                    break;
+            //                                }
+            //                            default:
+            //                                {
+            //                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
+            //                                        Where(x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
+            //                                                x.ClinicSpecializations.Any(z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower())));
+            //                                    break;
+            //                                }
+            //                        }
 
-                                    break;
-                                }
-                        }
-                        break;
-                    }
-                default:
-                    {
-                        switch (searchModel.SpecializationIds.Any())
-                        //check whether ClinicSpecialization included in search request
-                        {
-                            case true:
-                                {
-                                    switch (searchModel.SearchWord == "")
-                                    {
-                                        case true:
-                                            {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
-                                                    Where(x => x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId) &&
-                                                               !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any());
-                                                break;
-                                            }
-                                        default:
-                                            {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
-                                                    Where(x => (x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                               x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId) &&
-                                                               !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any()) ||
-                                                               (x.ClinicSpecializations.Any(z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                               x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId) &&
-                                                               !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any())));
-                                                break;
-                                            }
-                                    }
-                                    break;
-                                }
-                            default:
-                                {
-                                    switch (searchModel.SearchWord == "")
-                                    {
-                                        case true:
-                                            {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending,lang).
-                                                    Where(x => x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId));
-                                                break;
-                                            }
-                                        default:
-                                            {
-                                                clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending,lang).
-                                                    Where(x => (x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                                               x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId)) ||
-                                                               (x.ClinicSpecializations.Any(z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower())) &&
-                                                               x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId)));
-                                                break;
-                                            }
-                                    }
-                                    break;
-                                }
-                        }
-                        break;
-                    }
-            }
+            //                        break;
+            //                    }
+            //            }
+            //            break;
+            //        }
+            //    default:
+            //        {
+            //            switch (searchModel.SpecializationIds.Any())
+            //            //check whether ClinicSpecialization included in search request
+            //            {
+            //                case true:
+            //                    {
+            //                        switch (searchModel.SearchWord == "")
+            //                        {
+            //                            case true:
+            //                                {
+            //                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
+            //                                        Where(x => x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId) &&
+            //                                                   !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any());
+            //                                    break;
+            //                                }
+            //                            default:
+            //                                {
+            //                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
+            //                                        Where(x => (x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+            //                                                   x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId) &&
+            //                                                   !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any()) ||
+            //                                                   (x.ClinicSpecializations.Any(z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+            //                                                   x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId) &&
+            //                                                   !searchModel.SpecializationIds.Except(x.ClinicSpecializations.Select(y => y.Id)).Any())));
+            //                                    break;
+            //                                }
+            //                        }
+            //                        break;
+            //                    }
+            //                default:
+            //                    {
+            //                        switch (searchModel.SearchWord == "")
+            //                        {
+            //                            case true:
+            //                                {
+            //                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
+            //                                        Where(x => x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId));
+            //                                    break;
+            //                                }
+            //                            default:
+            //                                {
+            //                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
+            //                                        Where(x => (x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
+            //                                                   x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId)) ||
+            //                                                   (x.ClinicSpecializations.Any(z => z.LocalizedClinicSpecializations.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower())) &&
+            //                                                   x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId)));
+            //                                    break;
+            //                                }
+            //                        }
+            //                        break;
+            //                    }
+            //            }
+            //            break;
+            //        }
+            //}
 
             var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
             if (!pagedList.Any())
@@ -509,17 +437,15 @@ namespace Infodoctor.BL.Services
                                 localizedCity = cityLocalizedCity;
                         }
 
-                    var phones = new List<DtoPhoneSingleLang>();
-                    foreach (var clinicPhone in clinicAddress.Phones)
-                        foreach (var localizedPhone in clinicPhone.LocalizedPhones)
-                            if (string.Equals(localizedPhone.Language.Code.ToLower(), lang.ToLower(),
-                                StringComparison.Ordinal))
-                                phones.Add(new DtoPhoneSingleLang()
-                                {
-                                    Id = localizedPhone.Id,
-                                    Desc = localizedPhone.Description,
-                                    Number = localizedPhone.Number
-                                });
+                    var phones = (from clinicPhone in clinicAddress.Phones
+                        from localizedPhone in clinicPhone.LocalizedPhones
+                        where string.Equals(localizedPhone.Language.Code.ToLower(), lang.ToLower(), StringComparison.Ordinal)
+                        select new DtoPhoneSingleLang()
+                        {
+                            Id = localizedPhone.Id,
+                            Desc = localizedPhone.Description,
+                            Number = localizedPhone.Number
+                        }).ToList();
 
                     dtoAddreses.Add(new DtoAddressSingleLang()
                     {
@@ -531,29 +457,10 @@ namespace Infodoctor.BL.Services
                     });
                 }
 
-                var dtoSpecializations = new List<DtoClinicSpecializationSingleLangModels>();
-                foreach (var clinicSpecialization in clinic.ClinicSpecializations)
-                {
-                    var localizedCs = new LocalizedClinicSpecialization(); ;
-                    foreach (var localizedSpecialization in clinicSpecialization.LocalizedClinicSpecializations)
-                    {
-                        if (localizedSpecialization.Language.Code.ToLower() == lang.ToLower())
-                            localizedCs = localizedSpecialization;
-                    }
-
-                    dtoSpecializations.Add(new DtoClinicSpecializationSingleLangModels()
-                    {
-                        Id = clinicSpecialization.Id,
-                        Name = localizedCs.Name
-                    });
-                }
-
                 var localizedClinic = new LocalizedClinic();
                 foreach (var localClinic in clinic.Localized)
-                {
-                    if (localClinic.Language.Code.ToLower() == lang.ToLower())
+                    if (string.Equals(localClinic.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase))
                         localizedClinic = localClinic;
-                }
 
                 //todo:доктора!!!
 
@@ -572,7 +479,7 @@ namespace Infodoctor.BL.Services
                     Favorite = clinic.Favorite,
                     Images = imagesList,
                     Addresses = dtoAddreses,
-                    Specializations = dtoSpecializations
+                    Specializations = localizedClinic.Specializations
                 });
             }
 
@@ -586,20 +493,20 @@ namespace Infodoctor.BL.Services
             return pagedDtoClinicList;
         }
 
-        public void Add(Clinic clinic)
+        public void Add(DtoClinicMultiLang clinic)
         {
-            if (clinic == null)
-                throw new ArgumentNullException(nameof(clinic));
+            throw new NotImplementedException();
+            //if (clinic == null)
+            //    throw new ArgumentNullException(nameof(clinic));
 
-            var c = clinic;
+            //var c = clinic;
 
-            _clinicRepository.Add(c);
-            _searchService.RefreshCache();
+            //_clinicRepository.Add(c);
+            //_searchService.RefreshCache();
         }
 
-        public void Update(int id, string name)
+        public void Update(DtoClinicMultiLang clinic)
         {
-
             throw new NotImplementedException();
             //if (string.IsNullOrEmpty(name))
             //    throw new ArgumentNullException(nameof(name));

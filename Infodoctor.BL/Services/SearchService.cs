@@ -64,22 +64,13 @@ namespace Infodoctor.BL.Services
                 {
                     var local = clinic.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang.Code,
                          StringComparison.CurrentCultureIgnoreCase));
-                    if (local != null)
-                        clinicCache.Words.Add(local.Name);
-                }
+                    if (local == null)
+                        continue;
 
-                foreach (var clinic in clinics)
-                {
-                    foreach (var cs in clinic.ClinicSpecializations)
-                    {
-                        var local =
-                            cs.LocalizedClinicSpecializations.FirstOrDefault(
-                                l => string.Equals(l.Language.Code, lang.Code, StringComparison.CurrentCultureIgnoreCase));
-                        if (local == null)
-                            continue;
+                    clinicCache.Words.Add(local.Name);
 
-                        clinicCache.Words.Add(local.Name);
-                    }
+                    if (local.Specializations != null)
+                        clinicCache.Words.AddRange(local.Specializations.Split('|'));
                 }
 
                 foreach (var doctor in doctors)

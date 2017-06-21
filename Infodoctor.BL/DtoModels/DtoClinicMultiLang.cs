@@ -10,7 +10,6 @@ namespace Infodoctor.BL.DtoModels
         public string Email { get; set; }
         public string Site { get; set; }
         public List<DtoAddressMultiLang> ClinicAddress { get; set; }
-        public List<DtoClinicSpecializationMultilang> ClinicSpecialization { get; set; }
         public List<DtoDoctorMultiLang> Doctors { get; set; }
         public double RatePrice { get; set; }
         public double RateQuality { get; set; }
@@ -37,6 +36,7 @@ namespace Infodoctor.BL.DtoModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Specialization { get; set; }
         public string LangCode { get; set; }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Infodoctor.BL.DtoModels
 {
+    //todo: убрать остатки специализаций
     public class DtoClinicSpecializationMultilang
     {
         public int Id { get; set; }

@@ -973,856 +973,857 @@ namespace Infodoctor.Web
             };
             context.DoctorSpecializations.AddRange(doctorSpecialization.OrderBy(d => d.Id));
 
-            #region Очень длинный список специализаций клиник
-            var cp10 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Аллергология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp059 }
-            };
-            var cp20 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Аллергология детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp148 }
-            };
-            var cp30 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Ангиохирургия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp273 }
-            };
-            var cp40 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Андрология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp340 }
-            };
-            var cp50 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Анестезиология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp411 }
-            };
-            var cp60 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Гастроэнтерология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp595 }
-            };
-            var cp70 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Гастроэнтерология детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp629 }
-            };
-            var cp80 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Гинекология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic3, clinic4 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp720 }
-            };
-            var cp81 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Гинекология детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp848 }
-            };
-            var cp90 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Гинекология-эндокринология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp928 }
-            };
-            var cp100 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Дерматология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp1010, dp5691 }
-            };
-            var cp110 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Диагностика лабораторная ",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                }
-            };
-            var cp120 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Диагностика ультразвуковая",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                }
-            };
-            var cp130 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Диагностика функциональная" ,
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                }
-            };
-            var cp140 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Диагностика эндоскопическая" ,
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                }
-            };
-            var cp150 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Иглорефлексотерапевтия" ,
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp1125 }
-            };
-            var cp160 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Иммунология" ,
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp1246 }
-            };
-            var cp170 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Кардио-ревматология детская" ,
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp1567 }
-            };
-            var cp180 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Кардиология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic4 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp1367 }
-            };
-            var cp190 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Кардиология детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp1460 }
-            };
-            var cp200 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Косметология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp168 }
-            };
-            var cp210 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Логопедия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp1768 }
-            };
-            var cp220 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Маммология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic3 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp188 }
-            };
-            var cp230 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Массаж",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic3 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp1911 }
-            };
-            var cp239 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Наркология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp2087 }
-            };
-            var cp240 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Неврология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp2144 }
-            };
-            var cp250 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Неврология детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp2257 }
-            };
-            var cp260 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Нефрология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic5 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp2472 }
-            };
-            var cp270 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Нефрология детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic5 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp2595 }
-            };
-            var cp280 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Нейроофтальмология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp2393 }
-            };
-            var cp290 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Онкология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp2654 }
-            };
-            var cp300 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Онкология детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp2758 }
-            };
-            var cp301 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Ортопедия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp2833 }
-            };
-            var cp310 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Оториноларингология(ЛОР)",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp2998 }
-            };
-            var cp320 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Оториноларингология(ЛОР) детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp3027 }
-            };
-            var cp330 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Офтальмология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp3164 }
-            };
-            var cp340 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Офтальмология детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp320 }
-            };
-            var cp350 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Офтальмология-эндокринология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp3318 }
-            };
-            var cp360 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Педиатрия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic4 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp3462 }
-            };
-            var cp370 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Проктология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp3519 }
-            };
-            var cp380 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Психотерапия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic3 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp3656, dp3767, dp386 }
-            };
-            var cp390 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Пульмонология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp3922 }
-            };
-            var cp400 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Реабилитология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp4019 }
-            };
-            var cp410 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Реаниматология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp4180 }
-            };
-            var cp420 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Ревматология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp4251 }
-            };
-            var cp430 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Рентгенология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp4351 }
-            };
-            var cp440 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Репродуктология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp4463 }
-            };
-            var cp450 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Рефлексотерапевтия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp4557 }
-            };
-            var cp460 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Сексология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp4698 }
-            };
-            var cp461 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Стоматология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic2, clinic3, clinic4 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp4751 }
-            };
-            var cp470 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Стоматология детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic2 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp4813 }
-            };
-            var cp480 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Стоматология-ортодонтия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic2 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp4935 }
-            };
-            var cp490 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Стоматология-ортопедия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic2 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp5029 }
-            };
-            var cp500 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Стоматология-терапевтия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic2 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp514 }
-            };
-            var cp510 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Стоматология-хирургия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp5288 }
-            };
-            var cp520 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Терапия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic3, clinic4 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp5385 }
-            };
-            var cp530 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Травматология-ортопедия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp5489 }
-            };
-            var cp540 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Травматология-ортопедия детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp5515 }
-            };
-            var cp550 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Урология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic3, clinic4, clinic5 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp5779 }
-            };
-            var cp560 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Урология детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic5 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp5867 }
-            };
-            var cp561 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Физиотерпапия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic5 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp5915 }
-            };
-            var cp570 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Флебология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp6041 }
-            };
-            var cp580 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Хирургия",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic3, clinic4 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp6171 }
-            };
-            var cp590 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Хирургия детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp6287 }
-            };
-            var cp600 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Хирургия пластическая",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic3 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp6349 }
-            };
-            var cp610 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Эндокринология",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic1, clinic3, clinic5 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp641 }
-            };
-            var cp620 = new ClinicSpecialization()
-            {
-                LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
-                {
-                    new LocalizedClinicSpecialization()
-                    {
-                        Name = "Эндокринология детская",
-                        Language = langs.First(l=>l.Code=="ru")
-                    }
-                },
-                Clinics = new List<Clinic>() { clinic5 },
-                DoctorSpecializations = new List<DoctorSpecialization>() { dp6546 }
-            };
-            var specializationList = new List<ClinicSpecialization>
-            {
-                cp10, cp20, cp30, cp40, cp50, cp60, cp70, cp80,  cp90, cp100,
-                cp110, cp120, cp130, cp140, cp150, cp160, cp170, cp180, cp190, cp200,
-                cp210, cp220, cp230, cp240, cp250, cp260, cp270, cp280, cp290, cp300,
-                cp310, cp320, cp330, cp340, cp350, cp360, cp370, cp380, cp390, cp400,
-                cp410, cp420, cp430, cp440, cp450, cp460, cp470, cp480, cp490, cp500,
-                cp510, cp520, cp530, cp540, cp550, cp560, cp570, cp580, cp590, cp600,
-                cp610, cp620,
-                cp81, cp301, cp461, cp561,cp239
-            };
-            #endregion
+            // todo: убрать остатки специализаций
+            //#region Очень длинный список специализаций клиник
+            //var cp10 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Аллергология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp059 }
+            //};
+            //var cp20 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Аллергология детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp148 }
+            //};
+            //var cp30 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Ангиохирургия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp273 }
+            //};
+            //var cp40 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Андрология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp340 }
+            //};
+            //var cp50 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Анестезиология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp411 }
+            //};
+            //var cp60 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Гастроэнтерология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp595 }
+            //};
+            //var cp70 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Гастроэнтерология детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp629 }
+            //};
+            //var cp80 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Гинекология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic3, clinic4 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp720 }
+            //};
+            //var cp81 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Гинекология детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp848 }
+            //};
+            //var cp90 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Гинекология-эндокринология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp928 }
+            //};
+            //var cp100 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Дерматология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic3 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp1010, dp5691 }
+            //};
+            //var cp110 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Диагностика лабораторная ",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    }
+            //};
+            //var cp120 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Диагностика ультразвуковая",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    }
+            //};
+            //var cp130 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Диагностика функциональная" ,
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    }
+            //};
+            //var cp140 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Диагностика эндоскопическая" ,
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    }
+            //};
+            //var cp150 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Иглорефлексотерапевтия" ,
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp1125 }
+            //};
+            //var cp160 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Иммунология" ,
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp1246 }
+            //};
+            //var cp170 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Кардио-ревматология детская" ,
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp1567 }
+            //};
+            //var cp180 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Кардиология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic4 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp1367 }
+            //};
+            //var cp190 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Кардиология детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp1460 }
+            //};
+            //var cp200 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Косметология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic3 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp168 }
+            //};
+            //var cp210 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Логопедия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp1768 }
+            //};
+            //var cp220 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Маммология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic3 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp188 }
+            //};
+            //var cp230 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Массаж",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic3 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp1911 }
+            //};
+            //var cp239 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Наркология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic3 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp2087 }
+            //};
+            //var cp240 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Неврология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic3 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp2144 }
+            //};
+            //var cp250 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Неврология детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp2257 }
+            //};
+            //var cp260 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Нефрология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic5 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp2472 }
+            //};
+            //var cp270 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Нефрология детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic5 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp2595 }
+            //};
+            //var cp280 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Нейроофтальмология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp2393 }
+            //};
+            //var cp290 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Онкология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic3 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp2654 }
+            //};
+            //var cp300 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Онкология детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp2758 }
+            //};
+            //var cp301 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Ортопедия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp2833 }
+            //};
+            //var cp310 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Оториноларингология(ЛОР)",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic3 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp2998 }
+            //};
+            //var cp320 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Оториноларингология(ЛОР) детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp3027 }
+            //};
+            //var cp330 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Офтальмология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp3164 }
+            //};
+            //var cp340 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Офтальмология детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp320 }
+            //};
+            //var cp350 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Офтальмология-эндокринология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp3318 }
+            //};
+            //var cp360 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Педиатрия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic4 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp3462 }
+            //};
+            //var cp370 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Проктология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic3 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp3519 }
+            //};
+            //var cp380 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Психотерапия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic3 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp3656, dp3767, dp386 }
+            //};
+            //var cp390 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Пульмонология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp3922 }
+            //};
+            //var cp400 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Реабилитология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp4019 }
+            //};
+            //var cp410 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Реаниматология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp4180 }
+            //};
+            //var cp420 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Ревматология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp4251 }
+            //};
+            //var cp430 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Рентгенология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp4351 }
+            //};
+            //var cp440 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Репродуктология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp4463 }
+            //};
+            //var cp450 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Рефлексотерапевтия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp4557 }
+            //};
+            //var cp460 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Сексология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp4698 }
+            //};
+            //var cp461 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Стоматология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic2, clinic3, clinic4 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp4751 }
+            //};
+            //var cp470 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Стоматология детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic2 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp4813 }
+            //};
+            //var cp480 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Стоматология-ортодонтия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic2 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp4935 }
+            //};
+            //var cp490 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Стоматология-ортопедия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic2 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp5029 }
+            //};
+            //var cp500 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Стоматология-терапевтия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic2 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp514 }
+            //};
+            //var cp510 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Стоматология-хирургия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp5288 }
+            //};
+            //var cp520 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Терапия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic3, clinic4 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp5385 }
+            //};
+            //var cp530 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Травматология-ортопедия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp5489 }
+            //};
+            //var cp540 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Травматология-ортопедия детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp5515 }
+            //};
+            //var cp550 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Урология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic3, clinic4, clinic5 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp5779 }
+            //};
+            //var cp560 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Урология детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic5 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp5867 }
+            //};
+            //var cp561 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Физиотерпапия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic5 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp5915 }
+            //};
+            //var cp570 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Флебология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp6041 }
+            //};
+            //var cp580 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Хирургия",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic3, clinic4 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp6171 }
+            //};
+            //var cp590 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Хирургия детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp6287 }
+            //};
+            //var cp600 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Хирургия пластическая",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic3 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp6349 }
+            //};
+            //var cp610 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Эндокринология",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic1, clinic3, clinic5 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp641 }
+            //};
+            //var cp620 = new ClinicSpecialization()
+            //{
+            //    LocalizedClinicSpecializations = new List<LocalizedClinicSpecialization>()
+            //    {
+            //        new LocalizedClinicSpecialization()
+            //        {
+            //            Name = "Эндокринология детская",
+            //            Language = langs.First(l=>l.Code=="ru")
+            //        }
+            //    },
+            //    Clinics = new List<Clinic>() { clinic5 },
+            //    DoctorSpecializations = new List<DoctorSpecialization>() { dp6546 }
+            //};
+            //var specializationList = new List<ClinicSpecialization>
+            //{
+            //    cp10, cp20, cp30, cp40, cp50, cp60, cp70, cp80,  cp90, cp100,
+            //    cp110, cp120, cp130, cp140, cp150, cp160, cp170, cp180, cp190, cp200,
+            //    cp210, cp220, cp230, cp240, cp250, cp260, cp270, cp280, cp290, cp300,
+            //    cp310, cp320, cp330, cp340, cp350, cp360, cp370, cp380, cp390, cp400,
+            //    cp410, cp420, cp430, cp440, cp450, cp460, cp470, cp480, cp490, cp500,
+            //    cp510, cp520, cp530, cp540, cp550, cp560, cp570, cp580, cp590, cp600,
+            //    cp610, cp620,
+            //    cp81, cp301, cp461, cp561,cp239
+            //};
+            //#endregion
 
             //var aaa = specializationList.OrderBy(d => d.Name);
-            context.ClinicSpecializations.AddRange(specializationList.OrderBy(d => d.Id));
+            // context.ClinicSpecializations.AddRange(specializationList.OrderBy(d => d.Id)); todo: убрать остатки специализаций
 
             #region Первая версия таблицы специализаций клиник (на всякий случай)
             //var profilesList1 = new List<ClinicSpecialization>

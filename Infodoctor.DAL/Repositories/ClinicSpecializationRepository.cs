@@ -16,31 +16,36 @@ namespace Infodoctor.DAL.Repositories
 
         public IQueryable<ClinicSpecialization> GetAllClinicSpecializations()
         {
-            return _context.ClinicSpecializations;
+            throw new NotImplementedException();
+            //return _context.ClinicSpecializations;
         }
 
         public ClinicSpecialization GetClinicSpecializationById(int id)
         {
-            return _context.ClinicSpecializations.First(s => s.Id == id); ;
+            throw new NotImplementedException();
+            // return _context.ClinicSpecializations.First(s => s.Id == id); ;
         }
 
         public void Add(ClinicSpecialization clinicSpecialization)
         {
-            _context.ClinicSpecializations.Add(clinicSpecialization);
-            _context.SaveChanges();
+            throw new NotImplementedException();
+            // _context.ClinicSpecializations.Add(clinicSpecialization);
+            // _context.SaveChanges();
         }
 
         public void Update(ClinicSpecialization clinicSpecialization)
         {
-            var edited = _context.ClinicSpecializations.First(s => s.Id == clinicSpecialization.Id);
-            edited = clinicSpecialization;
-            _context.SaveChanges();
+            throw new NotImplementedException();
+            // var edited = _context.ClinicSpecializations.First(s => s.Id == clinicSpecialization.Id);
+            // edited = clinicSpecialization;
+            // _context.SaveChanges();
         }
 
         public void Delete(ClinicSpecialization clinicSpecialization)
         {
-            _context.ClinicSpecializations.Remove(clinicSpecialization);
-            _context.SaveChanges();
+            throw new NotImplementedException();
+            // _context.ClinicSpecializations.Remove(clinicSpecialization);
+            // _context.SaveChanges();
         }
     }
 }

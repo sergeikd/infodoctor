@@ -9,8 +9,8 @@ namespace Infodoctor.BL.Interfaces
         DtoClinicSingleLang GetClinicById(int id, string pathToImage, string lang);
         DtoPagedClinic GetPagedClinics(int perPage, int pageNum, string pathToImage, string lang);
         DtoPagedClinic SearchClinics(int perPage, int numPage, DtoClinicSearchModel searchModel, string pathToImage, string lang);
-        void Add(Domain.Entities.Clinic clinic);
-        void Update(int id, string name);
+        void Add(DtoClinicMultiLang clinic);
+        void Update(DtoClinicMultiLang clinic);
         void Delete(int id);
     }
 }

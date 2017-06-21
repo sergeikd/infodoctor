@@ -15,7 +15,6 @@ namespace Infodoctor.Domain.Entities
         public virtual ICollection<LocalizedClinic> Localized { get; set; }
         public virtual ICollection<ImageFile> ImageName { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
-        public virtual ICollection<ClinicSpecialization> ClinicSpecializations { get; set; }
         public virtual ICollection<Doctor> Doctors { get; set; }
         public virtual ICollection<ClinicReview> ClinicReviews { get; set; }
     }
@@ -24,6 +23,7 @@ namespace Infodoctor.Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Specializations { get; set; }
         public virtual Language Language { get; set; }
     }
 }
