@@ -83,17 +83,8 @@ namespace Infodoctor.BL.Services
 
                     doctorsCache.Words.Add(local.Name);
                     doctorsCache.Words.Add(local.Manipulation);
-                }
-
-                foreach (var doctor in doctors)
-                {
-                    var local = doctor.Specialization.LocalizedDoctorSpecializations.FirstOrDefault(l => string.Equals(
-                        l.Language.Code, lang.Code, StringComparison.CurrentCultureIgnoreCase));
-
-                    if (local == null)
-                        continue;
-
-                    doctorsCache.Words.Add(local.Name);
+                    if (local.Specialization != null)
+                        doctorsCache.Words.AddRange(local.Specialization.Split('|'));
                 }
 
                 clinicsAndSpecsCaches.Add(clinicCache);

@@ -7,6 +7,7 @@ namespace Infodoctor.DAL.Repositories
 {
     public class ClinicSpecializationRepository: IClinicSpecializationRepository
     {
+        //todo: убрать остатки специализаций
         private readonly AppDbContext _context;
 
         public ClinicSpecializationRepository(AppDbContext context)

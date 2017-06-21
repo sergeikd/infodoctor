@@ -7,6 +7,7 @@ namespace Infodoctor.DAL.Repositories
 {
     public class DoctorSpecializationRepository : IDoctorSpecializationRepository
     {
+        //todo: убрать остатки специализаций
         private readonly AppDbContext _context;
 
         public DoctorSpecializationRepository(AppDbContext context)
@@ -16,31 +17,36 @@ namespace Infodoctor.DAL.Repositories
 
         public IQueryable<DoctorSpecialization> GetAllSpecializations()
         {
-            return _context.DoctorSpecializations;
+            throw new NotImplementedException();
+            //return _context.DoctorSpecializations;
         }
 
         public DoctorSpecialization GetSpecializationById(int id)
         {
-            return _context.DoctorSpecializations.First(ds => ds.Id == id);
+            throw new NotImplementedException();
+            //return _context.DoctorSpecializations.First(ds => ds.Id == id);
         }
 
         public void Add(DoctorSpecialization specialization)
         {
-            _context.DoctorSpecializations.Add(specialization);
-            _context.SaveChanges();
+            throw new NotImplementedException();
+            //_context.DoctorSpecializations.Add(specialization);
+            //_context.SaveChanges();
         }
 
         public void Update(DoctorSpecialization specialization)
         {
-            var updated = _context.DoctorSpecializations.First(ds => ds.Id == specialization.Id);
-            updated = specialization;
-            _context.SaveChanges();
+            throw new NotImplementedException();
+            //var updated = _context.DoctorSpecializations.First(ds => ds.Id == specialization.Id);
+            //updated = specialization;
+            //_context.SaveChanges();
         }
 
         public void Delete(DoctorSpecialization specialization)
         {
-            _context.DoctorSpecializations.Remove(specialization);
-            _context.SaveChanges();
+            throw new NotImplementedException();
+            //_context.DoctorSpecializations.Remove(specialization);
+            //_context.SaveChanges();
         }
     }
 }

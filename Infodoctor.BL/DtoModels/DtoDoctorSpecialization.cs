@@ -2,6 +2,7 @@
 
 namespace Infodoctor.BL.DtoModels
 {
+    //todo: убрать остатки специализаций
     public class DtoDoctorSpecializationSilngleLang
     {
         public int Id { get; set; }

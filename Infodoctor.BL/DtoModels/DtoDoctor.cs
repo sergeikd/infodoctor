@@ -12,7 +12,7 @@ namespace Infodoctor.BL.DtoModels
         public string Email { get; set; }
         public int Experience { get; set; }
         public DtoAddressSingleLang Address { get; set; }
-        public DtoDoctorSpecializationSilngleLang Specialization { get; set; }
+        public string Specialization { get; set; }
         public DtoDoctorCategorySingleLang Category { get; set; }
         public List<int> ClinicsIds { get; set; } //сделано как List<int> для облегчения добавления клиники к доктору на фронте
         public double RateProfessionalism { get; set; }
@@ -30,7 +30,6 @@ namespace Infodoctor.BL.DtoModels
         public string Email { get; set; }
         public int Experience { get; set; }     
         public DtoAddressMultiLang Address { get; set; }
-        public DtoDoctorSpecializationMultilagLang Specialization { get; set; }
         public DtoDoctorCategoryMultiLang Category { get; set; }
         public List<int> ClinicsIds { get; set; } //сделано как List<int> для облегчения добавления клиники к доктору на фронте
         public double RateProfessionalism { get; set; }
@@ -47,6 +46,7 @@ namespace Infodoctor.BL.DtoModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Manipulation { get; set; }
+        public string Specialization { get; set; }
         public string LangCode { get; set; }
     }
 }

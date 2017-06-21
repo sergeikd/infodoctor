@@ -2,6 +2,7 @@
 
 namespace Infodoctor.Domain.Entities
 {
+    //todo: убрать остатки специализаций
     public class DoctorSpecialization
     {
         public int Id { get; set; }

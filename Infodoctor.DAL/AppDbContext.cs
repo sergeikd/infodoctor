@@ -36,8 +36,9 @@ namespace Infodoctor.DAL
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<LocalizedDoctor> LocalizedDoctors { get; set; }
 
-        public DbSet<DoctorSpecialization> DoctorSpecializations { get; set; }
-        public DbSet<LocalizedDoctorSpecialization> LocalizedDoctorSpecializations { get; set; }
+        //todo: убрать остатки специализаций
+        //public DbSet<DoctorSpecialization> DoctorSpecializations { get; set; }
+        //public DbSet<LocalizedDoctorSpecialization> LocalizedDoctorSpecializations { get; set; }
 
         public DbSet<DoctorCategory> DoctorCategories { get; set; }
         public DbSet<LocalizedDoctorCategory> LocalizedDoctorCategories { get; set; }
