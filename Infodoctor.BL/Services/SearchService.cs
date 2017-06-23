@@ -60,6 +60,7 @@ namespace Infodoctor.BL.Services
                 var clinicCache = new CacheModel() { Lang = lang.Code, Words = new List<string>() };
                 var doctorsCache = new CacheModel() { Lang = lang.Code, Words = new List<string>() };
 
+                //for (var i = 0; i < 1370; i++) для теста. Создаст в районе 150к записей из врачей
                 foreach (var clinic in clinics)
                 {
                     var local = clinic.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang.Code,
@@ -67,10 +68,15 @@ namespace Infodoctor.BL.Services
                     if (local == null)
                         continue;
 
-                    clinicCache.Words.Add(local.Name);
+                    clinicCache.Words.Add(local.Name.ToLower());
 
-                    if (local.Specializations != null)
-                        clinicCache.Words.AddRange(local.Specializations.Split('|'));
+                    if (local.Specializations == null) continue;
+                    var specs = local.Specializations.Split('|');
+                    var lowerSpecs = new List<string>();
+                    foreach (var spec in specs)
+                        lowerSpecs.Add(spec.ToLower());
+
+                    clinicCache.Words.AddRange(lowerSpecs);
                 }
 
                 foreach (var doctor in doctors)
@@ -81,10 +87,16 @@ namespace Infodoctor.BL.Services
                     if (local == null)
                         continue;
 
-                    doctorsCache.Words.Add(local.Name);
-                    doctorsCache.Words.Add(local.Manipulation);
-                    if (local.Specialization != null)
-                        doctorsCache.Words.AddRange(local.Specialization.Split('|'));
+                    doctorsCache.Words.Add(local.Name.ToLower());
+                    doctorsCache.Words.Add(local.Manipulation.ToLower());
+
+                    if (local.Specialization == null) continue;
+                    var specs = local.Specialization.Split('|');
+                    var lowerSpecs = new List<string>();
+                    foreach (var spec in specs)
+                        lowerSpecs.Add(spec.ToLower());
+
+                    doctorsCache.Words.AddRange(lowerSpecs);
                 }
 
                 clinicsAndSpecsCaches.Add(clinicCache);
@@ -104,6 +116,9 @@ namespace Infodoctor.BL.Services
 
         public List<string> FastSearch(DtoFastSearchModel searchModel)
         {
+            searchModel.LangCode = searchModel.LangCode.ToLower();
+            searchModel.Text = searchModel.Text.ToLower();
+
             var result = new List<string>();
 
             if (IsVirtualCachesFull() == false)
@@ -112,14 +127,16 @@ namespace Infodoctor.BL.Services
                 switch (type)
                 {
                     case 1:
-                        result.AddRange(VirtualClinicsAndSpecialisationsCache.FirstOrDefault(l => l.Lang.ToLower() == searchModel.LangCode.ToLower()).Words.Where(word => word.ToLower().Contains(searchModel.Text.ToLower())));
+                        var clinicCache =
+                            VirtualClinicsAndSpecialisationsCache.FirstOrDefault(l => l.Lang == searchModel.LangCode);
+                        if (clinicCache != null)
+                            result.AddRange(clinicCache.Words.Where(word => word.Contains(searchModel.Text)));
                         break;
                     case 2:
-                        result.AddRange(VirtualDoctorsCache.FirstOrDefault(l => l.Lang.ToLower() == searchModel.LangCode.ToLower()).Words.Where(word => word.ToLower().Contains(searchModel.Text.ToLower())));
+                        var doctorCache = VirtualDoctorsCache.FirstOrDefault(l => l.Lang == searchModel.LangCode);
+                        if (doctorCache != null)
+                            result.AddRange(doctorCache.Words.Where(word => word.Contains(searchModel.Text)));
                         break;
-                        //case 3:
-                        //    result.AddRange(VirtualResortCache.Where(res => res.ToUpper().Contains(searchModel.Text.ToUpper())));
-                        //    break;
                 }
             return result;
 
