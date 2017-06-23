@@ -8,7 +8,7 @@ namespace Infodoctor.BL.DtoModels
 {
     public class DtoPagedResorts
     {
-        public List<DtoResort> Resorts;
+        public List<DtoResortSingleLang> Resorts;
         public int TotalCount { get; set; }
         public int Page { get; set; }
         public int PageSize { get; set; }

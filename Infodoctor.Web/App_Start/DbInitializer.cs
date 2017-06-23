@@ -1937,7 +1937,7 @@ namespace Infodoctor.Web
                 Title = "Метод ЭКО. Что нужно знать?",
                 PublishDate = DateTime.Now.AddDays(-1),
                 Author = "admin",
-                Language = langs.First(l=>l.Code=="ru")
+                Language = langs.First(l => l.Code == "ru")
             };
             var art2 = new Article()
             {
@@ -2018,11 +2018,9 @@ namespace Infodoctor.Web
                     RatePrice = rnd.Next(3) + 3,
                     RateQuality = rnd.Next(3) + 3,
                     IsApproved = true,
-                    Language = langs.First(l=>l.Code=="ru")
+                    Language = langs.First(l => l.Code == "ru")
                 });
             }
-
-            /*
 
             var resorts = new List<Resort>();
             var resAdrs = new List<ResortAddress>();
@@ -2031,54 +2029,129 @@ namespace Infodoctor.Web
             //санаторий 1
             var nums1 = new List<ResortPhone>()
             {
-                new ResortPhone() { Description = "", Number = "375(1641) 38-2-19" },
-                new ResortPhone() { Description = "Факс", Number = "375(1641) 38-2-22" },
-                new ResortPhone() { Description = "Мтс", Number = "375 (29) 866-86-69" },
-                new ResortPhone() { Description = "", Number = "375 (29) 366-86-67" }
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "", Number = "375(1641) 38-2-19" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "Факс", Number = "375(1641) 38-2-22" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"),  Description = "Мтс", Number = "375 (29) 866-86-69"  }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "", Number = "375 (29) 366-86-67" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "", Number = "375(1641) 38-2-19" }
+                    }
+                }
             };
             resPhones.AddRange(nums1);
 
             var adr1 = new ResortAddress()
             {
-                Country = "Беларусь",
-                City = citiesList.First(c => string.Equals(c.Name, "Брестская область",
-                    StringComparison.CurrentCultureIgnoreCase)),
-                Street = "урочище \"Сосновый бор\"",
-                Phones = nums1
+                Localized = new List<LocalizedResortAddress>()
+                {
+                    new LocalizedResortAddress()
+                    {
+                        Country = "Беларусь",
+                        City = citiesList.First(c => string.Equals(c.LocalizedCities.First(l=>l.Language.Code.ToLower()=="ru").Name, "Брестская область",
+                            StringComparison.CurrentCultureIgnoreCase)),
+                        Street = "урочище \"Сосновый бор\"",
+                        Phones = nums1,
+                        Language = langs.First(l => l.Code.ToLower() == "ru")
+                    }
+                }
             };
             resAdrs.Add(adr1);
-
 
             var resortReviewSubList = resortRevs.Take(3).ToList();
 
             var resort1 = new Resort()
             {
-                Name = "Санаторий \"Буг\"",
                 Email = "bug-marketing@mail.ru",
                 Site = "http://sunbug.by/",
-                Specialisations = @"Медицинская база, Диагностическая база, Лечебные комплексы",
                 Address = adr1,
-                Reviews = resortReviewSubList
+                Reviews = resortReviewSubList,
+                Localized = new List<LocalizedResort>()
+                {
+                    new LocalizedResort()
+                    {
+                        Name = "Санаторий \"Буг\"",
+                        Specialisations = @"Медицинская база, Диагностическая база, Лечебные комплексы",
+                        Language = langs.First(l => l.Code.ToLower() == "ru")
+                    }
+                }
             };
             resorts.Add(resort1);
 
             //санаторий 2
             var nums2 = new List<ResortPhone>()
             {
-                new ResortPhone() { Description = "для звонков из РБ", Number = "8 (01641) 68-222" },
-                new ResortPhone() { Description = "для звонков из РБ", Number = "8 (01641) 68-333" },
-                new ResortPhone() { Description = "для звонков из РФ", Number = "8 10 (375 1641) 68-222" },
-                new ResortPhone() { Description = "для звонков из РФ", Number = "8 10 (375 1641) 68-333" }
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "для звонков из РБ", Number = "8 (01641) 68-222" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"),Description = "для звонков из РБ", Number = "8 (01641) 68-333" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "для звонков из РФ", Number = "8 10 (375 1641) 68-222" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "для звонков из РФ", Number = "8 10 (375 1641) 68-333" }
+                    }
+                }
             };
             resPhones.AddRange(nums2);
 
             var adr2 = new ResortAddress()
             {
-                Country = "Беларусь",
-                City = citiesList.First(c => string.Equals(c.Name, "Брестская область",
-                    StringComparison.CurrentCultureIgnoreCase)),
-                Street = "Жабинковский район, 1,6 км севернее д. Чижевщина",
-                Phones = nums2
+                Localized = new List<LocalizedResortAddress>()
+                {
+                    new LocalizedResortAddress()
+                    {
+                        Country = "Беларусь",
+                        City = citiesList.First(c => string.Equals(c.LocalizedCities.First(l=>l.Language.Code.ToLower()=="ru").Name, "Брестская область",
+                            StringComparison.CurrentCultureIgnoreCase)),
+                        Street = "Жабинковский район, 1,6 км севернее д. Чижевщина",
+                        Phones = nums2,
+                        Language = langs.First(l => l.Code.ToLower() == "ru")
+                    }
+                }
             };
             resAdrs.Add(adr2);
 
@@ -2086,10 +2159,17 @@ namespace Infodoctor.Web
 
             var resort2 = new Resort()
             {
-                Name = "Санаторий \"Надзея\"",
+                Localized = new List<LocalizedResort>()
+                {
+                    new LocalizedResort()
+                    {
+                        Name = "Санаторий \"Надзея\"",
+                        Specialisations = @"Водолечение, ЛФК Галотерапия, Электросветолечение, Теплолечение, Ручной массаж, Фиточай, Небулайзерная ингаляционная терапия, Галотерапия, Косметология, УЗИ",
+                        Language = langs.First(l => l.Code.ToLower() == "ru")
+                    }
+                },
                 Email = "mtv@brest.gas.by, nadzeya@brest.gas.by, san@brest.gas.by",
                 Site = "http://www.nadzeya.com/",
-                Specialisations = @"Водолечение, ЛФК Галотерапия, Электросветолечение, Теплолечение, Ручной массаж, Фиточай, Небулайзерная ингаляционная терапия, Галотерапия, Косметология, УЗИ",
                 Address = adr2,
                 Reviews = resortReviewSubList
             };
@@ -2098,22 +2178,65 @@ namespace Infodoctor.Web
             //санаторий 3
             var nums3 = new List<ResortPhone>()
             {
-                new ResortPhone() { Description = "международный", Number = "8 (10-375-212) 29 72 39" },
-                new ResortPhone() { Description = "международный", Number = "8 (10-375-212) 29 73 35" },
-                new ResortPhone() { Description = "международный", Number = "8 (10-375-212) 29 73 24" },
-                new ResortPhone() { Description = "по Беларуси", Number = "8 (10-375-212) 29 72 39" },
-                new ResortPhone() { Description = "по Беларуси", Number = "8 (10-375-212) 29 73 35" },
-                new ResortPhone() { Description = "по Беларуси", Number = "8 (10-375-212) 29 73 24" },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "международный", Number = "8 (10-375-212) 29 72 39" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "международный", Number = "8 (10-375-212) 29 73 35" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "международный", Number = "8 (10-375-212) 29 73 24" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "по Беларуси", Number = "8 (10-375-212) 29 72 39" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "по Беларуси", Number = "8 (10-375-212) 29 73 35" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "по Беларуси", Number = "8 (10-375-212) 29 73 24" }
+                    }
+                }
             };
             resPhones.AddRange(nums3);
 
             var adr3 = new ResortAddress()
             {
-                Country = "Беларусь",
-                City = citiesList.First(c => string.Equals(c.Name, "Витебская область",
-                    StringComparison.CurrentCultureIgnoreCase)),
-                Street = "Витебский район, д. Малые ",
-                Phones = nums3
+                Localized = new List<LocalizedResortAddress>()
+                {
+                    new LocalizedResortAddress()
+                    {
+                        Country = "Беларусь",
+                        City = citiesList.First(c => string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name, "Витебская область",
+                            StringComparison.CurrentCultureIgnoreCase)),
+                        Street = "Витебский район, д. Малые ",
+                        Phones = nums3,
+                        Language = langs.First(l => l.Code.ToLower() == "ru")
+                    }
+                }
             };
             resAdrs.Add(adr3);
 
@@ -2121,10 +2244,17 @@ namespace Infodoctor.Web
 
             var resort3 = new Resort()
             {
-                Name = "Санаторий \"Лётцы\"",
+                Localized = new List<LocalizedResort>()
+                {
+                    new LocalizedResort()
+                    {
+                        Name = "Санаторий \"Лётцы\"",
+                        Specialisations = @"Диетотерапия, Бальнеолечение, Теплолечение, Аппаратная физиотерапия, Массаж, Климатолечение, Галотерапия, Рефлексотерапия, Лечебная физкультура, Космтология, Спа, УЗД, УЗИ",
+                        Language = langs.First(l => l.Code.ToLower() == "ru")
+                    }
+                },
                 Email = "letzy1@mail.ru",
                 Site = "http://letcy.ru/",
-                Specialisations = @"Диетотерапия, Бальнеолечение, Теплолечение, Аппаратная физиотерапия, Массаж, Климатолечение, Галотерапия, Рефлексотерапия, Лечебная физкультура, Космтология, Спа, УЗД, УЗИ",
                 Address = adr3,
                 Reviews = resortReviewSubList
             };
@@ -2133,19 +2263,44 @@ namespace Infodoctor.Web
             //санаторий 4
             var nums4 = new List<ResortPhone>()
             {
-                new ResortPhone() { Description = "", Number = "375 2157 33463" },
-                new ResortPhone() { Description = "", Number = "375 29 3442040" },
-                new ResortPhone() { Description = "", Number = "375 2157 33458" }
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "", Number = "375 2157 33463" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "", Number = "375 29 3442040" }
+                    }
+                },
+                new ResortPhone()
+                {
+                    Localized = new List<LocalizedResortPhone>()
+                    {
+                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "", Number = "375 2157 33458" }
+                    }
+                }
             };
             resPhones.AddRange(nums4);
 
             var adr4 = new ResortAddress()
             {
-                Country = "Беларусь",
-                City = citiesList.First(c => string.Equals(c.Name, "Витебская область",
-                    StringComparison.CurrentCultureIgnoreCase)),
-                Street = "д. Будачи, Докшицкий р-н",
-                Phones = nums4
+                Localized = new List<LocalizedResortAddress>()
+                {
+                    new LocalizedResortAddress()
+                    {
+                        Country = "Беларусь",
+                        City = citiesList.First(c => string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name, "Витебская область",
+                            StringComparison.CurrentCultureIgnoreCase)),
+                        Street = "д. Будачи, Докшицкий р-н",
+                        Phones = nums4,
+                        Language = langs.First(l => l.Code.ToLower() == "ru")
+                    }
+                }
             };
             resAdrs.Add(adr4);
 
@@ -2153,10 +2308,12 @@ namespace Infodoctor.Web
 
             var resort4 = new Resort()
             {
-                Name = "Санаторий \"Боровое\"",
-                Email = "",
-                Site = "http://www.sanatorium-borovoe.com/",
-                Specialisations = @" магнитно-резонансная томография
+                Localized = new List<LocalizedResort>()
+                {
+                    new LocalizedResort()
+                    {
+                        Name = "Санаторий \"Боровое\"",
+                        Specialisations = @" магнитно-резонансная томография
                 стоматология терапевтическая(за исключением помощи при острой зубной боли и консультации врача - стоматолога)
                 рентгенология стоматологическая
                 мини - сауна «Кедровая бочка»
@@ -2200,6 +2357,12 @@ namespace Infodoctor.Web
                 функциональная диагностика;
                 фиброгастродуаденоскопия;
                 ректосигмоскопия, колоноскопия; ",
+                        Language = langs.First(l => l.Code.ToLower() == "ru")
+                    }
+                },
+                Email = "",
+                Site = "http://www.sanatorium-borovoe.com/",
+
                 Address = adr4,
                 Reviews = resortReviewSubList
             };
@@ -2209,8 +2372,6 @@ namespace Infodoctor.Web
             context.ResortPhones.AddRange(resPhones);
             context.ResortAddresses.AddRange(resAdrs);
             context.Resorts.AddRange(resorts);
-
-    */
 
             base.Seed(context);
         }

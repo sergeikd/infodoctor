@@ -21,15 +21,15 @@ namespace Infodoctor.DAL.Repositories
             return _context.Resorts.OrderBy(r => r.Id);
         }
 
-        public IQueryable<Resort> GetSortedResorts(string sortBy, bool descending)
+        public IQueryable<Resort> GetSortedResorts(string sortBy, bool descending, string lang)
         {
             switch (sortBy)
             {
 
                 default:
-                    return descending ? _context.Resorts.OrderByDescending(c => c.Name) : _context.Resorts.OrderBy(c => c.Name);
+                    return descending ? _context.Resorts.OrderByDescending(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Resorts.OrderBy(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
                 case "alphabet":
-                    return descending ? _context.Resorts.OrderByDescending(c => c.Name) : _context.Resorts.OrderBy(c => c.Name);
+                    return descending ? _context.Resorts.OrderByDescending(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Resorts.OrderBy(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
                 case "rate":
                     return descending ? _context.Resorts.OrderByDescending(c => c.RateAverage) : _context.Resorts.OrderBy(c => c.RateAverage);
                 case "price":
@@ -68,20 +68,21 @@ namespace Infodoctor.DAL.Repositories
             var phones = new List<ResortPhone>();
             var reviews = new List<ResortReview>();
 
-            if (res.Address != null)
-            {
-                adr = res.Address;
+            //todo: Проверить нормаль но работает удаление
+            //if (res.Address != null)
+            //{
+            //    adr = res.Address;
 
-                if (res.Address.Phones.Any())
-                    phones = res.Address.Phones.ToList();
-            }
+            //    if (res.Address.Localized.ToArray()[0].Phones.Any())
+            //        phones = res.Address.Phones.ToList();
+            //}
 
             if (res.Reviews.Any())
                 reviews = res.Reviews.ToList();
 
             _context.Resorts.Remove(res);
-            _context.ResortAddresses.Remove(adr);
-            _context.ResortPhones.RemoveRange(phones);
+            //_context.ResortAddresses.Remove(adr);
+            //_context.ResortPhones.RemoveRange(phones);
             _context.ResortReviews.RemoveRange(reviews);
 
             _context.SaveChanges();
