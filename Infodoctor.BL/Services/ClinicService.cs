@@ -52,6 +52,110 @@ namespace Infodoctor.BL.Services
             return dtoClinic;
         }
 
+        public DtoClinicMultiLang GetClinicById(int id, string pathToClinicImage)
+        {
+            var clinic = _clinicRepository.GetClinicById(id);
+            if (clinic == null)
+            {
+                throw new ApplicationException("Clinic not found");
+            }
+
+            var imagesList = clinic.ImageName.Select(image => pathToClinicImage + image.Name).ToList();
+
+            var dtoAddreses = new List<DtoAddressMultiLang>();
+            foreach (var address in clinic.Addresses)
+            {
+                var coords = new Coords()
+                {
+                    Lat = address.Lat,
+                    Lng = address.Lng
+                };
+
+                var localAddresses = new List<LocalizedDtoAddress>();
+                foreach (var local in address.LocalizedAddresses)
+                {
+                    var localAddress = new LocalizedDtoAddress()
+                    {
+                        Id = local.Id,
+                        Country = local.Country,
+                        City = local.City.LocalizedCities?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower())?.Name,
+                        Street = local.Street,
+                        LangCode = local.Language?.Code.ToLower()
+                    };
+                    localAddresses.Add(localAddress);
+                }
+
+                var dtoPhones = new List<DtoPhoneMultiLang>();
+                foreach (var phone in address.Phones)
+                {
+                    var localPhones = new List<LocalizedDtoPhone>();
+
+                    if (phone.LocalizedPhones != null)
+                        foreach (var local in phone.LocalizedPhones)
+                        {
+                            var localPhone = new LocalizedDtoPhone()
+                            {
+                                Id = local.Id,
+                                Desc = local.Description,
+                                Number = local.Number,
+                                LangCode = local.Language?.Code.ToLower()
+                            };
+                            localPhones.Add(localPhone);
+                        }
+
+                    dtoPhones.Add(new DtoPhoneMultiLang()
+                    {
+                        Id = phone.Id,
+                        LocalizedDtoPhones = localPhones
+                    });
+                }
+
+                var dtoAddress = new DtoAddressMultiLang()
+                {
+                    Id = address.Id,
+                    Coords = coords,
+                    Phones = dtoPhones,
+                    LocalizedDtoAddresses = localAddresses
+                };
+
+                dtoAddreses.Add(dtoAddress);
+            }
+
+            var localClinics = new List<LocalizedDtoClinic>();
+            foreach (var local in clinic.Localized)
+            {
+                var localClinic = new LocalizedDtoClinic()
+                {
+                    Id = local.Id,
+                    Name = local.Name,
+                    Specializations = local.Specializations,
+                    LangCode = local.Language?.Code.ToLower()
+                };
+                localClinics.Add(localClinic);
+            }
+
+            var doctorsId = clinic.Doctors.Select(doctor => doctor.Id).ToList();
+
+            var dtoClinic = new DtoClinicMultiLang()
+            {
+                Id = clinic.Id,
+                Images = imagesList,
+                Email = clinic.Email,
+                Site = clinic.Site,
+                RatePrice = clinic.RatePrice,
+                RateQuality = clinic.RateQuality,
+                RatePoliteness = clinic.RatePoliteness,
+                RateAverage = clinic.RateAverage,
+                ReviewCount = clinic.ClinicReviews.Count,
+                Favorite = clinic.Favorite,
+                ClinicAddress = dtoAddreses,
+                DoctorsId = doctorsId,
+                Localized = localClinics
+            };
+
+            return dtoClinic;
+        }
+
         public DtoPagedClinic GetPagedClinics(int perPage, int numPage, string pathToClinicImage, string lang)
         {
             if (perPage < 1 || numPage < 1)

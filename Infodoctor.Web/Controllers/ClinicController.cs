@@ -41,13 +41,25 @@ namespace Infodoctor.Web.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("api/{lang}/Clinic/{id:int}")]
-        public DtoClinicSingleLang Get(string lang, int id)
+        public DtoClinicSingleLang GetSingleLang(string lang, int id)
         {
             if (string.IsNullOrEmpty(lang))
                 lang = _configService.DefaultLangCode;
 
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
             var clinic = _clinicService.GetClinicById(id, pathToImage, lang);
+
+            return clinic;
+        }
+
+        // GET: api/Clinic/5 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("api/Clinic/{id:int}")]
+        public DtoClinicMultiLang GetMultiLang(int id)
+        {
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            var clinic = _clinicService.GetClinicById(id, pathToImage);
 
             return clinic;
         }

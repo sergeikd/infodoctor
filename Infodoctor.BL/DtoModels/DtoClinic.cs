@@ -28,7 +28,7 @@ namespace Infodoctor.BL.DtoModels
     {
         public int Id { get; set; }
         public List<string> Images { get; set; }
-        public List<LocalizedDtoClinic> LocalizedDtoClinics { get; set; }
+        public List<LocalizedDtoClinic> Localized { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
         public List<DtoAddressMultiLang> ClinicAddress { get; set; }
@@ -45,7 +45,7 @@ namespace Infodoctor.BL.DtoModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Specialization { get; set; }
+        public string Specializations { get; set; }
         public string LangCode { get; set; }
     }
     #endregion
