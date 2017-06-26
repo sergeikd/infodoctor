@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Infodoctor.BL.DtoModels
 {
@@ -33,13 +34,13 @@ namespace Infodoctor.BL.DtoModels
         public int Id { get; set; }
         public Coords Coords { get; set; }
         public List<DtoPhoneMultiLang> Phones { get; set; }
-        public List<LocalizedDtoAddress> LocalizedDtoAddresses { get; set; }
+        public List<LocalizedDtoAddress> LocalizedAddress { get; set; }
     }
 
     public class DtoPhoneMultiLang
     {
         public int Id { get; set; }
-        public List<LocalizedDtoPhone> LocalizedDtoPhones { get; set; }
+        public List<LocalizedDtoPhone> LocalizedPhone { get; set; }
     }
 
     public class LocalizedDtoAddress

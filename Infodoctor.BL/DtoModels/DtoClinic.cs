@@ -12,7 +12,7 @@ namespace Infodoctor.BL.DtoModels
         public string Email { get; set; }
         public string Site { get; set; }
         public List<DtoAddressSingleLang> Addresses { get; set; }
-        public List<int> DoctorsId { get; set; }
+        public List<int> DoctorsIdList { get; set; }
         public List<string> Images { get; set; }
         public double RatePrice { get; set; }
         public double RateQuality { get; set; }
@@ -28,11 +28,11 @@ namespace Infodoctor.BL.DtoModels
     {
         public int Id { get; set; }
         public List<string> Images { get; set; }
-        public List<LocalizedDtoClinic> Localized { get; set; }
+        public List<LocalizedDtoClinic> LocalizedClinic { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
         public List<DtoAddressMultiLang> ClinicAddress { get; set; }
-        public List<int> DoctorsId { get; set; }
+        public List<int> DoctorsIdList { get; set; }
         public double RatePrice { get; set; }
         public double RateQuality { get; set; }
         public double RatePoliteness { get; set; }

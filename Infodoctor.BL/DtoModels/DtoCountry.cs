@@ -8,7 +8,7 @@ namespace Infodoctor.BL.DtoModels
         public string LangCode { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<int> CitiesId { get; set; }
+        public List<int> CitiesIdList { get; set; }
     }
     #endregion
 
@@ -17,7 +17,7 @@ namespace Infodoctor.BL.DtoModels
     {
         public int Id { get; set; }
         public List<DtoCountryLocalized> LocalizedCoutries { get; set; }
-        public List<int> CitiesId { get; set; }
+        public List<int> CitiesIdList { get; set; }
     }
 
     public class DtoCountryLocalized

@@ -5,6 +5,7 @@ namespace Infodoctor.BL.DtoModels
 {
     public class DtoArticle
     {
+        #region SingleLang
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
@@ -12,5 +13,6 @@ namespace Infodoctor.BL.DtoModels
         public string Author { get; set; }
         public List<DtoArticleComment> Comments { get; set; }
         public string LangCode { get; set; }
+        #endregion
     }
 }

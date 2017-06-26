@@ -42,16 +42,21 @@ namespace Infodoctor.Web.Controllers
         // POST api/languages
         public void Post([FromBody]string value)
         {
+            throw new NotImplementedException();
         }
 
         // PUT api/languages/5
         public void Put(int id, [FromBody]string value)
         {
+            throw new NotImplementedException();
+
         }
 
         // DELETE api/languages/5
         public void Delete(int id)
         {
+            throw new NotImplementedException();
+
         }
     }
 }

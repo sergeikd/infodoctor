@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -43,33 +46,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DtoModels\DtoAddress.cs" />
-    <Compile Include="DtoModels\DtoArticleComment.cs" />
     <Compile Include="DtoModels\DtoArticle.cs" />
     <Compile Include="DtoModels\DtoClinic.cs" />
-    <Compile Include="DtoModels\DtoClinicSearchModel.cs" />
     <Compile Include="DtoModels\DtoCountry.cs" />
-    <Compile Include="DtoModels\DtoDoctorReview.cs" />
-    <Compile Include="DtoModels\DtoClinicReview.cs" />
     <Compile Include="DtoModels\DtoCity.cs" />
     <Compile Include="DtoModels\DtoDoctor.cs" />
     <Compile Include="DtoModels\DtoDoctorCategory.cs" />
-    <Compile Include="DtoModels\DtoDoctorSearchModel.cs" />
     <Compile Include="DtoModels\DtoImage.cs" />
-    <Compile Include="DtoModels\DtoMailMessage.cs" />
-    <Compile Include="DtoModels\DtoMailServiceConfiguration.cs" />
-    <Compile Include="DtoModels\DtoPagedArticleComments.cs" />
-    <Compile Include="DtoModels\DtoPagedArticles.cs" />
-    <Compile Include="DtoModels\DtoPagedClinicReview.cs" />
-    <Compile Include="DtoModels\DtoPagedClinic.cs" />
-    <Compile Include="DtoModels\DtoPagedDoctor.cs" />
-    <Compile Include="DtoModels\DtoPagedDoctorReview.cs" />
-    <Compile Include="DtoModels\DtoFastSearchModel.cs" />
-    <Compile Include="DtoModels\DtoPagedResortReview.cs" />
-    <Compile Include="DtoModels\DtoPagedResorts.cs" />
+    <Compile Include="DtoModels\DtoMail.cs" />
+    <Compile Include="DtoModels\DtoPaged.cs" />
     <Compile Include="DtoModels\DtoResort.cs" />
-    <Compile Include="DtoModels\DtoResortReview.cs" />
-    <Compile Include="DtoModels\DtoResortSearchModel.cs" />
     <Compile Include="DtoModels\DtoReview.cs" />
+    <Compile Include="DtoModels\DtoSearchModel.cs" />
     <Compile Include="Interfaces\IArticleCommentsService.cs" />
     <Compile Include="Interfaces\IArticlesService.cs" />
     <Compile Include="Interfaces\ICitiesService.cs" />
@@ -104,7 +92,9 @@
     <Compile Include="Services\SearchService.cs" />
     <Compile Include="Services\TestService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infodoctor.DAL\Infodoctor.DAL.csproj">
       <Project>{91d1a523-a4f3-4fdf-8e73-7893e66693d2}</Project>

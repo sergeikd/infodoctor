@@ -12,31 +12,19 @@ namespace Infodoctor.BL.Services
     public class DoctorService : IDoctorService
     {
         private readonly IDoctorRepository _doctorRepository;
-        private readonly IDoctorCategoryRepository _doctorCategoryRepository;
-        private readonly IClinicRepository _clinicRepository;
         private readonly ISearchService _searchService;
-        private readonly ILanguageRepository _languageRepository;
 
         public DoctorService(IDoctorRepository doctorRepository,
-            IDoctorCategoryRepository doctorCategoryRepository,
-            IClinicRepository clinicRepository,
             ISearchService searchService, ILanguageRepository languageRepository)
         {
             if (doctorRepository == null)
                 throw new ArgumentNullException(nameof(doctorRepository));
-            if (doctorCategoryRepository == null)
-                throw new ArgumentNullException(nameof(doctorRepository));
-            if (clinicRepository == null)
-                throw new ArgumentNullException(nameof(clinicRepository));
             if (searchService == null)
                 throw new ArgumentNullException(nameof(searchService));
             if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
 
             _searchService = searchService;
-            _languageRepository = languageRepository;
-            _clinicRepository = clinicRepository;
             _doctorRepository = doctorRepository;
-            _doctorCategoryRepository = doctorCategoryRepository;
         }
 
         public IEnumerable<DtoDoctorSingleLang> GetAllDoctors(string pathToImage, string lang)
@@ -188,58 +176,173 @@ namespace Infodoctor.BL.Services
             return dtoDoctor;
         }
 
+        public DtoDoctorMultiLang GetDoctorById(int id, string pathToImage)
+        {
+            var doctor = _doctorRepository.GetDoctorById(id);
+
+            if (doctor == null)
+                throw new ApplicationException("Doctor not found");
+
+            var address = doctor.Address;
+            var coords = new Coords()
+            {
+                Lat = address.Lat,
+                Lng = address.Lng
+            };
+
+            var localAddresses = new List<LocalizedDtoAddress>();
+            foreach (var local in address.LocalizedAddresses)
+            {
+                var localAddress = new LocalizedDtoAddress()
+                {
+                    Id = local.Id,
+                    Country = local.Country,
+                    City = local.City.LocalizedCities?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower())?.Name,
+                    Street = local.Street,
+                    LangCode = local.Language?.Code.ToLower()
+                };
+                localAddresses.Add(localAddress);
+            }
+
+            var dtoPhones = new List<DtoPhoneMultiLang>();
+            foreach (var phone in address.Phones)
+            {
+                var localPhones = new List<LocalizedDtoPhone>();
+
+                if (phone.LocalizedPhones != null)
+                    foreach (var local in phone.LocalizedPhones)
+                    {
+                        var localPhone = new LocalizedDtoPhone()
+                        {
+                            Id = local.Id,
+                            Desc = local.Description,
+                            Number = local.Number,
+                            LangCode = local.Language?.Code.ToLower()
+                        };
+                        localPhones.Add(localPhone);
+                    }
+
+                dtoPhones.Add(new DtoPhoneMultiLang()
+                {
+                    Id = phone.Id,
+                    LocalizedPhone = localPhones
+                });
+            }
+
+            var dtoAddress = new DtoAddressMultiLang()
+            {
+                Id = address.Id,
+                Coords = coords,
+                Phones = dtoPhones,
+                LocalizedAddress = localAddresses
+            };
+
+            var dtoCategory = new DtoDoctorCategoryMultiLang() { LocalizedCategory = new List<DtoDoctorCategoryLocalized>() };
+            if (doctor.Category != null)
+            {
+                dtoCategory.Id = doctor.Category.Id;
+                foreach (var local in doctor.Category.Localized)
+                {
+                    var localCategory = new DtoDoctorCategoryLocalized()
+                    {
+                        Id = local.Id,
+                        Name = local.Name,
+                        LangCode = local.Language?.Code?.ToLower()
+                    };
+                    dtoCategory.LocalizedCategory.Add(localCategory);
+                }
+            }
+
+            var doctorLocals = new List<DtoDoctorLocalized>();
+            foreach (var local in doctor.Localized)
+            {
+                var doctorLocal = new DtoDoctorLocalized()
+                {
+                    Id = local.Id,
+                    Name = local.Name,
+                    Manipulation = local.Manipulation,
+                    Specialization = local.Specialization,
+                    LangCode = local.Language?.Code.ToLower()
+                };
+                doctorLocals.Add(doctorLocal);
+            }
+
+            var clinicsIdList = doctor.Clinics.Select(clinic => clinic.Id).ToList();
+
+            var dtoDoctor = new DtoDoctorMultiLang()
+            {
+                Id = doctor.Id,
+                Email = doctor.Email,
+                Experience = doctor.Experience,
+                RatePoliteness = doctor.RatePoliteness,
+                RateProfessionalism = doctor.RateProfessionalism,
+                RateWaitingTime = doctor.RateWaitingTime,
+                RateAverage = doctor.RateAverage,
+                ReviewCount = doctor.DoctorReviews.Count,
+                Image = pathToImage + doctor.ImageName,
+                Favorite = doctor.Favorite,
+                Address = dtoAddress,
+                ClinicsIdList = clinicsIdList,
+                Category = dtoCategory,
+                LocalizedDoctor = doctorLocals
+            };
+
+            return dtoDoctor;
+        }
+
         public void Add(DtoDoctorMultiLang newDoctorMultiLang)
         {
             if (newDoctorMultiLang == null)
                 throw new ArgumentNullException(nameof(newDoctorMultiLang));
 
-            var locals = new List<LocalizedDoctor>();
+            throw new NotImplementedException();
+            //var locals = new List<LocalizedDoctor>();
 
-            if (newDoctorMultiLang.Localized != null)
-                foreach (var doctorLocalized in newDoctorMultiLang.Localized)
-                {
-                    locals.Add(new LocalizedDoctor() { Name = doctorLocalized.Name, Manipulation = doctorLocalized.Manipulation, Language = _languageRepository.GetLanguageByCode(doctorLocalized.LangCode), Specialization = doctorLocalized.Specialization });
-                }
+            //if (newDoctorMultiLang.Localized != null)
+            //    foreach (var doctorLocalized in newDoctorMultiLang.Localized)
+            //    {
+            //        locals.Add(new LocalizedDoctor() { Name = doctorLocalized.Name, Manipulation = doctorLocalized.Manipulation, Language = _languageRepository.GetLanguageByCode(doctorLocalized.LangCode), Specialization = doctorLocalized.Specialization });
+            //    }
 
-            var doctor = new Doctor()
-            {
-                Localized = locals,
-                Email = newDoctorMultiLang.Email,
-                Experience = newDoctorMultiLang.Experience,
-                ImageName = newDoctorMultiLang.Image
-            };
+            //var doctor = new Doctor()
+            //{
+            //    Localized = locals,
+            //    Email = newDoctorMultiLang.Email,
+            //    Experience = newDoctorMultiLang.Experience,
+            //    ImageName = newDoctorMultiLang.Image
+            //};
 
-            var clinicsList = new List<Clinic>();
+            //var clinicsList = new List<Clinic>();
 
-            foreach (var clinicId in newDoctorMultiLang.ClinicsIds)
-            {
-                var clinic = _clinicRepository.GetClinicById(clinicId);
-                if (clinic != null)
-                    clinicsList.Add(clinic);
-            }
+            //foreach (var clinicId in newDoctorMultiLang.ClinicsIdList)
+            //{
+            //    var clinic = _clinicRepository.GetClinicById(clinicId);
+            //    if (clinic != null)
+            //        clinicsList.Add(clinic);
+            //}
 
-            doctor.Clinics = clinicsList;
+            //doctor.Clinics = clinicsList;
 
-            var doctorCategoryList = _doctorCategoryRepository.GetAllCategories().ToList();
+            //var doctorCategoryList = _doctorCategoryRepository.GetAllCategories().ToList();
 
-            var category = new DoctorCategory();
-            if (newDoctorMultiLang.Category.Localized.Any())
-            {
-                var local = newDoctorMultiLang.Category.Localized[0];
-                category = doctorCategoryList.First(dc =>
-                {
-                    var localizedDC = dc.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, local.LangCode,
-                        StringComparison.CurrentCultureIgnoreCase));
-                    return localizedDC != null && string.Equals(localizedDC.Name, local.Name,
-                               StringComparison.CurrentCultureIgnoreCase);
-                });
-            }
+            //var category = new DoctorCategory();
+            //if (newDoctorMultiLang.Category.Localized.Any())
+            //{
+            //    var local = newDoctorMultiLang.Category.Localized[0];
+            //    category = doctorCategoryList.First(dc =>
+            //    {
+            //        var localizedDC = dc.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, local.LangCode,
+            //            StringComparison.CurrentCultureIgnoreCase));
+            //        return localizedDC != null && string.Equals(localizedDC.Name, local.Name,
+            //                   StringComparison.CurrentCultureIgnoreCase);
+            //    });
+            //}
 
-            doctor.Category = category;
+            //doctor.Category = category;
 
 
-            _doctorRepository.Add(doctor);
-            _searchService.RefreshCache();
+            //_doctorRepository.Add(doctor);
+            //_searchService.RefreshCache();
         }
 
         public void Update(int id, DtoDoctorMultiLang newDoctorMultiLang)
@@ -247,52 +350,54 @@ namespace Infodoctor.BL.Services
             if (newDoctorMultiLang == null)
                 throw new ArgumentNullException(nameof(newDoctorMultiLang));
 
-            var locals = new List<LocalizedDoctor>();
+            throw new NotImplementedException();
 
-            if (newDoctorMultiLang.Localized != null)
-                foreach (var doctorLocalized in newDoctorMultiLang.Localized)
-                {
-                    locals.Add(new LocalizedDoctor() { Name = doctorLocalized.Name, Manipulation = doctorLocalized.Manipulation, Language = _languageRepository.GetLanguageByCode(doctorLocalized.LangCode), Specialization = doctorLocalized.Specialization });
-                }
+            //var locals = new List<LocalizedDoctor>();
 
-            var doctor = _doctorRepository.GetDoctorById(id);
+            //if (newDoctorMultiLang.Localized != null)
+            //    foreach (var doctorLocalized in newDoctorMultiLang.Localized)
+            //    {
+            //        locals.Add(new LocalizedDoctor() { Name = doctorLocalized.Name, Manipulation = doctorLocalized.Manipulation, Language = _languageRepository.GetLanguageByCode(doctorLocalized.LangCode), Specialization = doctorLocalized.Specialization });
+            //    }
 
-            if (doctor == null)
-                throw new ApplicationException($"Doctor with id={id} not found");
+            //var doctor = _doctorRepository.GetDoctorById(id);
 
-            doctor.Localized = locals;
-            doctor.Email = newDoctorMultiLang.Email;
-            doctor.Experience = newDoctorMultiLang.Experience;
-            doctor.ImageName = newDoctorMultiLang.Image;
+            //if (doctor == null)
+            //    throw new ApplicationException($"Doctor with id={id} not found");
 
-            var doctorCategoryList = _doctorCategoryRepository.GetAllCategories().ToList();
-            var clinicsList = new List<Clinic>();
+            //doctor.Localized = locals;
+            //doctor.Email = newDoctorMultiLang.Email;
+            //doctor.Experience = newDoctorMultiLang.Experience;
+            //doctor.ImageName = newDoctorMultiLang.Image;
 
-            foreach (var clinicId in newDoctorMultiLang.ClinicsIds)
-            {
-                var clinic = _clinicRepository.GetClinicById(clinicId);
-                if (clinic != null)
-                    clinicsList.Add(clinic);
-            }
+            //var doctorCategoryList = _doctorCategoryRepository.GetAllCategories().ToList();
+            //var clinicsList = new List<Clinic>();
 
-            var category = new DoctorCategory();
-            if (newDoctorMultiLang.Category.Localized.Any())
-            {
-                var local = newDoctorMultiLang.Category.Localized[0];
-                category = doctorCategoryList.First(dc =>
-                {
-                    var localizedDC = dc.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, local.LangCode,
-                        StringComparison.CurrentCultureIgnoreCase));
-                    return localizedDC != null && string.Equals(localizedDC.Name, local.Name,
-                               StringComparison.CurrentCultureIgnoreCase);
-                });
-            }
+            //foreach (var clinicId in newDoctorMultiLang.ClinicsIdList)
+            //{
+            //    var clinic = _clinicRepository.GetClinicById(clinicId);
+            //    if (clinic != null)
+            //        clinicsList.Add(clinic);
+            //}
 
-            doctor.Clinics = clinicsList;
-            doctor.Category = category;
+            //var category = new DoctorCategory();
+            //if (newDoctorMultiLang.Category.Localized.Any())
+            //{
+            //    var local = newDoctorMultiLang.Category.Localized[0];
+            //    category = doctorCategoryList.First(dc =>
+            //    {
+            //        var localizedDC = dc.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, local.LangCode,
+            //            StringComparison.CurrentCultureIgnoreCase));
+            //        return localizedDC != null && string.Equals(localizedDC.Name, local.Name,
+            //                   StringComparison.CurrentCultureIgnoreCase);
+            //    });
+            //}
 
-            _doctorRepository.Update(doctor);
-            _searchService.RefreshCache();
+            //doctor.Clinics = clinicsList;
+            //doctor.Category = category;
+
+            //_doctorRepository.Update(doctor);
+            //_searchService.RefreshCache();
         }
 
         public void Delete(int id)
@@ -334,6 +439,8 @@ namespace Infodoctor.BL.Services
                             LangCode = dc.Language.Code.ToLower()
                         };
 
+            var clinicsIdList = doctor.Clinics.Select(clinic => clinic.Id).ToList();
+
             var dtoDoctor = new DtoDoctorSingleLang()
             {
                 Id = doctor.Id,
@@ -349,7 +456,9 @@ namespace Infodoctor.BL.Services
                 RateWaitingTime = doctor.RateWaitingTime,
                 RateAverage = doctor.RateAverage,
                 ReviewCount = doctor.DoctorReviews.Count,
-                Image = pathToImage + doctor.ImageName
+                Image = pathToImage + doctor.ImageName,
+                Favorite = doctor.Favorite,
+                ClinicsIdList = clinicsIdList
             };
 
             if (doctor.Address != null)
@@ -419,10 +528,10 @@ namespace Infodoctor.BL.Services
             if (doctor.Clinics == null)
                 return dtoDoctor;
 
-            dtoDoctor.ClinicsIds = new List<int>();
+            dtoDoctor.ClinicsIdList = new List<int>();
             foreach (var clinic in doctor.Clinics)
             {
-                dtoDoctor.ClinicsIds.Add(clinic.Id);
+                dtoDoctor.ClinicsIdList.Add(clinic.Id);
             }
             return dtoDoctor;
         }

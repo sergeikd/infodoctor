@@ -36,13 +36,22 @@ namespace Infodoctor.Web.Controllers
         // GET api/resort/5
         [AllowAnonymous]
         [Route("api/{lang}/Resort/{id}")]
-        public DtoResortSingleLang Get(int id, string lang)
+        public DtoResortSingleLang GetSingleLang(int id, string lang)
         {
             if (string.IsNullOrEmpty(lang))
                 lang = _config.DefaultLangCode;
 
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _config.PathToResortsImages;
             return _resort.GetResortById(id, pathToImage, lang);
+        }
+
+        // GET api/resort/5
+        [AllowAnonymous]
+        [Route("api/Resort/{id}")]
+        public DtoResortMultiLang GetMultiLang(int id)
+        {
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _config.PathToResortsImages;
+            return _resort.GetResortById(id, pathToImage);
         }
 
         // GET: api/Resort/page/perPage/numPage

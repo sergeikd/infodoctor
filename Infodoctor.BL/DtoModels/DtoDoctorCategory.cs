@@ -2,19 +2,22 @@
 
 namespace Infodoctor.BL.DtoModels
 {
+    #region SinglLang
     public class DtoDoctorCategorySingleLang
     {
         public int Id { get; set; }
         public string LangCode { get; set; }
         public string Name { get; set; }
-        public List<int> Doctors { get; set; }
+        public List<int> DoctorsIdList { get; set; }
     }
+    #endregion
 
+    #region MultiLang
     public class DtoDoctorCategoryMultiLang
     {
         public int Id { get; set; }
-        public List<DtoDoctorCategoryLocalized> Localized { get; set; }
-        public List<int> Doctors { get; set; }
+        public List<DtoDoctorCategoryLocalized> LocalizedCategory { get; set; }
+        public List<int> DoctorsIdList { get; set; }
     }
 
     public class DtoDoctorCategoryLocalized
@@ -23,4 +26,5 @@ namespace Infodoctor.BL.DtoModels
         public string LangCode { get; set; }
         public string Name { get; set; }
     }
+    #endregion
 }

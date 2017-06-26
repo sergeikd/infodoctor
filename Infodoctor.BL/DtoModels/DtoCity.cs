@@ -17,7 +17,7 @@ namespace Infodoctor.BL.DtoModels
     {
         public int Id { get; set; }
         public int CountryId { get; set; }
-        public List<LocalizedDtoCity> LocalizedDtoCity { get; set; }
+        public List<LocalizedDtoCity> LocalizedCity { get; set; }
     }
 
     public class LocalizedDtoCity

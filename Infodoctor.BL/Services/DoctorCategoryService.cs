@@ -36,11 +36,11 @@ namespace Infodoctor.BL.Services
                     Id = dc.Id,
                     Name = local?.Name,
                     LangCode = local?.Language.Code.ToLower(),
-                    Doctors = new List<int>()
+                    DoctorsIdList = new List<int>()
                 };
 
                 foreach (var doctor in dc.Doctors)
-                    dtoDc.Doctors.Add(doctor.Id);
+                    dtoDc.DoctorsIdList.Add(doctor.Id);
 
                 dtoDcList.Add(dtoDc);
             }
@@ -62,12 +62,12 @@ namespace Infodoctor.BL.Services
                 Id = dc.Id,
                 Name = local?.Name,
                 LangCode = local?.Language.Code.ToLower(),
-                Doctors = new List<int>()
+                DoctorsIdList = new List<int>()
             };
 
             foreach (var doctor in dc.Doctors)
             {
-                dtoDc.Doctors.Add(doctor.Id);
+                dtoDc.DoctorsIdList.Add(doctor.Id);
             }
             return dtoDc;
         }

@@ -106,7 +106,7 @@ namespace Infodoctor.BL.Services
                     dtoPhones.Add(new DtoPhoneMultiLang()
                     {
                         Id = phone.Id,
-                        LocalizedDtoPhones = localPhones
+                        LocalizedPhone = localPhones
                     });
                 }
 
@@ -115,7 +115,7 @@ namespace Infodoctor.BL.Services
                     Id = address.Id,
                     Coords = coords,
                     Phones = dtoPhones,
-                    LocalizedDtoAddresses = localAddresses
+                    LocalizedAddress = localAddresses
                 };
 
                 dtoAddreses.Add(dtoAddress);
@@ -149,8 +149,8 @@ namespace Infodoctor.BL.Services
                 ReviewCount = clinic.ClinicReviews.Count,
                 Favorite = clinic.Favorite,
                 ClinicAddress = dtoAddreses,
-                DoctorsId = doctorsId,
-                Localized = localClinics
+                DoctorsIdList = doctorsId,
+                LocalizedClinic = localClinics
             };
 
             return dtoClinic;
@@ -388,7 +388,7 @@ namespace Infodoctor.BL.Services
                 Images = imagesList,
                 Addresses = dtoAddreses,
                 Specializations = localizedClinic.Specializations,
-                DoctorsId = doctors
+                DoctorsIdList = doctors
             };
 
             return dtoClinic;

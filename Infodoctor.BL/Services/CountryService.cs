@@ -131,7 +131,7 @@ namespace Infodoctor.BL.Services
                 Id = country.Id,
                 Name = local.Name,
                 LangCode = local.Language?.Code.ToLower(),
-                CitiesId = cities
+                CitiesIdList = cities
             };
 
             return dtoCounty;

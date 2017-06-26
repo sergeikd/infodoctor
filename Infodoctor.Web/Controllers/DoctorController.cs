@@ -40,7 +40,7 @@ namespace Infodoctor.Web.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("api/{lang}/Doctor/{id:int}")]
-        public DtoDoctorSingleLang Get(int id,string lang)
+        public DtoDoctorSingleLang GetSingleLang(int id, string lang)
         {
             if (string.IsNullOrEmpty(lang))
                 lang = _configService.DefaultLangCode;
@@ -48,11 +48,21 @@ namespace Infodoctor.Web.Controllers
             return _doctorService.GetDoctorById(id, pathToImage, lang);
         }
 
+        // GET api/doctor/5
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("api/Doctor/{id:int}")]
+        public DtoDoctorMultiLang GetMultiLang(int id)
+        {
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
+            return _doctorService.GetDoctorById(id, pathToImage);
+        }
+
         // GET: api/doctor/page/perPage/numPage 
         [HttpGet]
         [AllowAnonymous]
         [Route("api/{lang}/Doctor/page/{perPage:int}/{numPage:int}")]
-        public DtoPagedDoctor GetPage(int perPage, int numPage,string lang)
+        public DtoPagedDoctor GetPage(int perPage, int numPage, string lang)
         {
             if (string.IsNullOrEmpty(lang))
                 lang = _configService.DefaultLangCode;
@@ -63,8 +73,8 @@ namespace Infodoctor.Web.Controllers
         // api/Doctor/doctor/perPage/numPage
         [HttpPost]
         [AllowAnonymous]
-        [Route("api/{lang}/Doctor/search/{perPage:int}/{numPage:int}")]      
-        public DtoPagedDoctor SearchClinic(int perPage, int numPage, [FromBody]DtoDoctorSearchModel searchModel,string lang)
+        [Route("api/{lang}/Doctor/search/{perPage:int}/{numPage:int}")]
+        public DtoPagedDoctor SearchClinic(int perPage, int numPage, [FromBody]DtoDoctorSearchModel searchModel, string lang)
         {
             if (string.IsNullOrEmpty(lang))
                 lang = _configService.DefaultLangCode;
