@@ -87,7 +87,6 @@
     <Compile Include="Repositories\DoctorSpecializationRepository.cs" />
     <Compile Include="Repositories\ImagesRepository.cs" />
     <Compile Include="Repositories\ArticleThemesRepository.cs" />
-    <Compile Include="Repositories\ClinicSpecializationRepository.cs" />
     <Compile Include="Repositories\CountryRepository.cs" />
     <Compile Include="Repositories\LanguageRepository.cs" />
     <Compile Include="Repositories\OwnerShipsRepository.cs" />

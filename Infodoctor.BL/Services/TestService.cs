@@ -16,16 +16,14 @@ namespace Infodoctor.BL.Services
         private readonly IClinicRepository _clinicRepository;
         private readonly ICitiesRepository _citiesRepository;
         private readonly IDoctorRepository _doctorRepository;
-        private readonly IClinicSpecializationRepository _clinicSpecializationRepository;
         private readonly IImagesRepository _imagesRepository;
         private readonly IImagesService _imagesService;
         private readonly Random _rnd = new Random();
 
-        public TestService (IClinicRepository clinicRepository, IClinicSpecializationRepository clinicSpecializationRepository, 
+        public TestService (IClinicRepository clinicRepository, 
             ICitiesRepository citiesRepository, IDoctorRepository doctorRepository, IImagesRepository imagesRepository, IImagesService imagesService)
         {
             _citiesRepository = citiesRepository ?? throw new ArgumentNullException(nameof(clinicRepository));
-            _clinicSpecializationRepository = clinicSpecializationRepository ?? throw new ArgumentNullException(nameof(clinicSpecializationRepository));
             _doctorRepository = doctorRepository ?? throw new ArgumentNullException(nameof(doctorRepository));
             _clinicRepository = clinicRepository ?? throw new ArgumentNullException(nameof(citiesRepository));
             _imagesRepository = imagesRepository ?? throw new ArgumentNullException(nameof(imagesRepository));

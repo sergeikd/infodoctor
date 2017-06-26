@@ -12,22 +12,18 @@ namespace Infodoctor.BL.Services
     public class DoctorService : IDoctorService
     {
         private readonly IDoctorRepository _doctorRepository;
-        private readonly IDoctorSpecializationRepository _doctorSpecializationRepository;
         private readonly IDoctorCategoryRepository _doctorCategoryRepository;
         private readonly IClinicRepository _clinicRepository;
         private readonly ISearchService _searchService;
         private readonly ILanguageRepository _languageRepository;
 
         public DoctorService(IDoctorRepository doctorRepository,
-            IDoctorSpecializationRepository doctorSpecializationRepository,
             IDoctorCategoryRepository doctorCategoryRepository,
             IClinicRepository clinicRepository,
             ISearchService searchService, ILanguageRepository languageRepository)
         {
             if (doctorRepository == null)
                 throw new ArgumentNullException(nameof(doctorRepository));
-            if (doctorSpecializationRepository == null)
-                throw new ArgumentNullException(nameof(doctorSpecializationRepository));
             if (doctorCategoryRepository == null)
                 throw new ArgumentNullException(nameof(doctorRepository));
             if (clinicRepository == null)
@@ -40,7 +36,6 @@ namespace Infodoctor.BL.Services
             _languageRepository = languageRepository;
             _clinicRepository = clinicRepository;
             _doctorRepository = doctorRepository;
-            _doctorSpecializationRepository = doctorSpecializationRepository;
             _doctorCategoryRepository = doctorCategoryRepository;
         }
 
@@ -662,8 +657,6 @@ namespace Infodoctor.BL.Services
 
             doctor.Clinics = clinicsList;
 
-            var doctorSpesList =
-                _doctorSpecializationRepository.GetAllSpecializations().ToList();
             var doctorCategoryList = _doctorCategoryRepository.GetAllCategories().ToList();
 
             var category = new DoctorCategory();
@@ -709,8 +702,6 @@ namespace Infodoctor.BL.Services
             doctor.Experience = newDoctorMultiLang.Experience;
             doctor.ImageName = newDoctorMultiLang.Image;
 
-            var doctorSpesList =
-                _doctorSpecializationRepository.GetAllSpecializations().ToList();
             var doctorCategoryList = _doctorCategoryRepository.GetAllCategories().ToList();
             var clinicsList = new List<Clinic>();
 

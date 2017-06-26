@@ -11,8 +11,6 @@ namespace Infodoctor.BL.Services
     {
         private readonly IClinicRepository _clinicRepository;
         private readonly IDoctorRepository _doctorRepository;
-        private readonly IClinicSpecializationRepository _clinicSpecializationRepository;
-        private readonly IDoctorSpecializationRepository _doctorSpecializationRepository;
         private readonly IResortRepository _resortRepository;
         private readonly ILanguageRepository _languageRepository;
 
@@ -21,29 +19,21 @@ namespace Infodoctor.BL.Services
         private static List<CacheModel> VirtualResortCache { get; set; }
 
         public SearchService(IClinicRepository clinicRepository,
-            IClinicSpecializationRepository clinicSpecializationRepository,
             IDoctorRepository doctorRepository,
-            IDoctorSpecializationRepository doctorSpecializationRepository,
             IResortRepository resortRepository,
             ILanguageRepository languageRepository)
         {
             if (clinicRepository == null)
                 throw new ArgumentNullException(nameof(clinicRepository));
-            if (clinicSpecializationRepository == null)
-                throw new ArgumentNullException(nameof(clinicSpecializationRepository));
             if (doctorRepository == null)
                 throw new ArgumentNullException(nameof(doctorRepository));
-            if (doctorSpecializationRepository == null)
-                throw new ArgumentNullException(nameof(doctorSpecializationRepository));
             if (resortRepository == null) throw new ArgumentNullException(nameof(resortRepository));
             if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
 
-            _doctorSpecializationRepository = doctorSpecializationRepository;
             _resortRepository = resortRepository;
             _languageRepository = languageRepository;
             _doctorRepository = doctorRepository;
             _clinicRepository = clinicRepository;
-            _clinicSpecializationRepository = clinicSpecializationRepository;
         }
 
         public void RefreshCache()

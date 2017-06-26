@@ -44,18 +44,15 @@
   <ItemGroup>
     <Compile Include="DtoModels\DtoArticleComment.cs" />
     <Compile Include="DtoModels\DtoArticle.cs" />
-    <Compile Include="DtoModels\DtoClinicSingleLang.cs" />
+    <Compile Include="DtoModels\DtoClinic.cs" />
     <Compile Include="DtoModels\DtoCountry.cs" />
     <Compile Include="DtoModels\DtoDoctorReview.cs" />
     <Compile Include="DtoModels\DtoClinicReview.cs" />
     <Compile Include="DtoModels\DtoCity.cs" />
-    <Compile Include="DtoModels\DtoClinicMultilang.cs" />
     <Compile Include="DtoModels\DtoClinicSearchModel.cs" />
-    <Compile Include="DtoModels\DtoClinicSpecialization.cs" />
     <Compile Include="DtoModels\DtoDoctor.cs" />
     <Compile Include="DtoModels\DtoDoctorCategory.cs" />
     <Compile Include="DtoModels\DtoDoctorSearchModel.cs" />
-    <Compile Include="DtoModels\DtoDoctorSpecialization.cs" />
     <Compile Include="DtoModels\DtoImage.cs" />
     <Compile Include="DtoModels\DtoMailMessage.cs" />
     <Compile Include="DtoModels\DtoMailServiceConfiguration.cs" />

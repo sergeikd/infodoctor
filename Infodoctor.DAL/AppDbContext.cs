@@ -27,18 +27,10 @@ namespace Infodoctor.DAL
         public DbSet<Phone> ClinicPhones { get; set; }
         public DbSet<LocalizedPhone> LocalizedClinicPhone { get; set; }
 
-        //todo: убрать остатки специализаций
-        //public DbSet<ClinicSpecialization> ClinicSpecializations { get; set; } 
-        //public DbSet<LocalizedClinicSpecialization> LocalizedClinicSpecialization { get; set; }
-
         public DbSet<ClinicReview> ClinicReviews { get; set; }
 
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<LocalizedDoctor> LocalizedDoctors { get; set; }
-
-        //todo: убрать остатки специализаций
-        //public DbSet<DoctorSpecialization> DoctorSpecializations { get; set; }
-        //public DbSet<LocalizedDoctorSpecialization> LocalizedDoctorSpecializations { get; set; }
 
         public DbSet<DoctorCategory> DoctorCategories { get; set; }
         public DbSet<LocalizedDoctorCategory> LocalizedDoctorCategories { get; set; }
