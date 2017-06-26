@@ -22,13 +22,14 @@ namespace Infodoctor.Web
             List<Doctor> doctorsList;
             List<Phone> phonesList;
             List<Address> clinicAddressList;
-            List<City> citiesList;
+            List<Country> countriesList;
+            List<City> belarusCitiesList;
             List<DoctorCategory> categoriesList;
             List<ImageFile> imagesList;
             List<Language> langs;
             //List<ImageFile> imagesList;
             dbInitializerExtention.PrepareLists(out langs, out clinicReviewList, out doctorReviewList, out clinicList, out doctorsList, out phonesList, out clinicAddressList,
-                out citiesList, out categoriesList, out imagesList);
+                out belarusCitiesList, out categoriesList, out imagesList, out countriesList);
             context.Images.AddRange(imagesList);
             context.ClinicReviews.AddRange(clinicReviewList);
             context.DoctorReviews.AddRange(doctorReviewList);
@@ -36,9 +37,10 @@ namespace Infodoctor.Web
             context.Doctors.AddRange(doctorsList);
             context.ClinicPhones.AddRange(phonesList);
             context.ClinicAddresses.AddRange(clinicAddressList);
-            context.Cities.AddRange(citiesList);
+            context.Cities.AddRange(belarusCitiesList);
             context.DoctorCategories.AddRange(categoriesList);
             context.Languages.AddRange(langs);
+            context.Countries.AddRange(countriesList);
 
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
@@ -131,69 +133,6 @@ namespace Infodoctor.Web
                     userManager.AddToRole(user.Id, role1.Name);
                 }
             }
-
-            //add list of countries to DB table Countries
-            var countriesList = new List<Country>();
-            var path = AppDomain.CurrentDomain.BaseDirectory + "/Content/CountriesList.txt";
-            using (var sr = new StreamReader(path, System.Text.Encoding.Default))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    countriesList.Add(new Country() { LocalizedCountries = new List<LocalizedCountry>() { new LocalizedCountry() { Name = line, Language = langs.First(l => l.Code == "ru") } } });
-                }
-            }
-            context.Countries.AddRange(countriesList);
-
-            var clinic1 = clinicList[0];
-            var clinic2 = clinicList[1];
-            var clinic3 = clinicList[2];
-            var clinic4 = clinicList[3];
-            var clinic5 = clinicList[4];
-
-            var doc001 = doctorsList[0];
-            var doc002 = doctorsList[1];
-            var doc003 = doctorsList[2];
-            var doc004 = doctorsList[3];
-            var doc005 = doctorsList[4];
-
-            //var cs10 = new ClinicProfile() { Name = "Многопрофильный" };
-            //var cs20 = new ClinicProfile() { Name = "Многопрофильный детский", Clinics = new List<Clinic>() { clinic5 } };
-            //var cs30 = new ClinicProfile() { Name = "Многопрофильный лечебно-профилактический", Clinics = new List<Clinic>() { clinic4 } };
-            //var cs40 = new ClinicProfile() { Name = "Многопрофильный с комплексом аппаратных и аналитических обследований", Clinics = new List<Clinic>() { clinic1 } };
-            //var cs50 = new ClinicProfile() { Name = "Стоматология", Clinics = new List<Clinic>() { clinic2 } };
-            //var profilesList = new List<ClinicProfile> { cs10, cs20, cs30, cs40, cs50 };
-            //context.ClinicProfiles.AddRange(profilesList);
-
-
-
-            ////test clinic List
-            //var testClinicsList = new List<Clinic>();
-            //for (var i = 1; i < 5; i++) //клиники без рейтинга
-            //{
-            //    var clinic = new Clinic()
-            //    {
-            //        ClinicAddresses = new List<Address>() { new Address() { City = citiesList[i % 5] } },
-            //        Name = "Test" + i,
-            //        ClinicSpecializations = new List<ClinicSpecialization>() { new ClinicSpecialization() { Name = specializationList[i % 3].Name } }
-            //    };
-            //    testClinicsList.Add(clinic);
-            //}
-            //for (var i = 5; i < 15; i++)//клиники с рейтингом
-            //{
-            //    var clinic = new Clinic()
-            //    {
-            //        ClinicAddresses = new List<Address>() { new Address () {City = citiesList[i%5]} },
-            //        Name = "Test" + i,
-            //        ClinicSpecializations = new List<ClinicSpecialization>(){ new ClinicSpecialization() { Name = specializationList[i%3].Name } },
-            //        RatePoliteness = rnd.Next(5) + 1,
-            //        RatePrice = rnd.Next(5) + 1,
-            //        RateQuality = rnd.Next(5) + 1
-            //    };
-            //    clinic.RateAverage = (clinic.RatePoliteness + clinic.RatePrice + clinic.RateQuality) /3;
-            //    testClinicsList.Add(clinic);
-            //}
-            //context.Сlinics.AddRange(testClinicsList);
 
             var art1 = new Article()
             {
@@ -338,7 +277,7 @@ namespace Infodoctor.Web
                     new LocalizedResortAddress()
                     {
                         Country = "Беларусь",
-                        City = citiesList.First(c => string.Equals(c.LocalizedCities.First(l=>l.Language.Code.ToLower()=="ru").Name, "Брестская область",
+                        City = belarusCitiesList.First(c => string.Equals(c.LocalizedCities.First(l=>l.Language.Code.ToLower()=="ru").Name, "Брестская область",
                             StringComparison.CurrentCultureIgnoreCase)),
                         Street = "урочище \"Сосновый бор\"",
                         Phones = nums1,
@@ -409,7 +348,7 @@ namespace Infodoctor.Web
                     new LocalizedResortAddress()
                     {
                         Country = "Беларусь",
-                        City = citiesList.First(c => string.Equals(c.LocalizedCities.First(l=>l.Language.Code.ToLower()=="ru").Name, "Брестская область",
+                        City = belarusCitiesList.First(c => string.Equals(c.LocalizedCities.First(l=>l.Language.Code.ToLower()=="ru").Name, "Брестская область",
                             StringComparison.CurrentCultureIgnoreCase)),
                         Street = "Жабинковский район, 1,6 км севернее д. Чижевщина",
                         Phones = nums2,
@@ -494,7 +433,7 @@ namespace Infodoctor.Web
                     new LocalizedResortAddress()
                     {
                         Country = "Беларусь",
-                        City = citiesList.First(c => string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name, "Витебская область",
+                        City = belarusCitiesList.First(c => string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name, "Витебская область",
                             StringComparison.CurrentCultureIgnoreCase)),
                         Street = "Витебский район, д. Малые ",
                         Phones = nums3,
@@ -558,7 +497,7 @@ namespace Infodoctor.Web
                     new LocalizedResortAddress()
                     {
                         Country = "Беларусь",
-                        City = citiesList.First(c => string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name, "Витебская область",
+                        City = belarusCitiesList.First(c => string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name, "Витебская область",
                             StringComparison.CurrentCultureIgnoreCase)),
                         Street = "д. Будачи, Докшицкий р-н",
                         Phones = nums4,

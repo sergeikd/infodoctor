@@ -5,12 +5,14 @@ namespace Infodoctor.Domain.Entities
     public class Country
     {
         public int Id { get; set; }
+        public virtual ICollection<City> Cities { get; set; }
         public virtual ICollection<LocalizedCountry> LocalizedCountries { get; set; }
     }
 
     public class City
     {
         public int Id { get; set; }
+        public virtual Country Country { get; set; }
         public virtual ICollection<LocalizedCity> LocalizedCities { get; set; }
         public virtual ICollection<Address> Adresses { get; set; }
     }
@@ -18,6 +20,8 @@ namespace Infodoctor.Domain.Entities
     public class Address
     {
         public int Id { get; set; }
+        public string Lat { get; set; } //coord
+        public string Lng { get; set; } //coord
         public virtual ICollection<LocalizedAddress> LocalizedAddresses { get; set; }
         public virtual ICollection<Phone> Phones { get; set; }
         public virtual Clinic Clinic { get; set; }

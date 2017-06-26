@@ -2,6 +2,7 @@
 
 namespace Infodoctor.BL.DtoModels
 {
+    #region SingleLang
     public class DtoResortSingleLang
     {
         public int Id { get; set; }
@@ -19,12 +20,14 @@ namespace Infodoctor.BL.DtoModels
         public bool Favorite { get; set; }
         public DtoAddressSingleLang Address { get; set; }
     }
+    #endregion
 
+    #region MultiLang
     public class DtoResortMultiLang
     {
         public int Id { get; set; }
         public string LangCode { get; set; }
-        public List<DtoResortMLLocalizedP> Localized { get; set; }
+        public List<DtoResortMLLocalized> Localized { get; set; }
         public string Image { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
@@ -37,10 +40,11 @@ namespace Infodoctor.BL.DtoModels
         public DtoAddressMultiLang Address { get; set; }
     }
 
-    public class DtoResortMLLocalizedP
+    public class DtoResortMLLocalized
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Specialisations { get; set; }
     }
+    #endregion
 }

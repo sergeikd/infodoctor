@@ -65,10 +65,7 @@
     <Compile Include="Interfaces\IDoctorCategoryRepository.cs" />
     <Compile Include="Interfaces\IDoctorRepository.cs" />
     <Compile Include="Interfaces\IDoctorReviewRepository.cs" />
-    <Compile Include="Interfaces\IDoctorSpecializationRepository.cs" />
     <Compile Include="Interfaces\IImagesRepository.cs" />
-    <Compile Include="Interfaces\IArticleThemesRepository.cs" />
-    <Compile Include="Interfaces\IClinicSpecializationRepository.cs" />
     <Compile Include="Interfaces\ICountryRepository.cs" />
     <Compile Include="Interfaces\ILanguageRepository.cs" />
     <Compile Include="Interfaces\IOwnerShipsRepository.cs" />
@@ -84,9 +81,7 @@
     <Compile Include="Repositories\ClinicReviewRepository.cs" />
     <Compile Include="Repositories\DoctorCategoryRepository.cs" />
     <Compile Include="Repositories\DoctorReviewRepository.cs" />
-    <Compile Include="Repositories\DoctorSpecializationRepository.cs" />
     <Compile Include="Repositories\ImagesRepository.cs" />
-    <Compile Include="Repositories\ArticleThemesRepository.cs" />
     <Compile Include="Repositories\CountryRepository.cs" />
     <Compile Include="Repositories\LanguageRepository.cs" />
     <Compile Include="Repositories\OwnerShipsRepository.cs" />

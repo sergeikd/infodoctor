@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Infodoctor.Domain.Entities;
 
@@ -9,8 +10,8 @@ namespace Infodoctor.Web
     {
         internal void PrepareLists(out List<Language> langs, out List<ClinicReview> clinicReviewList,
             out List<DoctorReview> doctorReviewList, out List<Clinic> clinicList, out List<Doctor> doctors,
-            out List<Phone> phonesList, out List<Address> clinicAddressList, out List<City> citiesList,
-            out List<DoctorCategory> categoriesList, out List<ImageFile> imagesList)
+            out List<Phone> phonesList, out List<Address> clinicAddressList, out List<City> belarusCitiesList,
+            out List<DoctorCategory> categoriesList, out List<ImageFile> imagesList, out List<Country> countriesList)
         {
             langs = new List<Language>()
             {
@@ -53,10 +54,21 @@ namespace Infodoctor.Web
                 });
             }
 
+
+            //add list of countries to DB table Countries
+            countriesList = new List<Country>();
+            //automatic countries initializer
+            //var path = AppDomain.CurrentDomain.BaseDirectory + "/Content/CountriesList.txt";
+            //using (var sr = new StreamReader(path, System.Text.Encoding.Default))
+            //{
+            //    string line;
+            //    while ((line = sr.ReadLine()) != null)
+            //    {
+            //        countriesList.Add(new Country() { LocalizedCountries = new List<LocalizedCountry>() { new LocalizedCountry() { Name = line, Language = langs.First(l => l.Code == "ru") } } });
+            //    }
+            //}
+
             #region Очень длинный список городов РБ
-
-            //Adresses = new List<Address>() {ca1, ca2, ca3, ca4, ca5, ca6, ca7} минск
-
             var city1 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Бобруйск", Language = langs.First(l => l.Code == "ru") } } };
             var city2 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Барановичи", Language = langs.First(l => l.Code == "ru") } } };
             var city3 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Борисов", Language = langs.First(l => l.Code == "ru") } } };
@@ -176,7 +188,7 @@ namespace Infodoctor.Web
 
             #endregion
 
-            citiesList = new List<City>
+            belarusCitiesList = new List<City>
             {
                 city1,
                 city2,
@@ -295,9 +307,11 @@ namespace Infodoctor.Web
                 city115
             };
 
+            var country1 = new Country() { LocalizedCountries = new List<LocalizedCountry>() { new LocalizedCountry { Name = "Беларусь", Language = langs.First(l => l.Code == "ru") } }, Cities = belarusCitiesList };
+
+            countriesList.Add(country1);
 
             var clinicReviewSubList = clinicReviewList.Take(5).ToList();
-
             var clinic1 = new Clinic()
             {
                 Email = "info@nordin.by",
@@ -312,6 +326,7 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "Nordin Medical Center",
+                        Specializations = string.Empty,
                         Language = langs.First(l => l.Code == "en")
                     }
                 },
@@ -325,7 +340,6 @@ namespace Infodoctor.Web
             clinic1.RateAverage = (clinic1.RatePrice + clinic1.RateQuality + clinic1.RatePoliteness) / 3;
 
             clinicReviewSubList = clinicReviewList.Skip(5).Take(5).ToList();
-
             var clinic2 = new Clinic()
             {
                 Email = string.Empty,
@@ -340,6 +354,7 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "Dentko Dental Center",
+                        Specializations = string.Empty,
                         Language = langs.First(l => l.Code == "en")
                     }
                 },
@@ -368,6 +383,7 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "Kravira Medical Center",
+                        Specializations = string.Empty,
                         Language = langs.First(l => l.Code == "en")
                     }
                 },
@@ -396,6 +412,7 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "The 4th city polyclinic in Minsk",
+                        Specializations = string.Empty,
                         Language = langs.First(l => l.Code == "en")
                     }
                 },
@@ -423,6 +440,7 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "2-nd city children's clinical hospital in Minsk",
+                        Specializations = string.Empty,
                         Language = langs.First(l => l.Code == "en")
                     }
                 },
@@ -435,6 +453,7 @@ namespace Infodoctor.Web
 
             };
             clinic5.RateAverage = (clinic5.RatePrice + clinic5.RateQuality + clinic5.RatePoliteness) / 3;
+
             clinicList = new List<Clinic> { clinic1, clinic2, clinic3, clinic4, clinic5 };
 
             doctorReviewList = new List<DoctorReview>();
@@ -877,11 +896,14 @@ namespace Infodoctor.Web
                     new LocalizedAddress()
                     {
                         Country = "Беларусь",
-                        City =city66,
+                        City = city66,
                         Street = "ул.Сурганова 47Б",
                         Language = langs.First(l => l.Code == "ru")
                     }
                 },
+
+                Lat = "53.927249",
+                Lng = "27.587901",
 
                 Clinic = clinic1,
                 Doctors = new List<Doctor> { doc001, doc002, doc003 },

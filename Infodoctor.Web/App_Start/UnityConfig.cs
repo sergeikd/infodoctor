@@ -62,12 +62,8 @@ namespace Infodoctor.Web.App_Start
             container.RegisterType<ILanguageService, LanguageService>();
             container.RegisterType<ICountryRepository, CountryRepository>();
             container.RegisterType<ICountryService, CountryService>();
-            container.RegisterType<IClinicSpecializationRepository, ClinicSpecializationRepository>();
-            container.RegisterType<IClinicSpecializationService, ClinicSpecializationService>();
             container.RegisterType<IClinicRepository, ClinicRepository>();
             container.RegisterType<IClinicService, ClinicService>();
-            container.RegisterType<IArticleThemesRepository, ArticleThemesRepository>();
-            container.RegisterType<IArticleThemesService, ArticleThemesService>();
             container.RegisterType<IImagesRepository, ImagesRepository>();
             container.RegisterType<IImagesService, ImagesService>();
             container.RegisterType<IArticlesRepository, ArticlesRepository>();
@@ -77,8 +73,6 @@ namespace Infodoctor.Web.App_Start
             container.RegisterType<ISearchService, SearchService>();
             container.RegisterType<IClinicReviewRepository, ClinicReviewRepository>();
             container.RegisterType<IClinicReviewService, ClinicReviewService>();
-            container.RegisterType<IDoctorSpecializationRepository, DoctorSpecializationRepository>();
-            container.RegisterType<IDoctorSpecializationService, DoctorSpecializationService>();
             container.RegisterType<IDoctorCategoryRepository, DoctorCategoryRepository>();
             container.RegisterType<IDoctorCategoryService, DoctorCategoryService>();
             container.RegisterType<IDoctorRepository, DoctorRepository>();

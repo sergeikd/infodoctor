@@ -21,22 +21,6 @@ namespace Infodoctor.BL.DtoModels
         public int ReviewCount { get; set; }
         public bool Favorite { get; set; }
     }
-
-    public class DtoAddressSingleLang
-    {
-        public int Id { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
-        public string Street { get; set; }
-        public List<DtoPhoneSingleLang> Phones { get; set; }
-    }
-
-    public class DtoPhoneSingleLang
-    {
-        public int Id { get; set; }
-        public string Desc { get; set; }
-        public string Number { get; set; }
-    }
     #endregion
 
     #region Multilang
@@ -57,41 +41,11 @@ namespace Infodoctor.BL.DtoModels
         public bool Favorite { get; set; }
     }
 
-    public class DtoAddressMultiLang
-    {
-        public int Id { get; set; }
-        public List<DtoPhoneMultiLang> Phones { get; set; }
-        public List<LocalizedDtoAddress> LocalizedDtoAddresses { get; set; }
-    }
-
-    public class DtoPhoneMultiLang
-    {
-        public int Id { get; set; }
-        public List<LocalizedDtoPhone> LocalizedDtoPhones { get; set; }
-    }
-
     public class LocalizedDtoClinic
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Specialization { get; set; }
-        public string LangCode { get; set; }
-    }
-
-    public class LocalizedDtoAddress
-    {
-        public string Id { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
-        public string Street { get; set; }
-        public string LangCode { get; set; }
-    }
-
-    public class LocalizedDtoPhone
-    {
-        public int Id { get; set; }
-        public string Desc { get; set; }
-        public string Number { get; set; }
         public string LangCode { get; set; }
     }
     #endregion
