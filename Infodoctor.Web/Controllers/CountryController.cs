@@ -4,7 +4,6 @@ using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
 using Infodoctor.Web.Infrastructure;
-using Infodoctor.Web.Models;
 
 namespace Infodoctor.Web.Controllers
 {

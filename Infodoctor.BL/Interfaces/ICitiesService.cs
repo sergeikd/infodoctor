@@ -5,11 +5,11 @@ namespace Infodoctor.BL.Interfaces
 {
     public interface ICitiesService
     {
-        IEnumerable<DtoCity> GetAllCities(string lang);
-        IEnumerable<DtoCity> GetCitiesWithClinics(string lang);
-        DtoCity GetCityById(int id, string lang);
-        void Add(string name, string lang);
-        void Update(int id, string name, string lang);
+        IEnumerable<DtoCitySingleLang> GetAllCities(string lang);
+        IEnumerable<DtoCitySingleLang> GetCitiesWithClinics(string lang);
+        DtoCitySingleLang GetCityById(int id, string lang);
+        void Add(DtoCityMultiLang city);
+        void Update(DtoCityMultiLang city);
         void Delete(int id);
     }
 }

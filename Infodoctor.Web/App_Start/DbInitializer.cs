@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using Infodoctor.DAL;
 using Infodoctor.Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using static System.String;
 
 namespace Infodoctor.Web
 {
@@ -272,6 +270,7 @@ namespace Infodoctor.Web
 
             var adr1 = new ResortAddress()
             {
+                Phones = nums1,
                 Localized = new List<LocalizedResortAddress>()
                 {
                     new LocalizedResortAddress()
@@ -280,7 +279,7 @@ namespace Infodoctor.Web
                         City = belarusCitiesList.First(c => string.Equals(c.LocalizedCities.First(l=>l.Language.Code.ToLower()=="ru").Name, "Брестская область",
                             StringComparison.CurrentCultureIgnoreCase)),
                         Street = "урочище \"Сосновый бор\"",
-                        Phones = nums1,
+
                         Language = langs.First(l => l.Code.ToLower() == "ru")
                     }
                 }
@@ -343,6 +342,7 @@ namespace Infodoctor.Web
 
             var adr2 = new ResortAddress()
             {
+                Phones = nums2,
                 Localized = new List<LocalizedResortAddress>()
                 {
                     new LocalizedResortAddress()
@@ -351,7 +351,7 @@ namespace Infodoctor.Web
                         City = belarusCitiesList.First(c => string.Equals(c.LocalizedCities.First(l=>l.Language.Code.ToLower()=="ru").Name, "Брестская область",
                             StringComparison.CurrentCultureIgnoreCase)),
                         Street = "Жабинковский район, 1,6 км севернее д. Чижевщина",
-                        Phones = nums2,
+
                         Language = langs.First(l => l.Code.ToLower() == "ru")
                     }
                 }
@@ -428,6 +428,7 @@ namespace Infodoctor.Web
 
             var adr3 = new ResortAddress()
             {
+                Phones = nums3,
                 Localized = new List<LocalizedResortAddress>()
                 {
                     new LocalizedResortAddress()
@@ -436,7 +437,7 @@ namespace Infodoctor.Web
                         City = belarusCitiesList.First(c => string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name, "Витебская область",
                             StringComparison.CurrentCultureIgnoreCase)),
                         Street = "Витебский район, д. Малые ",
-                        Phones = nums3,
+
                         Language = langs.First(l => l.Code.ToLower() == "ru")
                     }
                 }
@@ -492,6 +493,7 @@ namespace Infodoctor.Web
 
             var adr4 = new ResortAddress()
             {
+                Phones = nums4,
                 Localized = new List<LocalizedResortAddress>()
                 {
                     new LocalizedResortAddress()
@@ -500,7 +502,7 @@ namespace Infodoctor.Web
                         City = belarusCitiesList.First(c => string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name, "Витебская область",
                             StringComparison.CurrentCultureIgnoreCase)),
                         Street = "д. Будачи, Докшицкий р-н",
-                        Phones = nums4,
+
                         Language = langs.First(l => l.Code.ToLower() == "ru")
                     }
                 }

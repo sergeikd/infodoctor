@@ -27,19 +27,8 @@ namespace Infodoctor.BL.Services
             var dtoCountries = new List<DtoCountrySingleLang>();
             foreach (var country in counties)
             {
-                var local = new LocalizedCountry();
-                if (country.LocalizedCountries != null)
-                    foreach (var localizedCountry in country.LocalizedCountries)
-                        if (string.Equals(localizedCountry.Language.Code.ToLower(), lang.ToLower(),
-                            StringComparison.Ordinal))
-                            local = localizedCountry;
-
-                dtoCountries.Add(new DtoCountrySingleLang()
-                {
-                    Id = country.Id,
-                    Name = local.Name,
-                    LangCode = local.Language.Code.ToLower()
-                });
+                var dtoCounty = ConvertEntityToDtoSingleLang(lang, country);
+                dtoCountries.Add(dtoCounty);
             }
 
             return dtoCountries;
@@ -58,19 +47,7 @@ namespace Infodoctor.BL.Services
                 throw new ApplicationException("Country not found");
             }
 
-            var local = new LocalizedCountry();
-            if (country.LocalizedCountries != null)
-                foreach (var localizedCountry in country.LocalizedCountries)
-                    if (string.Equals(localizedCountry.Language.Code.ToLower(), lang.ToLower(),
-                        StringComparison.Ordinal))
-                        local = localizedCountry;
-
-            var dtoCounty = new DtoCountrySingleLang()
-            {
-                Id = country.Id,
-                Name = local.Name,
-                LangCode = local.Language.Code.ToLower()
-            };
+            var dtoCounty = ConvertEntityToDtoSingleLang(lang, country);
 
             return dtoCounty;
         }
@@ -134,6 +111,30 @@ namespace Infodoctor.BL.Services
         {
             var deleted = _countryRepository.GetCountryById(id);
             _countryRepository.Delete(deleted);
+        }
+
+        private static DtoCountrySingleLang ConvertEntityToDtoSingleLang(string lang, Country country)
+        {
+            if (country == null)
+                throw new ArgumentNullException(nameof(country));
+
+            var local = new LocalizedCountry();
+            if (country.LocalizedCountries != null)
+                foreach (var localizedCountry in country.LocalizedCountries)
+                    if (string.Equals(localizedCountry.Language.Code.ToLower(), lang.ToLower(),
+                        StringComparison.Ordinal))
+                        local = localizedCountry;
+            var cities = country.Cities.Select(city => city.Id).ToList();
+
+            var dtoCounty = new DtoCountrySingleLang()
+            {
+                Id = country.Id,
+                Name = local.Name,
+                LangCode = local.Language?.Code.ToLower(),
+                CitiesId = cities
+            };
+
+            return dtoCounty;
         }
     }
 }

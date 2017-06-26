@@ -201,35 +201,35 @@ namespace Infodoctor.BL.Services
 
         private static DtoResortSingleLang ConvertEntityToDtoSingleLang(string lang, string pathToImage, Resort resort)
         {
-            LocalizedResort localizedResort;
-            LocalizedCity localizedCity;
-            LocalizedResortAddress localizedAddress;
+            LocalizedResort localizedResort = null;
+            LocalizedCity localizedCity = null;
+            LocalizedResortAddress localizedAddress = null;
 
             try
             {
                 localizedResort = resort.Localized.First(l => l.Language.Code.ToLower() == lang.ToLower());
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new ApplicationException(e.Message);
+                // ignored
             }
 
             try
             {
                 localizedAddress = resort.Address.Localized.First(l => l.Language.Code.ToLower() == lang.ToLower());
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new ApplicationException(e.Message);
+                // ignored
             }
 
             try
             {
                 localizedCity = localizedAddress?.City.LocalizedCities.First(l => l.Language.Code.ToLower() == lang.ToLower());
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new ApplicationException(e.Message);
+                // ignored
             }
 
             var dtoResortAddress = new DtoAddressSingleLang()
@@ -238,35 +238,35 @@ namespace Infodoctor.BL.Services
                 Country = localizedAddress?.Country,
                 City = localizedCity?.Name,
                 Street = localizedAddress?.Street,
-                Phones = new List<DtoPhoneSingleLang>()
+                Phones = new List<DtoPhoneSingleLang>(),
+                Coords = new Coords() { Lat = resort.Address?.Lat, Lng = resort.Address?.Lng }
             };
 
-            if (localizedAddress != null)
-                foreach (var phone in localizedAddress.Phones)
+            foreach (var phone in resort.Address?.Phones)
+            {
+                var locals = phone.Localized.Where(l => l.Language.Code.ToLower() == lang.ToLower()).ToList();
+
+                if (!locals.Any()) continue;
+
+                foreach (var local in locals)
                 {
-                    var locals = phone.Localized.Where(l => l.Language.Code.ToLower() == lang.ToLower()).ToList();
-
-                    if (!locals.Any()) continue;
-
-                    foreach (var local in locals)
+                    var dtoClinicPhone = new DtoPhoneSingleLang()
                     {
-                        var dtoClinicPhone = new DtoPhoneSingleLang()
-                        {
-                            Desc = local.Description,
-                            Number = local.Number
-                        };
-                        dtoResortAddress.Phones.Add(dtoClinicPhone);
-                    }
+                        Desc = local.Description,
+                        Number = local.Number
+                    };
+                    dtoResortAddress.Phones.Add(dtoClinicPhone);
                 }
+            }
 
             var dtoResort = new DtoResortSingleLang()
             {
                 Id = resort.Id,
-                LangCode = localizedResort.Language.Code.ToLower(),
-                Name = localizedResort.Name,
+                LangCode = localizedResort?.Language.Code.ToLower(),
+                Name = localizedResort?.Name,
                 Email = resort.Email,
                 Site = resort.Site,
-                Specialisations = localizedResort.Specialisations,
+                Specialisations = localizedResort?.Specialisations,
                 Address = dtoResortAddress,
                 RateAverage = resort.RateAverage,
                 RatePoliteness = resort.RatePoliteness,

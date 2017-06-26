@@ -2,6 +2,7 @@
 
 namespace Infodoctor.BL.DtoModels
 {
+    #region SingleLang
     public class DtoCountrySingleLang
     {
         public string LangCode { get; set; }
@@ -9,7 +10,9 @@ namespace Infodoctor.BL.DtoModels
         public string Name { get; set; }
         public List<int> CitiesId { get; set; }
     }
+    #endregion
 
+    #region MultiLang
     public class DtoCountryMultiLang
     {
         public int Id { get; set; }
@@ -23,4 +26,5 @@ namespace Infodoctor.BL.DtoModels
         public string Name { get; set; }
         public string LangCode { get; set; }
     }
+    #endregion
 }

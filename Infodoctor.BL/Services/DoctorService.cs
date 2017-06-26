@@ -46,116 +46,7 @@ namespace Infodoctor.BL.Services
 
             foreach (var doctor in doctors)
             {
-                var local = new DtoDoctorLocalized();
-
-                if (doctor.Localized != null)
-                    foreach (var localizedDoctor in doctor.Localized)
-                        if (string.Equals(localizedDoctor.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            local = new DtoDoctorLocalized()
-                            {
-                                Id = localizedDoctor.Id,
-                                Name = localizedDoctor.Name,
-                                Specialization = localizedDoctor.Specialization,
-                                Manipulation = localizedDoctor.Manipulation,
-                                LangCode = localizedDoctor.Language.Code.ToLower()
-                            };
-                        }
-
-                var category = new DtoDoctorCategorySingleLang();
-                if (doctor.Category.Localized != null)
-                    foreach (var dc in doctor.Category.Localized)
-                        if (string.Equals(dc.Language.Code, lang, StringComparison.InvariantCultureIgnoreCase))
-                            category = new DtoDoctorCategorySingleLang()
-                            {
-                                Id = dc.Id,
-                                Name = dc.Name,
-                                LangCode = dc.Language.Code
-                            };
-
-                var dtoDoctor = new DtoDoctorSingleLang()
-                {
-                    Id = doctor.Id,
-                    LangCode = local.LangCode.ToLower(),
-                    Name = local.Name,
-                    Manipulation = local.Manipulation,
-                    Email = doctor.Email,
-                    Experience = doctor.Experience,
-                    Specialization = local.Specialization,
-                    Category = category,
-                    RatePoliteness = doctor.RatePoliteness,
-                    RateProfessionalism = doctor.RateProfessionalism,
-                    RateWaitingTime = doctor.RateWaitingTime,
-                    RateAverage = doctor.RateAverage,
-                    ReviewCount = doctor.DoctorReviews.Count,
-                    Image = pathToImage + doctor.ImageName
-                };
-
-                if (doctor.Address != null)
-                {
-                    var dtoPhoneList = new List<DtoPhoneSingleLang>();
-                    foreach (var clinicAddressPhone in doctor.Address.Phones)
-                    {
-                        var localizedDtoPhone = new LocalizedDtoPhone();
-                        foreach (var localizedClinicPhone in clinicAddressPhone.LocalizedPhones)
-                        {
-                            if (string.Equals(localizedClinicPhone.Language.Code.ToLower(), lang.ToLower(),
-                                StringComparison.Ordinal))
-                            {
-                                localizedDtoPhone = new LocalizedDtoPhone()
-                                {
-                                    Id = localizedClinicPhone.Id,
-                                    Desc = localizedClinicPhone.Description,
-                                    Number = localizedClinicPhone.Number,
-                                    LangCode = localizedClinicPhone.Language.Code
-                                };
-
-                            }
-
-                        }
-                        dtoPhoneList.Add(new DtoPhoneSingleLang()
-                        {
-                            Id = clinicAddressPhone.Id,
-                            Desc = localizedDtoPhone.Desc,
-                            Number = localizedDtoPhone.Number
-                        });
-                    }
-
-                    var localizedDtoAddress = new LocalizedDtoAddress();
-                    foreach (var clinicAddressLocalizedAddress in doctor.Address.LocalizedAddresses)
-                    {
-                        if (clinicAddressLocalizedAddress.Language.Code.ToLower() == lang.ToLower())
-                        {
-                            localizedDtoAddress = new LocalizedDtoAddress()
-                            {
-                                Country = clinicAddressLocalizedAddress.Country,
-                                City = clinicAddressLocalizedAddress.City.LocalizedCities.First(c => c.Language.Code.ToLower() == lang.ToLower()).Name,
-                                Street = clinicAddressLocalizedAddress.Street,
-                                LangCode = clinicAddressLocalizedAddress.Language.Code.ToLower()
-                            };
-                        }
-                    }
-
-                    var dtoAddress = new DtoAddressSingleLang()
-                    {
-                        Id = doctor.Address.Id,
-                        Country = localizedDtoAddress.Country,
-                        City = localizedDtoAddress.City,
-                        Street = localizedDtoAddress.Street,
-                        Phones = dtoPhoneList
-                    };
-
-                    dtoDoctor.Address = dtoAddress;
-                }
-
-                if (doctor.Clinics != null)
-                {
-                    dtoDoctor.ClinicsIds = new List<int>();
-                    foreach (var clinic in doctor.Clinics)
-                    {
-                        dtoDoctor.ClinicsIds.Add(clinic.Id);
-                    }
-                }
+                var dtoDoctor = ConvertEntityToDtoSingleLang(lang, pathToImage, doctor);
                 result.Add(dtoDoctor);
             }
 
@@ -165,9 +56,7 @@ namespace Infodoctor.BL.Services
         public DtoPagedDoctor GetPagedDoctors(int perPage, int numPage, string pathToImage, string lang)
         {
             if (perPage < 1 || numPage < 1)
-            {
                 throw new ApplicationException("Incorrect request parameter");
-            }
 
             var doctors = _doctorRepository.GetAllDoctors();
             var pagedList = new PagedList<Doctor>(doctors, perPage, numPage);
@@ -180,116 +69,7 @@ namespace Infodoctor.BL.Services
 
             foreach (var doctor in pagedList)
             {
-                var local = new DtoDoctorLocalized();
-
-                if (doctor.Localized != null)
-                    foreach (var localizedDoctor in doctor.Localized)
-                        if (string.Equals(localizedDoctor.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            local = new DtoDoctorLocalized()
-                            {
-                                Id = localizedDoctor.Id,
-                                Name = localizedDoctor.Name,
-                                Specialization = localizedDoctor.Specialization,
-                                Manipulation = localizedDoctor.Manipulation,
-                                LangCode = localizedDoctor.Language.Code.ToLower()
-                            };
-                        }
-
-                var category = new DtoDoctorCategorySingleLang();
-                if (doctor.Category.Localized != null)
-                    foreach (var dc in doctor.Category.Localized)
-                        if (string.Equals(dc.Language.Code, lang, StringComparison.InvariantCultureIgnoreCase))
-                            category = new DtoDoctorCategorySingleLang()
-                            {
-                                Id = dc.Id,
-                                Name = dc.Name,
-                                LangCode = dc.Language.Code.ToLower()
-                            };
-
-                var dtoDoctor = new DtoDoctorSingleLang()
-                {
-                    Id = doctor.Id,
-                    LangCode = local.LangCode.ToLower(),
-                    Name = local.Name,
-                    Manipulation = local.Manipulation,
-                    Email = doctor.Email,
-                    Experience = doctor.Experience,
-                    Specialization = local.Specialization,
-                    Category = category,
-                    RatePoliteness = doctor.RatePoliteness,
-                    RateProfessionalism = doctor.RateProfessionalism,
-                    RateWaitingTime = doctor.RateWaitingTime,
-                    RateAverage = doctor.RateAverage,
-                    ReviewCount = doctor.DoctorReviews.Count,
-                    Image = pathToImage + doctor.ImageName
-                };
-
-                if (doctor.Address != null)
-                {
-                    var dtoPhoneList = new List<DtoPhoneSingleLang>();
-                    foreach (var clinicAddressPhone in doctor.Address.Phones)
-                    {
-                        var localizedDtoPhone = new LocalizedDtoPhone();
-                        foreach (var localizedClinicPhone in clinicAddressPhone.LocalizedPhones)
-                        {
-                            if (string.Equals(localizedClinicPhone.Language.Code.ToLower(), lang.ToLower(),
-                                StringComparison.Ordinal))
-                            {
-                                localizedDtoPhone = new LocalizedDtoPhone()
-                                {
-                                    Id = localizedClinicPhone.Id,
-                                    Desc = localizedClinicPhone.Description,
-                                    Number = localizedClinicPhone.Number,
-                                    LangCode = localizedClinicPhone.Language.Code.ToLower()
-                                };
-
-                            }
-
-                        }
-                        dtoPhoneList.Add(new DtoPhoneSingleLang()
-                        {
-                            Id = clinicAddressPhone.Id,
-                            Desc = localizedDtoPhone.Desc,
-                            Number = localizedDtoPhone.Number
-                        });
-                    }
-
-                    var localizedDtoAddress = new LocalizedDtoAddress();
-                    foreach (var clinicAddressLocalizedAddress in doctor.Address.LocalizedAddresses)
-                    {
-                        if (clinicAddressLocalizedAddress.Language.Code.ToLower() == lang.ToLower())
-                        {
-                            localizedDtoAddress = new LocalizedDtoAddress()
-                            {
-                                Country = clinicAddressLocalizedAddress.Country,
-                                City = clinicAddressLocalizedAddress.City.LocalizedCities.First(c => c.Language.Code.ToLower() == lang.ToLower()).Name,
-                                Street = clinicAddressLocalizedAddress.Street,
-                                LangCode = clinicAddressLocalizedAddress.Language.Code.ToLower()
-                            };
-                        }
-                    }
-
-                    var dtoAddress = new DtoAddressSingleLang()
-                    {
-                        Id = doctor.Address.Id,
-                        Country = localizedDtoAddress.Country,
-                        City = localizedDtoAddress.City,
-                        Street = localizedDtoAddress.Street,
-                        Phones = dtoPhoneList
-                    };
-
-                    dtoDoctor.Address = dtoAddress;
-                }
-
-                if (doctor.Clinics != null)
-                {
-                    dtoDoctor.ClinicsIds = new List<int>();
-                    foreach (var clinic in doctor.Clinics)
-                    {
-                        dtoDoctor.ClinicsIds.Add(clinic.Id);
-                    }
-                }
+                var dtoDoctor = ConvertEntityToDtoSingleLang(lang, pathToImage, doctor);
                 dtoDoctors.Add(dtoDoctor);
             }
 
@@ -381,116 +161,7 @@ namespace Infodoctor.BL.Services
 
             foreach (var doctor in pagedList)
             {
-                var local = new DtoDoctorLocalized();
-
-                if (doctor.Localized != null)
-                    foreach (var localizedDoctor in doctor.Localized)
-                        if (string.Equals(localizedDoctor.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            local = new DtoDoctorLocalized()
-                            {
-                                Id = localizedDoctor.Id,
-                                Name = localizedDoctor.Name,
-                                Specialization = localizedDoctor.Specialization,
-                                Manipulation = localizedDoctor.Manipulation,
-                                LangCode = localizedDoctor.Language.Code.ToLower()
-                            };
-                        }
-
-                var category = new DtoDoctorCategorySingleLang();
-                if (doctor.Category.Localized != null)
-                    foreach (var dc in doctor.Category.Localized)
-                        if (string.Equals(dc.Language.Code, lang, StringComparison.InvariantCultureIgnoreCase))
-                            category = new DtoDoctorCategorySingleLang()
-                            {
-                                Id = dc.Id,
-                                Name = dc.Name,
-                                LangCode = dc.Language.Code.ToLower()
-                            };
-
-                var dtoDoctor = new DtoDoctorSingleLang()
-                {
-                    Id = doctor.Id,
-                    LangCode = local.LangCode.ToLower(),
-                    Name = local.Name,
-                    Manipulation = local.Manipulation,
-                    Email = doctor.Email,
-                    Experience = doctor.Experience,
-                    Specialization = local.Specialization,
-                    Category = category,
-                    RatePoliteness = doctor.RatePoliteness,
-                    RateProfessionalism = doctor.RateProfessionalism,
-                    RateWaitingTime = doctor.RateWaitingTime,
-                    RateAverage = doctor.RateAverage,
-                    ReviewCount = doctor.DoctorReviews.Count,
-                    Image = pathToImage + doctor.ImageName
-                };
-
-                if (doctor.Address != null)
-                {
-                    var dtoPhoneList = new List<DtoPhoneSingleLang>();
-                    foreach (var clinicAddressPhone in doctor.Address.Phones)
-                    {
-                        var localizedDtoPhone = new LocalizedDtoPhone();
-                        foreach (var localizedClinicPhone in clinicAddressPhone.LocalizedPhones)
-                        {
-                            if (string.Equals(localizedClinicPhone.Language.Code.ToLower(), lang.ToLower(),
-                                StringComparison.Ordinal))
-                            {
-                                localizedDtoPhone = new LocalizedDtoPhone()
-                                {
-                                    Id = localizedClinicPhone.Id,
-                                    Desc = localizedClinicPhone.Description,
-                                    Number = localizedClinicPhone.Number,
-                                    LangCode = localizedClinicPhone.Language.Code.ToLower()
-                                };
-
-                            }
-
-                        }
-                        dtoPhoneList.Add(new DtoPhoneSingleLang()
-                        {
-                            Id = clinicAddressPhone.Id,
-                            Desc = localizedDtoPhone.Desc,
-                            Number = localizedDtoPhone.Number
-                        });
-                    }
-
-                    var localizedDtoAddress = new LocalizedDtoAddress();
-                    foreach (var clinicAddressLocalizedAddress in doctor.Address.LocalizedAddresses)
-                    {
-                        if (clinicAddressLocalizedAddress.Language.Code.ToLower() == lang.ToLower())
-                        {
-                            localizedDtoAddress = new LocalizedDtoAddress()
-                            {
-                                Country = clinicAddressLocalizedAddress.Country,
-                                City = clinicAddressLocalizedAddress.City.LocalizedCities.First(c => c.Language.Code.ToLower() == lang.ToLower()).Name,
-                                Street = clinicAddressLocalizedAddress.Street,
-                                LangCode = clinicAddressLocalizedAddress.Language.Code.ToLower()
-                            };
-                        }
-                    }
-
-                    var dtoAddress = new DtoAddressSingleLang()
-                    {
-                        Id = doctor.Address.Id,
-                        Country = localizedDtoAddress.Country,
-                        City = localizedDtoAddress.City,
-                        Street = localizedDtoAddress.Street,
-                        Phones = dtoPhoneList
-                    };
-
-                    dtoDoctor.Address = dtoAddress;
-                }
-
-                if (doctor.Clinics != null)
-                {
-                    dtoDoctor.ClinicsIds = new List<int>();
-                    foreach (var clinic in doctor.Clinics)
-                    {
-                        dtoDoctor.ClinicsIds.Add(clinic.Id);
-                    }
-                }
+                var dtoDoctor = ConvertEntityToDtoSingleLang(lang, pathToImage, doctor);
                 dtoDoctors.Add(dtoDoctor);
             }
 
@@ -512,116 +183,8 @@ namespace Infodoctor.BL.Services
             if (doctor == null)
                 throw new ApplicationException("Doctor not found");
 
-            var local = new DtoDoctorLocalized();
+            var dtoDoctor = ConvertEntityToDtoSingleLang(lang, pathToImage, doctor);
 
-            if (doctor.Localized != null)
-                foreach (var localizedDoctor in doctor.Localized)
-                    if (string.Equals(localizedDoctor.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        local = new DtoDoctorLocalized()
-                        {
-                            Id = localizedDoctor.Id,
-                            Name = localizedDoctor.Name,
-                            Specialization = localizedDoctor.Specialization,
-                            Manipulation = localizedDoctor.Manipulation,
-                            LangCode = localizedDoctor.Language.Code.ToLower()
-                        };
-                    }
-
-            var category = new DtoDoctorCategorySingleLang();
-            if (doctor.Category.Localized != null)
-                foreach (var dc in doctor.Category.Localized)
-                    if (string.Equals(dc.Language.Code, lang, StringComparison.InvariantCultureIgnoreCase))
-                        category = new DtoDoctorCategorySingleLang()
-                        {
-                            Id = dc.Id,
-                            Name = dc.Name,
-                            LangCode = dc.Language.Code.ToLower()
-                        };
-
-            var dtoDoctor = new DtoDoctorSingleLang()
-            {
-                Id = doctor.Id,
-                LangCode = local.LangCode.ToLower(),
-                Name = local.Name,
-                Manipulation = local.Manipulation,
-                Email = doctor.Email,
-                Experience = doctor.Experience,
-                Specialization = local.Specialization,
-                Category = category,
-                RatePoliteness = doctor.RatePoliteness,
-                RateProfessionalism = doctor.RateProfessionalism,
-                RateWaitingTime = doctor.RateWaitingTime,
-                RateAverage = doctor.RateAverage,
-                ReviewCount = doctor.DoctorReviews.Count,
-                Image = pathToImage + doctor.ImageName
-            };
-
-            if (doctor.Address != null)
-            {
-                var dtoPhoneList = new List<DtoPhoneSingleLang>();
-                foreach (var clinicAddressPhone in doctor.Address.Phones)
-                {
-                    var localizedDtoPhone = new LocalizedDtoPhone();
-                    foreach (var localizedClinicPhone in clinicAddressPhone.LocalizedPhones)
-                    {
-                        if (string.Equals(localizedClinicPhone.Language.Code.ToLower(), lang.ToLower(),
-                            StringComparison.Ordinal))
-                        {
-                            localizedDtoPhone = new LocalizedDtoPhone()
-                            {
-                                Id = localizedClinicPhone.Id,
-                                Desc = localizedClinicPhone.Description,
-                                Number = localizedClinicPhone.Number,
-                                LangCode = localizedClinicPhone.Language.Code.ToLower()
-                            };
-
-                        }
-
-                    }
-                    dtoPhoneList.Add(new DtoPhoneSingleLang()
-                    {
-                        Id = clinicAddressPhone.Id,
-                        Desc = localizedDtoPhone.Desc,
-                        Number = localizedDtoPhone.Number
-                    });
-                }
-
-                var localizedDtoAddress = new LocalizedDtoAddress();
-                foreach (var clinicAddressLocalizedAddress in doctor.Address.LocalizedAddresses)
-                {
-                    if (clinicAddressLocalizedAddress.Language.Code.ToLower() == lang.ToLower())
-                    {
-                        localizedDtoAddress = new LocalizedDtoAddress()
-                        {
-                            Country = clinicAddressLocalizedAddress.Country,
-                            City = clinicAddressLocalizedAddress.City.LocalizedCities.First(c => c.Language.Code.ToLower() == lang.ToLower()).Name,
-                            Street = clinicAddressLocalizedAddress.Street,
-                            LangCode = clinicAddressLocalizedAddress.Language.Code.ToLower()
-                        };
-                    }
-                }
-
-                var dtoAddress = new DtoAddressSingleLang()
-                {
-                    Id = doctor.Address.Id,
-                    Country = localizedDtoAddress.Country,
-                    City = localizedDtoAddress.City,
-                    Street = localizedDtoAddress.Street,
-                    Phones = dtoPhoneList
-                };
-
-                dtoDoctor.Address = dtoAddress;
-            }
-
-            if (doctor.Clinics != null)
-            {
-                dtoDoctor.ClinicsIds = new List<int>();
-                foreach (var clinic in doctor.Clinics)
-                {
-                    dtoDoctor.ClinicsIds.Add(clinic.Id);
-                }
-            }
             return dtoDoctor;
         }
 
@@ -740,6 +303,128 @@ namespace Infodoctor.BL.Services
                 _doctorRepository.Delete(doctor);
                 _searchService.RefreshCache();
             }
+        }
+
+        private static DtoDoctorSingleLang ConvertEntityToDtoSingleLang(string lang, string pathToImage, Doctor doctor)
+        {
+            var local = new DtoDoctorLocalized();
+
+            if (doctor.Localized != null)
+                foreach (var localizedDoctor in doctor.Localized)
+                    if (string.Equals(localizedDoctor.Language.Code, lang, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        local = new DtoDoctorLocalized()
+                        {
+                            Id = localizedDoctor.Id,
+                            Name = localizedDoctor.Name,
+                            Specialization = localizedDoctor.Specialization,
+                            Manipulation = localizedDoctor.Manipulation,
+                            LangCode = localizedDoctor.Language.Code.ToLower()
+                        };
+                    }
+
+            var category = new DtoDoctorCategorySingleLang();
+            if (doctor.Category.Localized != null)
+                foreach (var dc in doctor.Category.Localized)
+                    if (string.Equals(dc.Language.Code, lang, StringComparison.InvariantCultureIgnoreCase))
+                        category = new DtoDoctorCategorySingleLang()
+                        {
+                            Id = dc.Id,
+                            Name = dc.Name,
+                            LangCode = dc.Language.Code.ToLower()
+                        };
+
+            var dtoDoctor = new DtoDoctorSingleLang()
+            {
+                Id = doctor.Id,
+                LangCode = local.LangCode?.ToLower(),
+                Name = local.Name,
+                Manipulation = local.Manipulation,
+                Email = doctor.Email,
+                Experience = doctor.Experience,
+                Specialization = local.Specialization,
+                Category = category,
+                RatePoliteness = doctor.RatePoliteness,
+                RateProfessionalism = doctor.RateProfessionalism,
+                RateWaitingTime = doctor.RateWaitingTime,
+                RateAverage = doctor.RateAverage,
+                ReviewCount = doctor.DoctorReviews.Count,
+                Image = pathToImage + doctor.ImageName
+            };
+
+            if (doctor.Address != null)
+            {
+                var coords = new Coords()
+                {
+                    Lat = doctor.Address.Lat,
+                    Lng = doctor.Address.Lng
+                };
+
+                var dtoPhoneList = new List<DtoPhoneSingleLang>();
+                foreach (var clinicAddressPhone in doctor.Address.Phones)
+                {
+                    var localizedDtoPhone = new LocalizedDtoPhone();
+                    foreach (var localizedClinicPhone in clinicAddressPhone.LocalizedPhones)
+                    {
+                        if (string.Equals(localizedClinicPhone.Language.Code.ToLower(), lang.ToLower(),
+                            StringComparison.Ordinal))
+                        {
+                            localizedDtoPhone = new LocalizedDtoPhone()
+                            {
+                                Id = localizedClinicPhone.Id,
+                                Desc = localizedClinicPhone.Description,
+                                Number = localizedClinicPhone.Number,
+                                LangCode = localizedClinicPhone.Language.Code.ToLower()
+                            };
+
+                        }
+
+                    }
+                    dtoPhoneList.Add(new DtoPhoneSingleLang()
+                    {
+                        Id = clinicAddressPhone.Id,
+                        Desc = localizedDtoPhone.Desc,
+                        Number = localizedDtoPhone.Number
+                    });
+                }
+
+                var localizedDtoAddress = new LocalizedDtoAddress();
+                foreach (var clinicAddressLocalizedAddress in doctor.Address.LocalizedAddresses)
+                {
+                    if (clinicAddressLocalizedAddress.Language.Code.ToLower() == lang.ToLower())
+                    {
+                        localizedDtoAddress = new LocalizedDtoAddress()
+                        {
+                            Country = clinicAddressLocalizedAddress.Country,
+                            City = clinicAddressLocalizedAddress.City.LocalizedCities.First(c => c.Language.Code.ToLower() == lang.ToLower()).Name,
+                            Street = clinicAddressLocalizedAddress.Street,
+                            LangCode = clinicAddressLocalizedAddress.Language.Code.ToLower()
+                        };
+                    }
+                }
+
+                var dtoAddress = new DtoAddressSingleLang()
+                {
+                    Id = doctor.Address.Id,
+                    Country = localizedDtoAddress.Country,
+                    City = localizedDtoAddress.City,
+                    Street = localizedDtoAddress.Street,
+                    Phones = dtoPhoneList,
+                    Coords = coords
+                };
+
+                dtoDoctor.Address = dtoAddress;
+            }
+
+            if (doctor.Clinics == null)
+                return dtoDoctor;
+
+            dtoDoctor.ClinicsIds = new List<int>();
+            foreach (var clinic in doctor.Clinics)
+            {
+                dtoDoctor.ClinicsIds.Add(clinic.Id);
+            }
+            return dtoDoctor;
         }
     }
 }

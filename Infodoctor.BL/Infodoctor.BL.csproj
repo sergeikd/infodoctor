@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DtoModels\DtoAddress.cs" />
     <Compile Include="DtoModels\DtoArticleComment.cs" />
     <Compile Include="DtoModels\DtoArticle.cs" />
     <Compile Include="DtoModels\DtoClinic.cs" />
