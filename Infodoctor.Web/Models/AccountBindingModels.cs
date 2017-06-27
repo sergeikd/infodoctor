@@ -18,6 +18,9 @@ namespace Infodoctor.Web.Models
 
         [Required]
         public string PhoneNumber { get; set; }
+
+        [Required]
+        public string LangCode { get; set; }
     }
 
     public class ResetPasswordModel
@@ -80,6 +83,9 @@ namespace Infodoctor.Web.Models
 
         [Display(Name = "Телефон")]
         public string Phone { get; set; }
+
+        [Required]
+        public string LangCode { get; set; }
     }
 
     public class RegisterExternalBindingModel

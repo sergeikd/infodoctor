@@ -63,7 +63,8 @@ namespace Infodoctor.Web
             {
                 Email = "admin@infodoctor.by",
                 UserName = "admin",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Language = langs.First(l=>l.Code=="ru")
             };
             var password = "admin_";
             var result = userManager.Create(admin, password);
@@ -78,7 +79,8 @@ namespace Infodoctor.Web
             {
                 Email = "v.korbut8@gmail.com",
                 UserName = "Vlad_admin",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Language = langs.First(l => l.Code == "ru")
             };
             password = "1234qw";
             result = userManager.Create(adminVlad, password);
@@ -94,7 +96,8 @@ namespace Infodoctor.Web
             {
                 Email = "moder@infodoctor.by",
                 UserName = "moder",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Language = langs.First(l => l.Code == "ru")
             };
             password = "moder_";
             result = userManager.Create(moder, password);
@@ -107,7 +110,8 @@ namespace Infodoctor.Web
             {
                 Email = "asdrudes@gmail.com",
                 UserName = "Vlad_moder",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Language = langs.First(l => l.Code == "ru")
             };
             password = "1234qw";
             result = userManager.Create(moderVlad, password);
@@ -122,7 +126,8 @@ namespace Infodoctor.Web
                 {
                     Email = "user" + i + "@infodoctor.by",
                     UserName = "user" + i,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    Language = langs.First(l => l.Code == "ru")
                 };
                 password = "123456";
                 result = userManager.Create(user, password);

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Infodoctor.BL.Interfaces;
 using Infodoctor.Domain.Entities;
 using Infodoctor.Web.Models;
 using Infodoctor.Web.Providers;
@@ -27,17 +27,20 @@ namespace Infodoctor.Web.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private readonly ILanguageService _languageService;
 
         public AccountController()
         {
         }
 
         public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat, ILanguageService languageService)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
+            _languageService = languageService;
         }
+
 
         public ApplicationUserManager UserManager
         {
@@ -76,7 +79,8 @@ namespace Infodoctor.Web.Controllers
             {
                 UserName = user.UserName,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
+                LangCode = user.Language?.Code.ToLower()
             };
 
             return userData;
@@ -163,8 +167,20 @@ namespace Infodoctor.Web.Controllers
                 return GetErrorResult(res);
             }
 
+            Language lang;
+            try
+            {
+                lang = _languageService.GetLanguageByCode(model.LangCode);
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException(e.Message);
+            }
+
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
+            user.Language = lang;
+
 
             var result = await UserManager.UpdateAsync(user);
             if (!result.Succeeded)
@@ -450,7 +466,18 @@ namespace Infodoctor.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.Phone };
+            Language lang;
+
+            try
+            {
+                lang = _languageService.GetLanguageByCode(model.LangCode);
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException(e.Message);
+            }
+
+            var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.Phone, Language = lang };
 
             var result = await UserManager.CreateAsync(user, model.Password);
 

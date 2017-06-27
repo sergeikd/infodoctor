@@ -185,10 +185,5 @@ namespace Infodoctor.BL.Services
             if(articleComment != null)
                 _commentsRepository.Delete(articleComment);
         }
-
-        public void Update(DtoArticleComment comment)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Configuration;
 using System.Net.Configuration;
 using System.Net.Mail;
-using System.Threading.Tasks;
 using Infodoctor.DAL;
 using Infodoctor.Domain.Entities;
 using Microsoft.AspNet.Identity;
@@ -17,14 +16,12 @@ namespace Infodoctor.Web
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
-        {
-        }
+        { }
 
         public new class EmailService
         {
             public void Send(IdentityMessage message)
             {
-
                 var smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
 
                 var from = smtpSection.Network.UserName;
