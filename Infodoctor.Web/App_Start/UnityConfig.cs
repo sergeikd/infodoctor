@@ -50,7 +50,7 @@ namespace Infodoctor.Web.App_Start
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
             container.RegisterType<UserManager<ApplicationUser>>();
             container.RegisterType<ApplicationUserManager>();
-            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<AccountController>(new InjectionConstructor(typeof(ILanguageService)));
             container.RegisterType<AppDbContext>(new PerRequestLifetimeManager(), new InjectionConstructor());//for keep the same dbContext instance per request
             //container.RegisterType<AppDbContext>(new InjectionConstructor());
             container.RegisterType<ConfigService>(new InjectionConstructor());

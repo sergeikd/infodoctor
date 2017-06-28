@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -29,16 +31,16 @@ namespace Infodoctor.Web.Controllers
         private ApplicationUserManager _userManager;
         private readonly ILanguageService _languageService;
 
-        public AccountController()
+        public AccountController(ILanguageService languageService)
         {
+            _languageService = languageService;
         }
 
         public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat, ILanguageService languageService)
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
-            _languageService = languageService;
         }
 
 
@@ -56,12 +58,14 @@ namespace Infodoctor.Web.Controllers
         public UserInfoViewModel GetUserInfo()
         {
             var externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
 
             return new UserInfoViewModel
             {
-                Email = User.Identity.GetUserName(),
+                UserName = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin?.LoginProvider,
+                LangCode = identity.Claims.Where(c => c.Type == "LangCode").Select(c => c.Value).SingleOrDefault()
             };
         }
 
@@ -80,7 +84,7 @@ namespace Infodoctor.Web.Controllers
                 UserName = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                LangCode = user.Language?.Code.ToLower()
+                LangCode = user.LangCode
             };
 
             return userData;
@@ -179,8 +183,7 @@ namespace Infodoctor.Web.Controllers
 
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
-            user.Language = lang;
-
+            user.LangCode = lang?.Code;
 
             var result = await UserManager.UpdateAsync(user);
             if (!result.Succeeded)
@@ -477,7 +480,7 @@ namespace Infodoctor.Web.Controllers
                 throw new ApplicationException(e.Message);
             }
 
-            var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.Phone, Language = lang };
+            var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.Phone, LangCode = lang?.Code };
 
             var result = await UserManager.CreateAsync(user, model.Password);
 
@@ -577,6 +580,15 @@ namespace Infodoctor.Web.Controllers
                 return true;
             return false;
         }
+
+        [Route("UserLang")]
+        [HttpPost]
+        public string UserLang()
+        {
+            var user = UserManager.FindByName(User.Identity.Name);
+            return user.LangCode;
+        }
+
         #region Helpers
 
         private IAuthenticationManager Authentication

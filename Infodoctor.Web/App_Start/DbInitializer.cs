@@ -64,7 +64,7 @@ namespace Infodoctor.Web
                 Email = "admin@infodoctor.by",
                 UserName = "admin",
                 EmailConfirmed = true,
-                Language = langs.First(l=>l.Code=="ru")
+                LangCode = langs.First(l=>l.Code=="ru").Code
             };
             var password = "admin_";
             var result = userManager.Create(admin, password);
@@ -80,7 +80,7 @@ namespace Infodoctor.Web
                 Email = "v.korbut8@gmail.com",
                 UserName = "Vlad_admin",
                 EmailConfirmed = true,
-                Language = langs.First(l => l.Code == "ru")
+                LangCode = langs.First(l => l.Code == "ru").Code
             };
             password = "1234qw";
             result = userManager.Create(adminVlad, password);
@@ -97,7 +97,7 @@ namespace Infodoctor.Web
                 Email = "moder@infodoctor.by",
                 UserName = "moder",
                 EmailConfirmed = true,
-                Language = langs.First(l => l.Code == "ru")
+                LangCode = langs.First(l=>l.Code=="ru").Code
             };
             password = "moder_";
             result = userManager.Create(moder, password);
@@ -111,7 +111,7 @@ namespace Infodoctor.Web
                 Email = "asdrudes@gmail.com",
                 UserName = "Vlad_moder",
                 EmailConfirmed = true,
-                Language = langs.First(l => l.Code == "ru")
+                LangCode = langs.First(l=>l.Code=="ru").Code
             };
             password = "1234qw";
             result = userManager.Create(moderVlad, password);
@@ -127,7 +127,7 @@ namespace Infodoctor.Web
                     Email = "user" + i + "@infodoctor.by",
                     UserName = "user" + i,
                     EmailConfirmed = true,
-                    Language = langs.First(l => l.Code == "ru")
+                    LangCode = langs.First(l=>l.Code=="ru").Code
                 };
                 password = "123456";
                 result = userManager.Create(user, password);
@@ -143,7 +143,7 @@ namespace Infodoctor.Web
                 Title = "Метод ЭКО. Что нужно знать?",
                 PublishDate = DateTime.Now.AddDays(-1),
                 Author = "admin",
-                Language = langs.First(l => l.Code == "ru")
+                Language = langs.First(l=>l.Code=="ru")
             };
             var art2 = new Article()
             {

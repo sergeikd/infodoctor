@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Infodoctor.Domain.Entities;
 
@@ -15,9 +14,9 @@ namespace Infodoctor.Web
         {
             langs = new List<Language>()
             {
-                new Language() {Name = "Russian", Code = "ru"},
+                new Language() {Name = "Русский", Code = "ru"},
                 new Language() {Name = "English", Code = "en"},
-                new Language() {Name = "Deutsch", Code = "de"}
+                new Language() {Name = "Deutsche", Code = "de"}
             };
 
             imagesList = new List<ImageFile>()
@@ -307,7 +306,16 @@ namespace Infodoctor.Web
                 city115
             };
 
-            var country1 = new Country() { LocalizedCountries = new List<LocalizedCountry>() { new LocalizedCountry { Name = "Беларусь", Language = langs.First(l => l.Code == "ru") } }, Cities = belarusCitiesList };
+            var country1 = new Country()
+            {
+                LocalizedCountries = new List<LocalizedCountry>()
+                {
+                    new LocalizedCountry
+                    {
+                        Name = "Беларусь", Language = langs.First(l => l.Code == "ru")
+                    }
+                }, Cities = belarusCitiesList
+            };
 
             countriesList.Add(country1);
 
