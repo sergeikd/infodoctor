@@ -8,6 +8,7 @@ namespace Infodoctor.BL.Interfaces
         IEnumerable<DtoArticleComment> GetComments();
         IEnumerable<DtoArticleComment> GetCommentsByArticleId(int id);
         DtoPagedArticleComments GetPagedCommentsByArticleId(int id, int perPage, int numPage);
+        DtoPagedArticleComments GetPagedCommentsByArticleId(int id, int perPage, int numPage, string lang);
         DtoArticleComment GetCommentById(int id);
         void Add(DtoArticleComment comment);
         void Delete(int id);

@@ -112,6 +112,50 @@ namespace Infodoctor.BL.Services
             return result;
         }
 
+        public DtoPagedClinicReview GetPagedReviewsByClinicId(int id, int perPage, int numPage, string lang)
+        {
+            if (id < 1 || perPage < 1 || numPage < 1)
+                throw new ApplicationException("Incorrect request parameter");
+
+            lang = lang.ToLower();
+
+            var reviews = _clinicReviewRepository.GetReviewsByClinicId(id).Where(x => x.IsApproved)
+                .OrderByDescending(c => c.Language.Code.ToLower() == lang)
+                .ThenByDescending(c => c.Language.Code.ToLower() != lang)
+                .ThenByDescending(c => c.PublishTime);
+
+            var pagedList = new PagedList<ClinicReview>(reviews, perPage, numPage);
+
+            if (!pagedList.Any())
+                throw new ApplicationException("Page not found");
+
+            var dtoClinicReviewsList = new List<DtoClinicReview>();
+            foreach (var clinicReview in pagedList)
+            {
+                dtoClinicReviewsList.Add(new DtoClinicReview()
+                {
+                    Id = clinicReview.Id,
+                    Text = clinicReview.Text,
+                    UserName = clinicReview.UserName,
+                    UserId = clinicReview.UserId,
+                    PublishTime = clinicReview.PublishTime,
+                    RatePoliteness = clinicReview.RatePoliteness,
+                    RatePrice = clinicReview.RatePrice,
+                    RateQuality = clinicReview.RateQuality,
+                    ClinicId = clinicReview.Clinic.Id,
+                    LangCode = clinicReview.Language.Code.ToLower()
+                });
+            }
+            var result = new DtoPagedClinicReview
+            {
+                ClinicReviews = dtoClinicReviewsList,
+                TotalCount = pagedList.TotalCount,
+                Page = pagedList.Page,
+                PageSize = pagedList.PageSize
+            };
+            return result;
+        }
+
         public DtoClinicReview GetClinicReviewById(int id)
         {
             ClinicReview clinicReview;

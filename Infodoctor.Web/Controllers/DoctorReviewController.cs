@@ -33,11 +33,11 @@ namespace Infodoctor.Web.Controllers
         }
 
         // GET: api/doctorreview/page/doctorId/perPage/numPage 
-        [Route("api/DoctorReview/page/{doctorId:int}/{perPage:int}/{numPage:int}")]
+        [Route("api/{lang}/DoctorReview/page/{doctorId:int}/{perPage:int}/{numPage:int}")]
         [HttpGet]
-        public DtoPagedDoctorReview GetPaged(int doctorId, int perPage, int numPage)
+        public DtoPagedDoctorReview GetPaged(int doctorId, int perPage, int numPage,string lang)
         {
-            return _doctorReviewService.GetPagedReviewByDoctorId(doctorId, perPage, numPage);
+            return _doctorReviewService.GetPagedReviewByDoctorId(doctorId, perPage, numPage,lang);
         }
 
 

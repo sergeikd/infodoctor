@@ -111,6 +111,49 @@ namespace Infodoctor.BL.Services
             return result;
         }
 
+        public DtoPagedDoctorReview GetPagedReviewByDoctorId(int id, int perPage, int numPage,string lang)
+        {
+            if (id < 1 || perPage < 1 || numPage < 1)
+                throw new ApplicationException("Incorrect request parameter");
+
+            lang = lang.ToLower();
+
+            var reviews = _doctorReviewRepository.GetReviewsByDoctorId(id).Where(c => c.IsApproved)
+                .OrderByDescending(c => c.Language.Code.ToLower() == lang)
+                .ThenByDescending(c => c.Language.Code.ToLower() != lang)
+                .ThenByDescending(c => c.PublishTime);
+
+            var pagedList = new PagedList<DoctorReview>(reviews, perPage, numPage);
+
+            if (!pagedList.Any())
+                throw new ApplicationException("Page not found");
+            var dtoDoctorReviewsList = new List<DtoDoctorReview>();
+            foreach (var doctorReview in pagedList)
+            {
+                dtoDoctorReviewsList.Add(new DtoDoctorReview()
+                {
+                    Id = doctorReview.Id,
+                    Text = doctorReview.Text,
+                    UserName = doctorReview.UserName,
+                    UserId = doctorReview.UserId,
+                    PublishTime = doctorReview.PublishTime,
+                    RatePoliteness = doctorReview.RatePoliteness,
+                    RateWaitingTime = doctorReview.RateWaitingTime,
+                    RateProfessionalism = doctorReview.RateProfessionalism,
+                    DoctorId = doctorReview.Doctor.Id,
+                    LangCode = doctorReview.Language.Code
+                });
+            }
+            var result = new DtoPagedDoctorReview()
+            {
+                DoctorReviews = dtoDoctorReviewsList,
+                TotalCount = pagedList.TotalCount,
+                Page = pagedList.Page,
+                PageSize = pagedList.PageSize
+            };
+            return result;
+        }
+
         public DtoDoctorReview GetReviewById(int id)
         {
             DoctorReview doctorReview;

@@ -64,7 +64,7 @@ namespace Infodoctor.Web
                 Email = "admin@infodoctor.by",
                 UserName = "admin",
                 EmailConfirmed = true,
-                LangCode = langs.First(l=>l.Code=="ru").Code
+                LangCode = langs.First(l => l.Code == "ru").Code
             };
             var password = "admin_";
             var result = userManager.Create(admin, password);
@@ -97,7 +97,7 @@ namespace Infodoctor.Web
                 Email = "moder@infodoctor.by",
                 UserName = "moder",
                 EmailConfirmed = true,
-                LangCode = langs.First(l=>l.Code=="ru").Code
+                LangCode = langs.First(l => l.Code == "ru").Code
             };
             password = "moder_";
             result = userManager.Create(moder, password);
@@ -111,7 +111,7 @@ namespace Infodoctor.Web
                 Email = "asdrudes@gmail.com",
                 UserName = "Vlad_moder",
                 EmailConfirmed = true,
-                LangCode = langs.First(l=>l.Code=="ru").Code
+                LangCode = langs.First(l => l.Code == "ru").Code
             };
             password = "1234qw";
             result = userManager.Create(moderVlad, password);
@@ -127,7 +127,7 @@ namespace Infodoctor.Web
                     Email = "user" + i + "@infodoctor.by",
                     UserName = "user" + i,
                     EmailConfirmed = true,
-                    LangCode = langs.First(l=>l.Code=="ru").Code
+                    LangCode = langs.First(l => l.Code == "ru").Code
                 };
                 password = "123456";
                 result = userManager.Create(user, password);
@@ -143,7 +143,7 @@ namespace Infodoctor.Web
                 Title = "Метод ЭКО. Что нужно знать?",
                 PublishDate = DateTime.Now.AddDays(-1),
                 Author = "admin",
-                Language = langs.First(l=>l.Code=="ru")
+                Language = langs.First(l => l.Code == "ru")
             };
             var art2 = new Article()
             {
@@ -160,31 +160,31 @@ namespace Infodoctor.Web
             var comment1 = new ArticleComment()
             {
                 IsApproved = true,
-                PublishTime = DateTime.Now.AddDays(-1),
-                Text = "Спасибо. Очень информативно.",
+                PublishTime = DateTime.Now.AddDays(-2),
+                Text = "Thank you. Very informative.",
                 UserId = userName.Id,
                 UserName = "admin",
                 Article = art1,
-                Language = langs.First(l => l.Code == "ru")
+                Language = langs.First(l => l.Code == "en")
             };
             var comment2 = new ArticleComment()
             {
                 IsApproved = true,
                 PublishTime = DateTime.Now.AddDays(-1),
-                Text = "Спасибо. Очень информативно.",
+                Text = "Thank you. Very informative.",
                 UserId = userName.Id,
                 UserName = "admin",
                 Article = art1,
-                Language = langs.First(l => l.Code == "ru")
+                Language = langs.First(l => l.Code == "en")
             };
             var comment3 = new ArticleComment()
             {
                 IsApproved = true,
-                PublishTime = DateTime.Now.AddDays(-1),
+                PublishTime = DateTime.Now.AddDays(-2),
                 Text = "Спасибо. Очень информативно.",
                 UserId = userName.Id,
                 UserName = "admin",
-                Article = art2,
+                Article = art1,
                 Language = langs.First(l => l.Code == "ru")
             };
             var comment4 = new ArticleComment()
@@ -194,10 +194,50 @@ namespace Infodoctor.Web
                 Text = "Спасибо. Очень информативно.",
                 UserId = userName.Id,
                 UserName = "admin",
+                Article = art1,
+                Language = langs.First(l => l.Code == "ru")
+            };
+            var comment5 = new ArticleComment()
+            {
+                IsApproved = true,
+                PublishTime = DateTime.Now.AddDays(-1),
+                Text = "Thank you. Very informative.",
+                UserId = userName.Id,
+                UserName = "admin",
+                Article = art2,
+                Language = langs.First(l => l.Code == "en")
+            };
+            var comment6 = new ArticleComment()
+            {
+                IsApproved = true,
+                PublishTime = DateTime.Now.AddDays(-1),
+                Text = "Thank you. Very informative.",
+                UserId = userName.Id,
+                UserName = "admin",
+                Article = art2,
+                Language = langs.First(l => l.Code == "en")
+            };
+            var comment7 = new ArticleComment()
+            {
+                IsApproved = true,
+                PublishTime = DateTime.Now.AddDays(-1),
+                Text = "Спасибо. Очень информативно.",
+                UserId = userName.Id,
+                UserName = "admin",
                 Article = art2,
                 Language = langs.First(l => l.Code == "ru")
             };
-            var comments = new List<ArticleComment>() { comment1, comment2, comment3, comment4 };
+            var comment8 = new ArticleComment()
+            {
+                IsApproved = true,
+                PublishTime = DateTime.Now.AddDays(-1),
+                Text = "Спасибо. Очень информативно.",
+                UserId = userName.Id,
+                UserName = "admin",
+                Article = art2,
+                Language = langs.First(l => l.Code == "ru")
+            };
+            var comments = new List<ArticleComment>() { comment1, comment2, comment3, comment4, comment5, comment6, comment7, comment8 };
 
             context.ArticleComments.AddRange(comments.OrderBy(d => d.PublishTime));
 

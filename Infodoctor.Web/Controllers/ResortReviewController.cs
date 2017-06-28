@@ -34,11 +34,11 @@ namespace Infodoctor.Web.Controllers
 
         // GET: api/resortreview/page/resortId/perPage/numPage 
         [AllowAnonymous]
-        [Route("api/resortreview/page/{resortId:int}/{perPage:int}/{numPage:int}")]
+        [Route("api/{lang}/resortreview/page/{resortId:int}/{perPage:int}/{numPage:int}")]
         [HttpGet]
-        public DtoPagedResortReview GetPaged(int resortId, int perPage, int numPage)
+        public DtoPagedResortReview GetPaged(int resortId, int perPage, int numPage, string lang)
         {
-            return _reviewService.GetPagedReviewByResortId(resortId, perPage, numPage);
+            return _reviewService.GetPagedReviewByResortId(resortId, perPage, numPage, lang);
         }
 
         // POST api/resortreview

@@ -109,6 +109,50 @@ namespace Infodoctor.BL.Services
             return result;
         }
 
+        public DtoPagedArticleComments GetPagedCommentsByArticleId(int id, int perPage, int numPage, string lang)
+        {
+            if (id < 1 || perPage < 1 || numPage < 1)
+                throw new ApplicationException("Incorrect request parameter");
+
+            lang = lang.ToLower();
+
+            var commentsList = _commentsRepository.GetCommentsByArticleId(id).Where(c => c.IsApproved)
+                .OrderByDescending(c => c.Language.Code.ToLower() == lang)
+                .ThenByDescending(c => c.Language.Code.ToLower() != lang)
+                .ThenByDescending(c => c.PublishTime);
+
+            var pagedList = new PagedList<ArticleComment>(commentsList, perPage, numPage);
+
+            if (!pagedList.Any())
+                throw new ApplicationException("Page not found");
+
+            var dtoCommentsList = new List<DtoArticleComment>();
+
+            foreach (var comment in pagedList)
+            {
+                dtoCommentsList.Add(new DtoArticleComment()
+                {
+                    Id = comment.Id,
+                    Text = comment.Text,
+                    UserName = comment.UserName,
+                    UserId = comment.UserId,
+                    PublishTime = comment.PublishTime,
+                    ArticleId = comment.Article.Id,
+                    LangCode = comment.Language.Code.ToLower()
+                });
+            }
+
+            var result = new DtoPagedArticleComments
+            {
+                Comments = dtoCommentsList,
+                TotalCount = pagedList.TotalCount,
+                Page = pagedList.Page,
+                PageSize = pagedList.PageSize
+            };
+
+            return result;
+        }
+
         public DtoArticleComment GetCommentById(int id)
         {
             ArticleComment comment;
@@ -182,7 +226,7 @@ namespace Infodoctor.BL.Services
                 throw new ApplicationException("Comment not found");
             }
 
-            if(articleComment != null)
+            if (articleComment != null)
                 _commentsRepository.Delete(articleComment);
         }
     }

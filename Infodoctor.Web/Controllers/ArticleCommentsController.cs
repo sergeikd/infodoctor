@@ -35,11 +35,11 @@ namespace Infodoctor.Web.Controllers
 
         // GET: api/ArticleComments/page/clinicId/perPage/numPage 
         [AllowAnonymous]
-        [Route("api/ArticleComments/page/{articleId:int}/{perPage:int}/{numPage:int}")]
+        [Route("api/{lang}/ArticleComments/page/{articleId:int}/{perPage:int}/{numPage:int}")]
         [HttpGet]
-        public DtoPagedArticleComments GetPaged(int articleId, int perPage, int numPage)
+        public DtoPagedArticleComments GetPaged(int articleId, int perPage, int numPage,string lang)
         {
-            return _commentsService.GetPagedCommentsByArticleId(articleId, perPage, numPage);
+            return _commentsService.GetPagedCommentsByArticleId(articleId, perPage, numPage,lang);
         }
 
         // POST api/ArticleComments

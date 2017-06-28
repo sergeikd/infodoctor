@@ -125,6 +125,55 @@ namespace Infodoctor.BL.Services
             return result;
         }
 
+        public DtoPagedResortReview GetPagedReviewByResortId(int id, int perPage, int numPage,string lang)
+        {
+            if (id < 1 || perPage < 1 || numPage < 1)
+                throw new ApplicationException("Incorrect request parameter");
+
+            lang = lang.ToLower();
+
+            var reviews = _reviewRepository.GetResortReviewsByClinicId(id).Where(c => c.IsApproved)
+                .OrderByDescending(c => c.Language.Code.ToLower() == lang)
+                .ThenByDescending(c => c.Language.Code.ToLower() != lang)
+                .ThenByDescending(c => c.PublishTime);
+
+            var pagedList = new PagedList<ResortReview>(reviews, perPage, numPage);
+            if (!pagedList.Any())
+            {
+                throw new ApplicationException("Page not found");
+            }
+
+            var dtoResReviewList = new List<DtoResortReview>();
+
+            foreach (var review in pagedList)
+            {
+                dtoResReviewList.Add(
+                    new DtoResortReview()
+                    {
+                        Id = review.Id,
+                        Text = review.Text,
+                        UserName = review.UserName,
+                        UserId = review.UserId,
+                        PublishTime = review.PublishTime,
+                        RatePrice = review.RatePrice,
+                        RateQuality = review.RateQuality,
+                        RatePoliteness = review.RatePoliteness,
+                        ResortId = review.Resort.Id,
+                        LangCode = review.Language.Code
+                    }
+                );
+            }
+
+            var result = new DtoPagedResortReview()
+            {
+                ResortReviews = dtoResReviewList,
+                TotalCount = pagedList.TotalCount,
+                Page = pagedList.Page,
+                PageSize = pagedList.PageSize
+            };
+            return result;
+        }
+
         public DtoResortReview GetResortReviewById(int id)
         {
             var review = _reviewRepository.GetReviewById(id);
