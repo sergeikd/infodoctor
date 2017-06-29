@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
+using Infodoctor.Web.Infrastructure;
 using Infodoctor.Web.Models;
 using Microsoft.AspNet.Identity;
 
@@ -11,12 +12,18 @@ namespace Infodoctor.Web.Controllers
     public class ClinicReviewController : ApiController
     {
         private readonly IClinicReviewService _clinicReviewService;
+        private readonly IYandexTranslateService _translateService;
+        private readonly ConfigService _configService;
 
-        public ClinicReviewController(IClinicReviewService clinicReviewService)
+        public ClinicReviewController(IClinicReviewService clinicReviewService, IYandexTranslateService translateService, ConfigService configService)
         {
             if (clinicReviewService == null)
                 throw new ArgumentNullException(nameof(clinicReviewService));
+            if (translateService == null) throw new ArgumentNullException(nameof(translateService));
+            if (configService == null) throw new ArgumentNullException(nameof(configService));
             _clinicReviewService = clinicReviewService;
+            _translateService = translateService;
+            _configService = configService;
         }
         // GET: api/ClinicReview
         [Authorize(Roles = "admin, moder")]
@@ -37,9 +44,9 @@ namespace Infodoctor.Web.Controllers
         [AllowAnonymous]
         [Route("api/{lang}/ClinicReview/page/{clinicId:int}/{perPage:int}/{numPage:int}")]
         [HttpGet]
-        public DtoPagedClinicReview GetPaged(int clinicId, int perPage, int numPage,string lang)
+        public DtoPagedClinicReview GetPaged(int clinicId, int perPage, int numPage, string lang)
         {
-            return _clinicReviewService.GetPagedReviewsByClinicId(clinicId, perPage, numPage,lang);
+            return _clinicReviewService.GetPagedReviewsByClinicId(clinicId, perPage, numPage, lang);
         }
 
         // POST: api/ClinicReview
@@ -50,9 +57,8 @@ namespace Infodoctor.Web.Controllers
             //TODO: make service for e-mail sending to all moderators whether new review posted
 
             if (clinicReview == null)
-            {
                 throw new ApplicationException("Incorrect review object");
-            }
+
             var review = new DtoClinicReview
             {
                 ClinicId = clinicReview.ClinicId,
@@ -64,6 +70,12 @@ namespace Infodoctor.Web.Controllers
                 UserId = User.Identity.GetUserId(),
                 UserName = User.Identity.GetUserName()
             };
+
+            var apiKey = _configService.YandexTranslateApiKey;
+            var textLang = _translateService.DetectLang(apiKey, clinicReview.Text);
+
+            review.LangCode = textLang != null ? textLang.Lang : clinicReview.LangCode;
+
             _clinicReviewService.Add(review);
         }
 

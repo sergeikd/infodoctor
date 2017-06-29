@@ -3,6 +3,7 @@
     public class ReviewBindingModel
     {
         public string Text { get; set; }
+        public string LangCode { get; set; }
     }
 
     public class ClinicReviewBindingModel : ReviewBindingModel

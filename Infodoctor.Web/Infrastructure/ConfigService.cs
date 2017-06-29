@@ -11,6 +11,7 @@ namespace Infodoctor.Web.Infrastructure
         public string PathToResortsImages => ConfigurationManager.AppSettings["PathToResortsImages"];
         public string PathToDoctorsImages => ConfigurationManager.AppSettings["PathToDoctorsImages"];
         public string DefaultLangCode => ConfigurationManager.AppSettings["DefaultLangCode"];
+        public string YandexTranslateApiKey => ConfigurationManager.AppSettings["YandexTranslateApiKey"];
         #region first attempt to organize images sizes config
         //public int ImageWidthLarge => int.Parse(ConfigurationManager.AppSettings["ImageWidthLarge"]);
         //public int ImageHeightLarge => int.Parse(ConfigurationManager.AppSettings["ImageHeightLarge"]);

@@ -73,6 +73,7 @@
     <Compile Include="Interfaces\IResortService.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\ITestService.cs" />
+    <Compile Include="Interfaces\IYandexTranslateService.cs" />
     <Compile Include="Services\ArticleCommentsService.cs" />
     <Compile Include="Services\ArticlesService.cs" />
     <Compile Include="Services\CitiesService.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Services\ResortService.cs" />
     <Compile Include="Services\SearchService.cs" />
     <Compile Include="Services\TestService.cs" />
+    <Compile Include="Services\YandexTranslateService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

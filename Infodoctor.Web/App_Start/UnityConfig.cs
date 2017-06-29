@@ -85,7 +85,10 @@ namespace Infodoctor.Web.App_Start
             container.RegisterType<IResortService, ResortService>();
             container.RegisterType<IResortReviewRepository, ResortReviewRepository>();
             container.RegisterType<IResortReviewService, ResortReviewService>();
+
             container.RegisterType<ITestService, TestService>();
+
+            container.RegisterType<IYandexTranslateService, YandexTranslateService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 
