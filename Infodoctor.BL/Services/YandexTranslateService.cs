@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Threading.Tasks;
 using Infodoctor.BL.Interfaces;
 using Newtonsoft.Json;
 
@@ -11,7 +12,14 @@ namespace Infodoctor.BL.Services
         {
             var url = string.Format("https://translate.yandex.net/api/v1.5/tr.json/detect?text={1}&key={0}", apiKey, text);
 
-            var json = DownloadJson(url);
+            string json;
+
+            var task = Task.Run(() => DownloadJson(url));
+            if (task.Wait(TimeSpan.FromSeconds(5)))
+                json = task.Result;
+            else
+                return null;
+
             var model = DeserialiseJson(json);
 
             return model;
@@ -19,9 +27,16 @@ namespace Infodoctor.BL.Services
 
         private static string DownloadJson(string url)
         {
-            var client = new WebClient();
-            var reply = client.DownloadString(url);
-            return reply;
+            try
+            {
+                var client = new WebClient();
+                var reply = client.DownloadString(url);
+                return reply;
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }   
         }
 
         private static DetectLangModel DeserialiseJson(string json)
