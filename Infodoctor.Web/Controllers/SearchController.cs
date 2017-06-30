@@ -20,24 +20,24 @@ namespace Infodoctor.Web.Controllers
         // GET api/search
         private IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return null;
         }
 
         // GET api/search/5
         private string Get(int id)
         {
-            return "value";
+            return null;
         }
 
         // POST api/search/fastsearch
-        [Route("api/search/fastsearch")]
+        [Route("api/{lang}/search/fastsearch")]
         [HttpPost]
-        public List<string> FastSearch([FromBody]PublicFastSearchModel searchModel)
+        public List<string> FastSearch([FromBody]PublicFastSearchModel searchModel,string lang)
         {
             var result =
                 _searchService.FastSearch(new DtoFastSearchModel()
                 {
-                    LangCode = searchModel.Lang,
+                    LangCode = lang,
                     TypeId = searchModel.TypeId,
                     Text = searchModel.Text
                 });

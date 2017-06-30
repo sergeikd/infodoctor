@@ -4,6 +4,7 @@ using System.Linq;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
 using Infodoctor.DAL.Interfaces;
+using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.BL.Services
 {
@@ -45,6 +46,7 @@ namespace Infodoctor.BL.Services
 
             var clinicsAndSpecsCaches = new List<CacheModel>();
             var doctorsCaches = new List<CacheModel>();
+            var resortsCaches = new List<CacheModel>();
 
             foreach (var lang in langs)
             {
@@ -55,8 +57,17 @@ namespace Infodoctor.BL.Services
                 //for (var i = 0; i < 1370; i++) для теста. Создаст в районе 150к записей из врачей
                 foreach (var clinic in clinics)
                 {
-                    var local = clinic.Localized.First(l => string.Equals(l.Language.Code, lang.Code,
-                         StringComparison.CurrentCultureIgnoreCase));
+                    LocalizedClinic local;
+                    try
+                    {
+                        local = clinic.Localized.First(l => string.Equals(l.Language.Code, lang.Code,
+                            StringComparison.CurrentCultureIgnoreCase));
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
+
                     if (local == null)
                         continue;
 
@@ -73,8 +84,16 @@ namespace Infodoctor.BL.Services
 
                 foreach (var doctor in doctors)
                 {
-                    var local = doctor.Localized.First(l => string.Equals(l.Language.Code, lang.Code,
-                        StringComparison.CurrentCultureIgnoreCase));
+                    LocalizedDoctor local;
+                    try
+                    {
+                        local = doctor.Localized.First(l => string.Equals(l.Language.Code, lang.Code,
+                            StringComparison.CurrentCultureIgnoreCase));
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
 
                     if (local == null)
                         continue;
@@ -93,8 +112,16 @@ namespace Infodoctor.BL.Services
 
                 foreach (var resort in resorts)
                 {
-                    var local = resort.Localized.First(l => string.Equals(l.Language.Code, lang.Code,
-                        StringComparison.CurrentCultureIgnoreCase));
+                    LocalizedResort local;
+                    try
+                    {
+                        local = resort.Localized.First(l => string.Equals(l.Language.Code, lang.Code,
+                            StringComparison.CurrentCultureIgnoreCase));
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
 
                     if (local == null) continue;
 
@@ -107,10 +134,12 @@ namespace Infodoctor.BL.Services
 
                 clinicsAndSpecsCaches.Add(clinicCache);
                 doctorsCaches.Add(doctorsCache);
+                resortsCaches.Add(resortsCache);
             }
 
             VirtualClinicsAndSpecialisationsCache = clinicsAndSpecsCaches;
             VirtualDoctorsCache = doctorsCaches;
+            VirtualResortCache = resortsCaches;
         }
 
         private static bool IsVirtualCachesFull()

@@ -85,7 +85,8 @@ namespace Infodoctor.Web.Controllers
                 Title = article.Title,
                 Content = article.Content,
                 PublishDate = DateTime.Now,
-                Author = userName
+                Author = userName,
+                LangCode = article.LangCode
             };
 
             _articlesService.Add(newArt);
@@ -107,7 +108,8 @@ namespace Infodoctor.Web.Controllers
                 Title = article.Title,
                 Content = article.Content,
                 PublishDate = DateTime.Now,
-                Author = userName
+                Author = userName,
+                LangCode = article.LangCode
             };
 
             _articlesService.Update(id, newArt);
