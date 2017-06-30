@@ -312,6 +312,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\Infodoctor.pubxml" />
     <Content Include="Resources\StaticStrings.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

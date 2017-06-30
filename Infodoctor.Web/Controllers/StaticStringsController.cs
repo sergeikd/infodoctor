@@ -25,7 +25,7 @@ namespace Infodoctor.Web.Controllers
             var language = StaticStrings.LanguageNames.Contains(lang) ? lang : _configService.DefaultLangCode;
             var index = Array.IndexOf(StaticStrings.LanguageNames, language);
             var result = StaticStrings.StringValues.ToDictionary(line => line[0], line => line[index + 1]);
-            var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+            var json = JsonConvert.SerializeObject(result, Formatting.None);
             return json;
         }
     }
