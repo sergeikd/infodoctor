@@ -23,23 +23,26 @@
     <input type="submit" id="submitLogin" value="Логин" /><br/>
 </div>
 <div>
+    <input type="button" id="getStaticStringsRu" value="GET стат. строки ru" />
+    <br/>
+
     <input type="button" id="getCountriesButton" value="GET страны"/>
     <input type="button" id="getCitiesUsedClinicButton" value="GET города с клиниками"/>
-    <input type="button" id="postCityButton" value="POST город" /><br />
-    <input type="button" id="getClinicsButton" value="GET клиники" />
-    <input type="button" id="getPageClinicsButton" value="GET page клиник" />
-    <input type="button" id="getClinic3Button" value="GET клиника 3" />
+    <input type="button" id="postCityButton" value="POST город"/><br/>
+    <input type="button" id="getClinicsButton" value="GET клиники"/>
+    <input type="button" id="getPageClinicsButton" value="GET page клиник"/>
+    <input type="button" id="getClinic3Button" value="GET клиника 3"/>
     <input type="button" id="getClinicSpecializationsButton" value="GET специализации клиник"/>
-    <br />
-    
-    <input type="button" id="getPageClinicReviewsButton" value="GET page отзывы" />
+    <br/>
+
+    <input type="button" id="getPageClinicReviewsButton" value="GET page отзывы"/>
     <input type="button" id="postClinicReviewButton" value="POST отзыв"/>
-    <input type="button" id="getAdd10Clinics" value="Add10Clinics" />
-    <br />
-    fast search:<input type="text" id="fastSeachTextBox" onkeyup="fastsearch()" />
-    <br />
+    <input type="button" id="getAdd10Clinics" value="Add10Clinics"/>
+    <br/>
+    fast search:<input type="text" id="fastSeachTextBox" onkeyup="fastsearch()"/>
+    <br/>
     full search:<input type="text" id="fulltSeachTextBox" onkeyup="fullsearch()"/>
-    <br />
+    <br/>
     <div class="registerForm">
         <input type="text" id="search"/>
         <input type="submit" id="searchClinicButton" value="поиск клиник"/><br/>
@@ -50,7 +53,7 @@
     <input type="button" id="getDoctorsButton" value="GET врачи"/>
     <input type="button" id="getPageDoctorsButton" value="GET page врачей"/>
     <input type="button" id="getDoctor3Button" value="GET врач 3"/>
-    <input type="button" id="getDoctorSpecializationsButton" value="GET специализации врачей" />
+    <input type="button" id="getDoctorSpecializationsButton" value="GET специализации врачей"/>
 </div>
 
 
@@ -144,6 +147,20 @@
                         alert("Регистрация пройдена");
                     }).fail(function (data) {
                         alert("В процесе регистрации возникла ошибка");
+                    });
+                });
+
+                $('#getStaticStringsRu').click(function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: 'GET',
+                        url: 'api/ru/StaticStrings',
+                        success: function (data) {
+                            alert(JSON.stringify(data));
+                        },
+                        fail: function (data) {
+                            alert(data);
+                        }
                     });
                 });
 
