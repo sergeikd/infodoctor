@@ -41,6 +41,7 @@ namespace Infodoctor.BL.Services
             var langs = _languageRepository.GetLanguages().ToList();
             var clinics = _clinicRepository.GetAllСlinics().ToList();
             var doctors = _doctorRepository.GetAllDoctors().ToList();
+            var resorts = _resortRepository.GetAllResorts().ToList();
 
             var clinicsAndSpecsCaches = new List<CacheModel>();
             var doctorsCaches = new List<CacheModel>();
@@ -49,11 +50,12 @@ namespace Infodoctor.BL.Services
             {
                 var clinicCache = new CacheModel() { Lang = lang.Code, Words = new List<string>() };
                 var doctorsCache = new CacheModel() { Lang = lang.Code, Words = new List<string>() };
+                var resortsCache = new CacheModel() { Lang = lang.Code, Words = new List<string>() };
 
                 //for (var i = 0; i < 1370; i++) для теста. Создаст в районе 150к записей из врачей
                 foreach (var clinic in clinics)
                 {
-                    var local = clinic.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang.Code,
+                    var local = clinic.Localized.First(l => string.Equals(l.Language.Code, lang.Code,
                          StringComparison.CurrentCultureIgnoreCase));
                     if (local == null)
                         continue;
@@ -71,7 +73,7 @@ namespace Infodoctor.BL.Services
 
                 foreach (var doctor in doctors)
                 {
-                    var local = doctor.Localized.FirstOrDefault(l => string.Equals(l.Language.Code, lang.Code,
+                    var local = doctor.Localized.First(l => string.Equals(l.Language.Code, lang.Code,
                         StringComparison.CurrentCultureIgnoreCase));
 
                     if (local == null)
@@ -87,6 +89,20 @@ namespace Infodoctor.BL.Services
                         lowerSpecs.Add(spec.ToLower());
 
                     doctorsCache.Words.AddRange(lowerSpecs);
+                }
+
+                foreach (var resort in resorts)
+                {
+                    var local = resort.Localized.First(l => string.Equals(l.Language.Code, lang.Code,
+                        StringComparison.CurrentCultureIgnoreCase));
+
+                    if (local == null) continue;
+
+                    resortsCache.Words.Add(local.Name.ToLower());
+
+                    if (string.IsNullOrEmpty(local.Manipulations)) continue;
+
+                    resortsCache.Words.Add(local.Manipulations.ToLower());
                 }
 
                 clinicsAndSpecsCaches.Add(clinicCache);
@@ -126,6 +142,11 @@ namespace Infodoctor.BL.Services
                         var doctorCache = VirtualDoctorsCache.FirstOrDefault(l => l.Lang == searchModel.LangCode);
                         if (doctorCache != null)
                             result.AddRange(doctorCache.Words.Where(word => word.Contains(searchModel.Text)));
+                        break;
+                    case 3:
+                        var resortCache = VirtualResortCache.FirstOrDefault(l => l.Lang == searchModel.LangCode);
+                        if (resortCache != null)
+                            result.AddRange(resortCache.Words.Where(word => word.Contains(searchModel.Text)));
                         break;
                 }
             return result;
