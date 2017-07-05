@@ -54,7 +54,7 @@ namespace Infodoctor.BL.Services
                 var doctorsCache = new CacheModel() { Lang = lang.Code, Words = new List<string>() };
                 var resortsCache = new CacheModel() { Lang = lang.Code, Words = new List<string>() };
 
-                //for (var i = 0; i < 1370; i++) для теста. Создаст в районе 150к записей из врачей
+                //for (var i = 0; i < 1370; i++) для теста. Создаст ~150к записей из врачей
                 foreach (var clinic in clinics)
                 {
                     LocalizedClinic local;
@@ -75,11 +75,8 @@ namespace Infodoctor.BL.Services
 
                     if (local.Specializations == null) continue;
                     var specs = local.Specializations.Split('|');
-                    var lowerSpecs = new List<string>();
                     foreach (var spec in specs)
-                        lowerSpecs.Add(spec.ToLower());
-
-                    clinicCache.Words.AddRange(lowerSpecs);
+                        clinicCache.Words.Add(spec.ToLower());
                 }
 
                 foreach (var doctor in doctors)
@@ -103,11 +100,8 @@ namespace Infodoctor.BL.Services
 
                     if (local.Specialization == null) continue;
                     var specs = local.Specialization.Split('|');
-                    var lowerSpecs = new List<string>();
                     foreach (var spec in specs)
-                        lowerSpecs.Add(spec.ToLower());
-
-                    doctorsCache.Words.AddRange(lowerSpecs);
+                        doctorsCache.Words.Add(spec.ToLower());
                 }
 
                 foreach (var resort in resorts)

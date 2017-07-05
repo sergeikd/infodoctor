@@ -12,7 +12,7 @@ namespace Infodoctor.BL.Services
     public class ArticlesService : IArticlesService
     {
         private readonly IArticlesRepository _articlesRepository;
-        private readonly ILanguageRepository _LangRepository;
+        private readonly ILanguageRepository _langRepository;
 
         public ArticlesService(IArticlesRepository articlesRepository, ILanguageRepository LangRepository)
         {
@@ -20,129 +20,35 @@ namespace Infodoctor.BL.Services
                 throw new ArgumentNullException(nameof(articlesRepository));
             if (LangRepository == null) throw new ArgumentNullException(nameof(LangRepository));
             _articlesRepository = articlesRepository;
-            _LangRepository = LangRepository;
+            _langRepository = LangRepository;
         }
 
         public IEnumerable<DtoArticle> GetAllArticles()
         {
             var arts = _articlesRepository.GetAllArticles().ToList();
-            var dtoArts = new List<DtoArticle>();
-
-            foreach (var art in arts)
-            {
-                var dtoComments = new List<DtoArticleComment>();
-                if (art.Comments.Any())
-                    foreach (var comment in art.Comments)
-                    {
-                        var dtoComment = new DtoArticleComment()
-                        {
-                            Id = comment.Id,
-                            UserName = comment.UserName,
-                            UserId = comment.UserId,
-                            Text = comment.Text,
-                            LangCode = comment.Language.Code.ToLower(),
-                            PublishTime = comment.PublishTime,
-                            ArticleId = comment.Article.Id
-                        };
-                        dtoComments.Add(dtoComment);
-                    }
-
-                var dtoArt = new DtoArticle()
-                {
-                    Id = art.Id,
-                    Title = art.Title,
-                    Content = art.Content,
-                    PublishDate = art.PublishDate,
-                    Author = art.Author,
-                    LangCode = art.Language.Code.ToLower(),
-                    Comments = dtoComments
-                };
-                dtoArts.Add(dtoArt);
-            }
-
-            return dtoArts;
+            return arts.Select(EntityToDto).ToList();
         }
 
         public DtoArticle GetArticleById(int id)
         {
             var art = _articlesRepository.GetArticleById(id);
-
-            var dtoComments = new List<DtoArticleComment>();
-            if (art.Comments.Any())
-                foreach (var comment in art.Comments)
-                {
-                    var dtoComment = new DtoArticleComment()
-                    {
-                        Id = comment.Id,
-                        UserName = comment.UserName,
-                        UserId = comment.UserId,
-                        Text = comment.Text,
-                        LangCode = comment.Language.Code.ToLower(),
-                        PublishTime = comment.PublishTime,
-                        ArticleId = comment.Article.Id
-                    };
-                    dtoComments.Add(dtoComment);
-                }
-
-            var dtoArt = new DtoArticle()
-            {
-                Id = art.Id,
-                Title = art.Title,
-                Content = art.Content,
-                PublishDate = art.PublishDate,
-                Author = art.Author,
-                LangCode = art.Language.Code.ToLower(),
-                Comments = dtoComments
-            };
+            var dtoArt = EntityToDto(art);
             return dtoArt;
         }
 
         public DtoPagedArticles GetPagedArticles(int perPage, int numPage, string pathToImage)
         {
             if (perPage < 1 || numPage < 1)
-            {
                 throw new ApplicationException("Incorrect request parameter");
-            }
+
             var arts = _articlesRepository.GetAllArticles();
+
             var pagedList = new PagedList<Article>(arts, perPage, numPage);
+
             if (!pagedList.Any())
-            {
                 return null;
-            }
 
-            var dtoArts = new List<DtoArticle>();
-
-            foreach (var art in pagedList)
-            {
-                var dtoComments = new List<DtoArticleComment>();
-                if (art.Comments.Any())
-                    foreach (var comment in art.Comments)
-                    {
-                        var dtoComment = new DtoArticleComment()
-                        {
-                            Id = comment.Id,
-                            UserName = comment.UserName,
-                            UserId = comment.UserId,
-                            Text = comment.Text,
-                            LangCode = comment.Language.Code.ToLower(),
-                            PublishTime = comment.PublishTime,
-                            ArticleId = comment.Article.Id
-                        };
-                        dtoComments.Add(dtoComment);
-                    }
-
-                var dtoArt = new DtoArticle()
-                {
-                    Id = art.Id,
-                    Title = art.Title,
-                    Content = art.Content,
-                    PublishDate = art.PublishDate,
-                    Author = art.Author,
-                    LangCode = art.Language.Code.ToLower(),
-                    Comments = dtoComments
-                };
-                dtoArts.Add(dtoArt);
-            }
+            var dtoArts = pagedList.Select(EntityToDto).ToList();
 
             var paged = new DtoPagedArticles()
             {
@@ -151,6 +57,7 @@ namespace Infodoctor.BL.Services
                 PageSize = pagedList.PageSize,
                 TotalCount = pagedList.TotalCount
             };
+
             return paged;
         }
 
@@ -159,7 +66,7 @@ namespace Infodoctor.BL.Services
             if (art == null)
                 throw new ArgumentNullException(nameof(art));
 
-            var lang = _LangRepository.GetLanguageByCode(art.LangCode);
+            var lang = _langRepository.GetLanguageByCode(art.LangCode);
 
             var newArt = new Article()
             {
@@ -178,23 +85,52 @@ namespace Infodoctor.BL.Services
             if (newArt == null)
                 throw new ArgumentNullException(nameof(newArt));
             var updated = _articlesRepository.GetArticleById(id);
-            if (updated != null)
-            {
-                var lang = _LangRepository.GetLanguageByCode(newArt.LangCode);
+            if (updated == null) return;
 
-                updated.Language = lang;
-                updated.Title = newArt.Title;
-                updated.Content = newArt.Content;
-                updated.PublishDate = newArt.PublishDate;
+            var lang = _langRepository.GetLanguageByCode(newArt.LangCode);
 
-                _articlesRepository.Update(updated);
-            }
+            updated.Language = lang;
+            updated.Title = newArt.Title;
+            updated.Content = newArt.Content;
+            updated.PublishDate = newArt.PublishDate;
+
+            _articlesRepository.Update(updated);
         }
 
         public void Delete(int id)
         {
             var deleted = _articlesRepository.GetArticleById(id);
             _articlesRepository.Delete(deleted);
+        }
+
+        private static DtoArticle EntityToDto(Article article)
+        {
+            var dtoComments = new List<DtoArticleComment>();
+            if (article.Comments.Any())
+                dtoComments.AddRange(
+                    article.Comments.Select(
+                        comment => new DtoArticleComment()
+                        {
+                            Id = comment.Id,
+                            UserName = comment.UserName,
+                            UserId = comment.UserId,
+                            Text = comment.Text,
+                            LangCode = comment.Language.Code.ToLower(),
+                            PublishTime = comment.PublishTime,
+                            ArticleId = comment.Article.Id
+                        }));
+
+            var dtoArt = new DtoArticle()
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Content = article.Content,
+                PublishDate = article.PublishDate,
+                Author = article.Author,
+                LangCode = article.Language.Code.ToLower(),
+                Comments = dtoComments.Select(x => x.Id).ToList()
+            };
+            return dtoArt;
         }
     }
 }
