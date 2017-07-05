@@ -903,8 +903,6 @@ namespace Infodoctor.Web
                 {
                     new LocalizedAddress()
                     {
-                        Country = "Беларусь",
-                        City = city66,
                         Street = "ул.Сурганова 47Б",
                         Language = langs.First(l => l.Code == "ru")
                     }
@@ -912,7 +910,8 @@ namespace Infodoctor.Web
 
                 Lat = "53.927249",
                 Lng = "27.587901",
-
+                Country = country1,
+                City = city66,
                 Clinic = clinic1,
                 Doctors = new List<Doctor> { doc001, doc002, doc003 },
                 Phones = new List<Phone>() { phone1, phone2 }
@@ -923,12 +922,12 @@ namespace Infodoctor.Web
                 {
                     new LocalizedAddress()
                     {
-                        Country = "Беларусь",
-                        City =city66,
                         Street = "пр-т. Независимости 58",
                         Language = langs.First(l => l.Code == "ru")
                     }
                 },
+                Country = country1,
+                City = city66,
                 Clinic = clinic2,
                 Doctors = new List<Doctor> { doc004, doc002, doc005 },
                 Phones = new List<Phone>() { phone3 }
@@ -939,12 +938,12 @@ namespace Infodoctor.Web
                 {
                     new LocalizedAddress()
                     {
-                        Country = "Беларусь",
-                        City =city66,
                         Street = "пр-т. Победителей 75,",
                         Language = langs.First(l => l.Code == "ru")
                     }
                 },
+                Country = country1,
+                City = city66,
                 Clinic = clinic3,
                 Phones = new List<Phone>() { phone4, phone5 }
             };
@@ -954,12 +953,12 @@ namespace Infodoctor.Web
                 {
                     new LocalizedAddress()
                     {
-                        Country = "Беларусь",
-                        City =city66,
                         Street = "ул.Скрипникова 11Б,",
                         Language = langs.First(l => l.Code == "ru")
                     }
                 },
+                Country = country1,
+                City = city66,
                 Clinic = clinic3,
                 Phones = new List<Phone>() { phone6, phone7 }
             };
@@ -969,12 +968,13 @@ namespace Infodoctor.Web
                 {
                     new LocalizedAddress()
                     {
-                        Country = "Беларусь",
-                        City =city66,
+
                         Street = "ул.Захарова 50Д",
                         Language = langs.First(l => l.Code == "ru")
                     }
                 },
+                Country = country1,
+                City = city66,
                 Clinic = clinic3,
                 Phones = new List<Phone>() { phone8, phone9 }
             };
@@ -984,12 +984,12 @@ namespace Infodoctor.Web
                 {
                     new LocalizedAddress()
                     {
-                        Country = "Беларусь",
-                        City =city66,
                         Street = "ул.Победителей 93",
                         Language = langs.First(l => l.Code == "ru")
                     }
                 },
+                Country = country1,
+                City = city66,
                 Clinic = clinic4,
                 Phones = new List<Phone>() { phone10, phone11, phone12, phone13, phone14, phone15, phone16 }
             };
@@ -999,12 +999,12 @@ namespace Infodoctor.Web
                 {
                     new LocalizedAddress()
                     {
-                        Country = "Беларусь",
-                        City =city66,
                         Street = "ул. Нарочанская 17",
                         Language = langs.First(l => l.Code == "ru")
                     }
                 },
+                Country = country1,
+                City = city66,
                 Clinic = clinic5,
                 Phones = new List<Phone>() { phone17, phone18 }
             };

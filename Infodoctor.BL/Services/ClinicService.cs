@@ -77,8 +77,8 @@ namespace Infodoctor.BL.Services
                     var localAddress = new LocalizedDtoAddress()
                     {
                         Id = local.Id,
-                        Country = local.Country,
-                        City = local.City.LocalizedCities?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower())?.Name,
+                        Country = address.Country.LocalizedCountries?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower())?.Name,
+                        City = address.City.LocalizedCities?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower())?.Name,
                         Street = local.Street,
                         LangCode = local.Language?.Code.ToLower()
                     };
@@ -234,7 +234,7 @@ namespace Infodoctor.BL.Services
                                 {
                                     clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
                                         Where(
-                                            x => x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId)
+                                            x => x.Addresses.Any(y => y.City.Id == searchModel.CityId)
                                         );
                                     break;
                                 }
@@ -244,7 +244,7 @@ namespace Infodoctor.BL.Services
                                         Where(
                                             x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
                                             x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Specializations.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                            x.Addresses.Any(y => y.LocalizedAddresses.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId)
+                                            x.Addresses.Any(y => y.City.Id == searchModel.CityId)
                                     );
                                     break;
                                 }
@@ -336,13 +336,19 @@ namespace Infodoctor.BL.Services
                         localizedAddress = clinicAddressLocalizedAddress;
 
                 var localizedCity = new LocalizedCity();
-                if (localizedAddress.City != null)
-                    foreach (var cityLocalizedCity in localizedAddress.City.LocalizedCities)
-                    {
-                        if (string.Equals(cityLocalizedCity.Language.Code.ToLower(), lang.ToLower(),
+                if (clinicAddress.City != null)
+                    foreach (var city in clinicAddress.City.LocalizedCities)
+                        if (string.Equals(city.Language.Code.ToLower(), lang.ToLower(),
                             StringComparison.Ordinal))
-                            localizedCity = cityLocalizedCity;
-                    }
+                            localizedCity = city;
+
+
+                var localizedCountry = new LocalizedCountry();
+                if (clinicAddress.City != null)
+                    foreach (var country in clinicAddress.Country.LocalizedCountries)
+                        if (string.Equals(country.Language.Code.ToLower(), lang.ToLower(),
+                            StringComparison.Ordinal))
+                            localizedCountry = country;
 
                 var phones = (from clinicPhone in clinicAddress.Phones
                               from localizedPhone in clinicPhone.LocalizedPhones
@@ -357,7 +363,7 @@ namespace Infodoctor.BL.Services
                 dtoAddreses.Add(new DtoAddressSingleLang()
                 {
                     Id = clinicAddress.Id,
-                    Country = localizedAddress.Country,
+                    Country = localizedCountry.Name,
                     City = localizedCity.Name,
                     Street = localizedAddress.Street,
                     Phones = phones,

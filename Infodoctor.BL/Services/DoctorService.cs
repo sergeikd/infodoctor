@@ -193,11 +193,23 @@ namespace Infodoctor.BL.Services
             var localAddresses = new List<LocalizedDtoAddress>();
             foreach (var local in address.LocalizedAddresses)
             {
+                var localizedCountry = new LocalizedCountry();
+                foreach (var country in address.Country.LocalizedCountries)
+                    if (string.Equals(country.Language.Code.ToLower(), local.Language.Code.ToLower(),
+                        StringComparison.Ordinal))
+                        localizedCountry = country;
+
+                var localizedCity = new LocalizedCity();
+                foreach (var city in address.City.LocalizedCities)
+                    if (string.Equals(city.Language.Code.ToLower(), local.Language.Code.ToLower(),
+                        StringComparison.Ordinal))
+                        localizedCity = city;
+
                 var localAddress = new LocalizedDtoAddress()
                 {
                     Id = local.Id,
-                    Country = local.Country,
-                    City = local.City.LocalizedCities?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower())?.Name,
+                    Country = localizedCountry.Name,
+                    City = localizedCity.Name,
                     Street = local.Street,
                     LangCode = local.Language?.Code.ToLower()
                 };
@@ -412,6 +424,8 @@ namespace Infodoctor.BL.Services
 
         private static DtoDoctorSingleLang ConvertEntityToDtoSingleLang(string lang, string pathToImage, Doctor doctor)
         {
+            lang = lang.ToLower();
+
             var local = new DtoDoctorLocalized();
 
             if (doctor.Localized != null)
@@ -502,10 +516,22 @@ namespace Infodoctor.BL.Services
                 {
                     if (clinicAddressLocalizedAddress.Language.Code.ToLower() == lang.ToLower())
                     {
+                        var localizedCountry = new LocalizedCountry();
+                        foreach (var country in doctor.Address.Country.LocalizedCountries)
+                            if (string.Equals(country.Language.Code.ToLower(), lang,
+                                StringComparison.Ordinal))
+                                localizedCountry = country;
+
+                        var localizedCity = new LocalizedCity();
+                        foreach (var city in doctor.Address.City.LocalizedCities)
+                            if (string.Equals(city.Language.Code.ToLower(), lang,
+                                StringComparison.Ordinal))
+                                localizedCity = city;
+
                         localizedDtoAddress = new LocalizedDtoAddress()
                         {
-                            Country = clinicAddressLocalizedAddress.Country,
-                            City = clinicAddressLocalizedAddress.City.LocalizedCities.First(c => c.Language.Code.ToLower() == lang.ToLower()).Name,
+                            Country = localizedCountry.Name,
+                            City = localizedCity.Name,
                             Street = clinicAddressLocalizedAddress.Street,
                             LangCode = clinicAddressLocalizedAddress.Language.Code.ToLower()
                         };

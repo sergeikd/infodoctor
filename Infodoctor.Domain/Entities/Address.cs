@@ -24,8 +24,10 @@ namespace Infodoctor.Domain.Entities
         public string Lng { get; set; } //coord
         public virtual ICollection<LocalizedAddress> LocalizedAddresses { get; set; }
         public virtual ICollection<Phone> Phones { get; set; }
-        public virtual Clinic Clinic { get; set; }
+        public virtual Country Country { get; set; }
+        public virtual City City { get; set; }
         public virtual ICollection<Doctor> Doctors { get; set; }
+        public virtual Clinic Clinic { get; set; }
     }
 
     public class Phone
@@ -52,8 +54,6 @@ namespace Infodoctor.Domain.Entities
     public class LocalizedAddress
     {
         public int Id { get; set; }
-        public string Country { get; set; }
-        public virtual City City { get; set; }
         public string Street { get; set; }
         public virtual Language Language { get; set; }
     }
