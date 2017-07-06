@@ -51,12 +51,8 @@ namespace Infodoctor.BL.Services
 
         public DtoCitySingleLang GetCityById(int id, string lang)
         {
-            lang = lang.ToLower();
-
             var city = _citiesRepository.GetCityById(id);
-
-            var dtoCity = ConvertEntityToDtoSingleLang(lang,city);
-
+            var dtoCity = ConvertEntityToDtoSingleLang(lang.ToLower(),city);
             return dtoCity;
         }
 
