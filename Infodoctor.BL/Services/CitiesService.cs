@@ -37,14 +37,12 @@ namespace Infodoctor.BL.Services
 
         public IEnumerable<DtoCitySingleLang> GetCitiesWithClinics(string lang)
         {
-            lang = lang.ToLower();
-
-            var cities = _citiesRepository.GetAllCitiesWithClinics();
+            var cities = _citiesRepository.GetAllCitiesWithClinics().ToList();
             var dtoCities = new List<DtoCitySingleLang>();
 
             foreach (var city in cities)
             {
-                var dtoCity = ConvertEntityToDtoSingleLang(lang, city);
+                var dtoCity = ConvertEntityToDtoSingleLang(lang.ToLower(), city);
                 dtoCities.Add(dtoCity);
             }
 

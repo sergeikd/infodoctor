@@ -5,7 +5,7 @@ using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Repositories
 {
-    public class CitiesRepository: ICitiesRepository
+    public class CitiesRepository : ICitiesRepository
     {
         private readonly AppDbContext _context;
 
@@ -31,8 +31,8 @@ namespace Infodoctor.DAL.Repositories
 
         public void Add(City city)
         {
-                _context.Cities.Add(city);
-                _context.SaveChanges();
+            _context.Cities.Add(city);
+            _context.SaveChanges();
         }
 
         public void Update(City city)
