@@ -10,22 +10,21 @@ namespace Infodoctor.Web
 {
     public static class StaticStringsProvider
     {
-        public static string PathToStaticStrings => ConfigurationManager.AppSettings["PathToStaticStrings"];
-        public static string SupportedLanguages => ConfigurationManager.AppSettings["LangCodes"];
+        private static string PathToStaticStringsFile => ConfigurationManager.AppSettings["PathToStaticStrings"];
+        private static string SupportedLanguages => ConfigurationManager.AppSettings["LangCodes"];
 
-        public static void PrepareStaticStrings()
+        public static void ReadStaticStrings()
         {
             StaticStrings.LanguageNames = SupportedLanguages.Split(',').ToArray();
             StaticStrings.StringValues = ReadFile(StaticStrings.LanguageNames.Length);
         }
 
-        public static List<string[]> ReadFile(int languagesQuantity)
+        private static List<string[]> ReadFile(int languagesQuantity)
         {
-            var pathToCsvFile = HttpContext.Current.Server.MapPath("~") + PathToStaticStrings;
             var staticStringValues = new List<string[]>();
-            using (var parser = new TextFieldParser(pathToCsvFile, Encoding.GetEncoding(1251)))
+            using (var parser = new TextFieldParser(GetPathtoCsvFile(), Encoding.GetEncoding(1251)))
             {
-                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited;
+                parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(new string[] {","});
                 while (!parser.EndOfData)
                 {
@@ -39,6 +38,11 @@ namespace Infodoctor.Web
                 }
             }
             return staticStringValues;
+        }
+
+        public static string GetPathtoCsvFile()
+        {
+            return HttpContext.Current.Server.MapPath("~") + PathToStaticStringsFile;
         }
     }
 
