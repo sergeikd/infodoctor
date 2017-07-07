@@ -141,7 +141,7 @@ namespace Infodoctor.BL.Services
                 {
                     Id = local.Id,
                     Name = local.Name,
-                    Manipulations = local.Manipulations
+                    Manipulations = local.Manipulations.Split(',', ';', '|').ToList()
                 };
                 dtoResortLocals.Add(dtoLocal);
             }
@@ -348,7 +348,7 @@ namespace Infodoctor.BL.Services
                 Name = localizedResort?.Name,
                 Email = resort.Email,
                 Site = resort.Site,
-                Manipulations = localizedResort?.Manipulations.Split(',', ';').ToList(),
+                Manipulations = localizedResort?.Manipulations.Split(',', ';', '|').ToList(),
                 Address = dtoResortAddress,
                 RateAverage = resort.RateAverage,
                 RatePoliteness = resort.RatePoliteness,

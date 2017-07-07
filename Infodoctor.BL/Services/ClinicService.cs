@@ -128,7 +128,7 @@ namespace Infodoctor.BL.Services
                 {
                     Id = local.Id,
                     Name = local.Name,
-                    Specializations = local.Specializations,
+                    Specializations = local.Specializations.Split(',', ';', '|').ToList(),
                     LangCode = local.Language?.Code.ToLower()
                 };
                 localClinics.Add(localClinic);
@@ -393,7 +393,7 @@ namespace Infodoctor.BL.Services
                 Favorite = clinic.Favorite,
                 Images = imagesList,
                 Addresses = dtoAddreses,
-                Specializations = localizedClinic.Specializations.Split(',', ';').ToList(),
+                Specializations = localizedClinic.Specializations.Split(',', ';', '|').ToList(),
                 DoctorsIdList = doctors
             };
 
