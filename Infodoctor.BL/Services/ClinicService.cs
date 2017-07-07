@@ -393,7 +393,7 @@ namespace Infodoctor.BL.Services
                 Favorite = clinic.Favorite,
                 Images = imagesList,
                 Addresses = dtoAddreses,
-                Specializations = localizedClinic.Specializations,
+                Specializations = localizedClinic.Specializations.Split(',', ';').ToList(),
                 DoctorsIdList = doctors
             };
 

@@ -8,7 +8,7 @@ namespace Infodoctor.BL.DtoModels
         public string LangCode { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Specializations { get; set; }
+        public List<string> Specializations { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
         public List<DtoAddressSingleLang> Addresses { get; set; }

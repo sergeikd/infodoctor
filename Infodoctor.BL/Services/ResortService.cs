@@ -348,7 +348,7 @@ namespace Infodoctor.BL.Services
                 Name = localizedResort?.Name,
                 Email = resort.Email,
                 Site = resort.Site,
-                Specialisations = localizedResort?.Manipulations,
+                Manipulations = localizedResort?.Manipulations.Split(',', ';').ToList(),
                 Address = dtoResortAddress,
                 RateAverage = resort.RateAverage,
                 RatePoliteness = resort.RatePoliteness,

@@ -11,7 +11,7 @@ namespace Infodoctor.BL.DtoModels
         public string Name { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
-        public string Specialisations { get; set; }
+        public List<string> Manipulations { get; set; }
         public double RatePrice { get; set; }
         public double RateQuality { get; set; }
         public double RatePoliteness { get; set; }
