@@ -148,6 +148,7 @@ namespace Infodoctor.BL.Services
                 RateAverage = clinic.RateAverage,
                 ReviewCount = clinic.ClinicReviews.Count,
                 Favorite = clinic.Favorite,
+                FavouriteExpireDate = clinic.FavouriteExpireDate,
                 ClinicAddress = dtoAddreses,
                 DoctorsIdList = doctorsId,
                 LocalizedClinic = localClinics
@@ -391,6 +392,7 @@ namespace Infodoctor.BL.Services
                 RateAverage = clinic.RateAverage,
                 ReviewCount = clinic.ClinicReviews.Count,
                 Favorite = clinic.Favorite,
+                FavouriteExpireDate = clinic.FavouriteExpireDate,
                 Images = imagesList,
                 Addresses = dtoAddreses,
                 Specializations = localizedClinic.Specializations.Split(',', ';', '|').ToList(),

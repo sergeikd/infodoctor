@@ -314,7 +314,8 @@ namespace Infodoctor.Web
                     {
                         Name = "Беларусь", Language = langs.First(l => l.Code == "ru")
                     }
-                }, Cities = belarusCitiesList
+                },
+                Cities = belarusCitiesList
             };
 
             countriesList.Add(country1);
@@ -343,6 +344,7 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = true,
+                FavouriteExpireDate = DateTime.Now.AddMinutes(2),
                 ImageName = new List<ImageFile>() { imagesList[0] }
             };
             clinic1.RateAverage = (clinic1.RatePrice + clinic1.RateQuality + clinic1.RatePoliteness) / 3;

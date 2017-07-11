@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infodoctor.Domain.Entities
 {
@@ -12,6 +14,8 @@ namespace Infodoctor.Domain.Entities
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
         public bool Favorite { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime FavouriteExpireDate { get; set; }
         public virtual ICollection<LocalizedClinic> Localized { get; set; }
         public virtual ICollection<ImageFile> ImageName { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Infodoctor.BL.DtoModels
 {
@@ -20,6 +21,8 @@ namespace Infodoctor.BL.DtoModels
         public double RateAverage { get; set; }
         public int ReviewCount { get; set; }
         public bool Favorite { get; set; }
+        public DateTime FavouriteExpireDate { get; set; }
+
     }
     #endregion
 
@@ -39,6 +42,7 @@ namespace Infodoctor.BL.DtoModels
         public double RateAverage { get; set; }
         public int ReviewCount { get; set; }
         public bool Favorite { get; set; }
+        public DateTime FavouriteExpireDate { get; set; }
     }
 
     public class LocalizedDtoClinic
