@@ -297,7 +297,7 @@
                     // сохраняем в хранилище sessionStorage токен доступа
                     localStorage.setItem(tokenKey, data.access_token);
                     console.log(data.access_token);
-                    chechAuth();
+                    checkAuth();
                 }).fail(function (data) {
                     alert('При логине возникла ошибка');
                 });
@@ -307,7 +307,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'GET',
-                    url: 'api/cities/clinicused',
+                    url: 'api/ru/cities/clinicused',
                     beforeSend: function (xhr) {
                         var token = localStorage.getItem(tokenKey);
                         xhr.setRequestHeader("Authorization", "Bearer " + token);

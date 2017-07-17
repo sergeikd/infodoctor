@@ -88,6 +88,11 @@ namespace Infodoctor.BL.Services
             //_clinicRepository.AddMany(clinicList);
         }
 
+        public void AddClinicsFromOldDb()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Add10Doctors()
         {
             var doctor = new Doctor();

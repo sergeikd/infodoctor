@@ -4,12 +4,14 @@ using System.Drawing;
 
 namespace Infodoctor.Web.Infrastructure
 {
-    public class ConfigService// : IConfigService
+    public abstract class ConfigService// : IConfigService
     {
         public string PathToArticlesImages => ConfigurationManager.AppSettings["PathToArticlesImages"];
         public string PathToClinicsImages => ConfigurationManager.AppSettings["PathToClinicsImages"];
         public string PathToResortsImages => ConfigurationManager.AppSettings["PathToResortsImages"];
         public string PathToDoctorsImages => ConfigurationManager.AppSettings["PathToDoctorsImages"];
+        public string PathToClinicSourceImages => ConfigurationManager.AppSettings["PathToClinicSourceImages"];
+        public string PathToOldDbClinics => ConfigurationManager.AppSettings["PathToOldDbClinics"];
         public string DefaultLangCode => ConfigurationManager.AppSettings["DefaultLangCode"];
         public string YandexTranslateApiKey => ConfigurationManager.AppSettings["YandexTranslateApiKey"];
         #region first attempt to organize images sizes config
