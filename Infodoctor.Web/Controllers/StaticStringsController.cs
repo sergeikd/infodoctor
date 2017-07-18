@@ -32,6 +32,8 @@ namespace Infodoctor.Web.Controllers
             return result;
         }
 
+        [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IHttpActionResult> Post()
         {
             if (!Request.Content.IsMimeMultipartContent())
