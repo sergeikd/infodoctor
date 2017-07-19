@@ -58,6 +58,8 @@
     <Compile Include="DtoModels\DtoResort.cs" />
     <Compile Include="DtoModels\DtoReview.cs" />
     <Compile Include="DtoModels\DtoSearchModel.cs" />
+    <Compile Include="DtoModels\DtoTypes.cs" />
+    <Compile Include="DtoModels\IClinicTypeService.cs" />
     <Compile Include="Interfaces\IArticleCommentsService.cs" />
     <Compile Include="Interfaces\IArticlesService.cs" />
     <Compile Include="Interfaces\ICitiesService.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Interfaces\IMailService.cs" />
     <Compile Include="Interfaces\IResortReviewService.cs" />
     <Compile Include="Interfaces\IResortService.cs" />
+    <Compile Include="Interfaces\IResortTypeService.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\ITestService.cs" />
     <Compile Include="Interfaces\IYandexTranslateService.cs" />
@@ -78,6 +81,7 @@
     <Compile Include="Services\ArticlesService.cs" />
     <Compile Include="Services\CitiesService.cs" />
     <Compile Include="Services\ClinicReviewService.cs" />
+    <Compile Include="Services\ClinicTypeService.cs" />
     <Compile Include="Services\DoctorCategoryService.cs" />
     <Compile Include="Services\DoctorReviewService.cs" />
     <Compile Include="Services\DoctorService.cs" />
@@ -90,6 +94,7 @@
     <Compile Include="Services\MailService.cs" />
     <Compile Include="Services\ResortReviewService.cs" />
     <Compile Include="Services\ResortService.cs" />
+    <Compile Include="Services\ResortTypeService.cs" />
     <Compile Include="Services\SearchService.cs" />
     <Compile Include="Services\TestService.cs" />
     <Compile Include="Services\YandexTranslateService.cs" />

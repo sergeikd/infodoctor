@@ -12,6 +12,7 @@ using Infodoctor.Web.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Infodoctor.Web.Infrastructure;
+using Infodoctor.BL.DtoModels;
 
 namespace Infodoctor.Web.App_Start
 {
@@ -85,6 +86,10 @@ namespace Infodoctor.Web.App_Start
             container.RegisterType<IResortService, ResortService>();
             container.RegisterType<IResortReviewRepository, ResortReviewRepository>();
             container.RegisterType<IResortReviewService, ResortReviewService>();
+            container.RegisterType<IClinicTypeRepository, ClinicTypeRepository>();
+            container.RegisterType<IClinicTypeService, ClinicTypeService>();
+            container.RegisterType<IResortTypeRepository, ResortTypeRepository>();
+            container.RegisterType<IResortTypeService, ResortTypeService>();
 
             container.RegisterType<ITestService, TestService>();
 
