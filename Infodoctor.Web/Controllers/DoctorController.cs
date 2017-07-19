@@ -39,7 +39,7 @@ namespace Infodoctor.Web.Controllers
         // GET api/doctor/5
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/{lang}/Doctor/{id:int}")]
+        [Route("api/{lang}/Doctor/")]
         public DtoDoctorSingleLang GetSingleLang(int id, string lang)
         {
             if (string.IsNullOrEmpty(lang))
@@ -51,7 +51,7 @@ namespace Infodoctor.Web.Controllers
         // GET api/doctor/5
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/Doctor/{id:int}")]
+        [Route("api/Doctor/")]
         public DtoDoctorMultiLang GetMultiLang(int id)
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;

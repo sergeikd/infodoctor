@@ -35,7 +35,7 @@ namespace Infodoctor.Web.Controllers
         // GET api/doctorcategories/5
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/{lang}/doctorcategories/{id}")]
+        [Route("api/{lang}/doctorcategories")]
         public DtoDoctorCategorySingleLang Get(int id, string lang)
         {
             lang = !string.IsNullOrEmpty(lang) ? lang : _configService.DefaultLangCode;

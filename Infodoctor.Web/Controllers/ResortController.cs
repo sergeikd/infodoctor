@@ -35,7 +35,7 @@ namespace Infodoctor.Web.Controllers
 
         // GET api/resort/5
         [AllowAnonymous]
-        [Route("api/{lang}/Resort/{id}")]
+        [Route("api/{lang}/Resort")]
         public DtoResortSingleLang GetSingleLang(int id, string lang)
         {
             if (string.IsNullOrEmpty(lang))
@@ -47,7 +47,7 @@ namespace Infodoctor.Web.Controllers
 
         // GET api/resort/5
         [AllowAnonymous]
-        [Route("api/Resort/{id}")]
+        [Route("api/Resort")]
         public DtoResortMultiLang GetMultiLang(int id)
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _config.PathToResortsImages;

@@ -32,7 +32,7 @@ namespace Infodoctor.Web.Controllers
 
         // GET: api/Country/5
         [AllowAnonymous]
-        [Route("api/{lang}/Country/{id}")]
+        [Route("api/{lang}/Country")]
         public DtoCountrySingleLang Get(int id, string lang)
         {
             if (string.IsNullOrEmpty(lang))
