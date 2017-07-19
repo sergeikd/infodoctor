@@ -137,10 +137,18 @@ namespace Infodoctor.BL.Services
             var dtoResortLocals = new List<DtoResortMultiLangLocalized>();
             foreach (var local in resort.Localized)
             {
+                var type = string.Empty;
+                foreach (var resortType in resort.Type.Localized)
+                {
+                    if (resortType.Language == local.Language)
+                        type = resortType.Name;
+                }
+
                 var dtoLocal = new DtoResortMultiLangLocalized()
                 {
                     Id = local.Id,
                     Name = local.Name,
+                    Type = type,
                     Manipulations = local.Manipulations.Split(',', ';', '|').ToList()
                 };
                 dtoResortLocals.Add(dtoLocal);
@@ -156,10 +164,13 @@ namespace Infodoctor.BL.Services
                 RatePrice = resort.RatePrice,
                 RateQuality = resort.RateQuality,
                 ReviewCount = resort.Reviews.Count,
-                Favorite = resort.Favorite,
                 Image = pathToImage + resort.ImageName,
                 Address = dtoAddress,
-                LocalizedResort = dtoResortLocals
+                LocalizedResort = dtoResortLocals,
+                Favorite = resort.Favorite,
+                FavouriteExpireDate = resort.FavouriteExpireDate,
+                Recommended = resort.Recommended,
+                RecommendedExpireDate = resort.RecommendedExpireDate
             };
             return dtoResort;
         }
@@ -341,12 +352,18 @@ namespace Infodoctor.BL.Services
                 }
             }
 
+            var type = string.Empty;
+            foreach (var resortType in resort.Type.Localized)
+                if (resortType.Language.Code.ToLower() == lang)
+                    type = resortType.Name;
+
             var dtoResort = new DtoResortSingleLang()
             {
                 Id = resort.Id,
                 LangCode = localizedResort?.Language.Code.ToLower(),
                 Name = localizedResort?.Name,
                 Email = resort.Email,
+                Type = type,
                 Site = resort.Site,
                 Manipulations = localizedResort?.Manipulations.Split(',', ';', '|').ToList(),
                 Address = dtoResortAddress,
@@ -356,6 +373,9 @@ namespace Infodoctor.BL.Services
                 RateQuality = resort.RateQuality,
                 ReviewCount = resort.Reviews.Count,
                 Favorite = resort.Favorite,
+                FavouriteExpireDate = resort.FavouriteExpireDate,
+                Recommended = resort.Recommended,
+                RecommendedExpireDate = resort.RecommendedExpireDate,
                 Image = pathToImage + resort.ImageName
             };
 

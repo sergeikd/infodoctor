@@ -8,6 +8,7 @@ namespace Infodoctor.BL.DtoModels
     {
         public string LangCode { get; set; }
         public int Id { get; set; }
+        public string Type { get; set; }
         public string Name { get; set; }
         public List<string> Specializations { get; set; }
         public string Email { get; set; }
@@ -22,6 +23,8 @@ namespace Infodoctor.BL.DtoModels
         public int ReviewCount { get; set; }
         public bool Favorite { get; set; }
         public DateTime FavouriteExpireDate { get; set; }
+        public bool Recommended { get; set; }
+        public DateTime RecommendedExpireDate { get; set; }
 
     }
     #endregion
@@ -43,12 +46,15 @@ namespace Infodoctor.BL.DtoModels
         public int ReviewCount { get; set; }
         public bool Favorite { get; set; }
         public DateTime FavouriteExpireDate { get; set; }
+        public bool Recommended { get; set; }
+        public DateTime RecommendedExpireDate { get; set; }
     }
 
     public class LocalizedDtoClinic
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Type { get; set; }
         public List<string> Specializations { get; set; }
         public string LangCode { get; set; }
     }

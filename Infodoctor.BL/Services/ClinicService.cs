@@ -56,9 +56,7 @@ namespace Infodoctor.BL.Services
         {
             var clinic = _clinicRepository.GetClinicById(id);
             if (clinic == null)
-            {
                 throw new ApplicationException("Clinic not found");
-            }
 
             var imagesList = clinic.ImageName.Select(image => pathToClinicImage + image.Name).ToList();
 
@@ -124,10 +122,17 @@ namespace Infodoctor.BL.Services
             var localClinics = new List<LocalizedDtoClinic>();
             foreach (var local in clinic.Localized)
             {
+                var type = string.Empty;
+
+                foreach (var localizedClinicType in clinic.Type.Localized)
+                    if (localizedClinicType.Language == local.Language)
+                        type = localizedClinicType.Name;
+
                 var localClinic = new LocalizedDtoClinic()
                 {
                     Id = local.Id,
                     Name = local.Name,
+                    Type = type,
                     Specializations = local.Specializations.Split(',', ';', '|').ToList(),
                     LangCode = local.Language?.Code.ToLower()
                 };
@@ -149,6 +154,8 @@ namespace Infodoctor.BL.Services
                 ReviewCount = clinic.ClinicReviews.Count,
                 Favorite = clinic.Favorite,
                 FavouriteExpireDate = clinic.FavouriteExpireDate,
+                Recommended = clinic.Recommended,
+                RecommendedExpireDate = clinic.RecommendedExpireDate,
                 ClinicAddress = dtoAddreses,
                 DoctorsIdList = doctorsId,
                 LocalizedClinic = localClinics
@@ -377,6 +384,11 @@ namespace Infodoctor.BL.Services
                 if (localClinic.Language.Code.ToLower() == lang.ToLower())
                     localizedClinic = localClinic;
 
+            var type = string.Empty;
+            foreach (var localizedClinicType in clinic.Type.Localized)
+                if (localizedClinicType.Language.Code.ToLower() == lang)
+                    type = localizedClinicType.Name;
+
             var doctors = clinic.Doctors.Select(doctor => doctor.Id).ToList();
 
             var dtoClinic = new DtoClinicSingleLang()
@@ -384,6 +396,7 @@ namespace Infodoctor.BL.Services
                 LangCode = localizedClinic.Language?.Code.ToLower(),
                 Id = clinic.Id,
                 Name = localizedClinic.Name,
+                Type = type,
                 Email = clinic.Email,
                 Site = clinic.Site,
                 RatePoliteness = clinic.RatePoliteness,
@@ -393,6 +406,8 @@ namespace Infodoctor.BL.Services
                 ReviewCount = clinic.ClinicReviews.Count,
                 Favorite = clinic.Favorite,
                 FavouriteExpireDate = clinic.FavouriteExpireDate,
+                Recommended = clinic.Recommended,
+                RecommendedExpireDate = clinic.RecommendedExpireDate,
                 Images = imagesList,
                 Addresses = dtoAddreses,
                 Specializations = localizedClinic.Specializations.Split(',', ';', '|').ToList(),

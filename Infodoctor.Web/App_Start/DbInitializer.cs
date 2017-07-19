@@ -14,6 +14,7 @@ namespace Infodoctor.Web
         protected override void Seed(AppDbContext context)
         {
             var dbInitializerExtention = new DbInitializerExtention();
+            List<ClinicType> clinicTypes;
             List<ClinicReview> clinicReviewList;
             List<DoctorReview> doctorReviewList;
             List<Clinic> clinicList;
@@ -26,7 +27,9 @@ namespace Infodoctor.Web
             List<ImageFile> imagesList;
             List<Language> langs;
             //List<ImageFile> imagesList;
-            dbInitializerExtention.PrepareLists(out langs, out clinicReviewList, out doctorReviewList, out clinicList, out doctorsList, out phonesList, out clinicAddressList,
+            dbInitializerExtention.PrepareLists(out langs, out clinicReviewList, out doctorReviewList, out clinicList,
+                out clinicTypes,
+                out doctorsList, out phonesList, out clinicAddressList,
                 out belarusCitiesList, out categoriesList, out imagesList, out countriesList);
             context.Images.AddRange(imagesList);
             context.ClinicReviews.AddRange(clinicReviewList);
@@ -45,11 +48,11 @@ namespace Infodoctor.Web
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
             // создаем роли
-            var role1 = new IdentityRole { Name = "user" };
-            var role2 = new IdentityRole { Name = "admin" };
-            var role3 = new IdentityRole { Name = "moder" };
-            var role4 = new IdentityRole { Name = "clinic" };
-            var role5 = new IdentityRole { Name = "doctor" };
+            var role1 = new IdentityRole {Name = "user"};
+            var role2 = new IdentityRole {Name = "admin"};
+            var role3 = new IdentityRole {Name = "moder"};
+            var role4 = new IdentityRole {Name = "clinic"};
+            var role5 = new IdentityRole {Name = "doctor"};
 
             // добавляем роли в бд
             roleManager.Create(role1);
@@ -139,7 +142,8 @@ namespace Infodoctor.Web
 
             var art1 = new Article()
             {
-                Content = @"<p><img src = ""http://infodoctor.somee.com/Content/Images/Article/a1446be69b8a47d0b37083cf761124ae.jpg""></p>< p>Процедура экстракорпорального оплодотворения (ЭКО)&nbsp;&ndash;вспомогательная репродуктивная технология, при которой отдельные этапы зачатия и развития эмбриона происходят вне организма женщины.&nbsp;Малыши, появившиеся на свет, в результате&nbsp;применения метода ЭКО&nbsp;ничем не отличаются от детей, зачатых естественным путем.&nbsp;&nbsp;</p><p>Клиническими показаниями к проведению&nbsp;оплодотворения данным методом&nbsp;&nbsp;являются&nbsp; нарушения проходимости маточных труб,&nbsp;эндометриоз,&nbsp;поликистоз&nbsp;яичников, мужское и возрастное бесплодие, а также бесплодие&nbsp;по неустановленной причине.&nbsp;&nbsp;</p><p>Существует&nbsp;несколько видов&nbsp;экстракорпорального оплодотворения.&nbsp;Наиболее частый&nbsp;&ndash; искусственная&nbsp;инсеминация, который представляет собой&nbsp;введение концентрированной спермы&nbsp;в&nbsp;цервикальный канал или&nbsp;полость матки&nbsp;в период овуляции.&nbsp;Далее&nbsp;сперматозоиды естественным путем проходят по маточным трубам и оплодотворяют яйцеклетку.&nbsp;Искусственную&nbsp;инсеминацию&nbsp;используют в случае&nbsp;полного или частичного&nbsp;мужского бесплодия.&nbsp;</p><p>Гораздо более сложным видом является так называемый &laquo;протокол ЭКО&raquo;, при котором оплодотворение&nbsp;яйцеклеток&nbsp;происходит&nbsp;вне организма женщины, а сформированный впоследствии эмбрион подсаживают&nbsp;в полость матки. Он&nbsp;эффективен при всех видах бесплодия, однако требует длительного подготовительного периода, в ходе которого происходит&nbsp;поэтапное&nbsp;введение&nbsp;лекарственных средств, при помощи&nbsp;чего&nbsp;в яичниках женщины созревает и&nbsp;овулируется&nbsp;сразу несколько яйцеклеток.&nbsp;Это необходимо&nbsp;в целях увеличения шансов наступления беременности.&nbsp;&nbsp;</p><p>Существуют факторы, при которых&nbsp;экстракорпоральное оплодотворение&nbsp;не&nbsp;может быть проведено&nbsp;&ndash; это&nbsp;наличие&nbsp;патологии развития матки,&nbsp;онкологических, воспалительных и инфекционных заболеваний,&nbsp;сахарного диабета,&nbsp;почечной недостаточности, пороков сердца,&nbsp;психических заболеваний.&nbsp;&nbsp;</p><p>Важно помнить, что любое медицинское вмешательство сопряжено с определенными рисками.&nbsp;Так,&nbsp;в ходе проведения ЭКО&nbsp;возможно развитие аллергической реакции на&nbsp;применяемые&nbsp;лекарственные средства.&nbsp;&nbsp;Осложнением процедуры считается также увеличения&nbsp;шанса&nbsp;развития многоплодной беременности, что&nbsp;в свою очередь может привести к преждевременным родам или замиранию беременности. Усиленная гормональная нагрузка, которой подвергается организм женщины при проведении процедуры, может привести к снижению иммунитета.&nbsp;Необходимо&nbsp;также&nbsp;знать, что с возрастом эффективность данного метода&nbsp;значительно снижается: так, после 45 лет&nbsp; успешность проведения процедуры равна&nbsp;всего лишь 1,5 %.&nbsp;&nbsp;</p><p>В настоящее время услуги экстракорпорального оплодотворения предоставляют&nbsp;центры репродуктивной медицины, частные медицинские клиники, республиканские научно-практические центры.&nbsp;</p><p><img src = ""http://infodoctor.somee.com/Content/Images/Article/86f2b071c4e1463d9454c084b1ead451.jpg""></p>",
+                Content =
+                    @"<p><img src = ""http://infodoctor.somee.com/Content/Images/Article/a1446be69b8a47d0b37083cf761124ae.jpg""></p>< p>Процедура экстракорпорального оплодотворения (ЭКО)&nbsp;&ndash;вспомогательная репродуктивная технология, при которой отдельные этапы зачатия и развития эмбриона происходят вне организма женщины.&nbsp;Малыши, появившиеся на свет, в результате&nbsp;применения метода ЭКО&nbsp;ничем не отличаются от детей, зачатых естественным путем.&nbsp;&nbsp;</p><p>Клиническими показаниями к проведению&nbsp;оплодотворения данным методом&nbsp;&nbsp;являются&nbsp; нарушения проходимости маточных труб,&nbsp;эндометриоз,&nbsp;поликистоз&nbsp;яичников, мужское и возрастное бесплодие, а также бесплодие&nbsp;по неустановленной причине.&nbsp;&nbsp;</p><p>Существует&nbsp;несколько видов&nbsp;экстракорпорального оплодотворения.&nbsp;Наиболее частый&nbsp;&ndash; искусственная&nbsp;инсеминация, который представляет собой&nbsp;введение концентрированной спермы&nbsp;в&nbsp;цервикальный канал или&nbsp;полость матки&nbsp;в период овуляции.&nbsp;Далее&nbsp;сперматозоиды естественным путем проходят по маточным трубам и оплодотворяют яйцеклетку.&nbsp;Искусственную&nbsp;инсеминацию&nbsp;используют в случае&nbsp;полного или частичного&nbsp;мужского бесплодия.&nbsp;</p><p>Гораздо более сложным видом является так называемый &laquo;протокол ЭКО&raquo;, при котором оплодотворение&nbsp;яйцеклеток&nbsp;происходит&nbsp;вне организма женщины, а сформированный впоследствии эмбрион подсаживают&nbsp;в полость матки. Он&nbsp;эффективен при всех видах бесплодия, однако требует длительного подготовительного периода, в ходе которого происходит&nbsp;поэтапное&nbsp;введение&nbsp;лекарственных средств, при помощи&nbsp;чего&nbsp;в яичниках женщины созревает и&nbsp;овулируется&nbsp;сразу несколько яйцеклеток.&nbsp;Это необходимо&nbsp;в целях увеличения шансов наступления беременности.&nbsp;&nbsp;</p><p>Существуют факторы, при которых&nbsp;экстракорпоральное оплодотворение&nbsp;не&nbsp;может быть проведено&nbsp;&ndash; это&nbsp;наличие&nbsp;патологии развития матки,&nbsp;онкологических, воспалительных и инфекционных заболеваний,&nbsp;сахарного диабета,&nbsp;почечной недостаточности, пороков сердца,&nbsp;психических заболеваний.&nbsp;&nbsp;</p><p>Важно помнить, что любое медицинское вмешательство сопряжено с определенными рисками.&nbsp;Так,&nbsp;в ходе проведения ЭКО&nbsp;возможно развитие аллергической реакции на&nbsp;применяемые&nbsp;лекарственные средства.&nbsp;&nbsp;Осложнением процедуры считается также увеличения&nbsp;шанса&nbsp;развития многоплодной беременности, что&nbsp;в свою очередь может привести к преждевременным родам или замиранию беременности. Усиленная гормональная нагрузка, которой подвергается организм женщины при проведении процедуры, может привести к снижению иммунитета.&nbsp;Необходимо&nbsp;также&nbsp;знать, что с возрастом эффективность данного метода&nbsp;значительно снижается: так, после 45 лет&nbsp; успешность проведения процедуры равна&nbsp;всего лишь 1,5 %.&nbsp;&nbsp;</p><p>В настоящее время услуги экстракорпорального оплодотворения предоставляют&nbsp;центры репродуктивной медицины, частные медицинские клиники, республиканские научно-практические центры.&nbsp;</p><p><img src = ""http://infodoctor.somee.com/Content/Images/Article/86f2b071c4e1463d9454c084b1ead451.jpg""></p>",
                 Title = "Метод ЭКО. Что нужно знать?",
                 PublishDate = DateTime.Now.AddDays(-1),
                 Author = "admin",
@@ -147,13 +151,14 @@ namespace Infodoctor.Web
             };
             var art2 = new Article()
             {
-                Content = @"<p><img src = ""http://infodoctor.somee.com/Content/Images/Article/4f4fe30e48b74d6288b512d5c660197e.jpg""></p><p>Остеомиелит (от греч.&nbsp;''воспаление костного мозга'')&nbsp;&minus;&nbsp;инфекционное заболевание, поражающее костную ткань и костной мозг и сопровождающееся гнойно-воспалительным процессом, вследствие чего развивается общая интоксикация организма. Бактериальными возбудителями заболевания являются стрептококки и стафилококки, которые могут проникать в организм несколькими путями: вследствие загрязнения мягких тканей при открытой травме, ранении или с током крови по кровеносным сосудам при наличии в организме хронической инфекции. Предрасполагающими факторами возникновения остеомиелита являются наличие онкологического заболевания, сахарного диабета, нарушения функций печени и почек, а также злоупотребление алкоголем, курение, плохое питание. Различают 3 клинические формы остеомиелита, в зависимости от чего выделяют и различные проявления заболевания.&nbsp;</p><p>&nbsp;Первыми симптомами септико-пиемической формы является повышение температуры, слабость, озноб, тошнота, наблюдается увеличение печени и селезенки. Спустя 1-2 суток появляется сильная боль, отечность, покраснение в области пораженной кости, формируется гнойное воспаление. При дальнейшем развитии заболевания велик риск возникновения межмышечной флегмоны. Местная форма остеомиелита при своевременном начале лечения характеризуется наиболее легким течением и проявляется в преобладании симптомов костного поражения при удовлетворительном общем самочувствии. Наиболее редкой и опасной формой остеомиелита является&nbsp;токсическая. Заболевание развивается в кратчайшие сроки и характеризуется менингеальными симптомами, судорогами, потерей сознания, значительным снижением артериального давления, велик риск развития острой&nbsp;сердечно-сосудистой&nbsp;недостаточности. Опасность токсической формы заключается также и в сложности диагностирования заболевания вследствие отсутствия на начальном этапе специфических симптомов костного поражения.&nbsp;&nbsp;</p><p>Однако нужно знать, что, несмотря на быстрое развитие и зачастую тяжелое течение остеомиелита, своевременная диагностика и правильное комплексное лечение позволяют избежать его прогрессирования, снижают&nbsp;риск развития возможных осложнений, перехода заболевания в хроническую форму.&nbsp;</p><p>Диагностика остеомиелита осуществляется на основании осмотра, сбора анамнеза, а также при помощи лабораторных и инструментальных методов. С этой целью применяется рентгенография, компьютерная и магниторезонансная томография, УЗИ, пункция кости. Наличие воспалительного процесса в организме определяют по данным общего анализа крови и мочи, биохимического анализа крови.&nbsp;</p><p>Лечение заболевания длительное, в некоторых случаях курс может занимать около&nbsp; полугода, однако прогноз полного выздоровления, при условии своевременного начала лечения, благоприятный. Лечение остеомиелита осуществляется только в условиях стационара больничных организаций здравоохранения, куда пациент направляется с предварительным или установленным ранее диагнозом. Обязательным является проведение курса антибиотикотерапии в сочетании с хирургическим вмешательством, которое необходимо при развитии гнойных процессов, появлении свищей. Основные этапы оперативного лечения&nbsp;&minus;&nbsp;санация пораженного участка, удаление отмерших тканей, проведение дренажа. Немаловажным в период лечения является ограничение двигательной активности, проведение&nbsp;иммуностимуляции, а также правильное питание. Особое внимание стоит уделить продуктам с высоким содержанием белка, железа и кальция.&nbsp;&nbsp;</p><p>По окончании лечения с целью тонизирования организма, восстановления функционирования пораженной части тела рекомендованы физиотерапевтические процедуры и лечебная физкультура. Весьма эффективны в период реабилитации электрофорез,&nbsp;магнитотерапия, парафинотерапия, инфракрасный лазер.&nbsp;</p><p>Важно помнить, что любое заболевание легче предупредить, чем лечить! Профилактикой остеомиелита является своевременное лечение очагов инфекции, немедленное обращение за медицинской помощью в случае травм, переломов, правильное питание, отказ от вредных привычек. При ухудшении самочувствия, появлении первых признаков заболевания необходимо срочно обращаться к врачу, не заниматься самолечением: это может привести к необратимым последствиям!&nbsp;</p>",
+                Content =
+                    @"<p><img src = ""http://infodoctor.somee.com/Content/Images/Article/4f4fe30e48b74d6288b512d5c660197e.jpg""></p><p>Остеомиелит (от греч.&nbsp;''воспаление костного мозга'')&nbsp;&minus;&nbsp;инфекционное заболевание, поражающее костную ткань и костной мозг и сопровождающееся гнойно-воспалительным процессом, вследствие чего развивается общая интоксикация организма. Бактериальными возбудителями заболевания являются стрептококки и стафилококки, которые могут проникать в организм несколькими путями: вследствие загрязнения мягких тканей при открытой травме, ранении или с током крови по кровеносным сосудам при наличии в организме хронической инфекции. Предрасполагающими факторами возникновения остеомиелита являются наличие онкологического заболевания, сахарного диабета, нарушения функций печени и почек, а также злоупотребление алкоголем, курение, плохое питание. Различают 3 клинические формы остеомиелита, в зависимости от чего выделяют и различные проявления заболевания.&nbsp;</p><p>&nbsp;Первыми симптомами септико-пиемической формы является повышение температуры, слабость, озноб, тошнота, наблюдается увеличение печени и селезенки. Спустя 1-2 суток появляется сильная боль, отечность, покраснение в области пораженной кости, формируется гнойное воспаление. При дальнейшем развитии заболевания велик риск возникновения межмышечной флегмоны. Местная форма остеомиелита при своевременном начале лечения характеризуется наиболее легким течением и проявляется в преобладании симптомов костного поражения при удовлетворительном общем самочувствии. Наиболее редкой и опасной формой остеомиелита является&nbsp;токсическая. Заболевание развивается в кратчайшие сроки и характеризуется менингеальными симптомами, судорогами, потерей сознания, значительным снижением артериального давления, велик риск развития острой&nbsp;сердечно-сосудистой&nbsp;недостаточности. Опасность токсической формы заключается также и в сложности диагностирования заболевания вследствие отсутствия на начальном этапе специфических симптомов костного поражения.&nbsp;&nbsp;</p><p>Однако нужно знать, что, несмотря на быстрое развитие и зачастую тяжелое течение остеомиелита, своевременная диагностика и правильное комплексное лечение позволяют избежать его прогрессирования, снижают&nbsp;риск развития возможных осложнений, перехода заболевания в хроническую форму.&nbsp;</p><p>Диагностика остеомиелита осуществляется на основании осмотра, сбора анамнеза, а также при помощи лабораторных и инструментальных методов. С этой целью применяется рентгенография, компьютерная и магниторезонансная томография, УЗИ, пункция кости. Наличие воспалительного процесса в организме определяют по данным общего анализа крови и мочи, биохимического анализа крови.&nbsp;</p><p>Лечение заболевания длительное, в некоторых случаях курс может занимать около&nbsp; полугода, однако прогноз полного выздоровления, при условии своевременного начала лечения, благоприятный. Лечение остеомиелита осуществляется только в условиях стационара больничных организаций здравоохранения, куда пациент направляется с предварительным или установленным ранее диагнозом. Обязательным является проведение курса антибиотикотерапии в сочетании с хирургическим вмешательством, которое необходимо при развитии гнойных процессов, появлении свищей. Основные этапы оперативного лечения&nbsp;&minus;&nbsp;санация пораженного участка, удаление отмерших тканей, проведение дренажа. Немаловажным в период лечения является ограничение двигательной активности, проведение&nbsp;иммуностимуляции, а также правильное питание. Особое внимание стоит уделить продуктам с высоким содержанием белка, железа и кальция.&nbsp;&nbsp;</p><p>По окончании лечения с целью тонизирования организма, восстановления функционирования пораженной части тела рекомендованы физиотерапевтические процедуры и лечебная физкультура. Весьма эффективны в период реабилитации электрофорез,&nbsp;магнитотерапия, парафинотерапия, инфракрасный лазер.&nbsp;</p><p>Важно помнить, что любое заболевание легче предупредить, чем лечить! Профилактикой остеомиелита является своевременное лечение очагов инфекции, немедленное обращение за медицинской помощью в случае травм, переломов, правильное питание, отказ от вредных привычек. При ухудшении самочувствия, появлении первых признаков заболевания необходимо срочно обращаться к врачу, не заниматься самолечением: это может привести к необратимым последствиям!&nbsp;</p>",
                 Title = "Остеомиелит не приговор!",
                 PublishDate = DateTime.Now.AddDays(-1),
                 Author = "admin",
                 Language = langs.First(l => l.Code == "ru")
             };
-            var articles = new List<Article>() { art1, art2 };
+            var articles = new List<Article>() {art1, art2};
 
             context.Articles.AddRange(articles.OrderBy(d => d.PublishDate));
             var userName = userManager.Users.First(u => u.UserName == "admin");
@@ -237,7 +242,17 @@ namespace Infodoctor.Web
                 Article = art2,
                 Language = langs.First(l => l.Code == "ru")
             };
-            var comments = new List<ArticleComment>() { comment1, comment2, comment3, comment4, comment5, comment6, comment7, comment8 };
+            var comments = new List<ArticleComment>()
+            {
+                comment1,
+                comment2,
+                comment3,
+                comment4,
+                comment5,
+                comment6,
+                comment7,
+                comment8
+            };
 
             context.ArticleComments.AddRange(comments.OrderBy(d => d.PublishTime));
 
@@ -279,35 +294,60 @@ namespace Infodoctor.Web
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "", Number = "375(1641) 38-2-19" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "",
+                            Number = "375(1641) 38-2-19"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "Факс", Number = "375(1641) 38-2-22" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "Факс",
+                            Number = "375(1641) 38-2-22"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"),  Description = "Мтс", Number = "375 (29) 866-86-69"  }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "Мтс",
+                            Number = "375 (29) 866-86-69"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "", Number = "375 (29) 366-86-67" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "",
+                            Number = "375 (29) 366-86-67"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "", Number = "375(1641) 38-2-19" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "",
+                            Number = "375(1641) 38-2-19"
+                        }
                     }
                 }
             };
@@ -321,8 +361,10 @@ namespace Infodoctor.Web
                     new LocalizedResortAddress()
                     {
                         Country = "Беларусь",
-                        City = belarusCitiesList.First(c => string.Equals(c.LocalizedCities.First(l=>l.Language.Code.ToLower()=="ru").Name, "Брестская область",
-                            StringComparison.CurrentCultureIgnoreCase)),
+                        City = belarusCitiesList.First(c =>
+                            string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name,
+                                "Брестская область",
+                                StringComparison.CurrentCultureIgnoreCase)),
                         Street = "урочище \"Сосновый бор\"",
 
                         Language = langs.First(l => l.Code.ToLower() == "ru")
@@ -358,28 +400,48 @@ namespace Infodoctor.Web
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "для звонков из РБ", Number = "8 (01641) 68-222" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "для звонков из РБ",
+                            Number = "8 (01641) 68-222"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"),Description = "для звонков из РБ", Number = "8 (01641) 68-333" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "для звонков из РБ",
+                            Number = "8 (01641) 68-333"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "для звонков из РФ", Number = "8 10 (375 1641) 68-222" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "для звонков из РФ",
+                            Number = "8 10 (375 1641) 68-222"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "для звонков из РФ", Number = "8 10 (375 1641) 68-333" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "для звонков из РФ",
+                            Number = "8 10 (375 1641) 68-333"
+                        }
                     }
                 }
             };
@@ -393,8 +455,10 @@ namespace Infodoctor.Web
                     new LocalizedResortAddress()
                     {
                         Country = "Беларусь",
-                        City = belarusCitiesList.First(c => string.Equals(c.LocalizedCities.First(l=>l.Language.Code.ToLower()=="ru").Name, "Брестская область",
-                            StringComparison.CurrentCultureIgnoreCase)),
+                        City = belarusCitiesList.First(c =>
+                            string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name,
+                                "Брестская область",
+                                StringComparison.CurrentCultureIgnoreCase)),
                         Street = "Жабинковский район, 1,6 км севернее д. Чижевщина",
 
                         Language = langs.First(l => l.Code.ToLower() == "ru")
@@ -412,7 +476,8 @@ namespace Infodoctor.Web
                     new LocalizedResort()
                     {
                         Name = "Санаторий \"Надзея\"",
-                        Manipulations = @"Водолечение, ЛФК Галотерапия, Электросветолечение, Теплолечение, Ручной массаж, Фиточай, Небулайзерная ингаляционная терапия, Галотерапия, Косметология, УЗИ",
+                        Manipulations =
+                            @"Водолечение, ЛФК Галотерапия, Электросветолечение, Теплолечение, Ручной массаж, Фиточай, Небулайзерная ингаляционная терапия, Галотерапия, Косметология, УЗИ",
                         Language = langs.First(l => l.Code.ToLower() == "ru")
                     }
                 },
@@ -430,42 +495,72 @@ namespace Infodoctor.Web
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "международный", Number = "8 (10-375-212) 29 72 39" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "международный",
+                            Number = "8 (10-375-212) 29 72 39"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "международный", Number = "8 (10-375-212) 29 73 35" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "международный",
+                            Number = "8 (10-375-212) 29 73 35"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "международный", Number = "8 (10-375-212) 29 73 24" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "международный",
+                            Number = "8 (10-375-212) 29 73 24"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "по Беларуси", Number = "8 (10-375-212) 29 72 39" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "по Беларуси",
+                            Number = "8 (10-375-212) 29 72 39"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "по Беларуси", Number = "8 (10-375-212) 29 73 35" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "по Беларуси",
+                            Number = "8 (10-375-212) 29 73 35"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "по Беларуси", Number = "8 (10-375-212) 29 73 24" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "по Беларуси",
+                            Number = "8 (10-375-212) 29 73 24"
+                        }
                     }
                 }
             };
@@ -479,8 +574,10 @@ namespace Infodoctor.Web
                     new LocalizedResortAddress()
                     {
                         Country = "Беларусь",
-                        City = belarusCitiesList.First(c => string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name, "Витебская область",
-                            StringComparison.CurrentCultureIgnoreCase)),
+                        City = belarusCitiesList.First(c =>
+                            string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name,
+                                "Витебская область",
+                                StringComparison.CurrentCultureIgnoreCase)),
                         Street = "Витебский район, д. Малые ",
 
                         Language = langs.First(l => l.Code.ToLower() == "ru")
@@ -498,7 +595,8 @@ namespace Infodoctor.Web
                     new LocalizedResort()
                     {
                         Name = "Санаторий \"Лётцы\"",
-                        Manipulations = @"Диетотерапия, Бальнеолечение, Теплолечение, Аппаратная физиотерапия, Массаж, Климатолечение, Галотерапия, Рефлексотерапия, Лечебная физкультура, Космтология, Спа, УЗД, УЗИ",
+                        Manipulations =
+                            @"Диетотерапия, Бальнеолечение, Теплолечение, Аппаратная физиотерапия, Массаж, Климатолечение, Галотерапия, Рефлексотерапия, Лечебная физкультура, Космтология, Спа, УЗД, УЗИ",
                         Language = langs.First(l => l.Code.ToLower() == "ru")
                     }
                 },
@@ -516,21 +614,36 @@ namespace Infodoctor.Web
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "", Number = "375 2157 33463" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "",
+                            Number = "375 2157 33463"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "", Number = "375 29 3442040" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "",
+                            Number = "375 29 3442040"
+                        }
                     }
                 },
                 new ResortPhone()
                 {
                     Localized = new List<LocalizedResortPhone>()
                     {
-                        new LocalizedResortPhone(){ Language = langs.First(l => l.Code.ToLower() == "ru"), Description = "", Number = "375 2157 33458" }
+                        new LocalizedResortPhone()
+                        {
+                            Language = langs.First(l => l.Code.ToLower() == "ru"),
+                            Description = "",
+                            Number = "375 2157 33458"
+                        }
                     }
                 }
             };
@@ -544,8 +657,10 @@ namespace Infodoctor.Web
                     new LocalizedResortAddress()
                     {
                         Country = "Беларусь",
-                        City = belarusCitiesList.First(c => string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name, "Витебская область",
-                            StringComparison.CurrentCultureIgnoreCase)),
+                        City = belarusCitiesList.First(c =>
+                            string.Equals(c.LocalizedCities.First(l => l.Language.Code.ToLower() == "ru").Name,
+                                "Витебская область",
+                                StringComparison.CurrentCultureIgnoreCase)),
                         Street = "д. Будачи, Докшицкий р-н",
 
                         Language = langs.First(l => l.Code.ToLower() == "ru")
@@ -618,11 +733,79 @@ namespace Infodoctor.Web
             };
             resorts.Add(resort4);
 
+            #region ResortTypes
+            var resortTypes = new List<ResortType>()
+            {
+                new ResortType()
+                {
+                    Resorts = resorts,
+                    Localized = new List<LocalizedResortType>()
+                    {
+                        new LocalizedResortType()
+                        {
+                            Name = "Санаторий",
+                            Language = langs.First(l=>l.Code=="ru")
+                        }
+                    }
+                },
+                new ResortType()
+                {
+                    Localized = new List<LocalizedResortType>()
+                    {
+                        new LocalizedResortType()
+                        {
+                            Name = "База отдыха",
+                            Language = langs.First(l=>l.Code=="ru")
+                        }
+                    }
+                },
+                new ResortType()
+                {
+                    Localized = new List<LocalizedResortType>()
+                    {
+                        new LocalizedResortType()
+                        {
+                            Name = "База отдыха",
+                            Language = langs.First(l=>l.Code=="ru")
+                        }
+                    }
+                },
+                new ResortType()
+                {
+                    Localized = new List<LocalizedResortType>()
+                    {
+                        new LocalizedResortType()
+                        {
+                            Name = "Профилакторий",
+                            Language = langs.First(l=>l.Code=="ru")
+                        }
+                    }
+                },
+                new ResortType()
+                {
+                    Localized = new List<LocalizedResortType>()
+                    {
+                        new LocalizedResortType()
+                        {
+                            Name = "Центр реабилитации",
+                            Language = langs.First(l=>l.Code=="ru")
+                        }
+                    }
+                },
+            };
+            
+
+            #endregion
+
 
             context.ResortPhones.AddRange(resPhones);
             context.ResortAddresses.AddRange(resAdrs);
             context.Resorts.AddRange(resorts);
 
+
+            context.ResortTypes.AddRange(resortTypes);
+            context.ClinicTypes.AddRange(clinicTypes);
+            
             base.Seed(context);
         }
     }

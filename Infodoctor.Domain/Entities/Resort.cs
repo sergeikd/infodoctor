@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infodoctor.Domain.Entities
 {
@@ -15,8 +17,14 @@ namespace Infodoctor.Domain.Entities
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
         public bool Favorite { get; set; }
+        public bool Recommended { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime FavouriteExpireDate { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime RecommendedExpireDate { get; set; }
         public virtual ResortAddress Address { get; set; }
         public virtual ICollection<ResortReview> Reviews { get; set; }
+        public virtual ResortType Type { get; set; }
     }
 
     public class LocalizedResort

@@ -8,7 +8,7 @@ namespace Infodoctor.Web
     public class DbInitializerExtention
     {
         internal void PrepareLists(out List<Language> langs, out List<ClinicReview> clinicReviewList,
-            out List<DoctorReview> doctorReviewList, out List<Clinic> clinicList, out List<Doctor> doctors,
+            out List<DoctorReview> doctorReviewList, out List<Clinic> clinicList,out List<ClinicType> clinicTypesList, out List<Doctor> doctors,
             out List<Phone> phonesList, out List<Address> clinicAddressList, out List<City> belarusCitiesList,
             out List<DoctorCategory> categoriesList, out List<ImageFile> imagesList, out List<Country> countriesList)
         {
@@ -68,122 +68,813 @@ namespace Infodoctor.Web
             //}
 
             #region Очень длинный список городов РБ
-            var city1 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Бобруйск", Language = langs.First(l => l.Code == "ru") } } };
-            var city2 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Барановичи", Language = langs.First(l => l.Code == "ru") } } };
-            var city3 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Борисов", Language = langs.First(l => l.Code == "ru") } } };
-            var city4 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Барань", Language = langs.First(l => l.Code == "ru") } } };
-            var city5 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Белоозерск", Language = langs.First(l => l.Code == "ru") } } };
-            var city6 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Береза", Language = langs.First(l => l.Code == "ru") } } };
-            var city7 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Березино", Language = langs.First(l => l.Code == "ru") } } };
-            var city8 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Березовка", Language = langs.First(l => l.Code == "ru") } } };
-            var city9 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Браслав", Language = langs.First(l => l.Code == "ru") } } };
-            var city10 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Брест", Language = langs.First(l => l.Code == "ru") } } };
-            var city11 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Буда-Кошелево", Language = langs.First(l => l.Code == "ru") } } };
-            var city12 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Быхов", Language = langs.First(l => l.Code == "ru") } } };
-            var city13 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Василевичи", Language = langs.First(l => l.Code == "ru") } } };
-            var city14 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Верхнедвинск", Language = langs.First(l => l.Code == "ru") } } };
-            var city15 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Ветка", Language = langs.First(l => l.Code == "ru") } } };
-            var city16 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Вилейка", Language = langs.First(l => l.Code == "ru") } } };
-            var city17 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Витебск", Language = langs.First(l => l.Code == "ru") } } };
-            var city18 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Волковыск", Language = langs.First(l => l.Code == "ru") } } };
-            var city19 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Воложин", Language = langs.First(l => l.Code == "ru") } } };
-            var city20 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Высокое", Language = langs.First(l => l.Code == "ru") } } };
-            var city21 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Ганцевичи", Language = langs.First(l => l.Code == "ru") } } };
-            var city22 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Глубокое", Language = langs.First(l => l.Code == "ru") } } };
-            var city23 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Гомель", Language = langs.First(l => l.Code == "ru") } } };
-            var city24 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Горки", Language = langs.First(l => l.Code == "ru") } } };
-            var city25 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Городок", Language = langs.First(l => l.Code == "ru") } } };
-            var city26 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Гродно", Language = langs.First(l => l.Code == "ru") } } };
-            var city27 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Давид-Городок", Language = langs.First(l => l.Code == "ru") } } };
-            var city28 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Дзержинск", Language = langs.First(l => l.Code == "ru") } } };
-            var city29 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Дисна", Language = langs.First(l => l.Code == "ru") } } };
-            var city30 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Добруш", Language = langs.First(l => l.Code == "ru") } } };
-            var city31 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Докшицы", Language = langs.First(l => l.Code == "ru") } } };
-            var city32 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Дрогичин", Language = langs.First(l => l.Code == "ru") } } };
-            var city33 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Дубровно", Language = langs.First(l => l.Code == "ru") } } };
-            var city34 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Дятлово", Language = langs.First(l => l.Code == "ru") } } };
-            var city35 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Ельск", Language = langs.First(l => l.Code == "ru") } } };
-            var city36 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Жодино", Language = langs.First(l => l.Code == "ru") } } };
-            var city37 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Жабинка", Language = langs.First(l => l.Code == "ru") } } };
-            var city38 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Житковичи", Language = langs.First(l => l.Code == "ru") } } };
-            var city39 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Жлобин", Language = langs.First(l => l.Code == "ru") } } };
-            var city40 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Заславль", Language = langs.First(l => l.Code == "ru") } } };
-            var city41 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Иваново", Language = langs.First(l => l.Code == "ru") } } };
-            var city42 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Ивацевичи", Language = langs.First(l => l.Code == "ru") } } };
-            var city43 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Ивье", Language = langs.First(l => l.Code == "ru") } } };
-            var city44 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Калинковичи", Language = langs.First(l => l.Code == "ru") } } };
-            var city45 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Каменец", Language = langs.First(l => l.Code == "ru") } } };
-            var city46 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Кировск", Language = langs.First(l => l.Code == "ru") } } };
-            var city47 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Клецк", Language = langs.First(l => l.Code == "ru") } } };
-            var city48 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Климовичи", Language = langs.First(l => l.Code == "ru") } } };
-            var city49 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Кличев", Language = langs.First(l => l.Code == "ru") } } };
-            var city50 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Кобрин", Language = langs.First(l => l.Code == "ru") } } };
-            var city51 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Копыль", Language = langs.First(l => l.Code == "ru") } } };
-            var city52 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Коссово", Language = langs.First(l => l.Code == "ru") } } };
-            var city53 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Костюковичи", Language = langs.First(l => l.Code == "ru") } } };
-            var city54 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Кричев", Language = langs.First(l => l.Code == "ru") } } };
-            var city55 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Крупки", Language = langs.First(l => l.Code == "ru") } } };
-            var city56 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Лепель", Language = langs.First(l => l.Code == "ru") } } };
-            var city57 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Лида", Language = langs.First(l => l.Code == "ru") } } };
-            var city58 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Логойск", Language = langs.First(l => l.Code == "ru") } } };
-            var city59 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Лунинец", Language = langs.First(l => l.Code == "ru") } } };
-            var city60 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Любань", Language = langs.First(l => l.Code == "ru") } } };
-            var city61 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Ляховичи", Language = langs.First(l => l.Code == "ru") } } };
-            var city62 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Мозырь", Language = langs.First(l => l.Code == "ru") } } };
-            var city63 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Малорита", Language = langs.First(l => l.Code == "ru") } } };
-            var city64 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Марьина Горка", Language = langs.First(l => l.Code == "ru") } } };
-            var city65 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Микашевичи", Language = langs.First(l => l.Code == "ru") } } };
-            var city66 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Минск", Language = langs.First(l => l.Code == "ru") } }/*, Adresses = new List<Address>() { ca1, ca2, ca3, ca4, ca5, ca6, ca7 } */};
-            var city67 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Миоры", Language = langs.First(l => l.Code == "ru") } } };
-            var city68 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Могилев", Language = langs.First(l => l.Code == "ru") } } };
-            var city69 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Молодечно", Language = langs.First(l => l.Code == "ru") } } };
-            var city70 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Мосты", Language = langs.First(l => l.Code == "ru") } } };
-            var city71 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Мстиславль", Language = langs.First(l => l.Code == "ru") } } };
-            var city72 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Мядель", Language = langs.First(l => l.Code == "ru") } } };
-            var city73 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Новополоцк", Language = langs.First(l => l.Code == "ru") } } };
-            var city74 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Наровля", Language = langs.First(l => l.Code == "ru") } } };
-            var city75 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Несвиж", Language = langs.First(l => l.Code == "ru") } } };
-            var city76 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Новогрудок", Language = langs.First(l => l.Code == "ru") } } };
-            var city77 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Новолукомль", Language = langs.First(l => l.Code == "ru") } } };
-            var city78 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Орша", Language = langs.First(l => l.Code == "ru") } } };
-            var city79 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Осиповичи", Language = langs.First(l => l.Code == "ru") } } };
-            var city80 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Ошмяны", Language = langs.First(l => l.Code == "ru") } } };
-            var city81 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Пинск", Language = langs.First(l => l.Code == "ru") } } };
-            var city82 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Полоцк", Language = langs.First(l => l.Code == "ru") } } };
-            var city83 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Петриков", Language = langs.First(l => l.Code == "ru") } } };
-            var city84 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Поставы", Language = langs.First(l => l.Code == "ru") } } };
-            var city85 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Пружаны", Language = langs.First(l => l.Code == "ru") } } };
-            var city86 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Речица", Language = langs.First(l => l.Code == "ru") } } };
-            var city87 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Рогачев", Language = langs.First(l => l.Code == "ru") } } };
-            var city88 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Светлогорск", Language = langs.First(l => l.Code == "ru") } } };
-            var city89 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Свислочь", Language = langs.First(l => l.Code == "ru") } } };
-            var city90 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Сенно", Language = langs.First(l => l.Code == "ru") } } };
-            var city91 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Скидель", Language = langs.First(l => l.Code == "ru") } } };
-            var city92 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Славгород", Language = langs.First(l => l.Code == "ru") } } };
-            var city93 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Слоним", Language = langs.First(l => l.Code == "ru") } } };
-            var city94 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Слуцк", Language = langs.First(l => l.Code == "ru") } } };
-            var city95 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Смолевичи", Language = langs.First(l => l.Code == "ru") } } };
-            var city96 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Сморгонь", Language = langs.First(l => l.Code == "ru") } } };
-            var city97 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Солигорск", Language = langs.First(l => l.Code == "ru") } } };
-            var city98 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Старые Дороги", Language = langs.First(l => l.Code == "ru") } } };
-            var city99 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Столбцы", Language = langs.First(l => l.Code == "ru") } } };
-            var city100 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Столин", Language = langs.First(l => l.Code == "ru") } } };
-            var city101 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Толочин", Language = langs.First(l => l.Code == "ru") } } };
-            var city102 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Туров", Language = langs.First(l => l.Code == "ru") } } };
-            var city103 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Узда", Language = langs.First(l => l.Code == "ru") } } };
-            var city104 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Фаниполь", Language = langs.First(l => l.Code == "ru") } } };
-            var city105 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Хойники", Language = langs.First(l => l.Code == "ru") } } };
-            var city106 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Чаусы", Language = langs.First(l => l.Code == "ru") } } };
-            var city107 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Чашники", Language = langs.First(l => l.Code == "ru") } } };
-            var city108 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Червень", Language = langs.First(l => l.Code == "ru") } } };
-            var city109 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Чериков", Language = langs.First(l => l.Code == "ru") } } };
-            var city110 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Чечерск", Language = langs.First(l => l.Code == "ru") } } };
-            var city111 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Шклов", Language = langs.First(l => l.Code == "ru") } } };
-            var city112 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Щучин", Language = langs.First(l => l.Code == "ru") } } };
-            var city113 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Брестская область", Language = langs.First(l => l.Code == "ru") } } };
-            var city114 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Витебская область", Language = langs.First(l => l.Code == "ru") } } };
-            var city115 = new City() { LocalizedCities = new List<LocalizedCity>() { new LocalizedCity() { Name = "Минская область", Language = langs.First(l => l.Code == "ru") } } };
 
+            var city1 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Бобруйск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city2 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Барановичи", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city3 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Борисов", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city4 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Барань", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city5 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Белоозерск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city6 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Береза", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city7 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Березино", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city8 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Березовка", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city9 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Браслав", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city10 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Брест", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city11 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Буда-Кошелево", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city12 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Быхов", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city13 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Василевичи", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city14 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Верхнедвинск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city15 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Ветка", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city16 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Вилейка", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city17 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Витебск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city18 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Волковыск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city19 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Воложин", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city20 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Высокое", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city21 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Ганцевичи", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city22 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Глубокое", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city23 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Гомель", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city24 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Горки", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city25 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Городок", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city26 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Гродно", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city27 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Давид-Городок", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city28 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Дзержинск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city29 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Дисна", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city30 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Добруш", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city31 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Докшицы", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city32 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Дрогичин", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city33 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Дубровно", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city34 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Дятлово", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city35 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Ельск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city36 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Жодино", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city37 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Жабинка", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city38 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Житковичи", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city39 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Жлобин", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city40 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Заславль", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city41 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Иваново", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city42 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Ивацевичи", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city43 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Ивье", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city44 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Калинковичи", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city45 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Каменец", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city46 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Кировск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city47 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Клецк", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city48 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Климовичи", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city49 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Кличев", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city50 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Кобрин", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city51 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Копыль", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city52 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Коссово", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city53 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Костюковичи", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city54 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Кричев", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city55 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Крупки", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city56 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Лепель", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city57 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Лида", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city58 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Логойск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city59 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Лунинец", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city60 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Любань", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city61 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Ляховичи", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city62 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Мозырь", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city63 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Малорита", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city64 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Марьина Горка", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city65 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Микашевичи", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city66 = new City()
+            {
+                LocalizedCities =
+                    new List<LocalizedCity>()
+                    {
+                        new LocalizedCity() {Name = "Минск", Language = langs.First(l => l.Code == "ru")}
+                    } /*, Adresses = new List<Address>() { ca1, ca2, ca3, ca4, ca5, ca6, ca7 } */
+            };
+            var city67 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Миоры", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city68 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Могилев", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city69 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Молодечно", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city70 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Мосты", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city71 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Мстиславль", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city72 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Мядель", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city73 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Новополоцк", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city74 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Наровля", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city75 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Несвиж", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city76 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Новогрудок", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city77 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Новолукомль", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city78 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Орша", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city79 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Осиповичи", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city80 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Ошмяны", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city81 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Пинск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city82 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Полоцк", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city83 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Петриков", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city84 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Поставы", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city85 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Пружаны", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city86 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Речица", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city87 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Рогачев", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city88 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Светлогорск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city89 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Свислочь", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city90 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Сенно", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city91 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Скидель", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city92 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Славгород", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city93 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Слоним", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city94 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Слуцк", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city95 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Смолевичи", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city96 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Сморгонь", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city97 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Солигорск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city98 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Старые Дороги", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city99 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Столбцы", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city100 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Столин", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city101 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Толочин", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city102 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Туров", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city103 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Узда", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city104 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Фаниполь", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city105 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Хойники", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city106 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Чаусы", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city107 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Чашники", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city108 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Червень", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city109 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Чериков", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city110 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Чечерск", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city111 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Шклов", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city112 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Щучин", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city113 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Брестская область", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city114 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Витебская область", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
+            var city115 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Минская область", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
 
             #endregion
 
@@ -312,7 +1003,8 @@ namespace Infodoctor.Web
                 {
                     new LocalizedCountry
                     {
-                        Name = "Беларусь", Language = langs.First(l => l.Code == "ru")
+                        Name = "Беларусь",
+                        Language = langs.First(l => l.Code == "ru")
                     }
                 },
                 Cities = belarusCitiesList
@@ -329,7 +1021,8 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "Медицинский центр Нордин",
-                        Specializations = "Аллергология|Вакцинопрофилактика|Гастроэнтерология|Гидроколонотерапия|Гинекология|Детская гинекология|Детская урология|Дерматология|Косметический кабинет|Логопедия|Кардиология|Неврология|Онкология|Ортопедия|Оториноларингология|Офтальмология|Педиатрия|Проктология|Психотерапия|Терапия|Урология|Физиотерапия|Эндокринология",
+                        Specializations =
+                            "Аллергология|Вакцинопрофилактика|Гастроэнтерология|Гидроколонотерапия|Гинекология|Детская гинекология|Детская урология|Дерматология|Косметический кабинет|Логопедия|Кардиология|Неврология|Онкология|Ортопедия|Оториноларингология|Офтальмология|Педиатрия|Проктология|Психотерапия|Терапия|Урология|Физиотерапия|Эндокринология",
                         Language = langs.First(l => l.Code == "ru")
                     },
                     new LocalizedClinic()
@@ -345,7 +1038,7 @@ namespace Infodoctor.Web
                 ClinicReviews = clinicReviewSubList,
                 Favorite = true,
                 FavouriteExpireDate = DateTime.Now.AddMinutes(2),
-                ImageName = new List<ImageFile>() { imagesList[0] }
+                ImageName = new List<ImageFile>() {imagesList[0]}
             };
             clinic1.RateAverage = (clinic1.RatePrice + clinic1.RateQuality + clinic1.RatePoliteness) / 3;
 
@@ -373,7 +1066,7 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = false,
-                ImageName = new List<ImageFile>() { imagesList[1] }
+                ImageName = new List<ImageFile>() {imagesList[1]}
             };
             clinic2.RateAverage = (clinic2.RatePrice + clinic2.RateQuality + clinic2.RatePoliteness) / 3;
 
@@ -387,7 +1080,8 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "Медицинский центр Кравира",
-                        Specializations = "Лабораторная диагностика|Гинекология|Дерматология|Косметология|Массаж|Лечебная физкультура|Неврология|Онкология|Маммология|Оториноларингология|Пластическая эстетическая хирургия|Проктология|Психотерапия|Стоматология|Терапия|Ультразвуковая диагностика (УЗИ)|Урология|Флебология|Функциональная диагностика|Хирургия, в т.ч. лазерная|Эндокринология",
+                        Specializations =
+                            "Лабораторная диагностика|Гинекология|Дерматология|Косметология|Массаж|Лечебная физкультура|Неврология|Онкология|Маммология|Оториноларингология|Пластическая эстетическая хирургия|Проктология|Психотерапия|Стоматология|Терапия|Ультразвуковая диагностика (УЗИ)|Урология|Флебология|Функциональная диагностика|Хирургия, в т.ч. лазерная|Эндокринология",
                         Language = langs.First(l => l.Code == "ru")
                     },
                     new LocalizedClinic()
@@ -402,7 +1096,7 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = false,
-                ImageName = new List<ImageFile>() { imagesList[2] }
+                ImageName = new List<ImageFile>() {imagesList[2]}
             };
             clinic3.RateAverage = (clinic3.RatePrice + clinic3.RateQuality + clinic3.RatePoliteness) / 3;
 
@@ -416,7 +1110,8 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "4-я городская поликлиника г.Минска",
-                        Specializations = "Клинико-диагностическая лаборатория|Отделение женской консультации|Отделение медицинской реабилитации|Отделение профилактики|Отделение ультразвуковой диагностики|Педиатрическое отделение|Кардиологическое отделение|Урологическое отделение|Рентгеновское отделение|Стоматологическое отделение|Терапевтическое отделение|Хирургическое отделение|Узкие специалисты",
+                        Specializations =
+                            "Клинико-диагностическая лаборатория|Отделение женской консультации|Отделение медицинской реабилитации|Отделение профилактики|Отделение ультразвуковой диагностики|Педиатрическое отделение|Кардиологическое отделение|Урологическое отделение|Рентгеновское отделение|Стоматологическое отделение|Терапевтическое отделение|Хирургическое отделение|Узкие специалисты",
                         Language = langs.First(l => l.Code == "ru")
                     },
                     new LocalizedClinic()
@@ -431,7 +1126,7 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = false,
-                ImageName = new List<ImageFile>() { imagesList[3] }
+                ImageName = new List<ImageFile>() {imagesList[3]}
             };
             clinic4.RateAverage = (clinic4.RatePrice + clinic4.RateQuality + clinic4.RatePoliteness) / 3;
 
@@ -444,7 +1139,8 @@ namespace Infodoctor.Web
                     new LocalizedClinic()
                     {
                         Name = "2-я городская детская клиническая больница г. Минска",
-                        Specializations = "Урологическое отделение|Отделение детской нефрологии и заместительной почечной терапии|Отделение детской эндокринологии|Отделение реанимации |Отделение гемодиализа |Отделение функциональной диагностики |Отделение перитонеального диализа|Отделение гипербарической оксигенации|Физиотерапевтическое отделение|Изотопной лаборатория",
+                        Specializations =
+                            "Урологическое отделение|Отделение детской нефрологии и заместительной почечной терапии|Отделение детской эндокринологии|Отделение реанимации |Отделение гемодиализа |Отделение функциональной диагностики |Отделение перитонеального диализа|Отделение гипербарической оксигенации|Физиотерапевтическое отделение|Изотопной лаборатория",
                         Language = langs.First(l => l.Code == "ru")
                     },
                     new LocalizedClinic()
@@ -459,12 +1155,11 @@ namespace Infodoctor.Web
                 RatePoliteness = clinicReviewSubList.Select(x => x.RatePoliteness).Average(),
                 ClinicReviews = clinicReviewSubList,
                 Favorite = false,
-                ImageName = new List<ImageFile>() { imagesList[4] }
-
+                ImageName = new List<ImageFile>() {imagesList[4]}
             };
             clinic5.RateAverage = (clinic5.RatePrice + clinic5.RateQuality + clinic5.RatePoliteness) / 3;
 
-            clinicList = new List<Clinic> { clinic1, clinic2, clinic3, clinic4, clinic5 };
+            clinicList = new List<Clinic> {clinic1, clinic2, clinic3, clinic4, clinic5};
 
             doctorReviewList = new List<DoctorReview>();
             for (var i = 0; i < 25; i++)
@@ -490,6 +1185,61 @@ namespace Infodoctor.Web
             }
 
 
+            #region ClinicTypes
+
+            clinicTypesList = new List<ClinicType>()
+            {
+                new ClinicType()
+                {
+                    Clinics = new List<Clinic>() {clinic1, clinic3},
+                    Localized = new List<LocalizedClinicType>()
+                    {
+                        new LocalizedClinicType() {Name = "Медицинский центр", Language = langs.First(l => l.Code == "ru")}
+                    }
+                },
+                new ClinicType()
+                {
+                    Clinics = new List<Clinic>() {clinic5},
+                    Localized = new List<LocalizedClinicType>()
+                    {
+                        new LocalizedClinicType() {Name = "Клиника", Language = langs.First(l => l.Code == "ru")}
+                    }
+                },
+                new ClinicType()
+                {
+                    Clinics = new List<Clinic>() {clinic4},
+                    Localized = new List<LocalizedClinicType>()
+                    {
+                        new LocalizedClinicType() {Name = "Поликлиника", Language = langs.First(l => l.Code == "ru")}
+                    }
+                },
+                new ClinicType()
+                {
+                    Clinics = new List<Clinic>() {clinic2},
+                    Localized = new List<LocalizedClinicType>()
+                    {
+                        new LocalizedClinicType() {Name = "Стоматология", Language = langs.First(l => l.Code == "ru")}
+                    }
+                },
+                new ClinicType()
+                {
+                    Localized = new List<LocalizedClinicType>()
+                    {
+                        new LocalizedClinicType() {Name = "ФАП", Language = langs.First(l => l.Code == "ru")}
+                    }
+                },
+                new ClinicType()
+                {
+                    Localized = new List<LocalizedClinicType>()
+                    {
+                        new LocalizedClinicType() {Name = "Хоспис", Language = langs.First(l => l.Code == "ru")}
+                    }
+                }
+            };
+
+            #endregion
+
+
             #region Список врачей
 
             List<DoctorReview> doctorReviewSubList;
@@ -512,7 +1262,7 @@ namespace Infodoctor.Web
                 RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
                 RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
                 Favorite = false,
-                Clinics = new List<Clinic> { clinic1 },
+                Clinics = new List<Clinic> {clinic1},
                 DoctorReviews = doctorReviewSubList,
                 ImageName = "98344f63b5854a7badd654353f341790.jpg"
             };
@@ -537,7 +1287,7 @@ namespace Infodoctor.Web
                 RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
                 RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
                 Favorite = false,
-                Clinics = new List<Clinic> { clinic1, clinic2 },
+                Clinics = new List<Clinic> {clinic1, clinic2},
                 DoctorReviews = doctorReviewSubList,
                 ImageName = "e314bb55fdfe46ceb369ce3da3a6adae.jpg"
             };
@@ -562,7 +1312,7 @@ namespace Infodoctor.Web
                 RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
                 RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
                 Favorite = false,
-                Clinics = new List<Clinic> { clinic1 },
+                Clinics = new List<Clinic> {clinic1},
                 DoctorReviews = doctorReviewSubList,
                 ImageName = "5161c9cab8a4bee923a30e6a8c1b326.jpg"
             };
@@ -587,7 +1337,7 @@ namespace Infodoctor.Web
                 RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
                 RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
                 Favorite = false,
-                Clinics = new List<Clinic> { clinic2 },
+                Clinics = new List<Clinic> {clinic2},
                 DoctorReviews = doctorReviewSubList,
                 ImageName = "0e76cf893e9a4b27bcaeeb3450f02e9c.jpg"
             };
@@ -612,7 +1362,7 @@ namespace Infodoctor.Web
                 RateWaitingTime = doctorReviewSubList.Select(x => x.RateWaitingTime).Average(),
                 RatePoliteness = doctorReviewSubList.Select(x => x.RatePoliteness).Average(),
                 Favorite = true,
-                Clinics = new List<Clinic> { clinic2 },
+                Clinics = new List<Clinic> {clinic2},
                 DoctorReviews = doctorReviewSubList,
                 ImageName = "03206dbe56b04c1682ab90422923867c.jpg"
             };
@@ -620,44 +1370,81 @@ namespace Infodoctor.Web
 
             #endregion
 
-            doctors = new List<Doctor> { doc001, doc002, doc003, doc004, doc005 };
+            doctors = new List<Doctor> {doc001, doc002, doc003, doc004, doc005};
 
             #region Категории врачей
 
             var cat001 = new DoctorCategory()
             {
-                Localized = new List<LocalizedDoctorCategory>() { new LocalizedDoctorCategory() { Name = "Без категории", Language = langs.First(l => l.Code == "ru") } },
-                Doctors = new List<Doctor> { doc003 }
+                Localized = new List<LocalizedDoctorCategory>()
+                {
+                    new LocalizedDoctorCategory() {Name = "Без категории", Language = langs.First(l => l.Code == "ru")}
+                },
+                Doctors = new List<Doctor> {doc003}
             };
             var cat002 = new DoctorCategory()
             {
-                Localized = new List<LocalizedDoctorCategory>() { new LocalizedDoctorCategory() { Name = "Первая категория", Language = langs.First(l => l.Code == "ru") } },
-                Doctors = new List<Doctor> { doc002 }
+                Localized = new List<LocalizedDoctorCategory>()
+                {
+                    new LocalizedDoctorCategory()
+                    {
+                        Name = "Первая категория",
+                        Language = langs.First(l => l.Code == "ru")
+                    }
+                },
+                Doctors = new List<Doctor> {doc002}
             };
             var cat003 = new DoctorCategory()
             {
-                Localized = new List<LocalizedDoctorCategory>() { new LocalizedDoctorCategory() { Name = "Вторая категории", Language = langs.First(l => l.Code == "ru") } },
-                Doctors = new List<Doctor> { doc001 }
+                Localized = new List<LocalizedDoctorCategory>()
+                {
+                    new LocalizedDoctorCategory()
+                    {
+                        Name = "Вторая категории",
+                        Language = langs.First(l => l.Code == "ru")
+                    }
+                },
+                Doctors = new List<Doctor> {doc001}
             };
             var cat004 = new DoctorCategory()
             {
-                Localized = new List<LocalizedDoctorCategory>() { new LocalizedDoctorCategory() { Name = "Высшая категории", Language = langs.First(l => l.Code == "ru") } },
-                Doctors = new List<Doctor> { doc005 }
+                Localized = new List<LocalizedDoctorCategory>()
+                {
+                    new LocalizedDoctorCategory()
+                    {
+                        Name = "Высшая категории",
+                        Language = langs.First(l => l.Code == "ru")
+                    }
+                },
+                Doctors = new List<Doctor> {doc005}
             };
             var cat005 = new DoctorCategory()
             {
-                Localized = new List<LocalizedDoctorCategory>() { new LocalizedDoctorCategory() { Name = "Кандидат в доктора медицинских наук", Language = langs.First(l => l.Code == "ru") } },
-                Doctors = new List<Doctor> { doc004 }
+                Localized = new List<LocalizedDoctorCategory>()
+                {
+                    new LocalizedDoctorCategory()
+                    {
+                        Name = "Кандидат в доктора медицинских наук",
+                        Language = langs.First(l => l.Code == "ru")
+                    }
+                },
+                Doctors = new List<Doctor> {doc004}
             };
             var cat006 = new DoctorCategory()
             {
-                Localized = new List<LocalizedDoctorCategory>() { new LocalizedDoctorCategory() { Name = "Доктор медицинских наук", Language = langs.First(l => l.Code == "ru") } }
-
+                Localized = new List<LocalizedDoctorCategory>()
+                {
+                    new LocalizedDoctorCategory()
+                    {
+                        Name = "Доктор медицинских наук",
+                        Language = langs.First(l => l.Code == "ru")
+                    }
+                }
             };
 
             #endregion
 
-            categoriesList = new List<DoctorCategory>() { cat001, cat002, cat003, cat004, cat005, cat006 };
+            categoriesList = new List<DoctorCategory>() {cat001, cat002, cat003, cat004, cat005, cat006};
 
             var phone1 = new Phone()
             {
@@ -679,7 +1466,7 @@ namespace Infodoctor.Web
                     {
                         Description = string.Empty,
                         Number = "(017) 296 62 72",
-                        Language = langs.First(l=>l.Code=="ru")
+                        Language = langs.First(l => l.Code == "ru")
                     }
                 }
             };
@@ -915,8 +1702,8 @@ namespace Infodoctor.Web
                 Country = country1,
                 City = city66,
                 Clinic = clinic1,
-                Doctors = new List<Doctor> { doc001, doc002, doc003 },
-                Phones = new List<Phone>() { phone1, phone2 }
+                Doctors = new List<Doctor> {doc001, doc002, doc003},
+                Phones = new List<Phone>() {phone1, phone2}
             };
             var ca2 = new Address()
             {
@@ -931,8 +1718,8 @@ namespace Infodoctor.Web
                 Country = country1,
                 City = city66,
                 Clinic = clinic2,
-                Doctors = new List<Doctor> { doc004, doc002, doc005 },
-                Phones = new List<Phone>() { phone3 }
+                Doctors = new List<Doctor> {doc004, doc002, doc005},
+                Phones = new List<Phone>() {phone3}
             };
             var ca3 = new Address()
             {
@@ -947,7 +1734,7 @@ namespace Infodoctor.Web
                 Country = country1,
                 City = city66,
                 Clinic = clinic3,
-                Phones = new List<Phone>() { phone4, phone5 }
+                Phones = new List<Phone>() {phone4, phone5}
             };
             var ca4 = new Address()
             {
@@ -962,7 +1749,7 @@ namespace Infodoctor.Web
                 Country = country1,
                 City = city66,
                 Clinic = clinic3,
-                Phones = new List<Phone>() { phone6, phone7 }
+                Phones = new List<Phone>() {phone6, phone7}
             };
             var ca5 = new Address()
             {
@@ -970,7 +1757,6 @@ namespace Infodoctor.Web
                 {
                     new LocalizedAddress()
                     {
-
                         Street = "ул.Захарова 50Д",
                         Language = langs.First(l => l.Code == "ru")
                     }
@@ -978,7 +1764,7 @@ namespace Infodoctor.Web
                 Country = country1,
                 City = city66,
                 Clinic = clinic3,
-                Phones = new List<Phone>() { phone8, phone9 }
+                Phones = new List<Phone>() {phone8, phone9}
             };
             var ca6 = new Address()
             {
@@ -993,7 +1779,7 @@ namespace Infodoctor.Web
                 Country = country1,
                 City = city66,
                 Clinic = clinic4,
-                Phones = new List<Phone>() { phone10, phone11, phone12, phone13, phone14, phone15, phone16 }
+                Phones = new List<Phone>() {phone10, phone11, phone12, phone13, phone14, phone15, phone16}
             };
             var ca7 = new Address()
             {
@@ -1008,7 +1794,7 @@ namespace Infodoctor.Web
                 Country = country1,
                 City = city66,
                 Clinic = clinic5,
-                Phones = new List<Phone>() { phone17, phone18 }
+                Phones = new List<Phone>() {phone17, phone18}
             };
 
             //var ca1 = new Address() { Country = "Беларусь", Street = "ул.Сурганова 47Б", Clinic = clinic1, Doctors = new List<Doctor> { doc001, doc002, doc003 }, Phones = new List<Number>() { phone1, phone2 } };
@@ -1019,9 +1805,7 @@ namespace Infodoctor.Web
             //var ca6 = new Address() { Country = "Беларусь", Street = "ул.Победителей 93", Clinic = clinic4, Phones = new List<Number>() { phone10, phone11, phone12, phone13, phone14, phone15, phone16 } };
             //var ca7 = new Address() { Country = "Беларусь", Street = "ул. Нарочанская 17", Clinic = clinic5, Phones = new List<Number>() { phone17, phone18 } };
 
-            clinicAddressList = new List<Address> { ca1, ca2, ca3, ca4, ca5, ca6, ca7 };
-
-
+            clinicAddressList = new List<Address> {ca1, ca2, ca3, ca4, ca5, ca6, ca7};
         }
     }
 }

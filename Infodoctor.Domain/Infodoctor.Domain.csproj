@@ -83,6 +83,7 @@
     <Compile Include="Entities\OwnerShip.cs" />
     <Compile Include="Entities\Resort.cs" />
     <Compile Include="Entities\Review.cs" />
+    <Compile Include="Entities\Types.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Clinic.cs" />
   </ItemGroup>

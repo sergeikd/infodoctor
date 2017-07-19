@@ -28,6 +28,9 @@ namespace Infodoctor.DAL
         public DbSet<LocalizedPhone> LocalizedClinicPhone { get; set; }
 
         public DbSet<ClinicReview> ClinicReviews { get; set; }
+        
+        public DbSet<ClinicType> ClinicTypes { get; set; }
+        public DbSet<LocalizedClinicType> LocalizedClinicTypes { get; set; }
 
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<LocalizedDoctor> LocalizedDoctors { get; set; }
@@ -48,6 +51,9 @@ namespace Infodoctor.DAL
         public DbSet<LocalizedResortPhone> LocalizedResortPhones { get; set; }
 
         public DbSet<ResortReview> ResortReviews { get; set; }
+        
+        public DbSet<ResortType> ResortTypes { get; set; }
+        public DbSet<LocalizedResortType> LocalizedResortTypes { get; set; }
 
         public DbSet<OwnerShip> OwnerShips { get; set; }
 
@@ -56,7 +62,6 @@ namespace Infodoctor.DAL
         public DbSet<ArticleComment> ArticleComments { get; set; }
 
         public DbSet<ImageFile> Images { get; set; }
-
 
         public static AppDbContext Create()
         {

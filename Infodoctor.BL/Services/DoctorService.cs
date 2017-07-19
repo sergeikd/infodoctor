@@ -293,6 +293,9 @@ namespace Infodoctor.BL.Services
                 ReviewCount = doctor.DoctorReviews.Count,
                 Image = pathToImage + doctor.ImageName,
                 Favorite = doctor.Favorite,
+                FavouriteExpireDate = doctor.FavouriteExpireDate,
+                Recommended = doctor.Recommended,
+                RecommendedExpireDate = doctor.RecommendedExpireDate,
                 Address = dtoAddress,
                 ClinicsIdList = clinicsIdList,
                 Category = dtoCategory,
@@ -472,6 +475,9 @@ namespace Infodoctor.BL.Services
                 ReviewCount = doctor.DoctorReviews.Count,
                 Image = pathToImage + doctor.ImageName,
                 Favorite = doctor.Favorite,
+                FavouriteExpireDate = doctor.FavouriteExpireDate,
+                Recommended = doctor.Recommended,
+                RecommendedExpireDate = doctor.RecommendedExpireDate,
                 ClinicsIdList = clinicsIdList
             };
 

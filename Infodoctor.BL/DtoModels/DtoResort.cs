@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Infodoctor.BL.DtoModels
 {
@@ -8,6 +9,7 @@ namespace Infodoctor.BL.DtoModels
         public int Id { get; set; }
         public string LangCode { get; set; }
         public string Image { get; set; }
+        public string Type { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
@@ -17,8 +19,11 @@ namespace Infodoctor.BL.DtoModels
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
         public int ReviewCount { get; set; }
-        public bool Favorite { get; set; }
         public DtoAddressSingleLang Address { get; set; }
+        public bool Favorite { get; set; }
+        public DateTime FavouriteExpireDate { get; set; }
+        public bool Recommended { get; set; }
+        public DateTime RecommendedExpireDate { get; set; }
     }
     #endregion
 
@@ -35,13 +40,17 @@ namespace Infodoctor.BL.DtoModels
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
         public int ReviewCount { get; set; }
-        public bool Favorite { get; set; }
         public DtoAddressMultiLang Address { get; set; }
+        public bool Favorite { get; set; }
+        public DateTime FavouriteExpireDate { get; set; }
+        public bool Recommended { get; set; }
+        public DateTime RecommendedExpireDate { get; set; }
     }
 
     public class DtoResortMultiLangLocalized
     {
         public int Id { get; set; }
+        public string Type { get; set; }
         public string Name { get; set; }
         public List<string> Manipulations { get; set; }
     }
