@@ -1,27 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Infodoctor.BL.DtoModels;
+﻿using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
 using Infodoctor.DAL;
 using Infodoctor.DAL.Interfaces;
 using Infodoctor.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Infodoctor.BL.Services
 {
     public class ClinicService : IClinicService
     {
         private readonly IClinicRepository _clinicRepository;
+        private readonly ILanguageRepository _languageRepository;
+        private readonly IClinicTypeRepository _clinicTypeRepository;
         private readonly ISearchService _searchService;
 
-        public ClinicService(IClinicRepository clinicRepository, ISearchService searchService)
+        public ClinicService(IClinicRepository clinicRepository,
+            ISearchService searchService,
+            ILanguageRepository languageRepository,
+            IClinicTypeRepository clinicTypeRepository)
         {
             if (clinicRepository == null)
                 throw new ArgumentNullException(nameof(clinicRepository));
             if (searchService == null)
                 throw new ArgumentNullException(nameof(searchService));
+            if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
+            if (clinicTypeRepository == null) throw new ArgumentNullException(nameof(clinicTypeRepository));
 
             _searchService = searchService;
+            _languageRepository = languageRepository;
+            _clinicTypeRepository = clinicTypeRepository;
             _clinicRepository = clinicRepository;
         }
 
@@ -301,13 +310,12 @@ namespace Infodoctor.BL.Services
         public void AddMany(IEnumerable<DtoClinicMultiLang> clinics)
         {
             throw new NotImplementedException();
-            //if (clinic == null)
-            //    throw new ArgumentNullException(nameof(clinic));
-
-            //var c = clinic;
-
-            //_clinicRepository.Add(c);
-            //_searchService.RefreshCache();
+            /*
+                        foreach (var clinic in clinics)
+                        {
+                            Add(clinic);
+                        }
+            */
         }
 
         public void Update(DtoClinicMultiLang clinic)
@@ -427,6 +435,46 @@ namespace Infodoctor.BL.Services
             };
 
             return dtoClinic;
+        }
+
+        private Clinic ConvertClinicDtoToEntity(DtoClinicMultiLang clinic)
+        {
+            var localizedClinic = new List<LocalizedClinic>();
+
+            foreach (var localizedDtoClinic in clinic.LocalizedClinic)
+            {
+                Language lang = null;
+
+                try
+                {
+                    lang = _languageRepository.GetLanguageByCode(localizedDtoClinic.LangCode.ToLower());
+                }
+                catch (Exception)
+                {
+                    throw new ApplicationException($"Lang {localizedDtoClinic.LangCode} not found");
+                }
+
+                var specializations = localizedDtoClinic.Specializations.Aggregate(string.Empty, (current, specialization) => current + (specialization + '|'));
+
+                localizedClinic.Add(new LocalizedClinic()
+                {
+                    Id = localizedDtoClinic.Id,
+                    Name = localizedDtoClinic.Name,
+                    Language = lang,
+                    Specializations = specializations.Remove(specializations.Length - 1)
+                });
+            }
+
+            var newClinicclinic = new Clinic()
+            {
+                Id = clinic.Id,
+                Email = clinic.Email,
+                Site = clinic.Site,
+                Localized = localizedClinic,
+                //ImageName = new List<ImageFile>() { clinic[0] } todo: разобраться с изображения
+            };
+
+            return newClinicclinic;
         }
     }
 }
