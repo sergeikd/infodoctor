@@ -171,7 +171,7 @@ namespace Infodoctor.BL.Services
                 throw new ApplicationException("Incorrect request parameter");
             }
             var clinics = _clinicRepository.GetAllСlinics();
-            var pagedList = new PagedList<Domain.Entities.Clinic>(clinics, perPage, numPage);
+            var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
             if (!pagedList.Any())
             {
                 return null;

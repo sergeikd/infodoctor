@@ -76,11 +76,14 @@ namespace Infodoctor.BL.Services
                 if (clinicType.Language.Code.ToLower() == lang)
                     localized = clinicType;
 
+            var clinicsIdList = type.Clinics.Select(clinic => clinic.Id).ToList();
+
             var dtoClinicType = new DtoClinicTypeSingleLang()
             {
                 Id = type.Id,
                 Name = localized.Name,
-                LangCode = localized.Language.Code.ToLower()
+                LangCode = localized.Language.Code.ToLower(),
+                ClinicsIdList = clinicsIdList
             };
 
             return dtoClinicType;

@@ -43,8 +43,8 @@ namespace Infodoctor.BL.Services
             })
                 .ToList();
 
-            var clinicsIdList = type.Resorts.Select(clinic => clinic.Id).ToList();
-            var dtoType = new DtoResortTypeMultiLang() { Id = type.Id, ResortsIdList = clinicsIdList, Localized = locals };
+            var resortsIdList = type.Resorts.Select(clinic => clinic.Id).ToList();
+            var dtoType = new DtoResortTypeMultiLang() { Id = type.Id, ResortsIdList = resortsIdList, Localized = locals };
             return dtoType;
         }
 
@@ -76,11 +76,14 @@ namespace Infodoctor.BL.Services
                 if (clinicType.Language.Code.ToLower() == lang)
                     localized = clinicType;
 
+            var resortsIdList = type.Resorts.Select(clinic => clinic.Id).ToList();
+
             var dtoClinicType = new DtoResortTypeSingleLang()
             {
                 Id = type.Id,
                 Name = localized.Name,
-                LangCode = localized.Language.Code.ToLower()
+                LangCode = localized.Language.Code.ToLower(),
+                ResortsIdList = resortsIdList
             };
 
             return dtoClinicType;

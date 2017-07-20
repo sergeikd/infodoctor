@@ -10,10 +10,14 @@ namespace Infodoctor.BL.DtoModels
     }
 
     public class DtoClinicTypeSingleLang : DtoTypeSingleLang
-    { }
+    {
+        public List<int> ClinicsIdList { get; set; }
+    }
 
     public class DtoResortTypeSingleLang : DtoTypeSingleLang
-    { }
+    {
+        public List<int> ResortsIdList { get; set; }
+    }
 
     public class DtoClinicTypeMultiLang
     {
