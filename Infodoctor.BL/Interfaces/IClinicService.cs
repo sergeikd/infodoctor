@@ -11,6 +11,7 @@ namespace Infodoctor.BL.Interfaces
         DtoPagedClinic GetPagedClinics(int perPage, int pageNum, string pathToImage, string lang);
         DtoPagedClinic SearchClinics(int perPage, int numPage, DtoClinicSearchModel searchModel, string pathToImage, string lang);
         void Add(DtoClinicMultiLang clinic);
+        void AddMany(IEnumerable<DtoClinicMultiLang> clinics);
         void Update(DtoClinicMultiLang clinic);
         void Delete(int id);
     }

@@ -298,6 +298,18 @@ namespace Infodoctor.BL.Services
             //_searchService.RefreshCache();
         }
 
+        public void AddMany(IEnumerable<DtoClinicMultiLang> clinics)
+        {
+            throw new NotImplementedException();
+            //if (clinic == null)
+            //    throw new ArgumentNullException(nameof(clinic));
+
+            //var c = clinic;
+
+            //_clinicRepository.Add(c);
+            //_searchService.RefreshCache();
+        }
+
         public void Update(DtoClinicMultiLang clinic)
         {
             throw new NotImplementedException();
