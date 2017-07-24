@@ -14,11 +14,8 @@ namespace Infodoctor.BL.Services
         private readonly ILanguageRepository _languageRepository;
         private readonly IClinicRepository _clinicRepository;
         private readonly IClinicTypeRepository _clinicTypeRepository;
-        private readonly ILocalizedClinicRepository _localizedClinicRepository;
         private readonly IClinicAddressesRepository _clinicAddressesRepository;
-        private readonly ILocalizedClinicAddressesRepository _localizedClinicAddressesRepository;
         private readonly IClinicPhonesRepository _clinicPhonesRepository;
-        private readonly ILocalizedClinicPhonesRepository _localizedClinicPhonesRepository;
         private readonly ICountryRepository _countryRepository;
         private readonly ICitiesRepository _citiesRepository;
         private readonly ISearchService _searchService;
@@ -27,11 +24,8 @@ namespace Infodoctor.BL.Services
             ISearchService searchService,
             ILanguageRepository languageRepository,
             IClinicTypeRepository clinicTypeRepository,
-            ILocalizedClinicRepository localizedClinicRepository,
             IClinicAddressesRepository clinicAddressesRepository,
-            ILocalizedClinicAddressesRepository localizedClinicAddressesRepository,
             IClinicPhonesRepository clinicPhonesRepository,
-            ILocalizedClinicPhonesRepository localizedClinicPhonesRepository,
             ICountryRepository countryRepository,
             ICitiesRepository citiesRepository)
         {
@@ -40,11 +34,8 @@ namespace Infodoctor.BL.Services
             _searchService = searchService ?? throw new ArgumentNullException(nameof(searchService));
             _languageRepository = languageRepository ?? throw new ArgumentNullException(nameof(languageRepository));
             _clinicTypeRepository = clinicTypeRepository ?? throw new ArgumentNullException(nameof(clinicTypeRepository));
-            _localizedClinicRepository = localizedClinicRepository ?? throw new ArgumentNullException(nameof(localizedClinicRepository));
             _clinicAddressesRepository = clinicAddressesRepository ?? throw new ArgumentNullException(nameof(clinicAddressesRepository));
-            _localizedClinicAddressesRepository = localizedClinicAddressesRepository ?? throw new ArgumentNullException(nameof(localizedClinicAddressesRepository));
             _clinicPhonesRepository = clinicPhonesRepository ?? throw new ArgumentNullException(nameof(clinicPhonesRepository));
-            _localizedClinicPhonesRepository = localizedClinicPhonesRepository ?? throw new ArgumentNullException(nameof(localizedClinicPhonesRepository));
             _clinicRepository = clinicRepository ?? throw new ArgumentNullException(nameof(clinicRepository));
         }
 
@@ -327,7 +318,6 @@ namespace Infodoctor.BL.Services
                 throw new ArgumentNullException(nameof(clinic));
 
             var entityClinic = BuildClinicEntityFromDto(clinic);
-            var entityLocalizedClinics = entityClinic.Localized;
 
             var entityAddress = clinic.ClinicAddress
                 .Select(dtoAddressMultiLang => BuildAddressEntityFromDto(dtoAddressMultiLang, entityClinic))
@@ -338,33 +328,18 @@ namespace Infodoctor.BL.Services
 
             var entityPhones = new List<Phone>();
             foreach (var address in entityAddress)
-            {
                 entityPhones.AddRange(address.Phones);
-            }
 
             var entityLocalizedPhones = new List<LocalizedPhone>();
             foreach (var phone in entityPhones)
                 entityLocalizedPhones.AddRange(phone.LocalizedPhones);
 
-            //добавление локалей клиник
-            //foreach (var localizedClinic in entityLocalizedClinics)
-            //    _localizedClinicRepository.Add(localizedClinic);
-
             //добавление клиники
             _clinicRepository.Add(entityClinic);
-
-            //добавление данных в базу
-            //добавление локалей телефонов
-            //foreach (var localizedPhone in entityLocalizedPhones)
-            //    _localizedClinicPhonesRepository.Add(localizedPhone);
 
             //добавление телефонов
             foreach (var phone in entityPhones)
                 _clinicPhonesRepository.Add(phone);
-
-            //добавление локалей адрессов
-            //foreach (var localizedAddress in entityLocalizedAddreses)
-            //    _localizedClinicAddressesRepository.Add(localizedAddress);
 
             //добавление адрессов
             foreach (var address in entityAddress)
@@ -471,9 +446,10 @@ namespace Infodoctor.BL.Services
                     localizedClinic = localClinic;
 
             var type = 0;
-            foreach (var localizedClinicType in clinic.Type.Localized)
-                if (localizedClinicType.Language.Code.ToLower() == lang)
-                    type = localizedClinicType.Id;
+            if (clinic.Type != null)
+                foreach (var localizedClinicType in clinic.Type.Localized)
+                    if (localizedClinicType.Language.Code.ToLower() == lang)
+                        type = localizedClinicType.Id;
 
             var doctors = clinic.Doctors.Select(doctor => doctor.Id).ToList();
 
@@ -656,7 +632,7 @@ namespace Infodoctor.BL.Services
 
             var entityPhone = new Phone()
             {
-               // Address = address,
+                // Address = address,
                 LocalizedPhones = locals
             };
 

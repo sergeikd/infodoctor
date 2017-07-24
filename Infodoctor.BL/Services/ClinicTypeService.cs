@@ -31,6 +31,23 @@ namespace Infodoctor.BL.Services
             return dtoType;
         }
 
+        public DtoClinicTypeSingleLang GetType(string name, string lang)
+        {
+            lang = lang.ToLower();
+            name = name.ToLower();
+
+            var types = _typeRepository.GetTypes().ToList();
+            var dtoType = new DtoClinicTypeSingleLang();
+
+            foreach (var type in types)
+                foreach (var localizedClinicType in type.Localized)
+                    if (localizedClinicType.Language.Code.ToLower() == lang)
+                        if (localizedClinicType.Name.ToLower() == name)
+                            dtoType = ConvertEntityToDto(type, lang);
+
+            return dtoType;
+        }
+
         public DtoClinicTypeMultiLang GetType(int id)
         {
             var type = _typeRepository.GeType(id);

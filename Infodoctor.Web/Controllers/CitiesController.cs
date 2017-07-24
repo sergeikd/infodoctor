@@ -40,7 +40,7 @@ namespace Infodoctor.Web.Controllers
         {
             if (string.IsNullOrEmpty(lang))
                 lang = _configService.DefaultLangCode;
-            return _citiesService.GetCityById(id, lang);
+            return _citiesService.GetCity(id, lang);
         }
 
         // GET: api/cities/clinicused

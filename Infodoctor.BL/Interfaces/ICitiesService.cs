@@ -7,7 +7,8 @@ namespace Infodoctor.BL.Interfaces
     {
         IEnumerable<DtoCitySingleLang> GetAllCities(string lang);
         IEnumerable<DtoCitySingleLang> GetCitiesWithClinics(string lang);
-        DtoCitySingleLang GetCityById(int id, string lang);
+        DtoCitySingleLang GetCity(int id, string lang);
+        DtoCitySingleLang GetCity(string name, string lang);
         void Add(DtoCityMultiLang city);
         void Update(DtoCityMultiLang city);
         void Delete(int id);

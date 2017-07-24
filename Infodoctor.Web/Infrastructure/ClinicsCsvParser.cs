@@ -1,13 +1,27 @@
-﻿using Infodoctor.BL.DtoModels;
+﻿using System;
+using Infodoctor.BL.DtoModels;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Infodoctor.BL.Interfaces;
 
 namespace Infodoctor.Web.Infrastructure
 {
     public class ClinicsCsvParser
     {
+        private readonly IClinicTypeService _clinicTypeService;
+        private readonly ICitiesService _citiesService;
+
+        public ClinicsCsvParser(IClinicTypeService clinicTypeService, ICitiesService citiesService)
+        {
+            if (clinicTypeService == null) throw new ArgumentNullException(nameof(clinicTypeService));
+            if (citiesService == null) throw new ArgumentNullException(nameof(citiesService));
+            _clinicTypeService = clinicTypeService;
+            _citiesService = citiesService;
+        }
+
+
         public IEnumerable<DtoClinicMultiLang> Parse(string path)
         {
             var csv = ParseFile(path);
@@ -25,15 +39,20 @@ namespace Infodoctor.Web.Infrastructure
                 if (phones == null)
                     continue; //пропуск хода если парсер не вернул список телефонов
 
-                var type = ParseType(csvModel.Name);
-                if (string.IsNullOrEmpty(type))
+                var typeName = ParseType(csvModel.Name);
+                if (string.IsNullOrEmpty(typeName))
                     continue;//пропусх хода если не удалось распознать тип учреждения
+
+                var type = _clinicTypeService.GetType(typeName, "ru");
+
+                var city = _citiesService.GetCity(csvModel.City, "ru");
 
                 clinics.Add(new DtoClinicMultiLang()
                 {
                     Id = csvModel.Id,
                     Email = csvModel.Email,
                     Site = csvModel.Site,
+                    Type = type.Id,
                     LocalizedClinic = new List<LocalizedDtoClinic>()
                     {
                         new LocalizedDtoClinic()
@@ -47,6 +66,8 @@ namespace Infodoctor.Web.Infrastructure
                     {
                         new DtoAddressMultiLang()
                         {
+                            CountryId = city?.CountryId ?? 0,
+                            CityId = city?.Id ?? 0,
                             LocalizedAddress = new List<LocalizedDtoAddress>()
                             {
                                 new LocalizedDtoAddress()
@@ -90,7 +111,7 @@ namespace Infodoctor.Web.Infrastructure
                 .ToList();
         }
 
-        private List<LocalizedDtoPhone> ParseLocalizedDtoPhones(string phones)
+        private static List<LocalizedDtoPhone> ParseLocalizedDtoPhones(string phones)
         {
             //проверка на не правильный формат списка
             // 20 - максимальная возвожная длина номера
