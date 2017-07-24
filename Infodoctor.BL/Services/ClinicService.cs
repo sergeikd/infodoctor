@@ -11,27 +11,41 @@ namespace Infodoctor.BL.Services
 {
     public class ClinicService : IClinicService
     {
-        private readonly IClinicRepository _clinicRepository;
         private readonly ILanguageRepository _languageRepository;
+        private readonly IClinicRepository _clinicRepository;
         private readonly IClinicTypeRepository _clinicTypeRepository;
+        private readonly ILocalizedClinicRepository _localizedClinicRepository;
+        private readonly IClinicAddressesRepository _clinicAddressesRepository;
+        private readonly ILocalizedClinicAddressesRepository _localizedClinicAddressesRepository;
+        private readonly IClinicPhonesRepository _clinicPhonesRepository;
+        private readonly ILocalizedClinicPhonesRepository _localizedClinicPhonesRepository;
+        private readonly ICountryRepository _countryRepository;
+        private readonly ICitiesRepository _citiesRepository;
         private readonly ISearchService _searchService;
 
         public ClinicService(IClinicRepository clinicRepository,
             ISearchService searchService,
             ILanguageRepository languageRepository,
-            IClinicTypeRepository clinicTypeRepository)
+            IClinicTypeRepository clinicTypeRepository,
+            ILocalizedClinicRepository localizedClinicRepository,
+            IClinicAddressesRepository clinicAddressesRepository,
+            ILocalizedClinicAddressesRepository localizedClinicAddressesRepository,
+            IClinicPhonesRepository clinicPhonesRepository,
+            ILocalizedClinicPhonesRepository localizedClinicPhonesRepository,
+            ICountryRepository countryRepository,
+            ICitiesRepository citiesRepository)
         {
-            if (clinicRepository == null)
-                throw new ArgumentNullException(nameof(clinicRepository));
-            if (searchService == null)
-                throw new ArgumentNullException(nameof(searchService));
-            if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
-            if (clinicTypeRepository == null) throw new ArgumentNullException(nameof(clinicTypeRepository));
-
-            _searchService = searchService;
-            _languageRepository = languageRepository;
-            _clinicTypeRepository = clinicTypeRepository;
-            _clinicRepository = clinicRepository;
+            _countryRepository = countryRepository ?? throw new ArgumentNullException(nameof(countryRepository));
+            _citiesRepository = citiesRepository ?? throw new ArgumentNullException(nameof(citiesRepository));
+            _searchService = searchService ?? throw new ArgumentNullException(nameof(searchService));
+            _languageRepository = languageRepository ?? throw new ArgumentNullException(nameof(languageRepository));
+            _clinicTypeRepository = clinicTypeRepository ?? throw new ArgumentNullException(nameof(clinicTypeRepository));
+            _localizedClinicRepository = localizedClinicRepository ?? throw new ArgumentNullException(nameof(localizedClinicRepository));
+            _clinicAddressesRepository = clinicAddressesRepository ?? throw new ArgumentNullException(nameof(clinicAddressesRepository));
+            _localizedClinicAddressesRepository = localizedClinicAddressesRepository ?? throw new ArgumentNullException(nameof(localizedClinicAddressesRepository));
+            _clinicPhonesRepository = clinicPhonesRepository ?? throw new ArgumentNullException(nameof(clinicPhonesRepository));
+            _localizedClinicPhonesRepository = localizedClinicPhonesRepository ?? throw new ArgumentNullException(nameof(localizedClinicPhonesRepository));
+            _clinicRepository = clinicRepository ?? throw new ArgumentNullException(nameof(clinicRepository));
         }
 
         public IEnumerable<DtoClinicSingleLang> GetAllClinics(string pathToClinicImage, string lang)
@@ -84,8 +98,12 @@ namespace Infodoctor.BL.Services
                     var localAddress = new LocalizedDtoAddress()
                     {
                         Id = local.Id,
-                        Country = address.Country.LocalizedCountries?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower())?.Name,
-                        City = address.City.LocalizedCities?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower())?.Name,
+                        Country = address.Country.LocalizedCountries
+                            ?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower())
+                            ?.Name,
+                        City = address.City.LocalizedCities
+                            ?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower())
+                            ?.Name,
                         Street = local.Street,
                         LangCode = local.Language?.Code.ToLower()
                     };
@@ -141,7 +159,6 @@ namespace Infodoctor.BL.Services
                 {
                     Id = local.Id,
                     Name = local.Name,
-                    Type = type,
                     Specializations = local.Specializations.Split(',', ';', '|').ToList(),
                     LangCode = local.Language?.Code.ToLower()
                 };
@@ -234,10 +251,14 @@ namespace Infodoctor.BL.Services
                                 }
                             default:
                                 {
-                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
-                                        Where(
-                                            x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
-                                            x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Specializations.ToLower().Contains(searchModel.SearchWord.ToLower())
+                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang)
+                                        .Where(
+                                            x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower())
+                                                     .Name.ToLower()
+                                                     .Contains(searchModel.SearchWord.ToLower()) ||
+                                                 x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower())
+                                                     .Specializations.ToLower()
+                                                     .Contains(searchModel.SearchWord.ToLower())
                                         );
                                     break;
                                 }
@@ -250,20 +271,24 @@ namespace Infodoctor.BL.Services
                         {
                             case true:
                                 {
-                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
-                                        Where(
+                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang)
+                                        .Where(
                                             x => x.Addresses.Any(y => y.City.Id == searchModel.CityId)
                                         );
                                     break;
                                 }
                             default:
                                 {
-                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang).
-                                        Where(
-                                            x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
-                                            x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower()).Specializations.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                            x.Addresses.Any(y => y.City.Id == searchModel.CityId)
-                                    );
+                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang)
+                                        .Where(
+                                            x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower())
+                                                     .Name.ToLower()
+                                                     .Contains(searchModel.SearchWord.ToLower()) ||
+                                                 x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower())
+                                                     .Specializations.ToLower()
+                                                     .Contains(searchModel.SearchWord.ToLower()) &&
+                                                 x.Addresses.Any(y => y.City.Id == searchModel.CityId)
+                                        );
                                     break;
                                 }
                         }
@@ -298,11 +323,52 @@ namespace Infodoctor.BL.Services
 
         public void Add(DtoClinicMultiLang clinic)
         {
-            throw new NotImplementedException();
-            //if (clinic == null)
-            //    throw new ArgumentNullException(nameof(clinic));
+            if (clinic == null)
+                throw new ArgumentNullException(nameof(clinic));
 
-            //var c = clinic;
+            var entityClinic = BuildClinicEntityFromDto(clinic);
+            var entityLocalizedClinics = entityClinic.Localized;
+
+            var entityAddress = clinic.ClinicAddress
+                .Select(dtoAddressMultiLang => BuildAddressEntityFromDto(dtoAddressMultiLang, entityClinic))
+                .ToList();
+            var entityLocalizedAddreses = new List<LocalizedAddress>();
+            foreach (var address in entityAddress)
+                entityLocalizedAddreses.AddRange(address.LocalizedAddresses);
+
+            var entityPhones = new List<Phone>();
+            foreach (var address in entityAddress)
+            {
+                entityPhones.AddRange(address.Phones);
+            }
+
+            var entityLocalizedPhones = new List<LocalizedPhone>();
+            foreach (var phone in entityPhones)
+                entityLocalizedPhones.AddRange(phone.LocalizedPhones);
+
+            //добавление локалей клиник
+            //foreach (var localizedClinic in entityLocalizedClinics)
+            //    _localizedClinicRepository.Add(localizedClinic);
+
+            //добавление клиники
+            _clinicRepository.Add(entityClinic);
+
+            //добавление данных в базу
+            //добавление локалей телефонов
+            //foreach (var localizedPhone in entityLocalizedPhones)
+            //    _localizedClinicPhonesRepository.Add(localizedPhone);
+
+            //добавление телефонов
+            foreach (var phone in entityPhones)
+                _clinicPhonesRepository.Add(phone);
+
+            //добавление локалей адрессов
+            //foreach (var localizedAddress in entityLocalizedAddreses)
+            //    _localizedClinicAddressesRepository.Add(localizedAddress);
+
+            //добавление адрессов
+            foreach (var address in entityAddress)
+                _clinicAddressesRepository.Add(address);
 
             //_clinicRepository.Add(c);
             //_searchService.RefreshCache();
@@ -310,13 +376,10 @@ namespace Infodoctor.BL.Services
 
         public void AddMany(IEnumerable<DtoClinicMultiLang> clinics)
         {
-            throw new NotImplementedException();
-            /*
-                        foreach (var clinic in clinics)
-                        {
-                            Add(clinic);
-                        }
-            */
+            foreach (var clinic in clinics)
+            {
+                Add(clinic);
+            }
         }
 
         public void Update(DtoClinicMultiLang clinic)
@@ -343,7 +406,8 @@ namespace Infodoctor.BL.Services
             _searchService.RefreshCache();
         }
 
-        private static DtoClinicSingleLang ConvertEntityToDtoSingleLang(string lang, string pathToClinicImage, Clinic clinic)
+        private static DtoClinicSingleLang ConvertEntityToDtoSingleLang(string lang, string pathToClinicImage,
+            Clinic clinic)
         {
             if (clinic == null)
                 throw new ApplicationException("Clinic not found");
@@ -381,7 +445,8 @@ namespace Infodoctor.BL.Services
 
                 var phones = (from clinicPhone in clinicAddress.Phones
                               from localizedPhone in clinicPhone.LocalizedPhones
-                              where string.Equals(localizedPhone.Language.Code.ToLower(), lang.ToLower(), StringComparison.Ordinal)
+                              where string.Equals(localizedPhone.Language.Code.ToLower(), lang.ToLower(),
+                                  StringComparison.Ordinal)
                               select new DtoPhoneSingleLang()
                               {
                                   Id = localizedPhone.Id,
@@ -405,10 +470,10 @@ namespace Infodoctor.BL.Services
                 if (localClinic.Language.Code.ToLower() == lang.ToLower())
                     localizedClinic = localClinic;
 
-            var type = string.Empty;
+            var type = 0;
             foreach (var localizedClinicType in clinic.Type.Localized)
                 if (localizedClinicType.Language.Code.ToLower() == lang)
-                    type = localizedClinicType.Name;
+                    type = localizedClinicType.Id;
 
             var doctors = clinic.Doctors.Select(doctor => doctor.Id).ToList();
 
@@ -439,10 +504,12 @@ namespace Infodoctor.BL.Services
             return dtoClinic;
         }
 
-        private Clinic ConvertClinicDtoToEntity(DtoClinicMultiLang clinic)
+        private Clinic BuildClinicEntityFromDto(DtoClinicMultiLang clinic)
         {
-            var localizedClinic = new List<LocalizedClinic>();
+            if (clinic == null)
+                throw new ArgumentNullException(nameof(clinic));
 
+            var locals = new List<LocalizedClinic>();
             foreach (var localizedDtoClinic in clinic.LocalizedClinic)
             {
                 Language lang = null;
@@ -453,30 +520,147 @@ namespace Infodoctor.BL.Services
                 }
                 catch (Exception)
                 {
-                    throw new ApplicationException($"Lang {localizedDtoClinic.LangCode} not found");
+
+                    //throw new ApplicationException($"Lang {localizedDtoClinic.LangCode} not found");
+
                 }
 
-                var specializations = localizedDtoClinic.Specializations.Aggregate(string.Empty, (current, specialization) => current + (specialization + '|'));
-
-                localizedClinic.Add(new LocalizedClinic()
+                locals.Add(new LocalizedClinic()
                 {
-                    Id = localizedDtoClinic.Id,
-                    Name = localizedDtoClinic.Name,
                     Language = lang,
-                    Specializations = specializations.Remove(specializations.Length - 1)
+                    Name = localizedDtoClinic.Name,
+                    Specializations = localizedDtoClinic.LangCode
                 });
+
             }
 
-            var newClinicclinic = new Clinic()
+
+            ClinicType type = null;
+            try
+            {
+                type = _clinicTypeRepository.GeType(clinic.Type);
+            }
+            catch (Exception)
+            {
+                //throw new ApplicationException($"Type {clinic.Type} not found");
+            }
+
+            var entityClinic = new Clinic()
             {
                 Id = clinic.Id,
                 Email = clinic.Email,
                 Site = clinic.Site,
-                Localized = localizedClinic,
-                //ImageName = new List<ImageFile>() { clinic[0] } todo: разобраться с изображения
+                Childish = clinic.Childish,
+                Favorite = clinic.Favorite,
+                FavouriteExpireDate = clinic.FavouriteExpireDate,
+                Recommended = clinic.Recommended,
+                RecommendedExpireDate = clinic.RecommendedExpireDate,
+                Type = type,
+                Localized = locals
+                //ImageName = clinic.Images.Select(i=>i.)
             };
 
-            return newClinicclinic;
+            // var addreses = clinic.ClinicAddress.Select(dtoAddressMultiLang => BuildAddressEntityFromDto(dtoAddressMultiLang, entityClinic)).ToList();
+
+            //  entityClinic.Addresses = addreses;
+
+            return entityClinic;
+        }
+
+        private Address BuildAddressEntityFromDto(DtoAddressMultiLang address, Clinic clinic)
+        {
+            Country country = null;
+            City city = null;
+
+            try
+            {
+                country = _countryRepository.GetCountryById(address.CountryId);
+            }
+            catch (Exception)
+            {
+                //throw new ApplicationException($"Country {address.CountryId} not found");
+            }
+
+            try
+            {
+                city = _citiesRepository.GetCityById(address.CityId);
+            }
+            catch (Exception)
+            {
+                //throw new ApplicationException($"City {address.CityId} not found");
+            }
+
+
+            var locals = new List<LocalizedAddress>();
+            foreach (var localizedDtoAddress in address.LocalizedAddress)
+            {
+                Language lang;
+
+                try
+                {
+                    lang = _languageRepository.GetLanguageByCode(localizedDtoAddress.LangCode.ToLower());
+                }
+                catch (Exception)
+                {
+                    throw new ApplicationException($"Lang {localizedDtoAddress.LangCode} not found");
+
+                }
+
+                locals.Add(new LocalizedAddress()
+                {
+                    Street = localizedDtoAddress.Street,
+                    Language = lang
+                });
+            }
+
+            var entityAddress = new Address()
+            {
+                Clinic = clinic,
+                Country = country,
+                City = city,
+                Lat = address.Coords?.Lat,
+                Lng = address.Coords?.Lng,
+                LocalizedAddresses = locals
+            };
+
+            var phones = address.Phones.Select(dtoPhoneMultiLang => BuildPhoneEntityFromDto(dtoPhoneMultiLang, entityAddress)).ToList();
+
+            entityAddress.Phones = phones;
+
+            return entityAddress;
+        }
+
+        private Phone BuildPhoneEntityFromDto(DtoPhoneMultiLang phone, Address address)
+        {
+            var locals = new List<LocalizedPhone>();
+            foreach (var localizedDtoPhone in phone.LocalizedPhone)
+            {
+                Language lang = null;
+
+                try
+                {
+                    lang = _languageRepository.GetLanguageByCode(localizedDtoPhone.LangCode.ToLower());
+                }
+                catch (Exception)
+                {
+                    //throw new ApplicationException($"Lang {localizedDtoPhone.LangCode} not found");
+                }
+
+                locals.Add(new LocalizedPhone()
+                {
+                    Description = localizedDtoPhone.Desc,
+                    Number = localizedDtoPhone.Number,
+                    Language = lang
+                });
+            }
+
+            var entityPhone = new Phone()
+            {
+               // Address = address,
+                LocalizedPhones = locals
+            };
+
+            return entityPhone;
         }
     }
 }

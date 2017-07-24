@@ -64,7 +64,12 @@ namespace Infodoctor.Web.App_Start
             container.RegisterType<ICountryRepository, CountryRepository>();
             container.RegisterType<ICountryService, CountryService>();
             container.RegisterType<IClinicRepository, ClinicRepository>();
+            container.RegisterType<ILocalizedClinicRepository, LocalizedClinicRepository>();
             container.RegisterType<IClinicService, ClinicService>();
+            container.RegisterType<IClinicAddressesRepository, ClinicAddressesRepository>();
+            container.RegisterType<ILocalizedClinicAddressesRepository, LocalizedClinicAddressesRepository>();
+            container.RegisterType<IClinicPhonesRepository, ClinicPhonesRepository>();
+            container.RegisterType<ILocalizedClinicPhonesRepository, LocalizedClinicPhonesRepository>();
             container.RegisterType<IImagesRepository, ImagesRepository>();
             container.RegisterType<IImagesService, ImagesService>();
             container.RegisterType<IArticlesRepository, ArticlesRepository>();

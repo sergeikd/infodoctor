@@ -31,6 +31,9 @@ namespace Infodoctor.BL.DtoModels
     public class DtoAddressMultiLang
     {
         public int Id { get; set; }
+        public int CountryId { get; set; }
+        public int CityId { get; set; }
+        public int StreetId { get; set; }
         public Coords Coords { get; set; }
         public List<DtoPhoneMultiLang> Phones { get; set; }
         public List<LocalizedDtoAddress> LocalizedAddress { get; set; }

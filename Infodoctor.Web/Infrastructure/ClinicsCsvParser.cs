@@ -40,8 +40,7 @@ namespace Infodoctor.Web.Infrastructure
                         {
                             LangCode = "ru",
                             Name = csvModel.Name,
-                            Specializations = csvModel.Specialisations.Length > 1? csvModel.Specialisations.Split('_').ToList(): new List<string>(),
-                            Type = type
+                            Specializations = csvModel.Specialisations.Length > 1? csvModel.Specialisations.Split('_').ToList(): new List<string>()
                         }
                     },
                     ClinicAddress = new List<DtoAddressMultiLang>()

@@ -1,8 +1,8 @@
 ﻿using Infodoctor.DAL.Interfaces;
+using Infodoctor.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Repositories
 {
@@ -68,6 +68,44 @@ namespace Infodoctor.DAL.Repositories
         public void Delete(Clinic clinic)
         {
             _context.Сlinics.Remove(clinic);
+            _context.SaveChanges();
+        }
+    }
+
+    public class LocalizedClinicRepository : ILocalizedClinicRepository
+    {
+        private readonly AppDbContext _context;
+
+        public LocalizedClinicRepository(AppDbContext context)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
+        public IQueryable<LocalizedClinic> GetAllLocalizedClinics()
+        {
+            return _context.LocalizedClinic;
+        }
+
+        public LocalizedClinic GetLocalizedClinicById(int id)
+        {
+            return _context.LocalizedClinic.First(lc => lc.Id == id);
+        }
+
+        public void Add(LocalizedClinic clinic)
+        {
+            _context.LocalizedClinic.Add(clinic);
+            _context.SaveChanges();
+        }
+
+        public void Update(LocalizedClinic clinic)
+        {
+            var updated = _context.LocalizedClinic.FirstOrDefault(s => s.Id == clinic.Id);
+            updated = clinic;
+        }
+
+        public void Delete(LocalizedClinic clinic)
+        {
+            _context.LocalizedClinic.Remove(clinic);
             _context.SaveChanges();
         }
     }

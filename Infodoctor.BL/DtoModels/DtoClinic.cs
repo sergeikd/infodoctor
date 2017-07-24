@@ -7,7 +7,7 @@ namespace Infodoctor.BL.DtoModels
     public class DtoClinicSingleLang
     {
         public int Id { get; set; }
-        public string Type { get; set; }
+        public int Type { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
@@ -34,6 +34,7 @@ namespace Infodoctor.BL.DtoModels
     public class DtoClinicMultiLang
     {
         public int Id { get; set; }
+        public int Type { get; set; }
         public List<string> Images { get; set; }
         public List<LocalizedDtoClinic> LocalizedClinic { get; set; }
         public string Email { get; set; }
@@ -56,7 +57,6 @@ namespace Infodoctor.BL.DtoModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Type { get; set; }
         public List<string> Specializations { get; set; }
         public string LangCode { get; set; }
     }

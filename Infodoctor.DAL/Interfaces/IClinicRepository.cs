@@ -14,4 +14,13 @@ namespace Infodoctor.DAL.Interfaces
         void Update(Clinic clinic);
         void Delete(Clinic clinic);
     }
+
+    public interface ILocalizedClinicRepository
+    {
+        IQueryable<LocalizedClinic> GetAllLocalizedClinics();
+        LocalizedClinic GetLocalizedClinicById(int id);
+        void Add(LocalizedClinic clinic);
+        void Update(LocalizedClinic clinic);
+        void Delete(LocalizedClinic clinic);
+    }
 }
