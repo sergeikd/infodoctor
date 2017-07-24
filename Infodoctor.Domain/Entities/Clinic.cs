@@ -13,6 +13,7 @@ namespace Infodoctor.Domain.Entities
         public double RateQuality { get; set; }
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
+        public bool Childish { get; set; }
         public bool Favorite { get; set; }
         public bool Recommended { get; set; }
         [Column(TypeName = "datetime2")]
