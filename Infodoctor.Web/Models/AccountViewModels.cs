@@ -33,6 +33,8 @@ namespace Infodoctor.Web.Models
         public string LoginProvider { get; set; }
 
         public string LangCode { get; set; }
+
+        public List<string> Roles { get; set; }
     }
 
     public class UserDataViewModel
