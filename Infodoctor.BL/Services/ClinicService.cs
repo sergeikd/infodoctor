@@ -444,9 +444,9 @@ namespace Infodoctor.BL.Services
 
             var type = 0;
             if (clinic.Type != null)
-            foreach (var localizedClinicType in clinic.Type.Localized)
-                if (localizedClinicType.Language.Code.ToLower() == lang)
-                    type = localizedClinicType.Id;
+                foreach (var localizedClinicType in clinic.Type.Localized)
+                    if (localizedClinicType.Language.Code.ToLower() == lang)
+                        type = localizedClinicType.Id;
 
             var doctors = clinic.Doctors.Select(doctor => doctor.Id).ToList();
 
@@ -518,6 +518,10 @@ namespace Infodoctor.BL.Services
                 //throw new ApplicationException($"Type {clinic.Type} not found");
             }
 
+            var images = clinic.Images.Select(image =>
+                    new ImageFile() { Name = image }
+                ).ToList();
+
             var entityClinic = new Clinic()
             {
                 Id = clinic.Id,
@@ -529,8 +533,8 @@ namespace Infodoctor.BL.Services
                 Recommended = clinic.Recommended,
                 RecommendedExpireDate = clinic.RecommendedExpireDate,
                 Type = type,
-                Localized = locals
-                //ImageName = clinic.Images.Select(i=>i.)
+                Localized = locals,
+                ImageName = images
             };
 
             // var addreses = clinic.ClinicAddress.Select(dtoAddressMultiLang => BuildAddressEntityFromDto(dtoAddressMultiLang, entityClinic)).ToList();

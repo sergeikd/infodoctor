@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Web.Http;
 using Infodoctor.BL.Interfaces;
 using Infodoctor.Web.Infrastructure;
 
 namespace Infodoctor.Web.Controllers
 {
-    //[Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     public class AdminController : ApiController
     {
         private readonly ConfigService _configService;
@@ -28,7 +30,23 @@ namespace Infodoctor.Web.Controllers
         public void RebuildClinicsFromCsv()
         {
             var path = _configService.PathToOldDbClinics;
-            _clinicService.AddMany(_clinicsCsvParser.Parse(AppDomain.CurrentDomain.BaseDirectory + path));
+            _clinicService.AddMany(
+                _clinicsCsvParser.Parse(
+                    AppDomain.CurrentDomain.BaseDirectory + path,
+                    AppDomain.CurrentDomain.BaseDirectory + _configService.PathToClinicSourceImages,
+                    AppDomain.CurrentDomain.BaseDirectory + _configService.PathToClinicsImages
+                    ));
+        }
+
+        [HttpPost]
+        [Route("api/admin/DeleteClinicImagesCsv")]
+        public void DeleteClinicImagesCsv()
+        {
+            var path = _configService.PathToClinicsImages;
+            var dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + path);
+            var filesInfolder = dir.GetFiles($"from-csv-*").ToList();
+            foreach (var fileInfo in filesInfolder)
+                File.Delete(fileInfo.FullName);
         }
 
         // GET api/<controller>

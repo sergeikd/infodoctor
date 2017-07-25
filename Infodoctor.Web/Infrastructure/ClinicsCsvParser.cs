@@ -21,15 +21,14 @@ namespace Infodoctor.Web.Infrastructure
             _citiesService = citiesService;
         }
 
-
-        public IEnumerable<DtoClinicMultiLang> Parse(string path)
+        public IEnumerable<DtoClinicMultiLang> Parse(string path, string pathToSourceImagesFolder, string pathToImagesFolder)
         {
             var csv = ParseFile(path);
-            var clinics = ParseToDto(csv);
+            var clinics = ParseToDto(csv, pathToSourceImagesFolder, pathToImagesFolder);
             return clinics;
         }
 
-        private IEnumerable<DtoClinicMultiLang> ParseToDto(IEnumerable<ClinicCsvModel> csv)
+        private IEnumerable<DtoClinicMultiLang> ParseToDto(IEnumerable<ClinicCsvModel> csv, string pathToSourceImagesFolder, string pathToImagesFolder)
         {
             var clinics = new List<DtoClinicMultiLang>();
 
@@ -47,12 +46,15 @@ namespace Infodoctor.Web.Infrastructure
 
                 var city = _citiesService.GetCity(csvModel.City, "ru");
 
+                var images = ParseImages(pathToSourceImagesFolder, pathToImagesFolder, csvModel.Id);
+
                 clinics.Add(new DtoClinicMultiLang()
                 {
                     Id = csvModel.Id,
                     Email = csvModel.Email,
                     Site = csvModel.Site,
                     Type = type.Id,
+                    Images = images?.Select(i => i.Name).ToList() ?? new List<string>(),
                     LocalizedClinic = new List<LocalizedDtoClinic>()
                     {
                         new LocalizedDtoClinic()
@@ -176,6 +178,42 @@ namespace Infodoctor.Web.Infrastructure
                 return 3;
 
             return 0;
+        }
+
+        private static IEnumerable<DtoImage> ParseImages(string pathToSourceImagesFolder, string pathToImagesFolder, int clinicId)
+        {
+            var path = pathToSourceImagesFolder + clinicId;
+            if (!Directory.Exists(path))
+                return null;
+
+            var types = new List<string>() { "jpg", "png" };
+            var dir = new DirectoryInfo(path);
+
+            var origFiles = new List<string>();
+            var files = new List<string>();
+            foreach (var type in types)
+            {
+                var filesInfolder = dir.GetFiles($"*.{type}").ToList();
+                foreach (var fileInfo in filesInfolder)
+                {
+                    origFiles.Add(fileInfo.Name);
+                    files.Add($"from-csv-{Guid.NewGuid()}{fileInfo.Extension}");
+                }
+            }
+
+            for (var i = 0; i < origFiles.Count; i++)
+                File.Copy((path + @"\" + origFiles[i]).Replace("/", @"\"), (pathToImagesFolder + files[i]).Replace("/", @"\"), true);
+
+            var images = files.Select(file =>
+                new DtoImage()
+                {
+                    Name = file
+                }
+            ).ToList();
+
+
+
+            return images;
         }
 
         private class ClinicCsvModel
