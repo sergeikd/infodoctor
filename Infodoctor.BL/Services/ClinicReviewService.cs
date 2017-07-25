@@ -193,7 +193,7 @@ namespace Infodoctor.BL.Services
 
             try
             {
-                clinic = _clinicRepository.GetClinicById(clinicReview.ClinicId);
+                clinic = _clinicRepository.GetClinic(clinicReview.ClinicId);
             }
             catch 
             {

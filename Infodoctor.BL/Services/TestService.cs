@@ -33,7 +33,7 @@ namespace Infodoctor.BL.Services
         public void Add10Clinics(string pathToImageFolder, Point[] imagesSizes)
         {
             //var clinicList = new List<Clinic>();
-            //var maxClinicId = _clinicRepository.GetAllСlinics().Max(r => r.Id);
+            //var maxClinicId = _clinicRepository.GetСlinics().Max(r => r.Id);
             //var clinicSpecializationList = _clinicSpecializationRepository.GetAllClinicSpecializations().ToList();
             //var cityList = _citiesRepository.GetAllCities().ToList();
             //var doctrorList = _doctorRepository.GetAllDoctors().ToList();
@@ -96,7 +96,7 @@ namespace Infodoctor.BL.Services
         public void Add10Doctors()
         {
             var doctor = new Doctor();
-            var maxDoctorId = _clinicRepository.GetAllСlinics().Max(r => r.Id);
+            var maxDoctorId = _clinicRepository.GetСlinics().Max(r => r.Id);
         }
 
         public Clinic PrepareClinic()

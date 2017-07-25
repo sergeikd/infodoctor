@@ -40,9 +40,9 @@ namespace Infodoctor.BL.Services
         public void RefreshCache()
         {
             var langs = _languageRepository.GetLanguages().ToList();
-            var clinics = _clinicRepository.GetAllСlinics().ToList();
+            var clinics = _clinicRepository.GetСlinics().ToList();
             var doctors = _doctorRepository.GetAllDoctors().ToList();
-            var resorts = _resortRepository.GetAllResorts().ToList();
+            var resorts = _resortRepository.GetAllResorts(0).ToList();
 
             var clinicsAndSpecsCaches = new List<CacheModel>();
             var doctorsCaches = new List<CacheModel>();

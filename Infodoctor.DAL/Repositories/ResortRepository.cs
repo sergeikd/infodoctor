@@ -8,6 +8,8 @@ namespace Infodoctor.DAL.Repositories
 {
     public class ResortRepository : IResortRepository
     {
+        //todo: сделать разделение по типам для остальный методов
+
         private readonly AppDbContext _context;
 
         public ResortRepository(AppDbContext context)
@@ -16,9 +18,9 @@ namespace Infodoctor.DAL.Repositories
             _context = context;
         }
 
-        public IQueryable<Resort> GetAllResorts()
+        public IQueryable<Resort> GetAllResorts(int type)
         {
-            return _context.Resorts.OrderBy(r => r.Id);
+            return type == 0 ? _context.Resorts.OrderBy(r => r.Id) : _context.Resorts.Where(r => r.Type.Id == type).OrderBy(r => r.Id);
         }
 
         public IQueryable<Resort> GetSortedResorts(string sortBy, bool descending, string lang)

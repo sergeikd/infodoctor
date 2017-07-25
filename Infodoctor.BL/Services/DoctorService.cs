@@ -331,7 +331,7 @@ namespace Infodoctor.BL.Services
 
             //foreach (var clinicId in newDoctorMultiLang.ClinicsIdList)
             //{
-            //    var clinic = _clinicRepository.GetClinicById(clinicId);
+            //    var clinic = _clinicRepository.GetClinic(clinicId);
             //    if (clinic != null)
             //        clinicsList.Add(clinic);
             //}
@@ -390,7 +390,7 @@ namespace Infodoctor.BL.Services
 
             //foreach (var clinicId in newDoctorMultiLang.ClinicsIdList)
             //{
-            //    var clinic = _clinicRepository.GetClinicById(clinicId);
+            //    var clinic = _clinicRepository.GetClinic(clinicId);
             //    if (clinic != null)
             //        clinicsList.Add(clinic);
             //}

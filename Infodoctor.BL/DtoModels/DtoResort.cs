@@ -9,7 +9,7 @@ namespace Infodoctor.BL.DtoModels
         public int Id { get; set; }
         public string LangCode { get; set; }
         public string Image { get; set; }
-        public string Type { get; set; }
+        public int Type { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
@@ -31,6 +31,7 @@ namespace Infodoctor.BL.DtoModels
     public class DtoResortMultiLang
     {
         public int Id { get; set; }
+        public int Type { get; set; }
         public List<DtoResortMultiLangLocalized> LocalizedResort { get; set; }
         public string Image { get; set; }
         public string Email { get; set; }
@@ -50,7 +51,6 @@ namespace Infodoctor.BL.DtoModels
     public class DtoResortMultiLangLocalized
     {
         public int Id { get; set; }
-        public string Type { get; set; }
         public string Name { get; set; }
         public List<string> Manipulations { get; set; }
     }

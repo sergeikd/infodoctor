@@ -41,7 +41,7 @@ namespace Infodoctor.BL.Services
 
         public IEnumerable<DtoClinicSingleLang> GetAllClinics(string pathToClinicImage, string lang)
         {
-            var clinicList = _clinicRepository.GetAllСlinics().ToList();
+            var clinicList = _clinicRepository.GetСlinics().ToList();
             var dtoClinicList = new List<DtoClinicSingleLang>();
 
             foreach (var clinic in clinicList)
@@ -55,7 +55,7 @@ namespace Infodoctor.BL.Services
 
         public DtoClinicSingleLang GetClinicById(int id, string pathToClinicImage, string lang)
         {
-            var clinic = _clinicRepository.GetClinicById(id);
+            var clinic = _clinicRepository.GetClinic(id);
             if (clinic == null)
             {
                 throw new ApplicationException("Clinic not found");
@@ -68,7 +68,7 @@ namespace Infodoctor.BL.Services
 
         public DtoClinicMultiLang GetClinicById(int id, string pathToClinicImage)
         {
-            var clinic = _clinicRepository.GetClinicById(id);
+            var clinic = _clinicRepository.GetClinic(id);
             if (clinic == null)
                 throw new ApplicationException("Clinic not found");
 
@@ -182,24 +182,21 @@ namespace Infodoctor.BL.Services
             return dtoClinic;
         }
 
-        public DtoPagedClinic GetPagedClinics(int perPage, int numPage, string pathToClinicImage, string lang)
+        public DtoPagedClinic GetPagedClinics(int perPage, int numPage, string pathToClinicImage, string lang, int type)
         {
             if (perPage < 1 || numPage < 1)
-            {
                 throw new ApplicationException("Incorrect request parameter");
-            }
-            var clinics = _clinicRepository.GetAllСlinics();
+
+            var clinics = _clinicRepository.GetСlinics(type);
+
             var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
+
             if (!pagedList.Any())
-            {
                 return null;
-            }
-            var dtoClinicList = new List<DtoClinicSingleLang>();
-            foreach (var clinic in pagedList)
-            {
-                var dtoClinic = ConvertEntityToDtoSingleLang(lang, pathToClinicImage, clinic);
-                dtoClinicList.Add(dtoClinic);
-            }
+
+            var dtoClinicList = pagedList
+                    .Select(clinic => ConvertEntityToDtoSingleLang(lang, pathToClinicImage, clinic))
+                    .ToList();
 
             var pagedDtoClinicList = new DtoPagedClinic
             {
@@ -363,7 +360,7 @@ namespace Infodoctor.BL.Services
             //if (string.IsNullOrEmpty(name))
             //    throw new ArgumentNullException(nameof(name));
 
-            //var c = _clinicRepository.GetClinicById(id);
+            //var c = _clinicRepository.GetClinic(id);
             //if (c != null)
             //{
             //    c.Name = name;
@@ -374,7 +371,7 @@ namespace Infodoctor.BL.Services
 
         public void Delete(int id)
         {
-            var cp = _clinicRepository.GetClinicById(id);
+            var cp = _clinicRepository.GetClinic(id);
 
             if (cp == null) return;
             _clinicRepository.Delete(cp);
@@ -447,9 +444,9 @@ namespace Infodoctor.BL.Services
 
             var type = 0;
             if (clinic.Type != null)
-                foreach (var localizedClinicType in clinic.Type.Localized)
-                    if (localizedClinicType.Language.Code.ToLower() == lang)
-                        type = localizedClinicType.Id;
+            foreach (var localizedClinicType in clinic.Type.Localized)
+                if (localizedClinicType.Language.Code.ToLower() == lang)
+                    type = localizedClinicType.Id;
 
             var doctors = clinic.Doctors.Select(doctor => doctor.Id).ToList();
 
@@ -497,7 +494,7 @@ namespace Infodoctor.BL.Services
                 catch (Exception)
                 {
 
-                    //throw new ApplicationException($"Lang {localizedDtoClinic.LangCode} not found");
+                    throw new ApplicationException($"Lang {localizedDtoClinic.LangCode} not found");
 
                 }
 
@@ -554,7 +551,7 @@ namespace Infodoctor.BL.Services
             }
             catch (Exception)
             {
-                //throw new ApplicationException($"Country {address.CountryId} not found");
+                throw new ApplicationException($"Country {address.CountryId} not found");
             }
 
             try
@@ -563,7 +560,7 @@ namespace Infodoctor.BL.Services
             }
             catch (Exception)
             {
-                //throw new ApplicationException($"City {address.CityId} not found");
+                throw new ApplicationException($"City {address.CityId} not found");
             }
 
 
@@ -619,7 +616,7 @@ namespace Infodoctor.BL.Services
                 }
                 catch (Exception)
                 {
-                    //throw new ApplicationException($"Lang {localizedDtoPhone.LangCode} not found");
+                    throw new ApplicationException($"Lang {localizedDtoPhone.LangCode} not found");
                 }
 
                 locals.Add(new LocalizedPhone()

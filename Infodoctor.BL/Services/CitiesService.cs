@@ -53,7 +53,7 @@ namespace Infodoctor.BL.Services
             foreach (var city in allCities)
                 foreach (var localizedCity in city.LocalizedCities)
                     if (localizedCity.Language.Code.ToLower() == lang)
-                        if (localizedCity.Name.ToLower() == name)
+                        if (localizedCity.Name.ToLower().Contains(name) || name.Contains(localizedCity.Name.ToLower()))
                             dtoType = ConvertEntityToDtoSingleLang(city, lang);
 
             return dtoType;

@@ -64,7 +64,20 @@ namespace Infodoctor.Web.Controllers
                 lang = _config.DefaultLangCode;
 
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _config.PathToResortsImages;
-            return _resort.GetPagedResorts(perPage, numPage, pathToImage, lang);
+            return _resort.GetPagedResorts(perPage, numPage, pathToImage, lang,0);
+        }
+
+        // GET: api/Resort/page/perPage/numPage
+        [AllowAnonymous]
+        [Route("api/{lang}/resort/{type}/page/{perPage:int}/{numPage:int}")]
+        [HttpGet]
+        public DtoPagedResorts GetPage(int type,int perPage, int numPage, string lang)
+        {
+            if (string.IsNullOrEmpty(lang))
+                lang = _config.DefaultLangCode;
+
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _config.PathToResortsImages;
+            return _resort.GetPagedResorts(perPage, numPage, pathToImage, lang,type);
         }
 
         // api/Resort/search/perPage/numPage

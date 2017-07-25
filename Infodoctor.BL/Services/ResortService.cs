@@ -25,40 +25,24 @@ namespace Infodoctor.BL.Services
 
         public IEnumerable<DtoResortSingleLang> GetAllResorts(string pathToImage, string lang)
         {
-            var resorts = _resort.GetAllResorts().ToList();
+            var resorts = _resort.GetAllResorts(0).ToList();
 
-            var dtoResortList = new List<DtoResortSingleLang>();
-
-            foreach (var resort in resorts)
-            {
-                var dtoResort = ConvertEntityToDtoSingleLang(lang, pathToImage, resort);
-                dtoResortList.Add(dtoResort);
-            }
-
-            return dtoResortList;
+            return resorts.Select(resort => ConvertEntityToDtoSingleLang(lang, pathToImage, resort)).ToList();
         }
 
-        public DtoPagedResorts GetPagedResorts(int perPage, int numPage, string pathToImage, string lang)
+        public DtoPagedResorts GetPagedResorts(int perPage, int numPage, string pathToImage, string lang, int type)
         {
             if (perPage < 1 || numPage < 1)
-            {
                 throw new ApplicationException("Incorrect request parameter");
-            }
 
-            var resorts = _resort.GetAllResorts();
+            var resorts = _resort.GetAllResorts(type);
+
             var pagedList = new PagedList<Resort>(resorts, perPage, numPage);
+
             if (!pagedList.Any())
-            {
                 return null;
-            }
 
-            var dtoResortList = new List<DtoResortSingleLang>();
-
-            foreach (var resort in pagedList)
-            {
-                var dtoResort = ConvertEntityToDtoSingleLang(lang, pathToImage, resort);
-                dtoResortList.Add(dtoResort);
-            }
+            var dtoResortList = pagedList.Select(resort => ConvertEntityToDtoSingleLang(lang, pathToImage, resort)).ToList();
 
             var pagedDtoResorts = new DtoPagedResorts()
             {
@@ -134,31 +118,19 @@ namespace Infodoctor.BL.Services
                 dtoAddress.Phones.Add(dtoPhone);
             }
 
-            var dtoResortLocals = new List<DtoResortMultiLangLocalized>();
-            foreach (var local in resort.Localized)
+            var dtoResortLocals = resort.Localized.Select(local => new DtoResortMultiLangLocalized()
             {
-                var type = string.Empty;
-                foreach (var resortType in resort.Type.Localized)
-                {
-                    if (resortType.Language == local.Language)
-                        type = resortType.Name;
-                }
-
-                var dtoLocal = new DtoResortMultiLangLocalized()
-                {
-                    Id = local.Id,
-                    Name = local.Name,
-                    Type = type,
-                    Manipulations = local.Manipulations.Split(',', ';', '|').ToList()
-                };
-                dtoResortLocals.Add(dtoLocal);
-            }
+                Id = local.Id,
+                Name = local.Name,
+                Manipulations = local.Manipulations.Split(',', ';', '|').ToList()
+            }).ToList();
 
             var dtoResort = new DtoResortMultiLang()
             {
                 Id = resort.Id,
                 Email = resort.Email,
                 Site = resort.Site,
+                Type = resort.Type.Id,
                 RateAverage = resort.RateAverage,
                 RatePoliteness = resort.RatePoliteness,
                 RatePrice = resort.RatePrice,
@@ -352,10 +324,10 @@ namespace Infodoctor.BL.Services
                 }
             }
 
-            var type = string.Empty;
             foreach (var resortType in resort.Type.Localized)
                 if (resortType.Language.Code.ToLower() == lang)
-                    type = resortType.Name;
+                {
+                }
 
             var dtoResort = new DtoResortSingleLang()
             {
@@ -363,7 +335,7 @@ namespace Infodoctor.BL.Services
                 LangCode = localizedResort?.Language.Code.ToLower(),
                 Name = localizedResort?.Name,
                 Email = resort.Email,
-                Type = type,
+                Type = resort.Type.Id,
                 Site = resort.Site,
                 Manipulations = localizedResort?.Manipulations.Split(',', ';', '|').ToList(),
                 Address = dtoResortAddress,

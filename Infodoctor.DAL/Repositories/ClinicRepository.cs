@@ -8,6 +8,9 @@ namespace Infodoctor.DAL.Repositories
 {
     public class ClinicRepository : IClinicRepository
     {
+        //todo: сделать разделение по типам для остальный методов
+
+
         private readonly AppDbContext _context;
 
         public ClinicRepository(AppDbContext context)
@@ -15,9 +18,14 @@ namespace Infodoctor.DAL.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public IQueryable<Clinic> GetAllСlinics()
+        public IQueryable<Clinic> GetСlinics()
         {
             return _context.Сlinics.OrderBy(n => n.Id);
+        }
+
+        public IQueryable<Clinic> GetСlinics(int type)
+        {
+            return type == 0 ? _context.Сlinics.OrderBy(n => n.Id) : _context.Сlinics.Where(c => c.Type.Id == type).OrderBy(n => n.Id);
         }
 
         public IQueryable<Clinic> GetSortedСlinics(string sortBy, bool descending, string lang)
@@ -34,7 +42,7 @@ namespace Infodoctor.DAL.Repositories
                     return descending ? _context.Сlinics.OrderByDescending(c => c.RatePrice) : _context.Сlinics.OrderBy(c => c.RatePrice);
             }
         }
-        public Clinic GetClinicById(int id)
+        public Clinic GetClinic(int id)
         {
             try
             {
@@ -49,7 +57,6 @@ namespace Infodoctor.DAL.Repositories
 
         public void Add(Clinic clinic)
         {
-
             _context.Сlinics.Add(clinic);
             _context.SaveChanges();
         }

@@ -39,11 +39,11 @@ namespace Infodoctor.Web.Infrastructure
                 if (phones == null)
                     continue; //пропуск хода если парсер не вернул список телефонов
 
-                var typeName = ParseType(csvModel.Name);
-                if (string.IsNullOrEmpty(typeName))
+                var typeId = ParseType(csvModel.Name);
+                if (typeId == 0)
                     continue;//пропусх хода если не удалось распознать тип учреждения
 
-                var type = _clinicTypeService.GetType(typeName, "ru");
+                var type = _clinicTypeService.GetType(typeId, "ru");
 
                 var city = _citiesService.GetCity(csvModel.City, "ru");
 
@@ -159,15 +159,23 @@ namespace Infodoctor.Web.Infrastructure
             return localizedDtoPhones;
         }
 
-        private static string ParseType(string name)
+        private static int ParseType(string name)
         {
             name = name.ToLower();
-            var types = new List<string>() { "медицинский центр", "клиник", "поликлиник", "стоматологи" };
 
-            foreach (var type in types)
-                if (name.Contains(type))
-                    return type;
-            return string.Empty;
+            if (name.Contains("стоматологи"))
+                return 4;
+
+            if (name.Contains("центр") && name.Contains("медицинский"))
+                return 1;
+
+            if (name.Contains("поликлиник"))
+                return 2;
+
+            if (name.Contains("клиник"))
+                return 3;
+
+            return 0;
         }
 
         private class ClinicCsvModel

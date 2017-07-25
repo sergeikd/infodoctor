@@ -33,7 +33,7 @@ namespace Infodoctor.Web.Controllers
         // GET: api/Country/5
         [AllowAnonymous]
         [Route("api/{lang}/Country")]
-        public DtoCountrySingleLang Get(int id, string lang)
+        public DtoCountrySingleLang Get(string lang, int id)
         {
             if (string.IsNullOrEmpty(lang))
                 lang = _configService.DefaultLangCode;

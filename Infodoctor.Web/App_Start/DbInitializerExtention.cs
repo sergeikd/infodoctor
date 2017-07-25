@@ -76,6 +76,13 @@ namespace Infodoctor.Web
                     new LocalizedCity() {Name = "Бобруйск", Language = langs.First(l => l.Code == "ru")}
                 }
             };
+            var city116 = new City()
+            {
+                LocalizedCities = new List<LocalizedCity>()
+                {
+                    new LocalizedCity() {Name = "Боровляны", Language = langs.First(l => l.Code == "ru")}
+                }
+            };
             var city2 = new City()
             {
                 LocalizedCities = new List<LocalizedCity>()
@@ -994,7 +1001,8 @@ namespace Infodoctor.Web
                 city112,
                 city113,
                 city114,
-                city115
+                city115,
+                city116
             };
 
             var country1 = new Country()

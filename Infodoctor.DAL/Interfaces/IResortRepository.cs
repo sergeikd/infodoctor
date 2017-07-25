@@ -5,7 +5,7 @@ namespace Infodoctor.DAL.Interfaces
 {
     public interface IResortRepository
     {
-        IQueryable<Resort> GetAllResorts();
+        IQueryable<Resort> GetAllResorts(int type);
         IQueryable<Resort> GetSortedResorts(string sortBy, bool descending,string lang);
         Resort GetResortById(int id);
         void Add(Resort res);

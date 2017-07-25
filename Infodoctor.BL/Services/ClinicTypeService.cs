@@ -42,7 +42,7 @@ namespace Infodoctor.BL.Services
             foreach (var type in types)
                 foreach (var localizedClinicType in type.Localized)
                     if (localizedClinicType.Language.Code.ToLower() == lang)
-                        if (localizedClinicType.Name.ToLower() == name)
+                        if (localizedClinicType.Name.ToLower().Contains(name))
                             dtoType = ConvertEntityToDto(type, lang);
 
             return dtoType;
