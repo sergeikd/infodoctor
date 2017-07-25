@@ -184,7 +184,7 @@ namespace Infodoctor.Web.Infrastructure
         {
             var path = pathToSourceImagesFolder + clinicId;
             if (!Directory.Exists(path))
-                return null;
+                throw new ApplicationException($"Directory {path} not found");
 
             var types = new List<string>() { "jpg", "png" };
             var dir = new DirectoryInfo(path);
