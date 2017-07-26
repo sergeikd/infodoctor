@@ -8,7 +8,7 @@ namespace Infodoctor.DAL.Interfaces
     {
         IQueryable<Clinic> GetСlinics();
         IQueryable<Clinic> GetСlinics(int type);
-        IQueryable<Clinic> GetSortedСlinics(string sortBy, bool descending, string lang);
+        IQueryable<Clinic> GetSortedСlinics(string sortBy, bool descending, string lang, int type);
         Clinic GetClinic(int id);
         void Add(Clinic clinic);
         void AddMany(IEnumerable<Clinic> clinics);

@@ -23,19 +23,47 @@ namespace Infodoctor.DAL.Repositories
             return type == 0 ? _context.Resorts.OrderBy(r => r.Id) : _context.Resorts.Where(r => r.Type.Id == type).OrderBy(r => r.Id);
         }
 
-        public IQueryable<Resort> GetSortedResorts(string sortBy, bool descending, string lang)
+        public IQueryable<Resort> GetSortedResorts(string sortBy, bool descending, string lang, int type)
         {
             switch (sortBy)
             {
 
                 default:
-                    return descending ? _context.Resorts.OrderByDescending(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Resorts.OrderBy(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
+                    if (type == 0)
+                        return descending ?
+                            _context.Resorts.OrderByDescending(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) :
+                            _context.Resorts.OrderBy(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
+                    else
+                        return descending ?
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderByDescending(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) :
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderBy(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
                 case "alphabet":
-                    return descending ? _context.Resorts.OrderByDescending(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Resorts.OrderBy(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
+                    if (type == 0)
+                        return descending ?
+                            _context.Resorts.OrderByDescending(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) :
+                            _context.Resorts.OrderBy(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
+                    else
+                        return descending ?
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderByDescending(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) :
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderBy(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
                 case "rate":
-                    return descending ? _context.Resorts.OrderByDescending(c => c.RateAverage) : _context.Resorts.OrderBy(c => c.RateAverage);
+                    if (type == 0)
+                        return descending ?
+                            _context.Resorts.OrderByDescending(c => c.RateAverage) :
+                            _context.Resorts.OrderBy(c => c.RateAverage);
+                    else
+                        return descending ?
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderByDescending(c => c.RateAverage) :
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderBy(c => c.RateAverage);
                 case "price":
-                    return descending ? _context.Resorts.OrderByDescending(c => c.RatePrice) : _context.Resorts.OrderBy(c => c.RatePrice);
+                    if (type == 0)
+                        return descending ?
+                            _context.Resorts.OrderByDescending(c => c.RatePrice) :
+                            _context.Resorts.OrderBy(c => c.RatePrice);
+                    else
+                        return descending ?
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderByDescending(c => c.RatePrice) :
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderBy(c => c.RatePrice);
             }
         }
 

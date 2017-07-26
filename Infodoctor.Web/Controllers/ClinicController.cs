@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Web.Http;
-using Infodoctor.BL.DtoModels;
+﻿using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
 using Infodoctor.Web.Infrastructure;
+using System;
+using System.Collections.Generic;
+using System.Web.Http;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -101,7 +100,22 @@ namespace Infodoctor.Web.Controllers
                 lang = _configService.DefaultLangCode;
 
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
-            var pagedClinic = _clinicService.SearchClinics(perPage, numPage, searchModel, pathToImage, lang);
+            var pagedClinic = _clinicService.SearchClinics(perPage, numPage, searchModel, pathToImage, lang, 0);
+
+            return pagedClinic;
+        }
+
+        // api/ru/clinic/type/search/perPage/numPage
+        [AllowAnonymous]
+        [Route("api/{lang}/clinic/{type:int}/search/{perPage:int}/{numPage:int}")]
+        [HttpPost]
+        public DtoPagedClinic SearchClinic(int perPage, int numPage, [FromBody]DtoClinicSearchModel searchModel, string lang, int type)
+        {
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
+
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
+            var pagedClinic = _clinicService.SearchClinics(perPage, numPage, searchModel, pathToImage, lang, type);
 
             return pagedClinic;
         }

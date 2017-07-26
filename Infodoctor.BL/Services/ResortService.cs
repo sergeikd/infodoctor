@@ -147,13 +147,13 @@ namespace Infodoctor.BL.Services
             return dtoResort;
         }
 
-        public DtoPagedResorts SearchResorts(int perPage, int numPage, DtoResortSearchModel searchModel, string pathToImage, string lang)
+        public DtoPagedResorts SearchResorts(int perPage, int numPage, DtoResortSearchModel searchModel, string pathToImage, string lang, int type)
         {
             if (perPage < 1 || numPage < 1)
-            {
                 throw new ApplicationException("Incorrect request parameter");
-            }
+
             bool descending;
+
             try
             {
                 descending = Convert.ToBoolean(searchModel.Descending);
@@ -173,12 +173,12 @@ namespace Infodoctor.BL.Services
                         {
                             case true:
                                 {
-                                    resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang);
+                                    resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang,type);
                                     break;
                                 }
                             default:
                                 {
-                                    resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang)
+                                    resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang,type)
                                         .Where(r =>
                                                 r.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
                                                 r.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Manipulations.ToLower().Contains(searchModel.SearchWord.ToLower())
@@ -195,13 +195,13 @@ namespace Infodoctor.BL.Services
                         {
                             case true:
                                 {
-                                    resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang)
+                                    resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang, type)
                                         .Where(r => r.Address.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId);
                                     break;
                                 }
                             default:
                                 {
-                                    resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang)
+                                    resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang, type)
                                         .Where(r =>
                                             r.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
                                             r.Address.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId ||

@@ -208,14 +208,13 @@ namespace Infodoctor.BL.Services
             return pagedDtoClinicList;
         }
 
-        public DtoPagedClinic SearchClinics(int perPage, int numPage, DtoClinicSearchModel searchModel,
-            string pathToClinicImage, string lang)
+        public DtoPagedClinic SearchClinics(int perPage, int numPage, DtoClinicSearchModel searchModel, string pathToClinicImage, string lang, int type)
         {
             if (perPage < 1 || numPage < 1)
-            {
                 throw new ApplicationException("Incorrect request parameter");
-            }
+
             bool descending;
+
             try
             {
                 descending = Convert.ToBoolean(searchModel.Descending);
@@ -234,12 +233,12 @@ namespace Infodoctor.BL.Services
                         {
                             case true:
                                 {
-                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang);
+                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang, type);
                                     break;
                                 }
                             default:
                                 {
-                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang)
+                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang, type)
                                         .Where(
                                             x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower())
                                                      .Name.ToLower()
@@ -259,7 +258,7 @@ namespace Infodoctor.BL.Services
                         {
                             case true:
                                 {
-                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang)
+                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang, type)
                                         .Where(
                                             x => x.Addresses.Any(y => y.City.Id == searchModel.CityId)
                                         );
@@ -267,7 +266,7 @@ namespace Infodoctor.BL.Services
                                 }
                             default:
                                 {
-                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang)
+                                    clinics = _clinicRepository.GetSortedСlinics(searchModel.SortBy, descending, lang, type)
                                         .Where(
                                             x => x.Localized.FirstOrDefault(ls => ls.Language.Code.ToLower() == lang.ToLower())
                                                      .Name.ToLower()
@@ -287,17 +286,9 @@ namespace Infodoctor.BL.Services
             var pagedList = new PagedList<Clinic>(clinics, perPage, numPage);
 
             if (!pagedList.Any())
-            {
                 return null;
-            }
 
-            var dtoClinicList = new List<DtoClinicSingleLang>();
-
-            foreach (var clinic in pagedList)
-            {
-                var dtoClinic = ConvertEntityToDtoSingleLang(lang, pathToClinicImage, clinic);
-                dtoClinicList.Add(dtoClinic);
-            }
+            var dtoClinicList = pagedList.Select(clinic => ConvertEntityToDtoSingleLang(lang, pathToClinicImage, clinic)).ToList();
 
             var pagedDtoClinicList = new DtoPagedClinic
             {
@@ -378,8 +369,7 @@ namespace Infodoctor.BL.Services
             _searchService.RefreshCache();
         }
 
-        private static DtoClinicSingleLang ConvertEntityToDtoSingleLang(string lang, string pathToClinicImage,
-            Clinic clinic)
+        private static DtoClinicSingleLang ConvertEntityToDtoSingleLang(string lang, string pathToClinicImage, Clinic clinic)
         {
             if (clinic == null)
                 throw new ApplicationException("Clinic not found");
@@ -600,14 +590,14 @@ namespace Infodoctor.BL.Services
                 LocalizedAddresses = locals
             };
 
-            var phones = address.Phones.Select(dtoPhoneMultiLang => BuildPhoneEntityFromDto(dtoPhoneMultiLang, entityAddress)).ToList();
+            var phones = address.Phones.Select(dtoPhoneMultiLang => BuildPhoneEntityFromDto(dtoPhoneMultiLang)).ToList();
 
             entityAddress.Phones = phones;
 
             return entityAddress;
         }
 
-        private Phone BuildPhoneEntityFromDto(DtoPhoneMultiLang phone, Address address)
+        private Phone BuildPhoneEntityFromDto(DtoPhoneMultiLang phone)
         {
             var locals = new List<LocalizedPhone>();
             foreach (var localizedDtoPhone in phone.LocalizedPhone)
@@ -633,7 +623,6 @@ namespace Infodoctor.BL.Services
 
             var entityPhone = new Phone()
             {
-                // Address = address,
                 LocalizedPhones = locals
             };
 

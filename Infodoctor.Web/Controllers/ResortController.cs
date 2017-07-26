@@ -64,20 +64,20 @@ namespace Infodoctor.Web.Controllers
                 lang = _config.DefaultLangCode;
 
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _config.PathToResortsImages;
-            return _resort.GetPagedResorts(perPage, numPage, pathToImage, lang,0);
+            return _resort.GetPagedResorts(perPage, numPage, pathToImage, lang, 0);
         }
 
         // GET: api/Resort/page/perPage/numPage
         [AllowAnonymous]
         [Route("api/{lang}/resort/{type}/page/{perPage:int}/{numPage:int}")]
         [HttpGet]
-        public DtoPagedResorts GetPage(int type,int perPage, int numPage, string lang)
+        public DtoPagedResorts GetPage(int type, int perPage, int numPage, string lang)
         {
             if (string.IsNullOrEmpty(lang))
                 lang = _config.DefaultLangCode;
 
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _config.PathToResortsImages;
-            return _resort.GetPagedResorts(perPage, numPage, pathToImage, lang,type);
+            return _resort.GetPagedResorts(perPage, numPage, pathToImage, lang, type);
         }
 
         // api/Resort/search/perPage/numPage
@@ -90,7 +90,22 @@ namespace Infodoctor.Web.Controllers
                 lang = _config.DefaultLangCode;
 
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _config.PathToResortsImages;
-            var pagedResorts = _resort.SearchResorts(perPage, numPage, searchModel, pathToImage, lang);
+            var pagedResorts = _resort.SearchResorts(perPage, numPage, searchModel, pathToImage, lang, 0);
+
+            return pagedResorts;
+        }
+
+        // api/Resort/search/perPage/numPage
+        [AllowAnonymous]
+        [Route("api/{lang}/resort/{type:int}/search/{perPage:int}/{numPage:int}")]
+        [HttpPost]
+        public DtoPagedResorts SearchResort(int perPage, int numPage, [FromBody]DtoResortSearchModel searchModel, string lang, int type)
+        {
+            if (string.IsNullOrEmpty(lang))
+                lang = _config.DefaultLangCode;
+
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _config.PathToResortsImages;
+            var pagedResorts = _resort.SearchResorts(perPage, numPage, searchModel, pathToImage, lang, type);
 
             return pagedResorts;
         }

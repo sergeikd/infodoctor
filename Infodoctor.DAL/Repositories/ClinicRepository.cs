@@ -10,7 +10,6 @@ namespace Infodoctor.DAL.Repositories
     {
         //todo: сделать разделение по типам для остальный методов
 
-
         private readonly AppDbContext _context;
 
         public ClinicRepository(AppDbContext context)
@@ -28,20 +27,72 @@ namespace Infodoctor.DAL.Repositories
             return type == 0 ? _context.Сlinics.OrderBy(n => n.Id) : _context.Сlinics.Where(c => c.Type.Id == type).OrderBy(n => n.Id);
         }
 
-        public IQueryable<Clinic> GetSortedСlinics(string sortBy, bool descending, string lang)
+        //private IQueryable<Clinic> GetSortedСlinics(string sortBy, bool descending, string lang)
+        //{
+        //    switch (sortBy)
+        //    {
+        //        default:
+        //            return descending ?
+        //                _context.Сlinics.OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) :
+        //                _context.Сlinics.OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);
+        //        case "alphabet":
+        //            return descending ?
+        //                _context.Сlinics.OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) :
+        //                _context.Сlinics.OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);
+        //        case "rate":
+        //            return descending ?
+        //                _context.Сlinics.OrderByDescending(c => c.RateAverage) :
+        //                _context.Сlinics.OrderBy(c => c.RateAverage);
+        //        case "price":
+        //            return descending ?
+        //                _context.Сlinics.OrderByDescending(c => c.RatePrice) :
+        //                _context.Сlinics.OrderBy(c => c.RatePrice);
+        //    }
+        //}
+
+        public IQueryable<Clinic> GetSortedСlinics(string sortBy, bool @descending, string lang, int type)
         {
             switch (sortBy)
             {
                 default:
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Сlinics.OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);             //TODO: check it
+                    if (type == 0)
+                        return descending
+                            ? _context.Сlinics.OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name)
+                            : _context.Сlinics.OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);
+                    else
+                        return descending
+                            ? _context.Сlinics.Where(c => c.Type.Id == type).OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name)
+                            : _context.Сlinics.Where(c => c.Type.Id == type).OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);
                 case "alphabet":
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) : _context.Сlinics.OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);             //TODO: check it
+                    if (type == 0)
+                        return descending ?
+                            _context.Сlinics.OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) :
+                            _context.Сlinics.OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);
+                    else
+                        return descending ?
+                            _context.Сlinics.Where(c => c.Type.Id == type).OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) :
+                            _context.Сlinics.Where(c => c.Type.Id == type).OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);
                 case "rate":
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.RateAverage) : _context.Сlinics.OrderBy(c => c.RateAverage);
+                    if (type == 0)
+                        return descending ?
+                            _context.Сlinics.OrderByDescending(c => c.RateAverage) :
+                            _context.Сlinics.OrderBy(c => c.RateAverage);
+                    else
+                        return descending ?
+                            _context.Сlinics.Where(c => c.Type.Id == type).OrderByDescending(c => c.RateAverage) :
+                            _context.Сlinics.Where(c => c.Type.Id == type).OrderBy(c => c.RateAverage);
                 case "price":
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.RatePrice) : _context.Сlinics.OrderBy(c => c.RatePrice);
+                    if (type == 0)
+                        return descending ?
+                            _context.Сlinics.OrderByDescending(c => c.RatePrice) :
+                            _context.Сlinics.OrderBy(c => c.RatePrice);
+                    else
+                        return descending ?
+                            _context.Сlinics.Where(c => c.Type.Id == type).OrderByDescending(c => c.RatePrice) :
+                            _context.Сlinics.Where(c => c.Type.Id == type).OrderBy(c => c.RatePrice);
             }
         }
+
         public Clinic GetClinic(int id)
         {
             try
@@ -66,6 +117,7 @@ namespace Infodoctor.DAL.Repositories
             _context.Сlinics.AddRange(clinics);
             _context.SaveChanges();
         }
+
         public void Update(Clinic clinic)
         {
             var edited = _context.Сlinics.FirstOrDefault(s => s.Id == clinic.Id);
