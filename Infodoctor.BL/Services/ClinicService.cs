@@ -333,16 +333,43 @@ namespace Infodoctor.BL.Services
             foreach (var address in entityAddress)
                 _clinicAddressesRepository.Add(address);
 
-            //_clinicRepository.Add(c);
-            //_searchService.RefreshCache();
+           _searchService.RefreshCache();
         }
 
         public void AddMany(IEnumerable<DtoClinicMultiLang> clinics)
         {
             foreach (var clinic in clinics)
             {
-                Add(clinic);
+                var entityClinic = BuildClinicEntityFromDto(clinic);
+
+                var entityAddress = clinic.ClinicAddress
+                    .Select(dtoAddressMultiLang => BuildAddressEntityFromDto(dtoAddressMultiLang, entityClinic))
+                    .ToList();
+                var entityLocalizedAddreses = new List<LocalizedAddress>();
+                foreach (var address in entityAddress)
+                    entityLocalizedAddreses.AddRange(address.LocalizedAddresses);
+
+                var entityPhones = new List<Phone>();
+                foreach (var address in entityAddress)
+                    entityPhones.AddRange(address.Phones);
+
+                var entityLocalizedPhones = new List<LocalizedPhone>();
+                foreach (var phone in entityPhones)
+                    entityLocalizedPhones.AddRange(phone.LocalizedPhones);
+
+                //добавление клиники
+                _clinicRepository.Add(entityClinic);
+
+                //добавление телефонов
+                foreach (var phone in entityPhones)
+                    _clinicPhonesRepository.Add(phone);
+
+                //добавление адрессов
+                foreach (var address in entityAddress)
+                    _clinicAddressesRepository.Add(address);        
             }
+
+            _searchService.RefreshCache();
         }
 
         public void Update(DtoClinicMultiLang clinic)
