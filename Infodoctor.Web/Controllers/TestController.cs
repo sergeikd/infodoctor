@@ -30,6 +30,15 @@ namespace Infodoctor.Web.Controllers
         [Route("api/test/add10clinics")]
         public IHttpActionResult Add100Clinics()
         {
+            var pathToImage = _configService.PathToOldDbClinics;
+            _testService.Add10Clinics(pathToImage, _configService.ImagesSizes);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("api/test/AddClinicsFromOldDb")]
+        public IHttpActionResult AddClinicsFromOldDb()
+        {
             var pathToImage = _configService.PathToClinicsImages;
             _testService.Add10Clinics(pathToImage, _configService.ImagesSizes);
             return Ok();

@@ -13,14 +13,17 @@ namespace Infodoctor.BL.Services
     {
         private readonly IArticleCommentsRepository _commentsRepository;
         private readonly IArticlesRepository _articlesRepository;
+        private readonly ILanguageRepository _languageRepository;
 
-        public ArticleCommentsService(IArticleCommentsRepository commentsRepository, IArticlesRepository articlesRepository)
+        public ArticleCommentsService(IArticleCommentsRepository commentsRepository, IArticlesRepository articlesRepository, ILanguageRepository languageRepository)
         {
             if (commentsRepository == null) throw new ArgumentNullException(nameof(commentsRepository));
             if (articlesRepository == null) throw new ArgumentNullException(nameof(articlesRepository));
+            if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
 
             _commentsRepository = commentsRepository;
             _articlesRepository = articlesRepository;
+            _languageRepository = languageRepository;
         }
 
         public IEnumerable<DtoArticleComment> GetComments()
@@ -37,7 +40,8 @@ namespace Infodoctor.BL.Services
                     UserName = comment.UserName,
                     UserId = comment.UserId,
                     PublishTime = comment.PublishTime,
-                    ArticleId = comment.Article.Id
+                    ArticleId = comment.Article.Id,
+                    LangCode = comment.Language.Code.ToLower()
                 });
             }
 
@@ -58,7 +62,8 @@ namespace Infodoctor.BL.Services
                     UserName = comment.UserName,
                     UserId = comment.UserId,
                     PublishTime = comment.PublishTime,
-                    ArticleId = comment.Article.Id
+                    ArticleId = comment.Article.Id,
+                    LangCode = comment.Language.Code.ToLower()
                 });
             }
 
@@ -88,7 +93,52 @@ namespace Infodoctor.BL.Services
                     UserName = comment.UserName,
                     UserId = comment.UserId,
                     PublishTime = comment.PublishTime,
-                    ArticleId = comment.Article.Id
+                    ArticleId = comment.Article.Id,
+                    LangCode = comment.Language.Code.ToLower()
+                });
+            }
+
+            var result = new DtoPagedArticleComments
+            {
+                Comments = dtoCommentsList,
+                TotalCount = pagedList.TotalCount,
+                Page = pagedList.Page,
+                PageSize = pagedList.PageSize
+            };
+
+            return result;
+        }
+
+        public DtoPagedArticleComments GetPagedCommentsByArticleId(int id, int perPage, int numPage, string lang)
+        {
+            if (id < 1 || perPage < 1 || numPage < 1)
+                throw new ApplicationException("Incorrect request parameter");
+
+            lang = lang.ToLower();
+
+            var commentsList = _commentsRepository.GetCommentsByArticleId(id).Where(c => c.IsApproved)
+                .OrderByDescending(c => c.Language.Code.ToLower() == lang)
+                .ThenByDescending(c => c.Language.Code.ToLower() != lang)
+                .ThenByDescending(c => c.PublishTime);
+
+            var pagedList = new PagedList<ArticleComment>(commentsList, perPage, numPage);
+
+            if (!pagedList.Any())
+                throw new ApplicationException("Page not found");
+
+            var dtoCommentsList = new List<DtoArticleComment>();
+
+            foreach (var comment in pagedList)
+            {
+                dtoCommentsList.Add(new DtoArticleComment()
+                {
+                    Id = comment.Id,
+                    Text = comment.Text,
+                    UserName = comment.UserName,
+                    UserId = comment.UserId,
+                    PublishTime = comment.PublishTime,
+                    ArticleId = comment.Article.Id,
+                    LangCode = comment.Language.Code.ToLower()
                 });
             }
 
@@ -105,11 +155,11 @@ namespace Infodoctor.BL.Services
 
         public DtoArticleComment GetCommentById(int id)
         {
-            ArticleComment articleComment;
+            ArticleComment comment;
 
             try
             {
-                articleComment = _commentsRepository.GetCommentById(id);
+                comment = _commentsRepository.GetCommentById(id);
             }
             catch
             {
@@ -118,12 +168,13 @@ namespace Infodoctor.BL.Services
 
             var dtoComment = new DtoArticleComment()
             {
-                Id = articleComment.Id,
-                Text = articleComment.Text,
-                UserName = articleComment.UserName,
-                UserId = articleComment.UserId,
-                PublishTime = articleComment.PublishTime,
-                ArticleId = articleComment.Article.Id
+                Id = comment.Id,
+                Text = comment.Text,
+                UserName = comment.UserName,
+                UserId = comment.UserId,
+                PublishTime = comment.PublishTime,
+                ArticleId = comment.Article.Id,
+                LangCode = comment.Language.Code.ToLower()
             };
 
             return dtoComment;
@@ -155,7 +206,8 @@ namespace Infodoctor.BL.Services
                 UserId = comment.UserId,
                 PublishTime = comment.PublishTime,
                 Article = article,
-                IsApproved = true //TODO: change to false when moderator control will be done
+                IsApproved = true, //TODO: change to false when moderator control will be done
+                Language = _languageRepository.GetLanguageByCode(comment.LangCode)
             };
 
             _commentsRepository.Add(newComment);
@@ -174,13 +226,8 @@ namespace Infodoctor.BL.Services
                 throw new ApplicationException("Comment not found");
             }
 
-            if(articleComment != null)
+            if (articleComment != null)
                 _commentsRepository.Delete(articleComment);
-        }
-
-        public void Update(DtoArticleComment comment)
-        {
-            throw new NotImplementedException();
         }
     }
 }

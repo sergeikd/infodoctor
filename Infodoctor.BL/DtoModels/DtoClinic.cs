@@ -1,38 +1,64 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Infodoctor.BL.DtoModels
 {
-    public class DtoClinic
+    #region SingleLang
+    public class DtoClinicSingleLang
     {
         public int Id { get; set; }
-        public List<string> Images { get; set; }
+        public int Type { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
-        //public Guid OwnershipId { get; set; }
-        public List<DtoAddress> ClinicAddress { get; set; }
-        //public IEnumerable<ClinicProfile> ClinicProfiles { get; set; }
-        public List<DtoClinicSpecialization> ClinicSpecialization { get; set; }
-        public List<DtoDoctor> Doctors { get; set; }
+        public List<string> Specializations { get; set; }
+        public List<DtoAddressSingleLang> Addresses { get; set; }
+        public List<int> DoctorsIdList { get; set; }
+        public List<string> Images { get; set; }
+        public int ReviewCount { get; set; }
+        public double RatePrice { get; set; }
+        public double RateQuality { get; set; }
+        public double RatePoliteness { get; set; }
+        public double RateAverage { get; set; }
+        public bool Childish { get; set; }
+        public bool Favorite { get; set; }
+        public bool Recommended { get; set; }
+        public DateTime FavouriteExpireDate { get; set; }
+        public DateTime RecommendedExpireDate { get; set; }
+        public string LangCode { get; set; }
+
+    }
+    #endregion
+
+    #region Multilang
+    public class DtoClinicMultiLang
+    {
+        public int Id { get; set; }
+        public int Type { get; set; }
+        public List<string> Images { get; set; }
+        public List<LocalizedDtoClinic> LocalizedClinic { get; set; }
+        public string Email { get; set; }
+        public string Site { get; set; }
+        public List<DtoAddressMultiLang> ClinicAddress { get; set; }
+        public List<int> DoctorsIdList { get; set; }
         public double RatePrice { get; set; }
         public double RateQuality { get; set; }
         public double RatePoliteness { get; set; }
         public double RateAverage { get; set; }
         public int ReviewCount { get; set; }
+        public bool Childish { get; set; }
         public bool Favorite { get; set; }
+        public bool Recommended { get; set; }
+        public DateTime FavouriteExpireDate { get; set; }
+        public DateTime RecommendedExpireDate { get; set; }
     }
 
-    public class DtoAddress
+    public class LocalizedDtoClinic
     {
-        public string Country { get; set; }
-        public string City { get; set; }
-        public string Street { get; set; }
-        public List<DtoPhone> ClinicPhones { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<string> Specializations { get; set; }
+        public string LangCode { get; set; }
     }
-
-    public class DtoPhone
-    {
-        public string Desc { get; set; }
-        public string Phone { get; set; }
-    }
+    #endregion
 }

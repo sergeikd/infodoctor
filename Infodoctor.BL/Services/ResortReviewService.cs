@@ -13,13 +13,16 @@ namespace Infodoctor.BL.Services
     {
         private readonly IResortReviewRepository _reviewRepository;
         private readonly IResortRepository _resortRepository;
+        private readonly ILanguageRepository _languageRepository;
 
-        public ResortReviewService(IResortReviewRepository reviewRepository, IResortRepository resortRepository)
+        public ResortReviewService(IResortReviewRepository reviewRepository, IResortRepository resortRepository, ILanguageRepository languageRepository)
         {
             if (reviewRepository == null) throw new ArgumentNullException(nameof(reviewRepository));
             if (resortRepository == null) throw new ArgumentNullException(nameof(resortRepository));
+            if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
             _reviewRepository = reviewRepository;
             _resortRepository = resortRepository;
+            _languageRepository = languageRepository;
         }
 
         public IEnumerable<DtoResortReview> GetAllReviews()
@@ -40,7 +43,8 @@ namespace Infodoctor.BL.Services
                         RatePrice = review.RatePrice,
                         RateQuality = review.RateQuality,
                         RatePoliteness = review.RatePoliteness,
-                        ResortId = review.Resort.Id
+                        ResortId = review.Resort.Id,
+                        LangCode = review.Language.Code
                     }
                 );
             }
@@ -66,7 +70,8 @@ namespace Infodoctor.BL.Services
                         RatePrice = review.RatePrice,
                         RateQuality = review.RateQuality,
                         RatePoliteness = review.RatePoliteness,
-                        ResortId = review.Resort.Id
+                        ResortId = review.Resort.Id,
+                        LangCode = review.Language.Code
                     }
                 );
             }
@@ -104,7 +109,57 @@ namespace Infodoctor.BL.Services
                         RatePrice = review.RatePrice,
                         RateQuality = review.RateQuality,
                         RatePoliteness = review.RatePoliteness,
-                        ResortId = review.Resort.Id
+                        ResortId = review.Resort.Id,
+                        LangCode = review.Language.Code
+                    }
+                );
+            }
+
+            var result = new DtoPagedResortReview()
+            {
+                ResortReviews = dtoResReviewList,
+                TotalCount = pagedList.TotalCount,
+                Page = pagedList.Page,
+                PageSize = pagedList.PageSize
+            };
+            return result;
+        }
+
+        public DtoPagedResortReview GetPagedReviewByResortId(int id, int perPage, int numPage,string lang)
+        {
+            if (id < 1 || perPage < 1 || numPage < 1)
+                throw new ApplicationException("Incorrect request parameter");
+
+            lang = lang.ToLower();
+
+            var reviews = _reviewRepository.GetResortReviewsByClinicId(id).Where(c => c.IsApproved)
+                .OrderByDescending(c => c.Language.Code.ToLower() == lang)
+                .ThenByDescending(c => c.Language.Code.ToLower() != lang)
+                .ThenByDescending(c => c.PublishTime);
+
+            var pagedList = new PagedList<ResortReview>(reviews, perPage, numPage);
+            if (!pagedList.Any())
+            {
+                throw new ApplicationException("Page not found");
+            }
+
+            var dtoResReviewList = new List<DtoResortReview>();
+
+            foreach (var review in pagedList)
+            {
+                dtoResReviewList.Add(
+                    new DtoResortReview()
+                    {
+                        Id = review.Id,
+                        Text = review.Text,
+                        UserName = review.UserName,
+                        UserId = review.UserId,
+                        PublishTime = review.PublishTime,
+                        RatePrice = review.RatePrice,
+                        RateQuality = review.RateQuality,
+                        RatePoliteness = review.RatePoliteness,
+                        ResortId = review.Resort.Id,
+                        LangCode = review.Language.Code
                     }
                 );
             }
@@ -132,7 +187,8 @@ namespace Infodoctor.BL.Services
                 RatePrice = review.RatePrice,
                 RateQuality = review.RateQuality,
                 RatePoliteness = review.RatePoliteness,
-                ResortId = review.Resort.Id
+                ResortId = review.Resort.Id,
+                LangCode = review.Language.Code
             };
 
             return dtoReview;
@@ -156,6 +212,8 @@ namespace Infodoctor.BL.Services
                 review.RatePrice < 1 || review.RateQuality < 1 || review.Text == string.Empty)
                 throw new ApplicationException("Incorrect data, pussible some required fields are null or empty");
 
+            var lang = _languageRepository.GetLanguageByCode(review.LangCode);
+
             var newReview = new ResortReview()
             {
                 Text = review.Text,
@@ -166,7 +224,8 @@ namespace Infodoctor.BL.Services
                 RatePrice = review.RatePrice,
                 RateQuality = review.RateQuality,
                 Resort = resort,
-                IsApproved = true //TODO: change to false when moderator control will be done
+                IsApproved = true, //TODO: change to false when moderator control will be done
+                Language = lang
             };
 
             _reviewRepository.Add(newReview);

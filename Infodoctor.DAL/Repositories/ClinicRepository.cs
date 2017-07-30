@@ -1,15 +1,15 @@
 ﻿using Infodoctor.DAL.Interfaces;
+using Infodoctor.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
-using Infodoctor.Domain.Entities;
 
 namespace Infodoctor.DAL.Repositories
 {
     public class ClinicRepository : IClinicRepository
     {
+        //todo: сделать разделение по типам для остальный методов
+
         private readonly AppDbContext _context;
 
         public ClinicRepository(AppDbContext context)
@@ -17,31 +17,87 @@ namespace Infodoctor.DAL.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public IQueryable<Clinic> GetAllСlinics()
+        public IQueryable<Clinic> GetСlinics()
         {
             return _context.Сlinics.OrderBy(n => n.Id);
         }
 
-        public IQueryable<Clinic> GetSortedСlinics(string sortBy, bool descending)
+        public IQueryable<Clinic> GetСlinics(int type)
+        {
+            return type == 0 ? _context.Сlinics.OrderBy(n => n.Id) : _context.Сlinics.Where(c => c.Type.Id == type).OrderBy(n => n.Id);
+        }
+
+        //private IQueryable<Clinic> GetSortedСlinics(string sortBy, bool descending, string lang)
+        //{
+        //    switch (sortBy)
+        //    {
+        //        default:
+        //            return descending ?
+        //                _context.Сlinics.OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) :
+        //                _context.Сlinics.OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);
+        //        case "alphabet":
+        //            return descending ?
+        //                _context.Сlinics.OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) :
+        //                _context.Сlinics.OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);
+        //        case "rate":
+        //            return descending ?
+        //                _context.Сlinics.OrderByDescending(c => c.RateAverage) :
+        //                _context.Сlinics.OrderBy(c => c.RateAverage);
+        //        case "price":
+        //            return descending ?
+        //                _context.Сlinics.OrderByDescending(c => c.RatePrice) :
+        //                _context.Сlinics.OrderBy(c => c.RatePrice);
+        //    }
+        //}
+
+        public IQueryable<Clinic> GetSortedСlinics(string sortBy, bool @descending, string lang, int type)
         {
             switch (sortBy)
             {
-
                 default:
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.Name) : _context.Сlinics.OrderBy(c => c.Name);
+                    if (type == 0)
+                        return descending
+                            ? _context.Сlinics.OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name)
+                            : _context.Сlinics.OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);
+                    else
+                        return descending
+                            ? _context.Сlinics.Where(c => c.Type.Id == type).OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name)
+                            : _context.Сlinics.Where(c => c.Type.Id == type).OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);
                 case "alphabet":
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.Name) : _context.Сlinics.OrderBy(c => c.Name);
+                    if (type == 0)
+                        return descending ?
+                            _context.Сlinics.OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) :
+                            _context.Сlinics.OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);
+                    else
+                        return descending ?
+                            _context.Сlinics.Where(c => c.Type.Id == type).OrderByDescending(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name) :
+                            _context.Сlinics.Where(c => c.Type.Id == type).OrderBy(c => c.Localized.FirstOrDefault(lc => lc.Language.Code.ToLower() == lang.ToLower()).Name);
                 case "rate":
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.RateAverage) : _context.Сlinics.OrderBy(c => c.RateAverage);
+                    if (type == 0)
+                        return descending ?
+                            _context.Сlinics.OrderByDescending(c => c.RateAverage) :
+                            _context.Сlinics.OrderBy(c => c.RateAverage);
+                    else
+                        return descending ?
+                            _context.Сlinics.Where(c => c.Type.Id == type).OrderByDescending(c => c.RateAverage) :
+                            _context.Сlinics.Where(c => c.Type.Id == type).OrderBy(c => c.RateAverage);
                 case "price":
-                    return descending ? _context.Сlinics.OrderByDescending(c => c.RatePrice) : _context.Сlinics.OrderBy(c => c.RatePrice);
+                    if (type == 0)
+                        return descending ?
+                            _context.Сlinics.OrderByDescending(c => c.RatePrice) :
+                            _context.Сlinics.OrderBy(c => c.RatePrice);
+                    else
+                        return descending ?
+                            _context.Сlinics.Where(c => c.Type.Id == type).OrderByDescending(c => c.RatePrice) :
+                            _context.Сlinics.Where(c => c.Type.Id == type).OrderBy(c => c.RatePrice);
             }
         }
-        public Clinic GetClinicById(int id)
+
+        public Clinic GetClinic(int id)
         {
             try
             {
-                var result = _context.Сlinics.First(s => s.Id == id);
+                var result = _context.Сlinics.FirstOrDefault(s => s.Id == id);
                 return result;
             }
             catch (Exception)
@@ -52,7 +108,6 @@ namespace Infodoctor.DAL.Repositories
 
         public void Add(Clinic clinic)
         {
-
             _context.Сlinics.Add(clinic);
             _context.SaveChanges();
         }
@@ -62,15 +117,54 @@ namespace Infodoctor.DAL.Repositories
             _context.Сlinics.AddRange(clinics);
             _context.SaveChanges();
         }
+
         public void Update(Clinic clinic)
         {
-            var edited = _context.Сlinics.First(s => s.Id == clinic.Id);
+            var edited = _context.Сlinics.FirstOrDefault(s => s.Id == clinic.Id);
             edited = clinic;
         }
 
         public void Delete(Clinic clinic)
         {
             _context.Сlinics.Remove(clinic);
+            _context.SaveChanges();
+        }
+    }
+
+    public class LocalizedClinicRepository : ILocalizedClinicRepository
+    {
+        private readonly AppDbContext _context;
+
+        public LocalizedClinicRepository(AppDbContext context)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
+        public IQueryable<LocalizedClinic> GetAllLocalizedClinics()
+        {
+            return _context.LocalizedClinic;
+        }
+
+        public LocalizedClinic GetLocalizedClinicById(int id)
+        {
+            return _context.LocalizedClinic.First(lc => lc.Id == id);
+        }
+
+        public void Add(LocalizedClinic clinic)
+        {
+            _context.LocalizedClinic.Add(clinic);
+            _context.SaveChanges();
+        }
+
+        public void Update(LocalizedClinic clinic)
+        {
+            var updated = _context.LocalizedClinic.FirstOrDefault(s => s.Id == clinic.Id);
+            updated = clinic;
+        }
+
+        public void Delete(LocalizedClinic clinic)
+        {
+            _context.LocalizedClinic.Remove(clinic);
             _context.SaveChanges();
         }
     }

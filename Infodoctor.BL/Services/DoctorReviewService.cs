@@ -14,15 +14,18 @@ namespace Infodoctor.BL.Services
     {
         private readonly IDoctorReviewRepository _doctorReviewRepository;
         private readonly IDoctorRepository _doctorRepository;
+        private readonly ILanguageRepository _languageRepository;
 
-        public DoctorReviewService(IDoctorReviewRepository doctorReviewRepository, IDoctorRepository doctorRepository)
+        public DoctorReviewService(IDoctorReviewRepository doctorReviewRepository, IDoctorRepository doctorRepository, ILanguageRepository languageRepository)
         {
             if (doctorReviewRepository == null)
                 throw new ArgumentNullException(nameof(doctorReviewRepository));
             if (doctorRepository == null)
                 throw new ArgumentNullException(nameof(doctorRepository));
+            if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
             _doctorReviewRepository = doctorReviewRepository;
             _doctorRepository = doctorRepository;
+            _languageRepository = languageRepository;
         }
 
         public IEnumerable<DtoDoctorReview> GetAllReviews()
@@ -41,7 +44,8 @@ namespace Infodoctor.BL.Services
                     RatePoliteness = doctorReview.RatePoliteness,
                     RateWaitingTime = doctorReview.RateWaitingTime,
                     RateProfessionalism = doctorReview.RateProfessionalism,
-                    DoctorId = doctorReview.Doctor.Id
+                    DoctorId = doctorReview.Doctor.Id,
+                    LangCode = doctorReview.Language.Code
                 });
             }
             return dtoDoctorReviewsList;
@@ -63,7 +67,8 @@ namespace Infodoctor.BL.Services
                     RatePoliteness = doctorReview.RatePoliteness,
                     RateWaitingTime = doctorReview.RateWaitingTime,
                     RateProfessionalism = doctorReview.RateProfessionalism,
-                    DoctorId = doctorReview.Doctor.Id
+                    DoctorId = doctorReview.Doctor.Id,
+                    LangCode = doctorReview.Language.Code
                 });
             }
             return dtoDoctorReviewsList;
@@ -92,7 +97,51 @@ namespace Infodoctor.BL.Services
                     RatePoliteness = doctorReview.RatePoliteness,
                     RateWaitingTime = doctorReview.RateWaitingTime,
                     RateProfessionalism = doctorReview.RateProfessionalism,
-                    DoctorId = doctorReview.Doctor.Id
+                    DoctorId = doctorReview.Doctor.Id,
+                    LangCode = doctorReview.Language.Code
+                });
+            }
+            var result = new DtoPagedDoctorReview()
+            {
+                DoctorReviews = dtoDoctorReviewsList,
+                TotalCount = pagedList.TotalCount,
+                Page = pagedList.Page,
+                PageSize = pagedList.PageSize
+            };
+            return result;
+        }
+
+        public DtoPagedDoctorReview GetPagedReviewByDoctorId(int id, int perPage, int numPage,string lang)
+        {
+            if (id < 1 || perPage < 1 || numPage < 1)
+                throw new ApplicationException("Incorrect request parameter");
+
+            lang = lang.ToLower();
+
+            var reviews = _doctorReviewRepository.GetReviewsByDoctorId(id).Where(c => c.IsApproved)
+                .OrderByDescending(c => c.Language.Code.ToLower() == lang)
+                .ThenByDescending(c => c.Language.Code.ToLower() != lang)
+                .ThenByDescending(c => c.PublishTime);
+
+            var pagedList = new PagedList<DoctorReview>(reviews, perPage, numPage);
+
+            if (!pagedList.Any())
+                throw new ApplicationException("Page not found");
+            var dtoDoctorReviewsList = new List<DtoDoctorReview>();
+            foreach (var doctorReview in pagedList)
+            {
+                dtoDoctorReviewsList.Add(new DtoDoctorReview()
+                {
+                    Id = doctorReview.Id,
+                    Text = doctorReview.Text,
+                    UserName = doctorReview.UserName,
+                    UserId = doctorReview.UserId,
+                    PublishTime = doctorReview.PublishTime,
+                    RatePoliteness = doctorReview.RatePoliteness,
+                    RateWaitingTime = doctorReview.RateWaitingTime,
+                    RateProfessionalism = doctorReview.RateProfessionalism,
+                    DoctorId = doctorReview.Doctor.Id,
+                    LangCode = doctorReview.Language.Code
                 });
             }
             var result = new DtoPagedDoctorReview()
@@ -126,7 +175,8 @@ namespace Infodoctor.BL.Services
                 RatePoliteness = doctorReview.RatePoliteness,
                 RateWaitingTime = doctorReview.RateWaitingTime,
                 RateProfessionalism = doctorReview.RateProfessionalism,
-                DoctorId = doctorReview.Doctor.Id
+                DoctorId = doctorReview.Doctor.Id,
+                LangCode = doctorReview.Language.Code
             };
             return dtoDoctorReview;
         }
@@ -135,7 +185,9 @@ namespace Infodoctor.BL.Services
         {
             if (doctorReview.UserId == null || doctorReview.UserName == null)
                 throw new UnauthorizedAccessException("Incorrect user's credentials");
+
             Doctor doctor;
+
             try
             {
                 doctor = _doctorRepository.GetDoctorById(doctorReview.DoctorId);
@@ -144,9 +196,13 @@ namespace Infodoctor.BL.Services
             {
                 throw new ApplicationException("Doctor not found");
             }
+
             if (doctorReview.Text == "" || doctorReview.DoctorId < 0 || doctorReview.RatePoliteness < 0 ||
                 doctorReview.RateProfessionalism < 0 || doctorReview.RateWaitingTime < 0 || doctorReview.Text == string.Empty)
                 throw new ApplicationException("Incorrect data, some required fields are null or empty");
+
+            var lang = _languageRepository.GetLanguageByCode(doctorReview.LangCode);
+
             var newDoctorReview = new DoctorReview()
             {
                 Id = doctorReview.Id,
@@ -158,8 +214,10 @@ namespace Infodoctor.BL.Services
                 RateWaitingTime = doctorReview.RateWaitingTime,
                 RateProfessionalism = doctorReview.RateProfessionalism,
                 Doctor = doctor,
-                IsApproved = true //TODO: change to false when moderator control will be done
+                IsApproved = true, //TODO: change to false when moderator control will be done
+                Language = lang
             };
+
             _doctorReviewRepository.Add(newDoctorReview);
         }
 
@@ -171,7 +229,9 @@ namespace Infodoctor.BL.Services
             if (doctorReview.Text == "" || doctorReview.DoctorId < 0 || doctorReview.RatePoliteness < 0 ||
                 doctorReview.RateProfessionalism < 0 || doctorReview.RateWaitingTime < 0 || doctorReview.Text == string.Empty)
                 throw new ApplicationException("Incorrect data, some required fields are null or empty");
+
             DoctorReview updatedDoctorReview;
+
             try
             {
                 updatedDoctorReview = _doctorReviewRepository.GetDoctorReviewById(doctorReview.Id);
@@ -180,8 +240,11 @@ namespace Infodoctor.BL.Services
             {
                 throw new ApplicationException("Review not found");
             }
+
             if (updatedDoctorReview == null) return;
+
             Doctor doctor;
+
             try
             {
                 doctor = _doctorRepository.GetDoctorById(doctorReview.DoctorId);
@@ -190,6 +253,9 @@ namespace Infodoctor.BL.Services
             {
                 throw new ApplicationException("Doctor not found");
             }
+
+            var lang = _languageRepository.GetLanguageByCode(doctorReview.LangCode);
+
             updatedDoctorReview.Id = doctorReview.Id;
             updatedDoctorReview.Text = doctorReview.Text;
             updatedDoctorReview.UserName = doctorReview.UserName;
@@ -200,6 +266,8 @@ namespace Infodoctor.BL.Services
             updatedDoctorReview.RateProfessionalism = doctorReview.RateProfessionalism;
             updatedDoctorReview.Doctor = doctor;
             updatedDoctorReview.IsApproved = true; //TODO: change to false when moderator control will be done
+            updatedDoctorReview.Language = lang;
+
             _doctorReviewRepository.Update(updatedDoctorReview);
         }
 

@@ -23,23 +23,26 @@
     <input type="submit" id="submitLogin" value="Логин" /><br/>
 </div>
 <div>
-    <input type="button" id="getCountriesButton" value="GET страны"/>
-    <input type="button" id="getCitiesUsedClinicButton" value="GET города с клиниками"/>
-    <input type="button" id="postCityButton" value="POST город" /><br />
-    <input type="button" id="getClinicsButton" value="GET клиники" />
-    <input type="button" id="getPageClinicsButton" value="GET page клиник" />
-    <input type="button" id="getClinic3Button" value="GET клиника 3" />
+    <input type="button" id="getStaticStringsRu" value="GET стат. строки ru" />
+    <br/>
+
+    <input type="button" id="getCountriesRuButton" value="GET страны"/>
+    <input type="button" id="getCitiesUsedClinicRuButton" value="GET города с клиниками"/>
+    <input type="button" id="postCityButton" value="POST город"/><br/>
+    <input type="button" id="getClinicsButton" value="GET клиники"/>
+    <input type="button" id="getPageClinicsButton" value="GET page клиник"/>
+    <input type="button" id="getClinic3Button" value="GET клиника 3"/>
     <input type="button" id="getClinicSpecializationsButton" value="GET специализации клиник"/>
-    <br />
-    
-    <input type="button" id="getPageClinicReviewsButton" value="GET page отзывы" />
+    <br/>
+
+    <input type="button" id="getPageClinicReviewsButton" value="GET page отзывы"/>
     <input type="button" id="postClinicReviewButton" value="POST отзыв"/>
-    <input type="button" id="getAdd10Clinics" value="Add10Clinics" />
-    <br />
-    fast search:<input type="text" id="fastSeachTextBox" onkeyup="fastsearch()" />
-    <br />
+    <input type="button" id="getAdd10Clinics" value="Add10Clinics"/>
+    <br/>
+    fast search:<input type="text" id="fastSeachTextBox" onkeyup="fastsearch()"/>
+    <br/>
     full search:<input type="text" id="fulltSeachTextBox" onkeyup="fullsearch()"/>
-    <br />
+    <br/>
     <div class="registerForm">
         <input type="text" id="search"/>
         <input type="submit" id="searchClinicButton" value="поиск клиник"/><br/>
@@ -50,9 +53,16 @@
     <input type="button" id="getDoctorsButton" value="GET врачи"/>
     <input type="button" id="getPageDoctorsButton" value="GET page врачей"/>
     <input type="button" id="getDoctor3Button" value="GET врач 3"/>
-    <input type="button" id="getDoctorSpecializationsButton" value="GET специализации врачей" />
+    <input type="button" id="getDoctorSpecializationsButton" value="GET специализации врачей"/>
 </div>
 
+@*Загрузка CSV файла со статическими строками на сервер----------------------*@
+<div>
+    <br />
+    <label>Загрузка CSV файла</label>
+    <input type="file" name="Загрузить CSV" id="uploadCSV"/>
+    <button id="submitCSV">Загрузить</button><br />
+</div>
 
 @section scripts{
     <script type="text/javascript">
@@ -147,11 +157,25 @@
                     });
                 });
 
-                $('#getCountriesButton').click(function (e) {
+                $('#getStaticStringsRu').click(function (e) {
                     e.preventDefault();
                     $.ajax({
                         type: 'GET',
-                        url: '/api/country/',
+                        url: 'api/ru/StaticStrings',
+                        success: function (data) {
+                            alert(JSON.stringify(data));
+                        },
+                        fail: function (data) {
+                            alert(data);
+                        }
+                    });
+                });
+
+                $('#getCountriesRuButton').click(function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/ru/country/',
                         beforeSend: function (xhr) {
                             var token = localStorage.getItem(tokenKey);
                             xhr.setRequestHeader("Authorization", "Bearer " + token);
@@ -273,17 +297,17 @@
                     // сохраняем в хранилище sessionStorage токен доступа
                     localStorage.setItem(tokenKey, data.access_token);
                     console.log(data.access_token);
-                    chechAuth();
+                    checkAuth();
                 }).fail(function (data) {
                     alert('При логине возникла ошибка');
                 });
             });
 
-            $('#getCitiesUsedClinicButton').click(function (e) {
+            $('#getCitiesUsedClinicRuButton').click(function (e) {
                 e.preventDefault();
                 $.ajax({
                     type: 'GET',
-                    url: 'api/cities/clinicused',
+                    url: 'api/ru/cities/clinicused',
                     beforeSend: function (xhr) {
                         var token = localStorage.getItem(tokenKey);
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
@@ -444,6 +468,35 @@
                 }
             });
         });
+        $('#submitCSV').on('click', function (e) {
+            e.preventDefault();
+            var files = document.getElementById('uploadCSV').files;
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+ 
+                    $.ajax({
+                        type: "POST",
+                        url: 'api/StaticStrings/post',
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            alert(result);
+                        },
+                        error: function (xhr, status, p3) {
+                            alert(status);
+                        }
+                    });
+                } else {
+                    alert("Can't upload file");
+                }
+            }
+        });
+
 //------------------------------------------------------------------------
         var tokenKey = "tokenInfo";
         $('#submitLogin').click(function(e) {
@@ -457,7 +510,7 @@
             $('#logOut').click(function(e) {
                 e.preventDefault();
                 localStorage.removeItem(tokenKey);
-                chechAuth();
+                checkAuth();
             });
         });
     </script>

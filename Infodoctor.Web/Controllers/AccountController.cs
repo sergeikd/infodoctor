@@ -5,9 +5,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Security;
+using Infodoctor.BL.Interfaces;
 using Infodoctor.Domain.Entities;
 using Infodoctor.Web.Models;
 using Infodoctor.Web.Providers;
@@ -27,9 +30,11 @@ namespace Infodoctor.Web.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private readonly ILanguageService _languageService;
 
-        public AccountController()
+        public AccountController(ILanguageService languageService)
         {
+            _languageService = languageService;
         }
 
         public AccountController(ApplicationUserManager userManager,
@@ -38,6 +43,7 @@ namespace Infodoctor.Web.Controllers
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
         }
+
 
         public ApplicationUserManager UserManager
         {
@@ -53,12 +59,19 @@ namespace Infodoctor.Web.Controllers
         public UserInfoViewModel GetUserInfo()
         {
             var externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+
+            var userIdentity = (ClaimsIdentity)User.Identity;
+            var claims = userIdentity.Claims;
+            var roleClaimType = userIdentity.RoleClaimType;
 
             return new UserInfoViewModel
             {
-                Email = User.Identity.GetUserName(),
+                UserName = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin?.LoginProvider,
+                LangCode = identity.Claims.Where(c => c.Type == "LangCode").Select(c => c.Value).SingleOrDefault(),
+                Roles = claims.Where(c => c.Type == roleClaimType).Select(c => c.Value).ToList()
             };
         }
 
@@ -76,7 +89,8 @@ namespace Infodoctor.Web.Controllers
             {
                 UserName = user.UserName,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
+                LangCode = user.LangCode
             };
 
             return userData;
@@ -163,8 +177,19 @@ namespace Infodoctor.Web.Controllers
                 return GetErrorResult(res);
             }
 
+            Language lang;
+            try
+            {
+                lang = _languageService.GetLanguageByCode(model.LangCode);
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException(e.Message);
+            }
+
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
+            user.LangCode = lang?.Code;
 
             var result = await UserManager.UpdateAsync(user);
             if (!result.Succeeded)
@@ -450,7 +475,18 @@ namespace Infodoctor.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.Phone };
+            Language lang;
+
+            try
+            {
+                lang = _languageService.GetLanguageByCode(model.LangCode);
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException(e.Message);
+            }
+
+            var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.Phone, LangCode = lang?.Code };
 
             var result = await UserManager.CreateAsync(user, model.Password);
 
@@ -550,6 +586,15 @@ namespace Infodoctor.Web.Controllers
                 return true;
             return false;
         }
+
+        [Route("UserLang")]
+        [HttpPost]
+        public string UserLang()
+        {
+            var user = UserManager.FindByName(User.Identity.Name);
+            return user.LangCode;
+        }
+
         #region Helpers
 
         private IAuthenticationManager Authentication
@@ -636,7 +681,7 @@ namespace Infodoctor.Web.Controllers
 
         private static class RandomOAuthStateGenerator
         {
-            private static readonly RandomNumberGenerator _random = new RNGCryptoServiceProvider();
+            private static readonly RandomNumberGenerator Random = new RNGCryptoServiceProvider();
 
             public static string Generate(int strengthInBits)
             {
@@ -650,7 +695,7 @@ namespace Infodoctor.Web.Controllers
                 var strengthInBytes = strengthInBits / bitsPerByte;
 
                 var data = new byte[strengthInBytes];
-                _random.GetBytes(data);
+                Random.GetBytes(data);
                 return HttpServerUtility.UrlTokenEncode(data);
             }
         }

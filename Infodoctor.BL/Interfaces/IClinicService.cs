@@ -5,12 +5,14 @@ namespace Infodoctor.BL.Interfaces
 {
     public interface IClinicService
     {
-        IEnumerable<DtoClinic> GetAllClinics(string pathToImage);
-        DtoPagedClinic GetPagedClinics(int perPage, int pageNum, string pathToImage);
-        DtoPagedClinic SearchClinics(int perPage, int numPage, DtoClinicSearchModel searchModel, string pathToImage);
-        DtoClinic GetClinicById(int id, string pathToImage);
-        void Add(Domain.Entities.Clinic clinic);
-        void Update(int id, string name);
+        IEnumerable<DtoClinicSingleLang> GetAllClinics(string pathToImage, string lang);
+        DtoClinicSingleLang GetClinicById(int id, string pathToImage, string lang);
+        DtoClinicMultiLang GetClinicById(int id, string pathToClinicImage);
+        DtoPagedClinic GetPagedClinics(int perPage, int pageNum, string pathToImage, string lang, int type);
+        DtoPagedClinic SearchClinics(int perPage, int numPage, DtoClinicSearchModel searchModel, string pathToImage, string lang, int type);
+        void Add(DtoClinicMultiLang clinic);
+        void AddMany(IEnumerable<DtoClinicMultiLang> clinics);
+        void Update(DtoClinicMultiLang clinic);
         void Delete(int id);
     }
 }

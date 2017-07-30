@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
+using Infodoctor.Web.Infrastructure;
 using Infodoctor.Web.Models;
 using Microsoft.AspNet.Identity;
 
@@ -12,11 +13,17 @@ namespace Infodoctor.Web.Controllers
     public class ArticleCommentsController : ApiController
     {
         private readonly IArticleCommentsService _commentsService;
+        private readonly IYandexTranslateService _translateService;
+        private readonly ConfigService _configService;
 
-        public ArticleCommentsController(IArticleCommentsService commentsService)
+        public ArticleCommentsController(IArticleCommentsService commentsService, ConfigService configService, IYandexTranslateService translateService)
         {
             if (commentsService == null) throw new ArgumentNullException(nameof(commentsService));
+            if (configService == null) throw new ArgumentNullException(nameof(configService));
+            if (translateService == null) throw new ArgumentNullException(nameof(translateService));
             _commentsService = commentsService;
+            _configService = configService;
+            _translateService = translateService;
         }
 
         // GET api/ArticleComments
@@ -35,11 +42,11 @@ namespace Infodoctor.Web.Controllers
 
         // GET: api/ArticleComments/page/clinicId/perPage/numPage 
         [AllowAnonymous]
-        [Route("api/ArticleComments/page/{articleId:int}/{perPage:int}/{numPage:int}")]
+        [Route("api/{lang}/ArticleComments/page/{articleId:int}/{perPage:int}/{numPage:int}")]
         [HttpGet]
-        public DtoPagedArticleComments GetPaged(int articleId, int perPage, int numPage)
+        public DtoPagedArticleComments GetPaged(int articleId, int perPage, int numPage, string lang)
         {
-            return _commentsService.GetPagedCommentsByArticleId(articleId, perPage, numPage);
+            return _commentsService.GetPagedCommentsByArticleId(articleId, perPage, numPage, lang);
         }
 
         // POST api/ArticleComments
@@ -56,6 +63,11 @@ namespace Infodoctor.Web.Controllers
                 UserId = User.Identity.GetUserId(),
                 UserName = User.Identity.GetUserName()
             };
+
+            var apiKey = _configService.YandexTranslateApiKey;
+            var textLang = _translateService.DetectLang(apiKey, comment.Text);
+
+            newComment.LangCode = textLang != null ? textLang.Lang : comment.LangCode;
 
             _commentsService.Add(newComment);
         }

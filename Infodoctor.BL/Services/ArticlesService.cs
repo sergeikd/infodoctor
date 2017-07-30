@@ -12,73 +12,125 @@ namespace Infodoctor.BL.Services
     public class ArticlesService : IArticlesService
     {
         private readonly IArticlesRepository _articlesRepository;
+        private readonly ILanguageRepository _langRepository;
 
-        public ArticlesService(IArticlesRepository articlesRepository)
+        public ArticlesService(IArticlesRepository articlesRepository, ILanguageRepository LangRepository)
         {
             if (articlesRepository == null)
                 throw new ArgumentNullException(nameof(articlesRepository));
+            if (LangRepository == null) throw new ArgumentNullException(nameof(LangRepository));
             _articlesRepository = articlesRepository;
+            _langRepository = LangRepository;
         }
 
-        public IEnumerable<Article> GetAllArticles()
+        public IEnumerable<DtoArticle> GetAllArticles()
         {
-            return _articlesRepository.GetAllArticles();
+            var arts = _articlesRepository.GetAllArticles().ToList();
+            return arts.Select(EntityToDto).ToList();
         }
 
-        public Article GetArticleById(int id)
+        public DtoArticle GetArticleById(int id)
         {
-            return _articlesRepository.GetArticleById(id);
+            var art = _articlesRepository.GetArticleById(id);
+            var dtoArt = EntityToDto(art);
+            return dtoArt;
         }
 
         public DtoPagedArticles GetPagedArticles(int perPage, int numPage, string pathToImage)
         {
             if (perPage < 1 || numPage < 1)
-            {
                 throw new ApplicationException("Incorrect request parameter");
-            }
-            var articles = _articlesRepository.GetAllArticles();
-            var pagedList = new PagedList<Article>(articles, perPage, numPage);
+
+            var arts = _articlesRepository.GetAllArticles();
+
+            var pagedList = new PagedList<Article>(arts, perPage, numPage);
+
             if (!pagedList.Any())
-            {
                 return null;
-            }
-            
+
+            var dtoArts = pagedList.Select(EntityToDto).ToList();
+
             var paged = new DtoPagedArticles()
             {
-                Articles = pagedList,
+                Articles = dtoArts,
                 Page = pagedList.Page,
                 PageSize = pagedList.PageSize,
                 TotalCount = pagedList.TotalCount
             };
+
             return paged;
         }
 
-        public void Add(Article art)
+        public void Add(DtoArticle art)
         {
             if (art == null)
                 throw new ArgumentNullException(nameof(art));
-            _articlesRepository.Add(art);
+
+            var lang = _langRepository.GetLanguageByCode(art.LangCode);
+
+            var newArt = new Article()
+            {
+                Title = art.Title,
+                Content = art.Content,
+                PublishDate = art.PublishDate,
+                Author = art.Author,
+                Language = lang
+            };
+
+            _articlesRepository.Add(newArt);
         }
 
-        public void Update(int id, Article newArt)
+        public void Update(int id, DtoArticle newArt)
         {
             if (newArt == null)
                 throw new ArgumentNullException(nameof(newArt));
             var updated = _articlesRepository.GetArticleById(id);
-            if (updated != null)
-            {
-                updated.Title = newArt.Title;
-                updated.Content = newArt.Content;
-                updated.PublishDate = newArt.PublishDate;
+            if (updated == null) return;
 
-                _articlesRepository.Update(updated);
-            }
+            var lang = _langRepository.GetLanguageByCode(newArt.LangCode);
+
+            updated.Language = lang;
+            updated.Title = newArt.Title;
+            updated.Content = newArt.Content;
+            updated.PublishDate = newArt.PublishDate;
+
+            _articlesRepository.Update(updated);
         }
 
         public void Delete(int id)
         {
             var deleted = _articlesRepository.GetArticleById(id);
             _articlesRepository.Delete(deleted);
+        }
+
+        private static DtoArticle EntityToDto(Article article)
+        {
+            var dtoComments = new List<DtoArticleComment>();
+            if (article.Comments.Any())
+                dtoComments.AddRange(
+                    article.Comments.Select(
+                        comment => new DtoArticleComment()
+                        {
+                            Id = comment.Id,
+                            UserName = comment.UserName,
+                            UserId = comment.UserId,
+                            Text = comment.Text,
+                            LangCode = comment.Language.Code.ToLower(),
+                            PublishTime = comment.PublishTime,
+                            ArticleId = comment.Article.Id
+                        }));
+
+            var dtoArt = new DtoArticle()
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Content = article.Content,
+                PublishDate = article.PublishDate,
+                Author = article.Author,
+                LangCode = article.Language.Code.ToLower(),
+                Comments = dtoComments.Select(x => x.Id).ToList()
+            };
+            return dtoArt;
         }
     }
 }

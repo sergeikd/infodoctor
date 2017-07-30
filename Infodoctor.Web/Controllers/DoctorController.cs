@@ -24,53 +24,76 @@ namespace Infodoctor.Web.Controllers
         }
 
         // GET api/doctor
-        public IEnumerable<DtoDoctor> Get()
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("api/{lang}/Doctor")]
+        public IEnumerable<DtoDoctorSingleLang> Get(string lang)
         {
-            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToClinicsImages;
-            var doctors = _doctorService.GetAllDoctors(pathToImage);
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
+            var doctors = _doctorService.GetAllDoctors(pathToImage, lang);
             return doctors;
         }
 
         // GET api/doctor/5
+        [HttpGet]
         [AllowAnonymous]
-        public DtoDoctor Get(int id)
+        [Route("api/{lang}/Doctor/")]
+        public DtoDoctorSingleLang GetSingleLang(int id, string lang)
+        {
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
+            var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
+            return _doctorService.GetDoctorById(id, pathToImage, lang);
+        }
+
+        // GET api/doctor/5
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("api/Doctor/")]
+        public DtoDoctorMultiLang GetMultiLang(int id)
         {
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
             return _doctorService.GetDoctorById(id, pathToImage);
         }
 
         // GET: api/doctor/page/perPage/numPage 
-        [Route("api/doctor/page/{perPage:int}/{numPage:int}")]
         [HttpGet]
         [AllowAnonymous]
-        public DtoPagedDoctor GetPage(int perPage, int numPage)
+        [Route("api/{lang}/Doctor/page/{perPage:int}/{numPage:int}")]
+        public DtoPagedDoctor GetPage(int perPage, int numPage, string lang)
         {
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
-            return _doctorService.GetPagedDoctors(perPage, numPage, pathToImage);
+            return _doctorService.GetPagedDoctors(perPage, numPage, pathToImage, lang);
         }
 
-        // api/clinic/doctor/perPage/numPage
-        [AllowAnonymous]
-        [Route("api/doctor/search/{perPage:int}/{numPage:int}")]
+        // api/Doctor/doctor/perPage/numPage
         [HttpPost]
-        public DtoPagedDoctor SearchClinic(int perPage, int numPage, [FromBody]DtoDoctorSearchModel searchModel)
+        [AllowAnonymous]
+        [Route("api/{lang}/Doctor/search/{perPage:int}/{numPage:int}")]
+        public DtoPagedDoctor SearchClinic(int perPage, int numPage, [FromBody]DtoDoctorSearchModel searchModel, string lang)
         {
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
             var pathToImage = Request.RequestUri.GetLeftPart(UriPartial.Authority) + _configService.PathToDoctorsImages;
-            var pagedDoctors = _doctorService.SearchDoctors(perPage, numPage, searchModel, pathToImage);
+            var pagedDoctors = _doctorService.SearchDoctors(perPage, numPage, searchModel, pathToImage, lang);
 
             return pagedDoctors;
         }
 
         // POST api/doctor
         [Authorize(Roles = "admin, moder")]
-        public void Post([FromBody]DtoDoctor value)
+        public void Post([FromBody]DtoDoctorMultiLang value)
         {
             _doctorService.Add(value);
         }
 
         // PUT api/doctor/5
         [Authorize(Roles = "admin, moder")]
-        public void Put(int id, [FromBody]DtoDoctor value)
+        public void Put(int id, [FromBody]DtoDoctorMultiLang value)
         {
             _doctorService.Update(id, value);
         }

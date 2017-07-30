@@ -12,6 +12,7 @@ using Infodoctor.Web.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Infodoctor.Web.Infrastructure;
+using Infodoctor.BL.DtoModels;
 
 namespace Infodoctor.Web.App_Start
 {
@@ -50,7 +51,7 @@ namespace Infodoctor.Web.App_Start
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
             container.RegisterType<UserManager<ApplicationUser>>();
             container.RegisterType<ApplicationUserManager>();
-            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<AccountController>(new InjectionConstructor(typeof(ILanguageService)));
             container.RegisterType<AppDbContext>(new PerRequestLifetimeManager(), new InjectionConstructor());//for keep the same dbContext instance per request
             //container.RegisterType<AppDbContext>(new InjectionConstructor());
             container.RegisterType<ConfigService>(new InjectionConstructor());
@@ -58,14 +59,17 @@ namespace Infodoctor.Web.App_Start
             //register all your services and reps
             //container.RegisterType<IConfigService, ConfigService>();
             container.RegisterType<IMailService, MailService>();
+            container.RegisterType<ILanguageRepository, LanguageRepository>();
+            container.RegisterType<ILanguageService, LanguageService>();
             container.RegisterType<ICountryRepository, CountryRepository>();
             container.RegisterType<ICountryService, CountryService>();
-            container.RegisterType<IClinicSpecializationRepository, ClinicSpecializationRepository>();
-            container.RegisterType<IClinicSpecializationService, ClinicSpecializationService>();
             container.RegisterType<IClinicRepository, ClinicRepository>();
+            container.RegisterType<ILocalizedClinicRepository, LocalizedClinicRepository>();
             container.RegisterType<IClinicService, ClinicService>();
-            container.RegisterType<IArticleThemesRepository, ArticleThemesRepository>();
-            container.RegisterType<IArticleThemesService, ArticleThemesService>();
+            container.RegisterType<IClinicAddressesRepository, ClinicAddressesRepository>();
+            container.RegisterType<ILocalizedClinicAddressesRepository, LocalizedClinicAddressesRepository>();
+            container.RegisterType<IClinicPhonesRepository, ClinicPhonesRepository>();
+            container.RegisterType<ILocalizedClinicPhonesRepository, LocalizedClinicPhonesRepository>();
             container.RegisterType<IImagesRepository, ImagesRepository>();
             container.RegisterType<IImagesService, ImagesService>();
             container.RegisterType<IArticlesRepository, ArticlesRepository>();
@@ -75,8 +79,6 @@ namespace Infodoctor.Web.App_Start
             container.RegisterType<ISearchService, SearchService>();
             container.RegisterType<IClinicReviewRepository, ClinicReviewRepository>();
             container.RegisterType<IClinicReviewService, ClinicReviewService>();
-            container.RegisterType<IDoctorSpecializationRepository, DoctorSpecializationRepository>();
-            container.RegisterType<IDoctorSpecializationService, DoctorSpecializationService>();
             container.RegisterType<IDoctorCategoryRepository, DoctorCategoryRepository>();
             container.RegisterType<IDoctorCategoryService, DoctorCategoryService>();
             container.RegisterType<IDoctorRepository, DoctorRepository>();
@@ -89,7 +91,14 @@ namespace Infodoctor.Web.App_Start
             container.RegisterType<IResortService, ResortService>();
             container.RegisterType<IResortReviewRepository, ResortReviewRepository>();
             container.RegisterType<IResortReviewService, ResortReviewService>();
+            container.RegisterType<IClinicTypeRepository, ClinicTypeRepository>();
+            container.RegisterType<IClinicTypeService, ClinicTypeService>();
+            container.RegisterType<IResortTypeRepository, ResortTypeRepository>();
+            container.RegisterType<IResortTypeService, ResortTypeService>();
+
             container.RegisterType<ITestService, TestService>();
+
+            container.RegisterType<IYandexTranslateService, YandexTranslateService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 

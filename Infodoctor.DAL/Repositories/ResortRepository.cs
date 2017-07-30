@@ -8,6 +8,8 @@ namespace Infodoctor.DAL.Repositories
 {
     public class ResortRepository : IResortRepository
     {
+        //todo: сделать разделение по типам для остальный методов
+
         private readonly AppDbContext _context;
 
         public ResortRepository(AppDbContext context)
@@ -16,24 +18,52 @@ namespace Infodoctor.DAL.Repositories
             _context = context;
         }
 
-        public IQueryable<Resort> GetAllResorts()
+        public IQueryable<Resort> GetAllResorts(int type)
         {
-            return _context.Resorts.OrderBy(r => r.Id);
+            return type == 0 ? _context.Resorts.OrderBy(r => r.Id) : _context.Resorts.Where(r => r.Type.Id == type).OrderBy(r => r.Id);
         }
 
-        public IQueryable<Resort> GetSortedResorts(string sortBy, bool descending)
+        public IQueryable<Resort> GetSortedResorts(string sortBy, bool descending, string lang, int type)
         {
             switch (sortBy)
             {
 
                 default:
-                    return descending ? _context.Resorts.OrderByDescending(c => c.Name) : _context.Resorts.OrderBy(c => c.Name);
+                    if (type == 0)
+                        return descending ?
+                            _context.Resorts.OrderByDescending(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) :
+                            _context.Resorts.OrderBy(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
+                    else
+                        return descending ?
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderByDescending(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) :
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderBy(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
                 case "alphabet":
-                    return descending ? _context.Resorts.OrderByDescending(c => c.Name) : _context.Resorts.OrderBy(c => c.Name);
+                    if (type == 0)
+                        return descending ?
+                            _context.Resorts.OrderByDescending(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) :
+                            _context.Resorts.OrderBy(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
+                    else
+                        return descending ?
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderByDescending(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name) :
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderBy(c => c.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name);
                 case "rate":
-                    return descending ? _context.Resorts.OrderByDescending(c => c.RateAverage) : _context.Resorts.OrderBy(c => c.RateAverage);
+                    if (type == 0)
+                        return descending ?
+                            _context.Resorts.OrderByDescending(c => c.RateAverage) :
+                            _context.Resorts.OrderBy(c => c.RateAverage);
+                    else
+                        return descending ?
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderByDescending(c => c.RateAverage) :
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderBy(c => c.RateAverage);
                 case "price":
-                    return descending ? _context.Resorts.OrderByDescending(c => c.RatePrice) : _context.Resorts.OrderBy(c => c.RatePrice);
+                    if (type == 0)
+                        return descending ?
+                            _context.Resorts.OrderByDescending(c => c.RatePrice) :
+                            _context.Resorts.OrderBy(c => c.RatePrice);
+                    else
+                        return descending ?
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderByDescending(c => c.RatePrice) :
+                            _context.Resorts.Where(r => r.Type.Id == type).OrderBy(c => c.RatePrice);
             }
         }
 
@@ -68,20 +98,21 @@ namespace Infodoctor.DAL.Repositories
             var phones = new List<ResortPhone>();
             var reviews = new List<ResortReview>();
 
-            if (res.Address != null)
-            {
-                adr = res.Address;
+            //todo: Проверить нормаль но работает удаление
+            //if (res.Address != null)
+            //{
+            //    adr = res.Address;
 
-                if (res.Address.Phones.Any())
-                    phones = res.Address.Phones.ToList();
-            }
+            //    if (res.Address.Localized.ToArray()[0].Phones.Any())
+            //        phones = res.Address.Phones.ToList();
+            //}
 
             if (res.Reviews.Any())
                 reviews = res.Reviews.ToList();
 
             _context.Resorts.Remove(res);
-            _context.ResortAddresses.Remove(adr);
-            _context.ResortPhones.RemoveRange(phones);
+            //_context.ResortAddresses.Remove(adr);
+            //_context.ResortPhones.RemoveRange(phones);
             _context.ResortReviews.RemoveRange(reviews);
 
             _context.SaveChanges();

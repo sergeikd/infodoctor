@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
+using Infodoctor.Web.Infrastructure;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -10,47 +11,59 @@ namespace Infodoctor.Web.Controllers
     public class DoctorCategoriesController : ApiController
     {
         private readonly IDoctorCategoryService _doctorCategoryService;
+        private readonly ConfigService _configService;
 
-        public DoctorCategoriesController(IDoctorCategoryService doctorCategoryService)
+        public DoctorCategoriesController(IDoctorCategoryService doctorCategoryService, ConfigService configService)
         {
             if (doctorCategoryService == null)
                 throw new ArgumentNullException(nameof(doctorCategoryService));
+            if (configService == null) throw new ArgumentNullException(nameof(configService));
             _doctorCategoryService = doctorCategoryService;
+            _configService = configService;
         }
 
         // GET api/doctorcategories
+        [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<DtoDoctorCategory> Get()
+        [Route("api/{lang}/doctorcategories")]
+        public IEnumerable<DtoDoctorCategorySingleLang> Get(string lang)
         {
-            return _doctorCategoryService.GetAllCategories();
+            lang = !string.IsNullOrEmpty(lang) ? lang : _configService.DefaultLangCode;
+            return _doctorCategoryService.GetAllCategories(lang);
         }
 
         // GET api/doctorcategories/5
+        [HttpGet]
         [AllowAnonymous]
-        public DtoDoctorCategory Get(int id)
+        [Route("api/{lang}/doctorcategories")]
+        public DtoDoctorCategorySingleLang Get(int id, string lang)
         {
-            return _doctorCategoryService.GetCategoryById(id);
+            lang = !string.IsNullOrEmpty(lang) ? lang : _configService.DefaultLangCode;
+            return _doctorCategoryService.GetCategoryById(id, lang);
         }
 
         // POST api/doctorcategories
         [Authorize(Roles = "admin, moder")]
         public void Post([FromBody]string value)
         {
-            _doctorCategoryService.Add(value);
+            throw new NotImplementedException();
+            //_doctorCategoryService.Add(value);
         }
 
         // PUT api/doctorcategories/5
         [Authorize(Roles = "admin, moder")]
         public void Put(int id, [FromBody]string value)
         {
-            _doctorCategoryService.Update(id,value);
+            throw new NotImplementedException();
+            //_doctorCategoryService.Update(id,value);
         }
 
         // DELETE api/doctorcategories/5
         [Authorize(Roles = "admin, moder")]
         public void Delete(int id)
         {
-            _doctorCategoryService.Delete(id);
+            throw new NotImplementedException();
+            //_doctorCategoryService.Delete(id);
         }
     }
 }

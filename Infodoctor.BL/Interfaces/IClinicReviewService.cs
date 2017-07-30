@@ -9,6 +9,7 @@ namespace Infodoctor.BL.Interfaces
         IEnumerable<DtoClinicReview> GetClinicReviews();
         IEnumerable<DtoClinicReview> GetReviewsByClinicId(int id);
         DtoPagedClinicReview GetPagedReviewsByClinicId(int id, int perPage, int numPage);
+        DtoPagedClinicReview GetPagedReviewsByClinicId(int id, int perPage, int numPage, string lang);
         DtoClinicReview GetClinicReviewById(int id);
         void Add(DtoClinicReview clinicReview);
         void Update(ClinicReview clinicReview);

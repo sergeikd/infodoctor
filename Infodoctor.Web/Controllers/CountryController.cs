@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Infodoctor.BL.DtoModels;
 using Infodoctor.BL.Interfaces;
-using Infodoctor.Web.Models;
+using Infodoctor.Web.Infrastructure;
 
 namespace Infodoctor.Web.Controllers
 {
@@ -11,52 +11,47 @@ namespace Infodoctor.Web.Controllers
     public class CountryController : ApiController
     {
         private readonly ICountryService _countryService;
-        public CountryController(ICountryService countryService)
+        private readonly ConfigService _configService;
+        public CountryController(ICountryService countryService, ConfigService configService)
         {
-            if (countryService == null)
-            {
-                throw new ArgumentNullException(nameof(countryService));
-            }
+            if (countryService == null) throw new ArgumentNullException(nameof(countryService));
+            if (configService == null) throw new ArgumentNullException(nameof(configService));
             _countryService = countryService;
+            _configService = configService;
         }
 
         // GET: api/Country
         [AllowAnonymous]
-        public IEnumerable<DtoCountry> Get()
+        [Route("api/{lang}/Country")]
+        public IEnumerable<DtoCountrySingleLang> Get(string lang)
         {
-            return _countryService.GetAllCountries();
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
+            return _countryService.GetAllCountries(lang);
         }
 
         // GET: api/Country/5
         [AllowAnonymous]
-        public DtoCountry Get(int id)
+        [Route("api/{lang}/Country")]
+        public DtoCountrySingleLang Get(string lang, int id)
         {
-            return _countryService.GetCountryById(id);
+            if (string.IsNullOrEmpty(lang))
+                lang = _configService.DefaultLangCode;
+            return _countryService.GetCountryById(id, lang);
         }
 
         // POST: api/Country
         [Authorize(Roles = "admin, moder")]
-        public void Post([FromBody]CountryPostBindingModel value)
+        public void Post([FromBody]DtoCountryMultiLang value)
         {
-            var newCountry = new DtoCountry()
-            {
-                Name = value.Name,
-                CitiesId = value.CitiesId
-            };
-            _countryService.Add(newCountry);
+            _countryService.Add(value);
         }
 
         // PUT: api/Country/5
         [Authorize(Roles = "admin, moder")]
-        public void Put(int id, [FromBody]CountryPostBindingModel value)
+        public void Put([FromBody]DtoCountryMultiLang value)
         {
-            var newCountry = new DtoCountry()
-            {
-                Id = id,
-                Name = value.Name,
-                CitiesId = value.CitiesId
-            };
-            _countryService.Update(newCountry);
+            _countryService.Update(value);
         }
 
         // DELETE: api/Country/5

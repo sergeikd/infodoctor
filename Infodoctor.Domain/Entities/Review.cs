@@ -27,6 +27,7 @@ namespace Infodoctor.Domain.Entities
         public double RateQuality { get; set; }
         public double RatePoliteness { get; set; }
         public virtual Clinic Clinic { get; set; }
+        public virtual Language Language { get; set; }
     }
 
     public class ResortReview : Review
@@ -35,6 +36,7 @@ namespace Infodoctor.Domain.Entities
         public double RateQuality { get; set; }
         public double RatePoliteness { get; set; }
         public virtual Resort Resort { get; set; }
+        public virtual Language Language { get; set; }
     }
 
     public class DoctorReview : Review
@@ -45,10 +47,12 @@ namespace Infodoctor.Domain.Entities
         public double RateWaitingTime { get; set; }
         public double RatePoliteness { get; set; }
         public virtual Doctor Doctor { get; set; }
+        public virtual Language Language { get; set; }
     }
 
     public class ArticleComment : Review
     {
         public virtual Article Article { get; set; }
+        public virtual Language Language { get; set; }
     }
 }

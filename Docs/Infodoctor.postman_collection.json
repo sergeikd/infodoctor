@@ -1,0 +1,1396 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Infodoctor",
+		"_postman_id": "65419fd9-a469-329c-3fc5-10e3a191652f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Articl comments api",
+			"description": "",
+			"item": [
+				{
+					"name": "Comments paged",
+					"request": {
+						"url": "{{url}}/api/ArticleComments/page/1/4/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get comment by id",
+					"request": {
+						"url": "{{url}}/api/ArticleComments?id=2",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer l7q_4_jXwh0hUD5rbCpU4tABz-aScLPkft_R4Agu3NWry_F9-qnQEy-FbJ3c5R7pU5ezKhKyp4hftlvE8DTIZFL257Y7uBDceZw37Q7RxxOzLS6o07OABxQEZaaNtk17bL9L-z3lBLE929gZIVraf0tglnKNfogCDz7eCKobPZ_w4wdlPDz48DfsM7lK8999FESawoLmPGMW3aaOt9tIbC6bCnSSzubkUhYGrC2HHKpIKyEYS7h1Xzpr14K6TtV5UKRVMOPGt5ms43gMF9J2ehhMBM6UuwlxcdZamsyidnyj6h64tnsxjpR9OtG9xeicQOGIRmBkleOmmJpxbDlfsJFz0B3dvMv0Aa2YI3J7mAizGzluzk_63yhkVmD_gEJ9TG_MrPtSbJdgZ3ctfCI4cGjAvsyWHeILinU2vHxlDMECowoykW24MP8vSEh9ADAiYmLp51y2-UypEb0Z0mdgCIEnoCWK2NQBSva54Z7-wBD6PGRM",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Article api",
+			"description": "",
+			"item": [
+				{
+					"name": "Add new article",
+					"request": {
+						"url": "{{url}}/api/articles",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer AH49Y8p5lI9VC0P6KEzKEl-gE9o7t36L6Q0CS6dV9TgcGfMJVt9c9eUgYJwubPDOqBkT40c7jZrCggUktgfJaiS-94lfMUW5CrpcQSYopM3qioPsO9BeyKK5SMuM5bNfYPPlrZphg3huQNQrhX66-0eREMUQH82qM2TB1HqxEBAzslOZ3Ooxkuo7tmsXsF8TCVWXS58lYZCeaHqghyeNu4uaJAHaJ2rHTQWWHRuwj45_rOhIbwgfV__aezQkLEQfXLQD1sck4lxjB2TMUTmMl1fEQJJyM53-Ws7owEeQM0ICwUAC2d02g1NrkHllSfj9okOol401siVGnKbRzhS4h7NNLUnXOuMfNrjjMilfi1Db19aOIkdThgW0eKUFKUGxghL7JAXB93BCGVr2vr22_SoHYePWAZe855HCSBh-1nV9ac29UiNe3iUB4aWEghyECs3UsatZX5mZWt0V_txd2Ocu09Z_rc5pzDEcTuZvsG3KQrcFQgBJXKz43T9ApPuq",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\":\"test1\",\n  \"LangCode\":\"ru\",\n  \"content\": \"<article><h1>Test1</h1><p><img src=\\\"http://localhost:5000/Content/Images/Clinic/faa8a16ebdca4385bdf53ee30a295972.jpg\\\"/></p></article>\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get articles",
+					"request": {
+						"url": "{{url}}/api/articles",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update article",
+					"request": {
+						"url": {
+							"raw": "{{url}}/api/articles?id=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"articles"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer AH49Y8p5lI9VC0P6KEzKEl-gE9o7t36L6Q0CS6dV9TgcGfMJVt9c9eUgYJwubPDOqBkT40c7jZrCggUktgfJaiS-94lfMUW5CrpcQSYopM3qioPsO9BeyKK5SMuM5bNfYPPlrZphg3huQNQrhX66-0eREMUQH82qM2TB1HqxEBAzslOZ3Ooxkuo7tmsXsF8TCVWXS58lYZCeaHqghyeNu4uaJAHaJ2rHTQWWHRuwj45_rOhIbwgfV__aezQkLEQfXLQD1sck4lxjB2TMUTmMl1fEQJJyM53-Ws7owEeQM0ICwUAC2d02g1NrkHllSfj9okOol401siVGnKbRzhS4h7NNLUnXOuMfNrjjMilfi1Db19aOIkdThgW0eKUFKUGxghL7JAXB93BCGVr2vr22_SoHYePWAZe855HCSBh-1nV9ac29UiNe3iUB4aWEghyECs3UsatZX5mZWt0V_txd2Ocu09Z_rc5pzDEcTuZvsG3KQrcFQgBJXKz43T9ApPuq",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"LangCode\":\"ru\",\n  \"title\":\"test2\",\n  \"content\":\"<article><h1>Test2</h1></article>\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete article",
+					"request": {
+						"url": "{{url}}/api/articles/?id=1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 4YVBtKn95i97j9WSaz7G6Ffx3cVzgKdvdq4RD4UgoHYxbru1QZQYOFKBZhERESMo82SGt5r88c28GOTjK5ooWfusfg0xlpYebVpyD8gX-T3SKDb5wsJjNkAwXoa-_7KoKQmHA1wv8DyX9CotA_PvgeLWDCBe4Qnj9xbsm33Qvn4ZYcvAVvY5svkBFFVMIBnfPelzRw2JnnPZIqqJ0x5jKDMdiqSwLQ9G_3Z_WAR8nCR8g3LZ-oNYcBQIdqvu_V0W-WOq5eq8-h2HS8sjBsOkRN87AwNntH-mzOnld7cD8Ah2BZUlBPKiSEEU2M_QYEzqd5IaK-QFT3smYRYXpVK1_kpVMsSlGHDQOj5-kqIGF7xklYiScLRdi9ofqo0adx1qrzJBqMunQlha7DUjFTfdBWpVVSJIY_siy41bl8Wt3dg2ti7g1rMbT0va0ICoiAzKUgMWmTF2OxK3deRZzHWYSNnUQlj2AZHm_GIUCgivej4eF2mnWbw5sVwu4SyDaKnM",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post image for article apo",
+					"request": {
+						"url": "{{url}}/api/Articles/PostImage",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer AH49Y8p5lI9VC0P6KEzKEl-gE9o7t36L6Q0CS6dV9TgcGfMJVt9c9eUgYJwubPDOqBkT40c7jZrCggUktgfJaiS-94lfMUW5CrpcQSYopM3qioPsO9BeyKK5SMuM5bNfYPPlrZphg3huQNQrhX66-0eREMUQH82qM2TB1HqxEBAzslOZ3Ooxkuo7tmsXsF8TCVWXS58lYZCeaHqghyeNu4uaJAHaJ2rHTQWWHRuwj45_rOhIbwgfV__aezQkLEQfXLQD1sck4lxjB2TMUTmMl1fEQJJyM53-Ws7owEeQM0ICwUAC2d02g1NrkHllSfj9okOol401siVGnKbRzhS4h7NNLUnXOuMfNrjjMilfi1Db19aOIkdThgW0eKUFKUGxghL7JAXB93BCGVr2vr22_SoHYePWAZe855HCSBh-1nV9ac29UiNe3iUB4aWEghyECs3UsatZX5mZWt0V_txd2Ocu09Z_rc5pzDEcTuZvsG3KQrcFQgBJXKz43T9ApPuq",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get paged articles",
+					"request": {
+						"url": "{{url}}/api/articles/page/5/1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get comments",
+					"request": {
+						"url": "{{url}}/api/ru/ArticleComments/page/1/20/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer SeeWYVFZfxMWxtN7dKvBHNuCHQ4xYBEK95u-vhSvw0StfFuieUl4DONhU6weWAfmThzcPqpiXBz2AdoyDqMP1yGvJVaDb_ERCReEXbHO4HqDwXOgDC8lBAF6E45XQi7WCffh6TZYQxFCjeCCV_V9lIDN0LqhQFUwgs6urcYhyJ-J50Imuo4de3buYc5nZNy5HK58h-_1Zu9tpeZN6QeP982NcDqn45N6yUzpv2pxuNzFSynPuKOdfvNABemU-FbcS8PQP2rcJUmTIDqepZVitwtspulhlCR3XrhEEdlmKatVvKHiXw3kajyj9KMCPx6puV1zdwwGuXNls8cY-W_Kmch23eBVMEIVgep_hjZXGo297HIaujdeeKjENdASdu-2RxG0MqUzd6WU8OII0TMMjXuhhfzPhpozwRRAsYiDaBzOcd9v20bmrlU7-8pyR1x5RNLT4Utq5GYEY5VpOeG3Sbq1zZ42iqphxKEDZ8T8COzzmwDvzuoTexBSiqhXNyiRYyikxQ",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post comment",
+					"request": {
+						"url": "{{url}}/api/ArticleComments",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer SeeWYVFZfxMWxtN7dKvBHNuCHQ4xYBEK95u-vhSvw0StfFuieUl4DONhU6weWAfmThzcPqpiXBz2AdoyDqMP1yGvJVaDb_ERCReEXbHO4HqDwXOgDC8lBAF6E45XQi7WCffh6TZYQxFCjeCCV_V9lIDN0LqhQFUwgs6urcYhyJ-J50Imuo4de3buYc5nZNy5HK58h-_1Zu9tpeZN6QeP982NcDqn45N6yUzpv2pxuNzFSynPuKOdfvNABemU-FbcS8PQP2rcJUmTIDqepZVitwtspulhlCR3XrhEEdlmKatVvKHiXw3kajyj9KMCPx6puV1zdwwGuXNls8cY-W_Kmch23eBVMEIVgep_hjZXGo297HIaujdeeKjENdASdu-2RxG0MqUzd6WU8OII0TMMjXuhhfzPhpozwRRAsYiDaBzOcd9v20bmrlU7-8pyR1x5RNLT4Utq5GYEY5VpOeG3Sbq1zZ42iqphxKEDZ8T8COzzmwDvzuoTexBSiqhXNyiRYyikxQ",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Text\":\"This is very good article!\",\n  \"ArticleId\":\"1\",\n  \"LangCode\":\"en\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete comment",
+					"request": {
+						"url": "{{url}}/api/ArticleComments?id=1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer l7q_4_jXwh0hUD5rbCpU4tABz-aScLPkft_R4Agu3NWry_F9-qnQEy-FbJ3c5R7pU5ezKhKyp4hftlvE8DTIZFL257Y7uBDceZw37Q7RxxOzLS6o07OABxQEZaaNtk17bL9L-z3lBLE929gZIVraf0tglnKNfogCDz7eCKobPZ_w4wdlPDz48DfsM7lK8999FESawoLmPGMW3aaOt9tIbC6bCnSSzubkUhYGrC2HHKpIKyEYS7h1Xzpr14K6TtV5UKRVMOPGt5ms43gMF9J2ehhMBM6UuwlxcdZamsyidnyj6h64tnsxjpR9OtG9xeicQOGIRmBkleOmmJpxbDlfsJFz0B3dvMv0Aa2YI3J7mAizGzluzk_63yhkVmD_gEJ9TG_MrPtSbJdgZ3ctfCI4cGjAvsyWHeILinU2vHxlDMECowoykW24MP8vSEh9ADAiYmLp51y2-UypEb0Z0mdgCIEnoCWK2NQBSva54Z7-wBD6PGRM",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth/User api",
+			"description": "",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"url": "{{url}}/Token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text",
+									"description": ""
+								},
+								{
+									"key": "password",
+									"value": "admin_",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Login"
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"url": "{{url}}/api/Account/Register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Email\":\"stys1701@gmail.com\",\n  \"UserName\":\"stunislaf1\",\n  \"Password\":\"Test12345\",\n  \"ConfirmPassword\":\"Test12345\",\n  \"Phone\":\"375333010499\",\n  \"LangCode\":\"ru\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Change user data",
+					"request": {
+						"url": "{{url}}/api/Account/ChangeUserData",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer t71FwtNsad8eL0OikIJgmb4x7aOBn7xZw0WJfnuRb25V-6xZne-g1kJUN4X8-bPggqFY_AYRDsNDOf2qHfkvAKVcLwAxGbR8w8sJUw2ojeCpiyuwTseEwVWJ87fVBsylGkID-SiqAt93CHu1GviEwBQd-4HnnPgcfA6_2A4qHlAS2NZlt4UxDXjCCvJ3Alsy1HTq8gJWc-2-8JWTJ8irYouLtS5F4RtndqupCzN3fxhJBjEHIVA981o65TO3rnJam6mcu-JmbMyTvBEcVk6u5zY6BW96FJiL884KtRvk594DeEX86hZKlBccsuAG9payRJcUNXW-6W04Ux5ZrlKb_fAiaLxfxFb4gWUVuDL_mctwP1yIL9oDKQF5JBYGk2wGgB5MmIm5ziaG7lfU6KaHb_lGzBFI8rSB-qPctDMXpsx1oFh0FTe5FTZQq0DzbEbJyj8Ch1hPqc5AY31fWMXqjhl5JiMVL4fsmHmvkT1SOZITDfYG-MzrGbnRDE_Ps1NQE0pStQ",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Email\": \"stys1701@gmail.com\",\n  \"UserName\": \"admin\",\n  \"PhoneNumber\":\"123214\",\n  \"LangCode\":\"en\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update user pass api",
+					"request": {
+						"url": "{{url}}/api/Account/ChangePassword",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer V67dEyx45YfkUQm0w9XRVJKxAE2pk7_bAB64gDDCkpySOuy0F-6DZfQQuwzgxf8DXsGEDqEOG2QPEthoYBiUuD1wyfG1h_QPVkEJpMpfs-UqqUd0i0gISnduAkGrkLgsN3BVJFXgPloNYtQHhgfbQjdmoREbYG3izPuU7wDWK_44x5a0UY6ttpw2kNrRIiMwFGs-7pi_A-sC8mGZnnKx7H1i6Bn_1TdYgbpsrFY-oZnq2-NaTg6TsCmR7JIfomoQFjnfYqXKyAcliQRsgaIH1pM9mpFq20Dv1mjOR_vKVdeDkq2PPVTQtFSazxuEY0pyf2kSWN4OxMnrZjdWb_UU738YL4rnIIiewHwiljuPbS_sJoy-ByUHaSimH_h3tV4LZuAO8LO8Q_R0Ng-3WHgKMvEoZNKNMZgCmAA0rL5nwYeQXMCdMEKsrQwdqZ26orCV1KDQYo4JsqE24rz3SitcDG8lDEOM1W0eGcB7t-Tj-MBx_LSjn-DB8siTumWRUq3P",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"OldPassword\": \"admin_\",\n  \"NewPassword\": \"1admin_\",\n  \"ConfirmPassword\": \"1admin_\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"url": "{{url}}/api/Account/ForgotPassword",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Email\":\"revastas@gmail.com\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get User info",
+					"request": {
+						"url": "{{url}}/api/Account/UserInfo",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer t71FwtNsad8eL0OikIJgmb4x7aOBn7xZw0WJfnuRb25V-6xZne-g1kJUN4X8-bPggqFY_AYRDsNDOf2qHfkvAKVcLwAxGbR8w8sJUw2ojeCpiyuwTseEwVWJ87fVBsylGkID-SiqAt93CHu1GviEwBQd-4HnnPgcfA6_2A4qHlAS2NZlt4UxDXjCCvJ3Alsy1HTq8gJWc-2-8JWTJ8irYouLtS5F4RtndqupCzN3fxhJBjEHIVA981o65TO3rnJam6mcu-JmbMyTvBEcVk6u5zY6BW96FJiL884KtRvk594DeEX86hZKlBccsuAG9payRJcUNXW-6W04Ux5ZrlKb_fAiaLxfxFb4gWUVuDL_mctwP1yIL9oDKQF5JBYGk2wGgB5MmIm5ziaG7lfU6KaHb_lGzBFI8rSB-qPctDMXpsx1oFh0FTe5FTZQq0DzbEbJyj8Ch1hPqc5AY31fWMXqjhl5JiMVL4fsmHmvkT1SOZITDfYG-MzrGbnRDE_Ps1NQE0pStQ",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get User data",
+					"request": {
+						"url": "{{url}}/api/Account/UserData",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer t71FwtNsad8eL0OikIJgmb4x7aOBn7xZw0WJfnuRb25V-6xZne-g1kJUN4X8-bPggqFY_AYRDsNDOf2qHfkvAKVcLwAxGbR8w8sJUw2ojeCpiyuwTseEwVWJ87fVBsylGkID-SiqAt93CHu1GviEwBQd-4HnnPgcfA6_2A4qHlAS2NZlt4UxDXjCCvJ3Alsy1HTq8gJWc-2-8JWTJ8irYouLtS5F4RtndqupCzN3fxhJBjEHIVA981o65TO3rnJam6mcu-JmbMyTvBEcVk6u5zY6BW96FJiL884KtRvk594DeEX86hZKlBccsuAG9payRJcUNXW-6W04Ux5ZrlKb_fAiaLxfxFb4gWUVuDL_mctwP1yIL9oDKQF5JBYGk2wGgB5MmIm5ziaG7lfU6KaHb_lGzBFI8rSB-qPctDMXpsx1oFh0FTe5FTZQq0DzbEbJyj8Ch1hPqc5AY31fWMXqjhl5JiMVL4fsmHmvkT1SOZITDfYG-MzrGbnRDE_Ps1NQE0pStQ",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm user",
+					"request": {
+						"url": "{{url}}/api/Account/ConfirmUser",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Email\":\"stys1701@gmail.com\",\r\n    \"Token\":\"cqJrdwpKeuBNh9yitAB6zbN6+9Yv2mbkEZdyUxf0TjiZjcYmVSIacu9Y2yoNsd6FaKkr6k6p5UsTuZx8RgUA11zpUPL8Of9BsJighhpN4Tvdn5LH7WtszW16U5CY1ggNxgl3qTbyihi3hIzwXNdQfMkvSxszz9oQ/zrQh/B4UV7iYPtp\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user lang",
+					"request": {
+						"url": "{{url}}/api/Account/UserLang",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer t71FwtNsad8eL0OikIJgmb4x7aOBn7xZw0WJfnuRb25V-6xZne-g1kJUN4X8-bPggqFY_AYRDsNDOf2qHfkvAKVcLwAxGbR8w8sJUw2ojeCpiyuwTseEwVWJ87fVBsylGkID-SiqAt93CHu1GviEwBQd-4HnnPgcfA6_2A4qHlAS2NZlt4UxDXjCCvJ3Alsy1HTq8gJWc-2-8JWTJ8irYouLtS5F4RtndqupCzN3fxhJBjEHIVA981o65TO3rnJam6mcu-JmbMyTvBEcVk6u5zY6BW96FJiL884KtRvk594DeEX86hZKlBccsuAG9payRJcUNXW-6W04Ux5ZrlKb_fAiaLxfxFb4gWUVuDL_mctwP1yIL9oDKQF5JBYGk2wGgB5MmIm5ziaG7lfU6KaHb_lGzBFI8rSB-qPctDMXpsx1oFh0FTe5FTZQq0DzbEbJyj8Ch1hPqc5AY31fWMXqjhl5JiMVL4fsmHmvkT1SOZITDfYG-MzrGbnRDE_Ps1NQE0pStQ",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cities api",
+			"description": "",
+			"item": [
+				{
+					"name": "Get city",
+					"request": {
+						"url": "{{url}}/api/ru/cities",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get cities with clinics",
+					"request": {
+						"url": "{{url}}/api/cities/clinicused",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update city",
+					"request": {
+						"url": "{{url}}/api/cities/",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 8O000Uuzuh2cj2nZRmofdwCvxecJp39PC0199iH8a6UT8O4gGjvn3doyQEbGxuAbAL08_MMWZYI4QOsGJROfS8f4efeJ3DmZfI3p9Pum5RRNUFl9moVOHohyC_pPX9YTdhKw3L6ln8seXS5VqX_7ZbD_0Fu4MURCaVDd2-l81KzPJGuFfg1SV_o9ZJcogQVpZthpcXaiDlg2a36Q5dFgufynXeNf6cMxbV4uHM8MOebbpMsIQ3JCn3pNBnrUkQUPLhGsxAfbkL90eSqhoopRknvKkjyjVihWtNc2Rx8cYoQ1ThjsOOp_1dKRTr9C6vtp-wMoygAQZoqv69wPevKypvZzFC6cbOo5WDL7F4UUMA0BehZ59hCNFUM4mP6Xor_6L4SmA8Ahqf4y8f6eLRFRes6-1o15aC2gTFyvcGRrqWub0IChPy_KKXSwGOUCpCNIoYJDkKicnGjOe9lDfoinXdAHiYNELur_W43UYCpGJ8ih5rOM1JZF8YX6Vx6806b1",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Id\":1,\n  \"Name\":\"test21323\",\n  \"CityId\":1\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add new city",
+					"request": {
+						"url": "{{url}}/api/cities",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer x4jI59EtwxvPN_78_98TaM9FEyo27NGZAHXZMDRMS9-hyxsRttdF8jwKQJh34ubMnU1nkE79l2nkU97rzSuMPLmQIYBD8b81nqj-_-LgHfewutTY776k5fnBkbNHcN-azjRjPtpPoIfl9cUVlesohFUHQyIlNlhJAVKYKD5DuvGHST-bZ1FnuVHqnCqgJ0Vqlvj6lcDuMYhHb9OqwIuRUHRSAKpuLeUcnYhg1grmOl2ncZIwz-nPT0vMowhstjw4AhQ0kH10GNSg_QrvAb4pcgT-7c3lzJPImtn5BGQfuI_mhewVGzKfMR4fF7HKpUv69dB9KvEJCQla65_fnp0t8mra8BFIWMn8i8qhYDrWvei7VScUomYJbEBOOEt18CZ-b-qR9qHDE6fI5AT7kSNcSyLBDccDr4ceAy7TlurDu0U-URNzYsXFUVYhXWv9MQ5kbSj4lZxQ8WrUEs17gTt133OIynXfsl5jFLt56Q8s0zc0zDDh",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Name\":\"test21323\",\n  \"CityId\":1\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete city",
+					"request": {
+						"url": "{{url}}/api/cities/?id=2",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 4YVBtKn95i97j9WSaz7G6Ffx3cVzgKdvdq4RD4UgoHYxbru1QZQYOFKBZhERESMo82SGt5r88c28GOTjK5ooWfusfg0xlpYebVpyD8gX-T3SKDb5wsJjNkAwXoa-_7KoKQmHA1wv8DyX9CotA_PvgeLWDCBe4Qnj9xbsm33Qvn4ZYcvAVvY5svkBFFVMIBnfPelzRw2JnnPZIqqJ0x5jKDMdiqSwLQ9G_3Z_WAR8nCR8g3LZ-oNYcBQIdqvu_V0W-WOq5eq8-h2HS8sjBsOkRN87AwNntH-mzOnld7cD8Ah2BZUlBPKiSEEU2M_QYEzqd5IaK-QFT3smYRYXpVK1_kpVMsSlGHDQOj5-kqIGF7xklYiScLRdi9ofqo0adx1qrzJBqMunQlha7DUjFTfdBWpVVSJIY_siy41bl8Wt3dg2ti7g1rMbT0va0ICoiAzKUgMWmTF2OxK3deRZzHWYSNnUQlj2AZHm_GIUCgivej4eF2mnWbw5sVwu4SyDaKnM",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clinics api",
+			"description": "",
+			"item": [
+				{
+					"name": "Get clinics",
+					"request": {
+						"url": "{{url}}/api/ru/clinic",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get clinic by id",
+					"request": {
+						"url": "{{url}}/api/ru/clinic/3",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get paged clinics",
+					"request": {
+						"url": "{{url}}/api/ru/clinic/page/2/2",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get clinic by id(all langs)",
+					"request": {
+						"url": "{{url}}/api/clinic/1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Clinics search",
+					"request": {
+						"url": "{{url}}/api/ru/clinic/search/10/1",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"SearchWord\":\"стомато\",\r\n\t\"CityId\":\"\",\r\n\t\"SortBy\":\"alphabet\",\r\n\t\"Descending\":\"false\"\r\n}  "
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clinics review api",
+			"description": "",
+			"item": [
+				{
+					"name": "Get paged clinic reviews",
+					"request": {
+						"url": "{{url}}/api/ru/clinicreview/page/1/2/2",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get clinic reviews",
+					"request": {
+						"url": "{{url}}/api/ru/clinicreview",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add new doctor review",
+					"request": {
+						"url": "{{url}}/api/clinicreview",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer U6a8S86KwX8UhbzhPwR-NkFPvNsdg2BR1Ez3w2jjUddSFxHeeDSf4Bfi9l1Ub96uzkuRfSsJeqDvHCq76JeIG5sy89I-K4Nr4njJoG0OC5G-YeJaolLcs75kBWIKqIpTeP1edhSYLF-hS2id3VEmf7121MD-DpCYO-4LFFzKHi8BuwVKwV_GHmPpli0UgWXjzzs2qOPK8zNWH5tCNgZB6SD1zbtCnAnGB1VZUw3UqAxl97mdYI9gjf11KYq_MED9l36USAM-Pz4TJbCg6uFyGhr44nt4xBdiHWoAW_jzwkPCgN2Qe-IGRAUW8tsfQPNzghdH0YsAnX6tg14q87BP2EkwpqRf6wqC692yMn9QSAjWHssue-nVnGl8jm6bZ3736-2QEipDoH19nUUu55BmFMrjJnC6cv6RWouxKpI5Jvo5--CXijKE1oMgZX0R5XqXIEgAS8dcHh6nSfGemAMqgD1N6lQF718QAF1lYcUu2kEXC6BCwlyUELOzxX-x4235",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"LangCode\":\"ru\",\r\n    \"DoctorId\": 3,\r\n    \"Text\": \"Тест\",\r\n    \"RatePrice\": 3,\r\n    \"RateQuality\": 4,\r\n    \"RatePoliteness\": 3\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete doctor id",
+					"request": {
+						"url": "{{url}}/api/doctorreview/?id=31",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer U6a8S86KwX8UhbzhPwR-NkFPvNsdg2BR1Ez3w2jjUddSFxHeeDSf4Bfi9l1Ub96uzkuRfSsJeqDvHCq76JeIG5sy89I-K4Nr4njJoG0OC5G-YeJaolLcs75kBWIKqIpTeP1edhSYLF-hS2id3VEmf7121MD-DpCYO-4LFFzKHi8BuwVKwV_GHmPpli0UgWXjzzs2qOPK8zNWH5tCNgZB6SD1zbtCnAnGB1VZUw3UqAxl97mdYI9gjf11KYq_MED9l36USAM-Pz4TJbCg6uFyGhr44nt4xBdiHWoAW_jzwkPCgN2Qe-IGRAUW8tsfQPNzghdH0YsAnX6tg14q87BP2EkwpqRf6wqC692yMn9QSAjWHssue-nVnGl8jm6bZ3736-2QEipDoH19nUUu55BmFMrjJnC6cv6RWouxKpI5Jvo5--CXijKE1oMgZX0R5XqXIEgAS8dcHh6nSfGemAMqgD1N6lQF718QAF1lYcUu2kEXC6BCwlyUELOzxX-x4235",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Country api",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Countries list",
+					"request": {
+						"url": "{{url}}/api/ru/country",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete county",
+					"request": {
+						"url": "{{url}}/api/Country?id=195",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer x4jI59EtwxvPN_78_98TaM9FEyo27NGZAHXZMDRMS9-hyxsRttdF8jwKQJh34ubMnU1nkE79l2nkU97rzSuMPLmQIYBD8b81nqj-_-LgHfewutTY776k5fnBkbNHcN-azjRjPtpPoIfl9cUVlesohFUHQyIlNlhJAVKYKD5DuvGHST-bZ1FnuVHqnCqgJ0Vqlvj6lcDuMYhHb9OqwIuRUHRSAKpuLeUcnYhg1grmOl2ncZIwz-nPT0vMowhstjw4AhQ0kH10GNSg_QrvAb4pcgT-7c3lzJPImtn5BGQfuI_mhewVGzKfMR4fF7HKpUv69dB9KvEJCQla65_fnp0t8mra8BFIWMn8i8qhYDrWvei7VScUomYJbEBOOEt18CZ-b-qR9qHDE6fI5AT7kSNcSyLBDccDr4ceAy7TlurDu0U-URNzYsXFUVYhXWv9MQ5kbSj4lZxQ8WrUEs17gTt133OIynXfsl5jFLt56Q8s0zc0zDDh",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update country",
+					"request": {
+						"url": "{{url}}/api/Country?id=195",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer x4jI59EtwxvPN_78_98TaM9FEyo27NGZAHXZMDRMS9-hyxsRttdF8jwKQJh34ubMnU1nkE79l2nkU97rzSuMPLmQIYBD8b81nqj-_-LgHfewutTY776k5fnBkbNHcN-azjRjPtpPoIfl9cUVlesohFUHQyIlNlhJAVKYKD5DuvGHST-bZ1FnuVHqnCqgJ0Vqlvj6lcDuMYhHb9OqwIuRUHRSAKpuLeUcnYhg1grmOl2ncZIwz-nPT0vMowhstjw4AhQ0kH10GNSg_QrvAb4pcgT-7c3lzJPImtn5BGQfuI_mhewVGzKfMR4fF7HKpUv69dB9KvEJCQla65_fnp0t8mra8BFIWMn8i8qhYDrWvei7VScUomYJbEBOOEt18CZ-b-qR9qHDE6fI5AT7kSNcSyLBDccDr4ceAy7TlurDu0U-URNzYsXFUVYhXWv9MQ5kbSj4lZxQ8WrUEs17gTt133OIynXfsl5jFLt56Q8s0zc0zDDh",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Name\":\"Заслик1\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Country by id",
+					"request": {
+						"url": "{{url}}/api/Country?id=2",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add county",
+					"request": {
+						"url": "{{url}}/api/Country",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer x4jI59EtwxvPN_78_98TaM9FEyo27NGZAHXZMDRMS9-hyxsRttdF8jwKQJh34ubMnU1nkE79l2nkU97rzSuMPLmQIYBD8b81nqj-_-LgHfewutTY776k5fnBkbNHcN-azjRjPtpPoIfl9cUVlesohFUHQyIlNlhJAVKYKD5DuvGHST-bZ1FnuVHqnCqgJ0Vqlvj6lcDuMYhHb9OqwIuRUHRSAKpuLeUcnYhg1grmOl2ncZIwz-nPT0vMowhstjw4AhQ0kH10GNSg_QrvAb4pcgT-7c3lzJPImtn5BGQfuI_mhewVGzKfMR4fF7HKpUv69dB9KvEJCQla65_fnp0t8mra8BFIWMn8i8qhYDrWvei7VScUomYJbEBOOEt18CZ-b-qR9qHDE6fI5AT7kSNcSyLBDccDr4ceAy7TlurDu0U-URNzYsXFUVYhXWv9MQ5kbSj4lZxQ8WrUEs17gTt133OIynXfsl5jFLt56Q8s0zc0zDDh",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Name\":\"Заслик\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctors api",
+			"description": "",
+			"item": [
+				{
+					"name": "Get doctors",
+					"request": {
+						"url": "{{url}}/api/ru/doctor",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get doctor by id",
+					"request": {
+						"url": "{{url}}/api/ru/doctor/1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get doctor by id (all langs)",
+					"request": {
+						"url": "{{url}}/api/doctor/1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get paged doctors",
+					"request": {
+						"url": "{{url}}/api/ru/doctor/page/10/1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctors category api",
+			"description": "",
+			"item": [
+				{
+					"name": "Get categories",
+					"request": {
+						"url": "{{url}}/api/ru/doctorcategories",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get category by id",
+					"request": {
+						"url": "{{url}}/api/ru/doctorcategories/2",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctors review api",
+			"description": "",
+			"item": [
+				{
+					"name": "Get paged doctor reviews",
+					"request": {
+						"url": "{{url}}/api/doctorreview/page/1/2/2",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get doctors reviews",
+					"request": {
+						"url": "{{url}}/api/doctorreview",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add new doctor review",
+					"request": {
+						"url": "{{url}}/api/doctorreview",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer U6a8S86KwX8UhbzhPwR-NkFPvNsdg2BR1Ez3w2jjUddSFxHeeDSf4Bfi9l1Ub96uzkuRfSsJeqDvHCq76JeIG5sy89I-K4Nr4njJoG0OC5G-YeJaolLcs75kBWIKqIpTeP1edhSYLF-hS2id3VEmf7121MD-DpCYO-4LFFzKHi8BuwVKwV_GHmPpli0UgWXjzzs2qOPK8zNWH5tCNgZB6SD1zbtCnAnGB1VZUw3UqAxl97mdYI9gjf11KYq_MED9l36USAM-Pz4TJbCg6uFyGhr44nt4xBdiHWoAW_jzwkPCgN2Qe-IGRAUW8tsfQPNzghdH0YsAnX6tg14q87BP2EkwpqRf6wqC692yMn9QSAjWHssue-nVnGl8jm6bZ3736-2QEipDoH19nUUu55BmFMrjJnC6cv6RWouxKpI5Jvo5--CXijKE1oMgZX0R5XqXIEgAS8dcHh6nSfGemAMqgD1N6lQF718QAF1lYcUu2kEXC6BCwlyUELOzxX-x4235",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"LangCode\":\"ru\",\r\n    \"DoctorId\": 3,\r\n    \"Text\": \"Test\",\r\n    \"RatePrice\": 3,\r\n    \"RateQuality\": 4,\r\n    \"RatePoliteness\": 3\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete doctor id",
+					"request": {
+						"url": "{{url}}/api/doctorreview/?id=31",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer U6a8S86KwX8UhbzhPwR-NkFPvNsdg2BR1Ez3w2jjUddSFxHeeDSf4Bfi9l1Ub96uzkuRfSsJeqDvHCq76JeIG5sy89I-K4Nr4njJoG0OC5G-YeJaolLcs75kBWIKqIpTeP1edhSYLF-hS2id3VEmf7121MD-DpCYO-4LFFzKHi8BuwVKwV_GHmPpli0UgWXjzzs2qOPK8zNWH5tCNgZB6SD1zbtCnAnGB1VZUw3UqAxl97mdYI9gjf11KYq_MED9l36USAM-Pz4TJbCg6uFyGhr44nt4xBdiHWoAW_jzwkPCgN2Qe-IGRAUW8tsfQPNzghdH0YsAnX6tg14q87BP2EkwpqRf6wqC692yMn9QSAjWHssue-nVnGl8jm6bZ3736-2QEipDoH19nUUu55BmFMrjJnC6cv6RWouxKpI5Jvo5--CXijKE1oMgZX0R5XqXIEgAS8dcHh6nSfGemAMqgD1N6lQF718QAF1lYcUu2kEXC6BCwlyUELOzxX-x4235",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctors specialisation api",
+			"description": "",
+			"item": [
+				{
+					"name": "Get specialisations",
+					"request": {
+						"url": "{{url}}/api/ru/doctorspecialization",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get specialisation by id",
+					"request": {
+						"url": "{{url}}/api/ru/doctorspecialization/2",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Languages api",
+			"description": "",
+			"item": [
+				{
+					"name": "Get languages list",
+					"request": {
+						"url": "{{url}}/api/Languages",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get language by id",
+					"request": {
+						"url": "{{url}}/api/languages/getbyid?id=1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get language by code",
+					"request": {
+						"url": "{{url}}/api/languages/getbycode?code=en",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resort api",
+			"description": "",
+			"item": [
+				{
+					"name": "Get paged resorts",
+					"request": {
+						"url": "{{url}}/api/ru/resort/page/4/1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get resorts",
+					"request": {
+						"url": "{{url}}/api/ru/resort/",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get resorts by id",
+					"request": {
+						"url": "{{url}}/api/ru/resort/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get resorts by id (all langs)",
+					"request": {
+						"url": "{{url}}/api/resort/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete resort",
+					"request": {
+						"url": "{{url}}/api/resort/?id=1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer rXRQTinWvLoTK7rJrVTTbWL4bPoCqNZDPLZ4ofYaTRHNxOMp7gpRMCDWDhK3VdORIvZFXqctwdYdu9q7mmgR2-luLVxtkOpS01ogtaHDk3VzCeO7-53kF4gPA-JGo5_06jrsjPlSdaW76wMAIbOUM81Z8wCA7tSkfDigIy5xWs4oT5NxS83HIdZChzO9AMXfYwsUdO67bOxU1LEJgQMKim-Sw4-kO3k6hQpbPUBbnKr2WdpeWG5ds9FQPQslJ54kxZevGIY72Mf_S9lYcVm13QAonwLHrJWRmtSasXVjy6r4JHnzAZh2RZ1EAEVOxX1uyh6aIBoTVzBUii0H55E_VMIPUXetiyshrklFaVT3OufZ_4zXEW1ROPqgee4qsuhpKzpTkY3VM4I3zZWVxUik1bYQoi-RPApU37_KA8hbQUqlUQYkr0SkYB4mXcdl2eUU05HdJVZuwJqgbK7MFwA-ZVAvW_cPlGBtgQ1Ex5STfSgyLN-7",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"request": {
+						"url": "{{url}}/api/ru/resort/search/5/1",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"SearchWord\": \"массаж\",\n    \"CityId\": \"0\",\n    \"SortBy\": \"alphabet\",\n    \"Descending\": \"true\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resort review",
+			"description": "",
+			"item": [
+				{
+					"name": "Get all reviews",
+					"request": {
+						"url": "{{url}}/api/resortreview/",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer XvrxP6cetkLraHD5F7ZV_q3W6CE_xefo8OkPwmEpnH_19bF5rQRWw6G1DQw4poEH_xxgW3TOTsWDhYjlV_vagFLMYWK7uLx-LOWesEaY070JBjs7yG8Dptms1tgb_NhsT8dPp6WCDsJ33AbzRFGdbDv2Qul1c_-rN04fxFUWDMxV2RPR4T2diWjUBSu7SQyFbO24ruNh36fncwfo_ckNMuD2sbrKCNBtnuV8ny5fZFR2reFXhHiKhe_50tQNiwqBOBcsxhtY2x1uB_RZH8ZZrAS95-ILtdmjFckGKNGO5wDOLNPb29V0vh-r5UpLd2zcJzbfJoVvf7jxeTzWaG9AgTV8Y8jdNMcVLWYGWDL4rjoN4VDxjayMJrcOg1xvJCzb4W6ACRvjW2vogDXDJcg4SMnQ49Bm_Fk1QRmDk3nlfodxeMKlf-SJDDDTySLYMC91ixjWfh8_8vvXV8Zo8NQbWBBs3PNlR31th-SDdBLk9HvhK6Dg",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all review by id",
+					"request": {
+						"url": "{{url}}/api/resortreview/?id=2",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer DmFxBJHepNcD_NlbTtBkLaGJcFid_2W1OmjLcNtnu2pqQGANlDKMcVBhwwgPzF-Ctucd0Fomgu71dU6zxL7NnmgOMGa1TiNOwVKtkuUMWJ1aHZ9fAex_5HIUY6k_bVZsZvaMSWkbbIowAJgG2P3v6XD6CkvpqTsY7sqD1xHA2iUjGuowGRQNuGEOnhwrKd1vJ4Y4jgdLf1gB0ISYKVNu_U7xZ2wmmLODUdloNWgkU-mzZ69xNOwLndppDCLrMyHM2F52RpISaHNB1vJsBNpOAR5JcdM4Cp8cvCP2dIP3jW-rC2I0HbBgcpGQWNVTgg0xWck3eU93TFyRYOzuUOmdFaAhDoQgswkV8MYcBt_Gy9UJ0Vnpb_AvdlKJNbUUcyug3qNshQKgebnfid9nkTUk5JrrQWR1X5mb3lg1e0WNkYe5DMqZNNOhlfeUvU3GTraJMCBLAyQCh9U0eVSHYrBUulGF6dBqBEU7ZchDSjcl21SaPp-M",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get paged resort reviews",
+					"request": {
+						"url": "{{url}}/api/ru/resortreview/page/4/5/1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete resort review",
+					"request": {
+						"url": "{{url}}/api/resortreview/?id=1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer rXRQTinWvLoTK7rJrVTTbWL4bPoCqNZDPLZ4ofYaTRHNxOMp7gpRMCDWDhK3VdORIvZFXqctwdYdu9q7mmgR2-luLVxtkOpS01ogtaHDk3VzCeO7-53kF4gPA-JGo5_06jrsjPlSdaW76wMAIbOUM81Z8wCA7tSkfDigIy5xWs4oT5NxS83HIdZChzO9AMXfYwsUdO67bOxU1LEJgQMKim-Sw4-kO3k6hQpbPUBbnKr2WdpeWG5ds9FQPQslJ54kxZevGIY72Mf_S9lYcVm13QAonwLHrJWRmtSasXVjy6r4JHnzAZh2RZ1EAEVOxX1uyh6aIBoTVzBUii0H55E_VMIPUXetiyshrklFaVT3OufZ_4zXEW1ROPqgee4qsuhpKzpTkY3VM4I3zZWVxUik1bYQoi-RPApU37_KA8hbQUqlUQYkr0SkYB4mXcdl2eUU05HdJVZuwJqgbK7MFwA-ZVAvW_cPlGBtgQ1Ex5STfSgyLN-7",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post new review",
+					"request": {
+						"url": "{{url}}/api/resortreview/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer DmFxBJHepNcD_NlbTtBkLaGJcFid_2W1OmjLcNtnu2pqQGANlDKMcVBhwwgPzF-Ctucd0Fomgu71dU6zxL7NnmgOMGa1TiNOwVKtkuUMWJ1aHZ9fAex_5HIUY6k_bVZsZvaMSWkbbIowAJgG2P3v6XD6CkvpqTsY7sqD1xHA2iUjGuowGRQNuGEOnhwrKd1vJ4Y4jgdLf1gB0ISYKVNu_U7xZ2wmmLODUdloNWgkU-mzZ69xNOwLndppDCLrMyHM2F52RpISaHNB1vJsBNpOAR5JcdM4Cp8cvCP2dIP3jW-rC2I0HbBgcpGQWNVTgg0xWck3eU93TFyRYOzuUOmdFaAhDoQgswkV8MYcBt_Gy9UJ0Vnpb_AvdlKJNbUUcyug3qNshQKgebnfid9nkTUk5JrrQWR1X5mb3lg1e0WNkYe5DMqZNNOhlfeUvU3GTraJMCBLAyQCh9U0eVSHYrBUulGF6dBqBEU7ZchDSjcl21SaPp-M",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"ResortId\" :\"1\",\n\t\"RatePrice\" :\"2\",\n\t\"RateQuality\" :\"3\",\n\t\"RatePoliteness\" :\"4\",\n\t\"Text\" :\"тест\",\n\t\"LangCode\":\"ru\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search api",
+			"description": "",
+			"item": [
+				{
+					"name": "Fast search ",
+					"request": {
+						"url": "{{url}}/api/ru/search/fastsearch",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Text\":\"аллер\",\n\t\"TypeId\":[1,2,3],\"CityId\":[1]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

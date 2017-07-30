@@ -8,6 +8,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+from-csv-*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -192,6 +193,7 @@ _pkginfo.txt
 
 # Others
 ClientBin/
+App_Data/
 ~$*
 *~
 *.dbmdl

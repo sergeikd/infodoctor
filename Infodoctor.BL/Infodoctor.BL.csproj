@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Infodoctor.BL</RootNamespace>
     <AssemblyName>Infodoctor.BL</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -42,75 +46,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DtoModels\DtoArticleComment.cs" />
-    <Compile Include="DtoModels\DtoCountry.cs" />
-    <Compile Include="DtoModels\DtoDoctorReview.cs" />
-    <Compile Include="DtoModels\DtoClinicReview.cs" />
-    <Compile Include="DtoModels\DtoCity.cs" />
+    <Compile Include="DtoModels\DtoAddress.cs" />
+    <Compile Include="DtoModels\DtoArticle.cs" />
     <Compile Include="DtoModels\DtoClinic.cs" />
-    <Compile Include="DtoModels\DtoClinicSearchModel.cs" />
-    <Compile Include="DtoModels\DtoClinicSpecialization.cs" />
+    <Compile Include="DtoModels\DtoCountry.cs" />
+    <Compile Include="DtoModels\DtoCity.cs" />
     <Compile Include="DtoModels\DtoDoctor.cs" />
     <Compile Include="DtoModels\DtoDoctorCategory.cs" />
-    <Compile Include="DtoModels\DtoDoctorSearchModel.cs" />
-    <Compile Include="DtoModels\DtoDoctorSpecialization.cs" />
     <Compile Include="DtoModels\DtoImage.cs" />
-    <Compile Include="DtoModels\DtoMailMessage.cs" />
-    <Compile Include="DtoModels\DtoMailServiceConfiguration.cs" />
-    <Compile Include="DtoModels\DtoPagedArticleComments.cs" />
-    <Compile Include="DtoModels\DtoPagedArticles.cs" />
-    <Compile Include="DtoModels\DtoPagedClinicReview.cs" />
-    <Compile Include="DtoModels\DtoPagedClinic.cs" />
-    <Compile Include="DtoModels\DtoPagedDoctor.cs" />
-    <Compile Include="DtoModels\DtoPagedDoctorReview.cs" />
-    <Compile Include="DtoModels\DtoFastSearchModel.cs" />
-    <Compile Include="DtoModels\DtoPagedResortReview.cs" />
-    <Compile Include="DtoModels\DtoPagedResorts.cs" />
+    <Compile Include="DtoModels\DtoMail.cs" />
+    <Compile Include="DtoModels\DtoPaged.cs" />
     <Compile Include="DtoModels\DtoResort.cs" />
-    <Compile Include="DtoModels\DtoResortReview.cs" />
-    <Compile Include="DtoModels\DtoResortSearchModel.cs" />
     <Compile Include="DtoModels\DtoReview.cs" />
-    <Compile Include="DtoModels\DtoSearchResultModel.cs" />
+    <Compile Include="DtoModels\DtoSearchModel.cs" />
+    <Compile Include="DtoModels\DtoTypes.cs" />
+    <Compile Include="DtoModels\IClinicTypeService.cs" />
     <Compile Include="Interfaces\IArticleCommentsService.cs" />
     <Compile Include="Interfaces\IArticlesService.cs" />
     <Compile Include="Interfaces\ICitiesService.cs" />
     <Compile Include="Interfaces\IClinicReviewService.cs" />
-    <Compile Include="Interfaces\IClinicSpecializationService.cs" />
     <Compile Include="Interfaces\IDoctorCategoryService.cs" />
     <Compile Include="Interfaces\IDoctorReviewService.cs" />
     <Compile Include="Interfaces\IDoctorService.cs" />
-    <Compile Include="Interfaces\IDoctorSpecializationService.cs" />
     <Compile Include="Interfaces\IImagesService.cs" />
-    <Compile Include="Interfaces\IArticleThemesService.cs" />
     <Compile Include="Interfaces\IClinicService.cs" />
+    <Compile Include="Interfaces\ILanguageService.cs" />
     <Compile Include="Interfaces\IMailService.cs" />
     <Compile Include="Interfaces\IResortReviewService.cs" />
     <Compile Include="Interfaces\IResortService.cs" />
+    <Compile Include="Interfaces\IResortTypeService.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\ITestService.cs" />
+    <Compile Include="Interfaces\IYandexTranslateService.cs" />
     <Compile Include="Services\ArticleCommentsService.cs" />
     <Compile Include="Services\ArticlesService.cs" />
     <Compile Include="Services\CitiesService.cs" />
     <Compile Include="Services\ClinicReviewService.cs" />
-    <Compile Include="Services\ClinicSpecializationService.cs" />
+    <Compile Include="Services\ClinicTypeService.cs" />
     <Compile Include="Services\DoctorCategoryService.cs" />
     <Compile Include="Services\DoctorReviewService.cs" />
     <Compile Include="Services\DoctorService.cs" />
-    <Compile Include="Services\DoctorSpecializationService.cs" />
     <Compile Include="Services\ImagesService.cs" />
-    <Compile Include="Services\ArticleThemesService.cs" />
     <Compile Include="Services\ClinicService.cs" />
     <Compile Include="Services\CountryService.cs" />
     <Compile Include="Interfaces\ICountryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\LanguageService.cs" />
     <Compile Include="Services\MailService.cs" />
-    <Compile Include="Services\NewSearchService.cs" />
     <Compile Include="Services\ResortReviewService.cs" />
     <Compile Include="Services\ResortService.cs" />
+    <Compile Include="Services\ResortTypeService.cs" />
     <Compile Include="Services\SearchService.cs" />
     <Compile Include="Services\TestService.cs" />
+    <Compile Include="Services\YandexTranslateService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infodoctor.DAL\Infodoctor.DAL.csproj">
       <Project>{91d1a523-a4f3-4fdf-8e73-7893e66693d2}</Project>

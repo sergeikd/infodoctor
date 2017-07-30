@@ -19,63 +19,69 @@ namespace Infodoctor.BL.Services
             _citiesRepository = citiesRepository;
         }
 
-        public IEnumerable<DtoCity> GetAllCities()
+        public IEnumerable<DtoCitySingleLang> GetAllCities(string lang)
         {
-            var cities = _citiesRepository.GetAllCities();
-            var dtoCities = new List<DtoCity>();
+            lang = lang.ToLower();
 
-            foreach (var city in cities)
-            {
-                var newDtoCity = new DtoCity() { Id = city.Id, Name = city.Name };
-                dtoCities.Add(newDtoCity);
-            }
+            var cities = _citiesRepository.GetAllCities().ToList();
 
-            return dtoCities;
+            return cities.Select(city => ConvertEntityToDtoSingleLang(city, lang.ToLower())).ToList();
         }
 
-        public IEnumerable<DtoCity> GetCitiesWithClinics()
+        public IEnumerable<DtoCitySingleLang> GetCitiesWithClinics(string lang)
         {
-            var cities = _citiesRepository.GetAllCitiesWithClinics();
-            var filtredCities = new List<DtoCity>();
+            var cities = _citiesRepository.GetAllCitiesWithClinics().ToList();
 
-            foreach (var city in cities)
-            {
-                filtredCities.Add(new DtoCity() { Id = city.Id, Name = city.Name });
-            }
-
-            return filtredCities;
+            return cities.Select(city => ConvertEntityToDtoSingleLang(city, lang.ToLower())).ToList();
         }
 
-        public DtoCity GetCityById(int id)
+        public DtoCitySingleLang GetCity(int id, string lang)
         {
             var city = _citiesRepository.GetCityById(id);
-            var dtoCity = new DtoCity() { Id = city.Id, Name = city.Name };
+            var dtoCity = ConvertEntityToDtoSingleLang(city, lang.ToLower());
             return dtoCity;
         }
 
-        public void Add(string name)
+        public DtoCitySingleLang GetCity(string name, string lang)
         {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException(nameof(name));
-            _citiesRepository.Add(new City { Name = name });
+            lang = lang.ToLower();
+            name = name.ToLower();
 
-            //var city = new City { Name = name };
-            //if (IsNewElement(city))
-            //    _citiesRepository.Add(city);
+            var allCities = _citiesRepository.GetAllCities().ToList();
+            var dtoType = new DtoCitySingleLang();
+
+            foreach (var city in allCities)
+                foreach (var localizedCity in city.LocalizedCities)
+                    if (localizedCity.Language.Code.ToLower() == lang)
+                        if (localizedCity.Name.ToLower().Contains(name) || name.Contains(localizedCity.Name.ToLower()))
+                            dtoType = ConvertEntityToDtoSingleLang(city, lang);
+
+            return dtoType;
         }
 
-        public void Update(int id, string name)
+        public void Add(DtoCityMultiLang city)
         {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException(nameof(name));
-            var updated = _citiesRepository.GetCityById(id);
-            if (updated != null)
-            {
-                updated.Name = name;
-                _citiesRepository.Update(updated);
-                //if (IsNewElement(updated))
-                //    _citiesRepository.Update(updated);
-            }
+            throw new NotImplementedException();
+            //if (string.IsNullOrEmpty(name))
+            //    throw new ArgumentNullException(nameof(name));
+            //_citiesRepository.Add(new City {  });
+        }
+
+        public void Update(DtoCityMultiLang city)
+        {
+            throw new NotImplementedException();
+            //if (string.IsNullOrEmpty(name))
+            //    throw new ArgumentNullException(nameof(name));
+            //var updated = _citiesRepository.GetCity(id);
+            //if (updated != null)
+            //{
+            //    for (var i = 0; i < updated.LocalizedCities.Count; i++)
+
+            //        if (updated.LocalizedCities.ToArray()[i].Language.Code.ToLower() == lang.ToLower())
+            //            updated.LocalizedCities.ToArray()[i].Name = name;
+
+            //    _citiesRepository.Update(updated);
+            //}
         }
 
         public void Delete(int id)
@@ -85,13 +91,29 @@ namespace Infodoctor.BL.Services
                 _citiesRepository.Delete(city);
         }
 
-        private bool IsNewElement(City city)
+        private static DtoCitySingleLang ConvertEntityToDtoSingleLang(City city, string lang)
         {
-            var cities = _citiesRepository.GetAllCities().ToList();
-            foreach (var element in cities)
-                if (element.Name.ToUpper() == city.Name.ToUpper() && element.Id != city.Id)
-                    return false;
-            return true;
+            if (city == null)
+                throw new ArgumentNullException(nameof(city));
+
+            LocalizedCity localizedCity = null;
+            try
+            {
+                localizedCity = city.LocalizedCities.First(l => l.Language.Code.ToLower() == lang);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+
+            var dtoCity = new DtoCitySingleLang()
+            {
+                Id = city.Id,
+                Name = localizedCity?.Name,
+                LangCode = localizedCity?.Language.Code.ToLower(),
+                CountryId = city.Country.Id
+            };
+            return dtoCity;
         }
     }
 }

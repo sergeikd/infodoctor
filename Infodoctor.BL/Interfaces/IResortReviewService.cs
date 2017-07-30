@@ -8,6 +8,7 @@ namespace Infodoctor.BL.Interfaces
         IEnumerable<DtoResortReview> GetAllReviews();
         IEnumerable<DtoResortReview> GetReviewsByResortId(int id);
         DtoPagedResortReview GetPagedReviewByResortId(int id, int perPage, int numPage);
+        DtoPagedResortReview GetPagedReviewByResortId(int id, int perPage, int numPage, string lang);
         DtoResortReview GetResortReviewById(int id);
         void Add(DtoResortReview review);
         void Update(DtoResortReview review);
