@@ -118,7 +118,7 @@ namespace Infodoctor.BL.Services
                 dtoAddress.Phones.Add(dtoPhone);
             }
 
-            var dtoResortLocals = resort.Localized.Select(local => new DtoResortMultiLangLocalized()
+            var dtoResortLocals = resort.Localized.Select(local => new LocalizedDtoResort()
             {
                 Id = local.Id,
                 Name = local.Name,

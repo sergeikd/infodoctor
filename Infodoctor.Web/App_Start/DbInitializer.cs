@@ -767,17 +767,6 @@ namespace Infodoctor.Web
                     {
                         new LocalizedResortType()
                         {
-                            Name = "База отдыха",
-                            Language = langs.First(l=>l.Code=="ru")
-                        }
-                    }
-                },
-                new ResortType()
-                {
-                    Localized = new List<LocalizedResortType>()
-                    {
-                        new LocalizedResortType()
-                        {
                             Name = "Профилакторий",
                             Language = langs.First(l=>l.Code=="ru")
                         }

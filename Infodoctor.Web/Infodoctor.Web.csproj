@@ -283,6 +283,7 @@
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
     <Compile Include="Infrastructure\ClinicsCsvParser.cs" />
     <Compile Include="Infrastructure\ConfigService.cs" />
+    <Compile Include="Infrastructure\ResortCsvParser.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CityPostBindingModel.cs" />

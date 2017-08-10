@@ -32,7 +32,7 @@ namespace Infodoctor.BL.DtoModels
     {
         public int Id { get; set; }
         public int Type { get; set; }
-        public List<DtoResortMultiLangLocalized> LocalizedResort { get; set; }
+        public List<LocalizedDtoResort> LocalizedResort { get; set; }
         public string Image { get; set; }
         public string Email { get; set; }
         public string Site { get; set; }
@@ -48,11 +48,12 @@ namespace Infodoctor.BL.DtoModels
         public DateTime RecommendedExpireDate { get; set; }
     }
 
-    public class DtoResortMultiLangLocalized
+    public class LocalizedDtoResort
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public List<string> Manipulations { get; set; }
+        public string LangCode { get; set; }
     }
     #endregion
 }
