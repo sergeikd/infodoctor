@@ -101,8 +101,8 @@ namespace Infodoctor.BL.Services
                 var localAddress = new LocalizedDtoAddress()
                 {
                     Id = local.Id,
-                    Country = local.Country,
-                    City = local.City.LocalizedCities?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower()).Name,
+                    Country = address.Country.LocalizedCountries?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower()).Name,
+                    City = address.City.LocalizedCities?.First(l => l.Language.Code.ToLower() == local.Language.Code.ToLower()).Name,
                     Street = local.Street,
                     LangCode = local.Language?.Code.ToLower()
                 };
@@ -211,7 +211,7 @@ namespace Infodoctor.BL.Services
                             case true:
                                 {
                                     resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang, type)
-                                        .Where(r => r.Address.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId);
+                                        .Where(r => r.Address.City.Id == searchModel.CityId);
                                     break;
                                 }
                             default:
@@ -219,9 +219,9 @@ namespace Infodoctor.BL.Services
                                     resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang, type)
                                         .Where(r =>
                                             r.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                            r.Address.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId ||
+                                            r.Address.City.Id == searchModel.CityId ||
                                             r.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Manipulations.ToLower().Contains(searchModel.SearchWord.ToLower()) &&
-                                            r.Address.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).City.Id == searchModel.CityId);
+                                            r.Address.City.Id == searchModel.CityId);
                                     break;
                                 }
                         }
@@ -333,7 +333,7 @@ namespace Infodoctor.BL.Services
 
             try
             {
-                localizedCity = localizedAddress?.City.LocalizedCities.First(l => l.Language.Code.ToLower() == lang.ToLower());
+                localizedCity = resort.Address.City.LocalizedCities.First(l => l.Language.Code.ToLower() == lang.ToLower());
             }
             catch (Exception)
             {
@@ -343,7 +343,7 @@ namespace Infodoctor.BL.Services
             var dtoResortAddress = new DtoAddressSingleLang()
             {
                 Id = resort.Address.Id,
-                Country = localizedAddress?.Country,
+                Country = resort.Address.Country.LocalizedCountries.First(l => l.Language.Code.ToLower() == lang.ToLower()).Name,
                 City = localizedCity?.Name,
                 Street = localizedAddress?.Street,
                 Phones = new List<DtoPhoneSingleLang>(),
