@@ -333,10 +333,10 @@ namespace Infodoctor.BL.Services
             foreach (var address in entityAddress)
                 _clinicAddressesRepository.Add(address);
 
-           _searchService.RefreshCache();
+            _searchService.RefreshCache();
         }
 
-        public void AddMany(IEnumerable<DtoClinicMultiLang> clinics)
+        public void AddMany(List<DtoClinicMultiLang> clinics)
         {
             foreach (var clinic in clinics)
             {
@@ -366,7 +366,7 @@ namespace Infodoctor.BL.Services
 
                 //добавление адрессов
                 foreach (var address in entityAddress)
-                    _clinicAddressesRepository.Add(address);        
+                    _clinicAddressesRepository.Add(address);
             }
 
             _searchService.RefreshCache();
@@ -515,11 +515,14 @@ namespace Infodoctor.BL.Services
 
                 }
 
+                var specialization = localizedDtoClinic.Specializations.Aggregate(string.Empty, (current, s) => current + (s + '|'));
+                specialization = specialization.Remove(specialization.Length - 1, 1);
+
                 locals.Add(new LocalizedClinic()
                 {
                     Language = lang,
                     Name = localizedDtoClinic.Name,
-                    Specializations = localizedDtoClinic.LangCode
+                    Specializations = specialization
                 });
 
             }

@@ -14,19 +14,35 @@ namespace Infodoctor.BL.Services
     {
         private readonly IResortRepository _resort;
         private readonly ISearchService _search;
+        private readonly ILanguageRepository _languageRepository;
+        private readonly ICountryRepository _countryRepository;
+        private readonly ICitiesRepository _citiesRepository;
+        private readonly IResortTypeRepository _resortTypeRepository;
 
-        public ResortService(IResortRepository resort, ISearchService search)
+        public ResortService(IResortRepository resort,
+            ISearchService search,
+            ILanguageRepository languageRepository,
+            ICountryRepository countryRepository,
+            ICitiesRepository citiesRepository,
+            IResortTypeRepository resortTypeRepository)
         {
             if (resort == null) throw new ArgumentNullException(nameof(resort));
             if (search == null) throw new ArgumentNullException(nameof(search));
+            if (languageRepository == null) throw new ArgumentNullException(nameof(languageRepository));
+            if (countryRepository == null) throw new ArgumentNullException(nameof(countryRepository));
+            if (citiesRepository == null) throw new ArgumentNullException(nameof(citiesRepository));
+            if (resortTypeRepository == null) throw new ArgumentNullException(nameof(resortTypeRepository));
             _resort = resort;
             _search = search;
+            _languageRepository = languageRepository;
+            _countryRepository = countryRepository;
+            _citiesRepository = citiesRepository;
+            _resortTypeRepository = resortTypeRepository;
         }
 
         public IEnumerable<DtoResortSingleLang> GetAllResorts(string pathToImage, string lang)
         {
             var resorts = _resort.GetAllResorts(0).ToList();
-
             return resorts.Select(resort => ConvertEntityToDtoSingleLang(lang, pathToImage, resort)).ToList();
         }
 
@@ -36,7 +52,6 @@ namespace Infodoctor.BL.Services
                 throw new ApplicationException("Incorrect request parameter");
 
             var resorts = _resort.GetAllResorts(type);
-
             var pagedList = new PagedList<Resort>(resorts, perPage, numPage);
 
             if (!pagedList.Any())
@@ -173,12 +188,12 @@ namespace Infodoctor.BL.Services
                         {
                             case true:
                                 {
-                                    resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang,type);
+                                    resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang, type);
                                     break;
                                 }
                             default:
                                 {
-                                    resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang,type)
+                                    resorts = _resort.GetSortedResorts(searchModel.SortBy, descending, lang, type)
                                         .Where(r =>
                                                 r.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Name.ToLower().Contains(searchModel.SearchWord.ToLower()) ||
                                                 r.Localized.FirstOrDefault(l => l.Language.Code.ToLower() == lang.ToLower()).Manipulations.ToLower().Contains(searchModel.SearchWord.ToLower())
@@ -240,7 +255,35 @@ namespace Infodoctor.BL.Services
             return pagedDtoResorts;
         }
 
-        public void Add(DtoResortMultiLang res)
+        public void Add(DtoResortMultiLang resort)
+        {
+            if (resort == null)
+                throw new ArgumentNullException(nameof(resort));
+
+            var entityResort = BuildResortEntityFromDto(resort);
+            var entityAddress = BuildAddressEntityFromDto(resort.Address, entityResort);
+            var entityLocalizedAddreses = entityAddress.Localized;
+            var entityPhones = entityAddress.Phones;
+            var entityLocalizedPhones = new List<LocalizedResortPhone>();
+            foreach (var phone in entityPhones)
+                entityLocalizedPhones.AddRange(phone.Localized);
+            /*
+            //добавление клиники
+            _clinicRepository.Add(entityClinic);
+
+            //добавление телефонов
+            foreach (var phone in entityPhones)
+                _clinicPhonesRepository.Add(phone);
+
+            //добавление адрессов
+            foreach (var address in entityAddress)
+                _clinicAddressesRepository.Add(address);
+
+            _searchService.RefreshCache();
+            */
+        }
+
+        public void AddMany(List<DtoResortMultiLang> resList)
         {
             throw new NotImplementedException();
         }
@@ -352,6 +395,165 @@ namespace Infodoctor.BL.Services
             };
 
             return dtoResort;
+        }
+
+        private Resort BuildResortEntityFromDto(DtoResortMultiLang resort)
+        {
+            if (resort == null)
+                throw new ArgumentNullException(nameof(resort));
+
+            var locals = new List<LocalizedResort>();
+            foreach (var localizedDtoClinic in resort.LocalizedResort)
+            {
+                Language lang = null;
+
+                try
+                {
+                    lang = _languageRepository.GetLanguageByCode(localizedDtoClinic.LangCode.ToLower());
+                }
+                catch (Exception)
+                {
+                    throw new ApplicationException($"Lang {localizedDtoClinic.LangCode} not found");
+                }
+
+                var manipulations = localizedDtoClinic.Manipulations.Aggregate(string.Empty, (current, s) => current + (s + '|'));
+                manipulations = manipulations.Remove(manipulations.Length - 1, 1);
+
+                locals.Add(new LocalizedResort()
+                {
+                    Language = lang,
+                    Name = localizedDtoClinic.Name,
+                    Manipulations = manipulations
+                });
+            }
+
+            ResortType type = null;
+            try
+            {
+                type = _resortTypeRepository.GeType(resort.Type);
+            }
+            catch (Exception)
+            {
+                //throw new ApplicationException($"Type {resort.Type} not found");
+            }
+
+            //var images = resort.Images.Select(image =>
+            //    new ImageFile() { Name = image }
+            //).ToList();
+            //todo раобраться с изображениями
+
+            var entityClinic = new Resort()
+            {
+                Id = resort.Id,
+                Email = resort.Email,
+                Site = resort.Site,
+                Favorite = resort.Favorite,
+                FavouriteExpireDate = resort.FavouriteExpireDate,
+                Recommended = resort.Recommended,
+                RecommendedExpireDate = resort.RecommendedExpireDate,
+                Type = type,
+                Localized = locals,
+                //ImageName = images
+            };
+
+            // var addreses = resort.ClinicAddress.Select(dtoAddressMultiLang => BuildAddressEntityFromDto(dtoAddressMultiLang, entityClinic)).ToList();
+            //  entityClinic.Addresses = addreses;
+
+            return entityClinic;
+        }
+
+        private ResortAddress BuildAddressEntityFromDto(DtoAddressMultiLang address, Resort clinic)
+        {
+            Country country = null;
+            City city = null;
+
+            try
+            {
+                country = _countryRepository.GetCountryById(address.CountryId);
+            }
+            catch (Exception)
+            {
+                throw new ApplicationException($"Country {address.CountryId} not found");
+            }
+
+            try
+            {
+                city = _citiesRepository.GetCityById(address.CityId);
+            }
+            catch (Exception)
+            {
+                throw new ApplicationException($"City {address.CityId} not found");
+            }
+
+            var locals = new List<LocalizedResortAddress>();
+            foreach (var localizedDtoAddress in address.LocalizedAddress)
+            {
+                Language lang;
+
+                try
+                {
+                    lang = _languageRepository.GetLanguageByCode(localizedDtoAddress.LangCode.ToLower());
+                }
+                catch (Exception)
+                {
+                    throw new ApplicationException($"Lang {localizedDtoAddress.LangCode} not found");
+
+                }
+
+                locals.Add(new LocalizedResortAddress()
+                {
+                    Street = localizedDtoAddress.Street,
+                    Language = lang
+                });
+            }
+
+            var entityAddress = new ResortAddress()
+            {
+                Resort = clinic,
+                Country = country,
+                City = city,
+                Lat = address.Coords?.Lat,
+                Lng = address.Coords?.Lng,
+                Localized = locals
+            };
+
+            var phones = address.Phones.Select(dtoPhoneMultiLang => BuildPhoneEntityFromDto(dtoPhoneMultiLang)).ToList();
+
+            entityAddress.Phones = phones;
+
+            return entityAddress;
+        }
+
+        private ResortPhone BuildPhoneEntityFromDto(DtoPhoneMultiLang phone)
+        {
+            var locals = new List<LocalizedResortPhone>();
+            foreach (var localizedDtoPhone in phone.LocalizedPhone)
+            {
+                Language lang = null;
+
+                try
+                {
+                    lang = _languageRepository.GetLanguageByCode(localizedDtoPhone.LangCode.ToLower());
+                }
+                catch (Exception)
+                {
+                    throw new ApplicationException($"Lang {localizedDtoPhone.LangCode} not found");
+                }
+
+                locals.Add(new LocalizedResortPhone()
+                {
+                    Description = localizedDtoPhone.Desc,
+                    Number = localizedDtoPhone.Number,
+                    Language = lang
+                });
+            }
+
+            var entityPhone = new ResortPhone()
+            {
+                Localized = locals
+            };
+
+            return entityPhone;
         }
     }
 }

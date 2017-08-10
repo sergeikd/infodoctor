@@ -21,11 +21,11 @@ namespace Infodoctor.Web.Infrastructure
             _citiesService = citiesService;
         }
 
-        public IEnumerable<DtoClinicMultiLang> Parse(string path, string pathToSourceImagesFolder, string pathToImagesFolder)
+        public List<DtoClinicMultiLang> Parse(string path, string pathToSourceImagesFolder, string pathToImagesFolder)
         {
             var csv = ParseFile(path);
             var clinics = ParseToDto(csv, pathToSourceImagesFolder, pathToImagesFolder);
-            return clinics;
+            return clinics.ToList();
         }
 
         private IEnumerable<DtoClinicMultiLang> ParseToDto(IEnumerable<ClinicCsvModel> csv, string pathToSourceImagesFolder, string pathToImagesFolder)

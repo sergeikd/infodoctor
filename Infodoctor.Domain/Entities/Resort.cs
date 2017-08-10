@@ -42,6 +42,8 @@ namespace Infodoctor.Domain.Entities
         public string Lng { get; set; } //coord
         public virtual ICollection<ResortPhone> Phones { get; set; }
         public virtual ICollection<LocalizedResortAddress> Localized { get; set; }
+        public virtual City City { get; set; }
+        public virtual Country Country { get; set; }
         [Required] //for prvent error message like here http://stackoverflow.com/questions/28887156/unable-to-determine-the-principal-end-of-an-association-between-the-types
         public virtual Resort Resort { get; set; }
     }
@@ -56,8 +58,6 @@ namespace Infodoctor.Domain.Entities
     public class LocalizedResortAddress
     {
         public int Id { get; set; }
-        public string Country { get; set; }
-        public virtual City City { get; set; }
         public string Street { get; set; }
         public virtual Language Language { get; set; }
     }

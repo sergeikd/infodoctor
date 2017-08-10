@@ -11,6 +11,7 @@ namespace Infodoctor.BL.Interfaces
         DtoResortSingleLang GetResortById(int id, string pathToImage, string lang);
         DtoResortMultiLang GetResortById(int id, string pathToImage);
         void Add(DtoResortMultiLang res);
+        void AddMany(List<DtoResortMultiLang> resList);
         void Update(DtoResortMultiLang res);
         void Delete(int id, string pathToImage);
     }
