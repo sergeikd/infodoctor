@@ -38,7 +38,7 @@ namespace Infodoctor.Web.Infrastructure
                 if (phones == null)
                     continue; //пропуск хода если парсер не вернул список телефонов
 
-                var typeId = ParseType(csvModel.Name);
+                var typeId = ParseType(csvModel.Type);
                 if (typeId == 0)
                     continue;//пропусх хода если не удалось распознать тип учреждения
 
@@ -46,7 +46,7 @@ namespace Infodoctor.Web.Infrastructure
 
                 var city = _citiesService.GetCity(csvModel.City, "ru");
 
-                var images = ParseImages(pathToSourceImagesFolder, pathToImagesFolder, csvModel.Id);
+                var images = ParseImages(pathToSourceImagesFolder, pathToImagesFolder, csvModel.Id, csvModel.Name);
 
                 clinics.Add(new DtoClinicMultiLang()
                 {
@@ -108,7 +108,8 @@ namespace Infodoctor.Web.Infrastructure
                     Phone = rows[4],
                     Site = rows[5],
                     Email = rows[6],
-                    Specialisations = rows[7]
+                    Specialisations = rows[7],
+                    Type = rows[8]
                 })
                 .ToList();
         }
@@ -161,39 +162,46 @@ namespace Infodoctor.Web.Infrastructure
             return localizedDtoPhones;
         }
 
-        private static int ParseType(string name)
+        private static int ParseType(string word)
         {
-            name = name.ToLower();
+            word = word.ToLower();
 
-            if (name.Contains("стоматологи"))
+            if (word.Contains("стоматологи"))
                 return 4;
 
-            if (name.Contains("центр") && name.Contains("медицинский"))
+            if (word.Contains("центр") && word.Contains("медицинский") ||
+                word.Contains("центр") && word.Contains("мед"))
                 return 1;
 
-            if (name.Contains("поликлиник"))
+            if (word.Contains("поликлиник"))
                 return 2;
 
-            if (name.Contains("клиник"))
+            if (word.Contains("клиник"))
                 return 3;
 
             return 0;
         }
 
-        private static IEnumerable<DtoImage> ParseImages(string pathToSourceImagesFolder, string pathToImagesFolder, int clinicId)
+        private static IEnumerable<DtoImage> ParseImages(string pathToSourceImagesFolder, string pathToImagesFolder, int clinicId, string clinicName)
         {
-            var path = pathToSourceImagesFolder + clinicId;
-            if (!Directory.Exists(path))
-                throw new ApplicationException($"Directory {path} not found");
+            var path = string.Empty;
+            var dir = new DirectoryInfo(pathToSourceImagesFolder);
+            var filesInOrigFolder = dir.GetDirectories().ToList();
+            foreach (var directoryInfo in filesInOrigFolder)
+                if (directoryInfo.Name.ToLower().Contains(clinicName.ToLower()) || directoryInfo.Name == clinicId.ToString())
+                    path = pathToSourceImagesFolder + directoryInfo.Name;
+
+            if (string.IsNullOrEmpty(path))
+                return null;
 
             var types = new List<string>() { "jpg", "png" };
-            var dir = new DirectoryInfo(path);
+            var imageDir = new DirectoryInfo(path);
 
             var origFiles = new List<string>();
             var files = new List<string>();
             foreach (var type in types)
             {
-                var filesInfolder = dir.GetFiles($"*.{type}").ToList();
+                var filesInfolder = imageDir.GetFiles($"*.{type}").ToList();
                 foreach (var fileInfo in filesInfolder)
                 {
                     origFiles.Add(fileInfo.Name);
@@ -226,6 +234,7 @@ namespace Infodoctor.Web.Infrastructure
             public string Site { get; set; }
             public string Email { get; set; }
             public string Specialisations { get; set; }
+            public string Type { get; set; }
         }
     }
 }

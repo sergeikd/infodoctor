@@ -516,7 +516,8 @@ namespace Infodoctor.BL.Services
                 }
 
                 var specialization = localizedDtoClinic.Specializations.Aggregate(string.Empty, (current, s) => current + (s + '|'));
-                specialization = specialization.Remove(specialization.Length - 1, 1);
+                if (specialization.Length > 2)
+                    specialization = specialization.Remove(specialization.Length - 1, 1);
 
                 locals.Add(new LocalizedClinic()
                 {
