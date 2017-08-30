@@ -1,10 +1,10 @@
-﻿using System;
-using Infodoctor.BL.DtoModels;
+﻿using Infodoctor.BL.DtoModels;
+using Infodoctor.BL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Infodoctor.BL.Interfaces;
 
 namespace Infodoctor.Web.Infrastructure
 {
@@ -32,6 +32,12 @@ namespace Infodoctor.Web.Infrastructure
         {
             var clinics = new List<DtoClinicMultiLang>();
 
+            //локальная функция для проверки имени сайта
+            string CheckSiteName(string site)
+            {
+                return !site.ToLower().Contains("infodoctor.by") || !site.ToLower().Contains("sanatorii.by") ? site : string.Empty;
+            }
+
             foreach (var csvModel in csv)
             {
                 var phones = ParseLocalizedDtoPhones(csvModel.Phone);
@@ -43,16 +49,14 @@ namespace Infodoctor.Web.Infrastructure
                     continue;//пропусх хода если не удалось распознать тип учреждения
 
                 var type = _clinicTypeService.GetType(typeId, "ru");
-
                 var city = _citiesService.GetCity(csvModel.City, "ru");
-
                 var images = ParseImages(pathToSourceImagesFolder, pathToImagesFolder, csvModel.Id, csvModel.Name);
 
                 clinics.Add(new DtoClinicMultiLang()
                 {
                     Id = csvModel.Id,
                     Email = csvModel.Email,
-                    Site = csvModel.Site,
+                    Site = CheckSiteName(csvModel.Site),
                     Type = type.Id,
                     Images = images?.Select(i => i.Name).ToList() ?? new List<string>(),
                     LocalizedClinic = new List<LocalizedDtoClinic>()
@@ -165,20 +169,15 @@ namespace Infodoctor.Web.Infrastructure
         private static int ParseType(string word)
         {
             word = word.ToLower();
-
             if (word.Contains("стоматологи"))
                 return 4;
-
             if (word.Contains("центр") && word.Contains("медицинский") ||
                 word.Contains("центр") && word.Contains("мед"))
                 return 1;
-
             if (word.Contains("поликлиник"))
                 return 2;
-
             if (word.Contains("клиник"))
                 return 3;
-
             return 0;
         }
 

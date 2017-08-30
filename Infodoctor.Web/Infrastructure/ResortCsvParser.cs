@@ -34,6 +34,12 @@ namespace Infodoctor.Web.Infrastructure
         {
             var clinics = new List<DtoResortMultiLang>();
 
+            //локальная функция для проверки имени сайта
+            string CheckSiteName(string site)
+            {
+                return !site.ToLower().Contains("infodoctor.by") || !site.ToLower().Contains("sanatorii.by") ? site : string.Empty;
+            }
+
             foreach (var csvModel in csv)
             {
                 var phones = ParseLocalizedDtoPhones(csvModel.Phone);
@@ -53,7 +59,7 @@ namespace Infodoctor.Web.Infrastructure
                 {
                     Id = csvModel.Id,
                     Email = csvModel.Email,
-                    Site = csvModel.Site,
+                    Site = CheckSiteName(csvModel.Site),
                     Type = type.Id,
                     //Image = images?.Select(i => i.Name).ToList() ?? new List<string>(),
                     LocalizedResort = new List<LocalizedDtoResort>()
