@@ -5,17 +5,34 @@ namespace Infodoctor.Domain.Entities
     public class Country
     {
         public int Id { get; set; }
-        public virtual ICollection<City> Cities { get; set; }
+        public virtual ICollection<Area> Areas { get; set; }
         public virtual ICollection<LocalizedCountry> LocalizedCountries { get; set; }
+    }
+
+    public class Area
+    {
+        public int Id { get; set; }
+        public virtual Country Country { get; set; }
+        public virtual ICollection<District> Districts { get; set; }
+        public virtual ICollection<LocalizedArea> LocalizedAreas { get; set; }
+    }
+
+    public class District
+    {
+        public int Id { get; set; }
+        public virtual Area Area { get; set; }
+        public virtual ICollection<City> Cities { get; set; }
+        public virtual ICollection<LocalizedDistrict> LocalizedDistricts { get; set; }
     }
 
     public class City
     {
         public int Id { get; set; }
-        public virtual Country Country { get; set; }
+        public virtual District District { get; set; }
         public virtual ICollection<LocalizedCity> LocalizedCities { get; set; }
         public virtual ICollection<Address> Adresses { get; set; }
     }
+
 
     public class Address
     {
@@ -44,6 +61,20 @@ namespace Infodoctor.Domain.Entities
         public virtual Language Language { get; set; }
     }
 
+    public class LocalizedArea
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual Language Language { get; set; }
+    }
+
+    public class LocalizedDistrict
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual Language Language { get; set; }
+    }
+    
     public class LocalizedCity
     {
         public int Id { get; set; }
