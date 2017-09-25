@@ -124,7 +124,16 @@ namespace Infodoctor.BL.Services
                     if (string.Equals(localizedCountry.Language.Code.ToLower(), lang.ToLower(),
                         StringComparison.Ordinal))
                         local = localizedCountry;
-            var cities = country.Cities.Select(city => city.Id).ToList();
+            //var cities = country.Cities.Select(city => city.Id).ToList();
+
+            var cities = new List<int>();
+            foreach (var region in country.Regions)
+            {
+                foreach (var district in region.Districts)
+                {
+                    cities.AddRange(district.Cities.Select(x => x.Id));
+                }
+            }
 
             var dtoCounty = new DtoCountrySingleLang()
             {

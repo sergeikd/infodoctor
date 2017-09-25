@@ -111,7 +111,8 @@ namespace Infodoctor.BL.Services
                 Id = city.Id,
                 Name = localizedCity?.Name,
                 LangCode = localizedCity?.Language.Code.ToLower(),
-                CountryId = city.Country.Id
+                //CountryId = city.Country.Id
+                CountryId = city.District.Region.Country.Id
             };
             return dtoCity;
         }

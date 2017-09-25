@@ -5,11 +5,11 @@ namespace Infodoctor.Domain.Entities
     public class Country
     {
         public int Id { get; set; }
-        public virtual ICollection<Area> Areas { get; set; }
+        public virtual ICollection<Region> Regions { get; set; }
         public virtual ICollection<LocalizedCountry> LocalizedCountries { get; set; }
     }
 
-    public class Area
+    public class Region
     {
         public int Id { get; set; }
         public virtual Country Country { get; set; }
@@ -20,7 +20,7 @@ namespace Infodoctor.Domain.Entities
     public class District
     {
         public int Id { get; set; }
-        public virtual Area Area { get; set; }
+        public virtual Region Region { get; set; }
         public virtual ICollection<City> Cities { get; set; }
         public virtual ICollection<LocalizedDistrict> LocalizedDistricts { get; set; }
     }

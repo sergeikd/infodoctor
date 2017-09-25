@@ -107,13 +107,16 @@ namespace Infodoctor.Web.Infrastructure
                 {
                     Id = int.Parse(rows[0]),
                     Name = rows[1],
-                    City = rows[2],
-                    Address = rows[3],
-                    Phone = rows[4],
-                    Site = rows[5],
-                    Email = rows[6],
-                    Specialisations = rows[7],
-                    Type = rows[8]
+                    Country = "Беларусь",
+                    Region = rows[2],
+                    District = rows[3],
+                    City = rows[4],
+                    Address = rows[5],
+                    Phone = rows[6],
+                    Site = rows[7],
+                    Email = rows[8],
+                    Specialisations = rows[9],
+                    Type = rows[10]
                 })
                 .ToList();
         }
@@ -227,6 +230,9 @@ namespace Infodoctor.Web.Infrastructure
         {
             public int Id { get; set; }
             public string Name { get; set; }
+            public string Country { get; set; }
+            public string Region { get; set; }
+            public string District { get; set; }
             public string City { get; set; }
             public string Address { get; set; }
             public string Phone { get; set; }
