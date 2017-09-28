@@ -575,16 +575,7 @@ namespace Infodoctor.Web.Controllers
         [AllowAnonymous]
         public bool IsAuthenticated()
         {
-            var userName = string.Empty;
-            if (HttpContext.Current != null && HttpContext.Current.User != null
-                    && HttpContext.Current.User.Identity.Name != null)
-            {
-                userName = HttpContext.Current.User.Identity.Name;
-            }
-
-            if (!string.IsNullOrEmpty(userName))
-                return true;
-            return false;
+            return User != null && User.Identity.IsAuthenticated;
         }
 
         [Route("UserLang")]
