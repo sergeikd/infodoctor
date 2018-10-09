@@ -1,0 +1,15 @@
+﻿using System.Linq;
+using Infodoctor.Domain.Entities;
+
+namespace Infodoctor.DAL.Interfaces.AddressInterfaces
+{
+    public interface ICitiesRepository
+    {
+        IQueryable<City> GetAllCities();
+        IQueryable<City> GetAllCitiesWithClinics();
+        City GetCityById(int id);
+        void Add(City city);
+        void Update(City city);
+        void Delete(City city);
+    }
+}

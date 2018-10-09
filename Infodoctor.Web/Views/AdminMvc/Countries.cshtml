@@ -1,0 +1,151 @@
+﻿@model IEnumerable<Infodoctor.BL.DtoModels.DtoCountryMultiLang>
+@{
+	var apiUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+}
+<br />
+<p>
+	@Html.ActionLink("Добавить", "Create")
+</p>
+<div id="loading">
+	<img src="~/Content/Gif/AjaxLoader.gif" alt="loading..." />
+</div>
+<table class="table-striped">
+	<tr>
+		<th>
+
+		</th>
+	</tr>
+
+	@foreach (var item in Model) {
+		<tr>
+			<td>
+				@item.Id
+				&nbsp;
+			</td>
+			@{
+				foreach (var local in item.LocalizedCountries)
+				{
+					<td>
+						| @local.LangCode &nbsp;
+					</td>
+					<td>
+						@local.Name &nbsp;
+					</td>
+				}
+			}
+			<td>
+
+			</td>
+			<td>
+				
+
+				| @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+				@Html.ActionLink("Details", "Details", new {id = item.Id}) |
+				@Html.ActionLink("Delete", "Delete", new {id = item.Id})
+			</td>
+		</tr>
+	}
+
+</table>
+<div id="table"></div>
+
+@section scripts{
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(document).ajaxStart(function() {
+				$("#loading").show();
+			}).ajaxStop(function() {
+				$("#loading").hide();
+
+			});
+		});
+
+		getCountriesList();
+
+		function getCountriesList() {
+			var tokenKey = "tokenInfo";
+			$.ajax({
+				type: "GET",
+				url: "@apiUrl" + "/api/Country",
+				beforeSend: function(xhr) {
+					var token = localStorage.getItem(tokenKey);
+					xhr.setRequestHeader("Authorization", "Bearer " + token);
+				},
+				success: function(countries) {
+					ShowData(countries);
+				},
+				fail: function() {
+					Console.log("Fail to get countries data");
+				}
+			});
+		};
+
+		function ShowData(countries) {
+			var container = $('#table');
+			var id;
+			var table = $('<table>').addClass('table-bordered').addClass('table-striped');
+			for (var i = 0; i < countries.length; i++) {
+				id = countries[i].Id;
+				var tr = $('<tr>');
+				tr.append('<td style="padding: 8px">' + countries[i].Id + '</td>');
+				var td = $('<td style="padding: 8px">');
+				for (var j = 0; j < countries[i].LocalizedCountries.length; j++) {
+					var name = countries[i].LocalizedCountries[j];
+					td.append(name.LangCode + ' ' + name.Name + '<br />');
+				}
+
+				tr.append(td);
+
+				tr.append('</td>');
+
+				td = $('<td style="padding: 8px">');
+				var href = $('<a>').attr('href', 'Country/' + id).text('Изменить');
+				td.append(href);
+				tr.append(td);
+
+				td = $('<td style="padding: 8px">');
+				var btn = $('<button>').addClass('btn-link').attr('id', id).text('Удалить').click(function() {deleteCountry($(this).attr('id'))});
+				td.append(btn);
+				tr.append(td);
+
+
+
+				table.append(tr);
+			};
+			container.append(table);
+		}
+
+		function editCountry(countryId) {
+			alert('Изменить ' + countryId);
+		}
+
+		function deleteCountry(countryId) {
+			var check = confirm("Для удаления страны необходимо, чтобы она не имела связанных с ней областей. Вы уверены, что хотите удалить эту страну?");
+			if (check) {
+				var tokenKey = "tokenInfo";
+				var url = "@apiUrl" + "/api/Country/" + countryId;
+				$.ajax({
+					type: "DELETE",
+					url: url,
+					beforeSend: function(xhr) {
+						var token = localStorage.getItem(tokenKey);
+						xhr.setRequestHeader("Authorization", "Bearer " + token);
+					},
+					success: function () {
+						$("#loading").hide();
+						Console.log("Country deleted successfully");
+					},
+					fail: function () {
+						$("#loading").hide();
+						Console.log("Fail during country deletion");
+					}
+				});
+				//alert(countryId);
+				//location.reload();
+			} else {
+				location.reload();//reload page if delete canceled
+			}
+
+		}
+	</script>
+}

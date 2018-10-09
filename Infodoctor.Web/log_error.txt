@@ -1,0 +1,1 @@
+2017-10-19 11:40:10.4745|ERROR|Infodoctor.Web.App_Start.UnityConfig+<>c|Error Test

@@ -1,0 +1,1 @@
+2017-10-19 11:40:10.2905|INFO|Infodoctor.Web.App_Start.UnityConfig+<>c|User with Id = a64f6920-32f2-4583-9e1c-518e5089cb1f deleted country with id = 2

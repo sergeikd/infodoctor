@@ -1,0 +1,69 @@
+﻿@model Infodoctor.BL.DtoModels.DtoCountryMultiLang
+@{
+	var apiUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+}
+
+@using (Html.BeginForm())
+{
+	<div id="loading">
+		<img src="~/Content/Gif/AjaxLoader.gif" alt="loading..." />
+	</div>
+    <div class="form-horizontal">
+        <h4>Редактирование страны с Id = @Model.Id</h4>
+	    <hr />
+		@{
+			foreach (var language in Model.LocalizedCountries)
+			{
+				<a>@language.LangCode </a>
+				<input type="text" size="40" value="@language.Name"> <br /><br />
+			}
+		}
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section scripts{
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(document).ajaxStart(function() {
+				$("#loading").show();
+			}).ajaxStop(function() {
+				$("#loading").hide();
+
+			});
+		});
+
+		getCountriesList();
+
+		function getCountriesList() {
+			var tokenKey = "tokenInfo";
+			$.ajax({
+				type: "GET",
+				url: "@apiUrl" + "/api/Country/" + "@Model.Id",
+				beforeSend: function(xhr) {
+					var token = localStorage.getItem(tokenKey);
+					xhr.setRequestHeader("Authorization", "Bearer " + token);
+				},
+				success: function(country) {
+					ShowCountry(country);
+				},
+				fail: function() {
+					Console.log("Fail to get country data");
+				}
+			});
+		};
+		function ShowCountry(country) {
+			
+		};
+	</script>
+}
